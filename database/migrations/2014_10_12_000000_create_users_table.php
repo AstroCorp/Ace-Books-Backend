@@ -21,6 +21,11 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            // points (por ahora no)
+
+            $table->foreign('storage_id')->references('id')->on('storages')->onDelete('cascade');
+            $table->foreign('rank_id')->references('id')->on('ranks')->onDelete('cascade');
+            $table->foreign('lang_id')->references('id')->on('langs')->onDelete('cascade');
         });
     }
 

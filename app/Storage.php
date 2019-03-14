@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Storage extends Model
 {
     public $timestamps = false;
+
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
 }

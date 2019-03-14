@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Rules\ValidLanguage;
+use App\Lang;
 
 class RegisterController extends Controller
 {
@@ -48,9 +50,26 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        /*
+        <div class="form-group row">
+            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+
+            <div class="col-md-6">
+                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+
+                @if ($errors->has('name'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('name') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+        */
+
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            // 'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'lang' => ['required', new ValidLanguage],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,9 +83,16 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            // 'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function showRegistrationForm()
+    {
+        $langs = Lang::all();
+
+        return view('auth.register', compact('langs'));
     }
 }

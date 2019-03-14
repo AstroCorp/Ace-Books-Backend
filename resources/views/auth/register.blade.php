@@ -12,20 +12,6 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
@@ -34,6 +20,24 @@
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="lang" class="col-md-4 col-form-label text-md-right">{{ __('Language') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="lang" class="form-control{{ $errors->has('lang') ? ' is-invalid' : '' }}" name="lang" required>
+                                    @foreach ($langs as $lang)
+                                        <option value="3" selected>Text</option>
+                                    @endforeach
+                                </select>
+
+                                @if ($errors->has('lang'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('lang') }}</strong>
                                     </span>
                                 @endif
                             </div>

@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Rules\ValidLanguage;
 use App\Lang;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class RegisterController extends Controller
 {
@@ -95,5 +98,20 @@ class RegisterController extends Controller
         $langs = Lang::all();
 
         return view('auth.register', compact('langs'));
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $select_lang = Lang::find($request->lang);
+        $lang = $request->session()->put('lang', $select_lang->initial);
+        App::setLocale($lang);
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user) ?: redirect($this->redirectPath());
     }
 }

@@ -30,8 +30,9 @@
 
                             <div class="col-md-6">
                                 <select id="lang" class="form-control{{ $errors->has('lang') ? ' is-invalid' : '' }}" name="lang" required>
+                                    <option disabled selected hidden>{{ __('Select a language') }}</option>
                                     @foreach ($langs as $lang)
-                                        <option value="3" selected>Text</option>
+                                        <option value="{{ $lang->id }}">{{ trans($lang->name) }}</option>
                                     @endforeach
                                 </select>
 

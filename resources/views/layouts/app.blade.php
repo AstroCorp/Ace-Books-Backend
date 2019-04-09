@@ -15,53 +15,36 @@
     <link href="{{ asset('css/global.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <span class="icon-home"></span>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <div class="@yield('bg', 'background')"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebar" class="col p-0">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="{{ route('index') }}"><span class="icon-centered icon-home"></span></a></li>
+                    
+                    @guest
+                        <li class="nav-item"><a href="{{ route('login') }}"><span class="icon-centered icon-login"></span></a></li>
+                    @endguest
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a href="{{ route('info') }}"><span class="icon-centered icon-info"></span></a></li>
 
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}"><span class="icon-login"></span></a>
-                            </li>
-                        @endguest
-
+                    @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('info') }}"><span class="icon-info"></span></a>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <span class="icon-centered icon-off"></span>
+                            </a>
+                            <form id="logout-form" ckass="d-none" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                            </form>
                         </li>
-
-                        @auth
-                            <li>
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <span class="icon-off"></span>
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </li>
-                        @endauth
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+                    @endauth
+                </ul>
+            </nav>
+            
+            <main class="col p-0">
+                @yield('content')
+            </main>
+        </div>
     </div>
 
     <!-- Scripts -->

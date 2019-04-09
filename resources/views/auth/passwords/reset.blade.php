@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('bg', 'blur-bg')
 
 @section('content')
 <div class="container">

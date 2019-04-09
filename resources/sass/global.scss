@@ -5,7 +5,13 @@
 // Variables
 @import 'variables';
 
-body {
+.background, .blur-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
   background-image: url('../images/bg.jpg');
   background-repeat: no-repeat;
 	background-attachment: fixed;
@@ -13,13 +19,44 @@ body {
   background-position: center center;
 }
 
-.navbar {
-  background-color: rgba(40, 40, 40, 0.7);
-  width: 50px;
-  height: 100%;
+.blur-bg {
+  filter: blur(5px);
+}
 
-  a {
-    color: #FFF;
+#sidebar {
+  background-color: rgba(40, 40, 40, 0.7);
+  max-width: 50px;
+  height: 100vh;
+  transition: width 0.4s;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+
+    li {
+      a {
+        text-decoration: none;
+
+        .icon-centered {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center; 
+        }
+
+        span {
+          height: 50px;
+          width: 50px;
+          font-size: 18px;
+          color: #FFF;
+          transition: background 0.4s;
+        }
+
+        span:hover {
+          background-color: rgb(230, 168, 0);
+        }
+      }
+    }
   }
 }
 
@@ -33,5 +70,15 @@ body {
 
   .card-body {
     font-size: 1em;
+  }
+}
+
+form {
+  .form-group {
+    .form-control {
+      border-radius: 0;
+      border: 1px solid rgba(40, 40, 40, 0.5);
+      background-color: rgba(255, 255, 255, 0.5);
+    }
   }
 }

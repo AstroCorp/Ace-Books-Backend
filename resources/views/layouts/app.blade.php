@@ -16,14 +16,14 @@
 </head>
 <body>
     <div class="@yield('bg', 'background')"></div>
-    <div class="container-fluid">
+    <div id="app" class="container-fluid">
         <div class="row">
             <nav id="sidebar" class="col p-0">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a href="{{ route('index') }}"><span class="icon-centered icon-home"></span></a></li>
                     
                     @guest
-                        <li class="nav-item"><a href="{{ route('login') }}"><span class="icon-centered icon-login"></span></a></li>
+                        <li class="nav-item"><a dusk='link_login' href="{{ route('login') }}"><span class="icon-centered icon-login"></span></a></li>
                     @endguest
 
                     <li class="nav-item"><a href="{{ route('info') }}"><span class="icon-centered icon-info"></span></a></li>

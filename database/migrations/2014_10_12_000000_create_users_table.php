@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table)
         {
             $table->increments('id');
-            // $table->string('name');
+            $table->string('user_image')->default('default.png');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -25,7 +25,6 @@ class CreateUsersTable extends Migration
             $table->integer('storage_id')->unsigned()->default(1);
             $table->integer('rank_id')->unsigned()->default(1);
             $table->integer('lang_id')->unsigned()->default(1);
-            // points (por ahora no)
         });
     }
 

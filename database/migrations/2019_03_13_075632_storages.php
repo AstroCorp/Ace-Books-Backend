@@ -17,9 +17,11 @@ class Storages extends Migration
         {
             $table->increments('id');
             $table->string('name');
-            $table->integer('amount')->unsigned();
-            $table->integer('size')->unsigned();
-            $table->boolean('share')->default(false);
+            $table->integer('amount_documents')->unsigned();
+            $table->integer('size_documents')->unsigned();
+            $table->boolean('share_documents')->default(false);
+            $table->integer('amount_collections')->unsigned();
+            $table->boolean('share_collections')->default(false);
             $table->double('price', 6, 2)->unsigned();
         });
     }

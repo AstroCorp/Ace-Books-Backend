@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->integer('storage_id')->unsigned()->default(1);
             $table->integer('rank_id')->unsigned()->default(1);
-            $table->integer('lang_id')->unsigned();
+            $table->integer('lang_id')->unsigned()->default(1);
             // points (por ahora no)
         });
     }

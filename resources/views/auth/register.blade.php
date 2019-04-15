@@ -27,25 +27,6 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="lang" class="col-md-4 col-form-label text-md-right">{{ __('Language') }}</label>
-
-                            <div class="col-md-6">
-                                <select id="lang" class="form-control{{ $errors->has('lang') ? ' is-invalid' : '' }}" name="lang" required>
-                                    <option disabled selected hidden>{{ __('Select a language') }}</option>
-                                    @foreach ($langs as $lang)
-                                        <option value="{{ $lang->id }}">{{ trans($lang->name) }}</option>
-                                    @endforeach
-                                </select>
-
-                                @if ($errors->has('lang'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('lang') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

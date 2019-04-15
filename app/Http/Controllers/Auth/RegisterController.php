@@ -107,6 +107,7 @@ class RegisterController extends Controller
         $select_lang = Lang::find($request->lang);
         $lang = $request->session()->put('lang', $select_lang->initial);
         App::setLocale($lang);
+        dd(App::getLocale());
 
         event(new Registered($user = $this->create($request->all())));
 

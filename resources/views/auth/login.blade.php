@@ -2,10 +2,9 @@
 @section('bg', 'blur-bg')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-4">
-            <div>{{ __('Login') }}</div>
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-6 col-md-4 col-xl-3">
+            <img class="rounded-circle" src="./images/user.png">
             <div>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
@@ -68,5 +67,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection

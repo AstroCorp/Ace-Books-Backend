@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            
             $table->integer('storage_id')->unsigned()->default(1);
             $table->integer('rank_id')->unsigned()->default(1);
             $table->integer('lang_id')->unsigned()->default(1);

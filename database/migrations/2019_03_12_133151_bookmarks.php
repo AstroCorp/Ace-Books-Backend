@@ -20,6 +20,7 @@ class Bookmarks extends Migration
             $table->string('color');
             $table->integer('page')->unsigned();
             $table->string('comment')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -20,6 +20,7 @@ class Collections extends Migration
             $table->string('name');
             $table->string('image');
             $table->string('description')->nullable();
+            $table->timestamps();
         });
     }
 

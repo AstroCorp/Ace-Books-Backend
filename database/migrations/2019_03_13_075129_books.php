@@ -22,6 +22,7 @@ class Books extends Migration
             $table->string('url_download');
             $table->boolean('download_status')->default(false);
             $table->string('url_document')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -4,7 +4,7 @@
 @section('content')
     <div class="row h-100 justify-content-center align-items-center">
         <div class="col-6 col-md-4 col-xl-3">
-            <img class="rounded-circle mx-auto d-block mb-5" src="./images/user.png">
+            <img class="bg-alpha rounded-circle mx-auto d-block mb-5" src="./images/user.png">
             <div>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf

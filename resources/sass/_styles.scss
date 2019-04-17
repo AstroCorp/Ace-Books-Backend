@@ -13,15 +13,27 @@
 }
 
 .blur-bg {
-  filter: blur(5px);
+  filter: blur(5px); // Temporal hasta editar la imagen con blur
+  // background-image: url('../images/bg_blur.jpg');
 }
 
 .bg-alpha {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: $bg_alpha;
+}
+
+.btn-link-secondary, .btn-link-secondary:hover {
+  color: $white_2;
+}
+
+span.icon-centered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
 }
 
 #sidebar {
-  background-color: rgba(40, 40, 40, 0.7);
+  background-color: $sidebar;
   max-width: 50px;
   height: 100vh;
   transition: width 0.4s;
@@ -34,23 +46,16 @@
       a {
         text-decoration: none;
 
-        .icon-centered {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center; 
-        }
-
         span {
           height: 50px;
           width: 50px;
           font-size: 18px;
-          color: #FFF;
+          color: $white_2;
           transition: background 0.4s;
         }
 
         span:hover {
-          background-color: rgb(230, 168, 0);
+          background-color: $sidebar_hover;
         }
       }
     }
@@ -58,7 +63,7 @@
 }
 
 .card {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: $white_1;
   border-radius: 0;
 
   .card-header {
@@ -67,15 +72,5 @@
 
   .card-body {
     font-size: 1em;
-  }
-}
-
-form {
-  .form-group {
-    .form-control {
-      border-radius: 0;
-      border: 1px solid rgba(40, 40, 40, 0.5);
-      background-color: rgba(255, 255, 255, 0.5);
-    }
   }
 }

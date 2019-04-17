@@ -2,69 +2,66 @@
 @section('bg', 'blur-bg')
 
 @section('content')
-    <div class="row h-100 justify-content-center align-items-center">
-        <div class="col-6 col-md-4 col-xl-3">
-            <img class="bg-alpha rounded-circle mx-auto d-block mb-5" src="./images/user.png">
-            <div>
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
+<div class="row m-0 h-100 justify-content-center align-items-center">
+    <div class="col-10 col-sm-8 col-md-6 col-lg-5 col-xl-4 auth-form">
+        <div>
+            <img class="bg-alpha rounded-circle mx-auto d-block mb-5" src="{{ asset('images/user.png') }}">
 
-                    <div class="form-group">
-                        <input 
-                        type="email" 
-                        class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" 
-                        name="email" value="{{ old('email') }}" 
-                        placeholder="{{ __('E-Mail Address') }}" 
-                        required 
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <div class="form-group">
+                    <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                        name="email" value="{{ old('email') }}" placeholder="{{ __('E-Mail Address') }}" required
                         autofocus>
 
-                        @if ($errors->has('email'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('email') }}</strong>
-                            </span>
-                        @endif
+                    @if ($errors->has('email'))
+                    <span class="alert d-block mt-1 alert-danger" role="alert">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                    @endif
+                </div>
+
+                <div class="row m-0 form-group">
+                    <input type="password" class="col form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                        name="password" placeholder="{{ __('Password') }}" required>
+
+                    <button type="submit" class="col form-btn">
+                        <span class="icon-next icon-centered"></span>
+                    </button>
+
+                    @if ($errors->has('password'))
+                    <span class="alert d-block mt-1 alert-danger" role="alert">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                    @endif
+                </div>
+
+                <div class="row">
+                    <div class="col-6 mt-3 form-group">
+                        <label class="custom-checkbox">
+                            <span class="btn-link-secondary">{{ __('Remember Me') }}</span>
+                            <input class="form-check-input" type="checkbox" name="remember" id="remember"
+                                {{ old('remember') ? 'checked' : '' }}>
+                            <span class="checkmark"></span>
+                        </label>
                     </div>
 
-                    <div class="form-group">
-                        <input 
-                        type="password" 
-                        class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" 
-                        name="password" 
-                        placeholder="{{ __('Password') }}" 
-                        required>
+                    <div class="col-6 mt-3 text-right">
+                        <div class="form-group">
+                            @if (Route::has('password.request'))
+                            <a class="btn-link-secondary"
+                                href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
+                            @endif
+                        </div>
 
-                        @if ($errors->has('password'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('password') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                            <label class="form-check-label" for="remember">
-                                {{ __('Remember Me') }}
-                            </label>
+                        <div class="from-group">
+                            <a href="{{ route('register') }}" class="btn-link-secondary">{{ __('Register') }}</a>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Login') }}
-                        </button>
-
-                        <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
-
-                        @if (Route::has('password.request'))
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                {{ __('Forgot Your Password?') }}
-                            </a>
-                        @endif
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 @endsection

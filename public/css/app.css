@@ -9787,6 +9787,30 @@ h3 {
     border-color: #dee2e6;
   }
 }
+.card {
+  border: none;
+  background: none;
+}
+.card .card-header, .card .card-body {
+  border-radius: 0;
+  border: none;
+}
+.card .card-header {
+  background-color: rgba(255, 255, 255, 0.45);
+  font-size: 1.5em;
+}
+.card .card-body {
+  background-color: rgba(255, 255, 255, 0.3);
+  font-size: 1em;
+}
+.card .card-body p {
+  margin: 0;
+}
+
+.bg-none {
+  background: none !important;
+}
+
 form .form-group .form-control {
   border-radius: 0;
   border: 1px solid rgba(40, 40, 40, 0.5);
@@ -9867,6 +9891,10 @@ form .form-group .custom-checkbox:hover input:not(:checked) ~ .checkmark {
   color: rgba(255, 255, 255, 0.8);
 }
 
+.btn-link-secondary, .btn-link-secondary:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
 .background, .blur-bg {
   position: absolute;
   top: 0;
@@ -9887,10 +9915,6 @@ form .form-group .custom-checkbox:hover input:not(:checked) ~ .checkmark {
 
 .bg-alpha {
   background-color: rgba(255, 255, 255, 0.5);
-}
-
-.btn-link-secondary, .btn-link-secondary:hover {
-  color: rgba(255, 255, 255, 0.8);
 }
 
 span.icon-centered {
@@ -9922,15 +9946,4 @@ span.icon-centered {
 }
 #sidebar ul li a span:hover {
   background-color: #e6a800;
-}
-
-.card {
-  background-color: rgba(255, 255, 255, 0.58);
-  border-radius: 0;
-}
-.card .card-header {
-  font-size: 1.5em;
-}
-.card .card-body {
-  font-size: 1em;
 }

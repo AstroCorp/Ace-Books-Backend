@@ -6,10 +6,12 @@ $line-height-base: 1.6;
 // Bootstrap Colors
 $opacity: 0.58;
 
+
 $alert-bg-level: 0;
 $alert-border-level: 0;
 $alert-color-level: -10;
 $alert-border-radius: 0;
+
 
 $blue: rgba(52, 144, 220, $opacity);
 $indigo: rgba(101, 117, 205, $opacity);
@@ -24,10 +26,11 @@ $cyan: rgba(108, 178, 235, $opacity);
 $white_1: rgba(255, 255, 255, $opacity);
 $white_2: rgba(255, 255, 255, 0.8);
 
-$bg_alpha: rgba(255, 255, 255, 0.5);
 
 $sidebar: rgba(40, 40, 40, 0.7);
 $sidebar_hover: rgb(230, 168, 0);
 
+
+$bg_alpha: rgba(255, 255, 255, 0.5);
 $input_border: rgba(40, 40, 40, 0.5);
 $btn: rgba(8, 15, 1, 0.25);

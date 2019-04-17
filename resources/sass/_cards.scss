@@ -1,0 +1,27 @@
+.card {
+    border: none;
+    background: none;
+
+    .card-header, .card-body {
+        border-radius: 0;
+        border: none;
+    }
+
+    .card-header {
+        background-color: rgba($white_1, 0.45);
+        font-size: 1.5em;
+    }
+
+    .card-body {
+        background-color: rgba($white_1, 0.3);
+        font-size: 1em;
+
+        p {
+            margin: 0;
+        }
+    }
+}
+
+.bg-none {
+    background: none !important;
+}

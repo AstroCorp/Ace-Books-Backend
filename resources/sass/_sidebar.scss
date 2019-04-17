@@ -1,0 +1,36 @@
+span.icon-centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#sidebar {
+    background-color: $sidebar;
+    max-width: 50px;
+    height: 100vh;
+    transition: width 0.4s;
+
+    ul {
+        display: flex;
+        flex-direction: column;
+
+        li {
+            a {
+                text-decoration: none;
+
+                span {
+                    height: 50px;
+                    width: 50px;
+                    font-size: 18px;
+                    color: $white_2;
+                    transition: background 0.4s;
+                }
+
+                span:hover {
+                    background-color: $sidebar_hover;
+                }
+            }
+        }
+    }
+}

@@ -20,7 +20,7 @@
             <nav id="sidebar" class="col p-0">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a href="{{ route('index') }}"><span class="icon-centered icon-home"></span></a></li>
-                    
+
                     @guest
                         <li class="nav-item"><a dusk='link_login' href="{{ route('login') }}"><span class="icon-centered icon-login"></span></a></li>
                     @endguest
@@ -39,7 +39,7 @@
                     @endauth
                 </ul>
             </nav>
-            
+
             <main class="col p-0">
                 @yield('content')
             </main>

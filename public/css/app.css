@@ -9796,15 +9796,62 @@ h3 {
   border: none;
 }
 .card .card-header {
-  background-color: rgba(255, 255, 255, 0.45);
+  background-color: rgba(255, 255, 255, 0.5);
   font-size: 1.5em;
 }
 .card .card-body {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.38);
   font-size: 1em;
 }
 .card .card-body p {
   margin: 0;
+}
+
+.simple-card {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  max-width: 400px;
+  min-height: 200px;
+}
+@media (min-width: 768px) {
+  .simple-card {
+    min-width: 400px;
+  }
+}
+.simple-card .simple-title {
+  font-weight: 700;
+}
+.simple-card .simple-content {
+  margin-top: 10px;
+}
+
+.main-card {
+  text-align: center;
+  max-width: 400px;
+}
+@media (min-width: 768px) {
+  .main-card {
+    min-width: 400px;
+  }
+}
+.main-card .main-title {
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+.main-card .main-btn {
+  background-color: rgba(230, 168, 0, 0.38);
+  color: rgba(0, 0, 0, 0.45);
+  padding: 10px 20px;
+  text-transform: uppercase;
+  font-size: 17px;
+  font-weight: 700;
+  font-style: italic;
+  white-space: nowrap;
+  transition: background 0.4s;
+}
+.main-card a.main-btn:hover {
+  text-decoration: none;
+  background-color: rgba(230, 168, 0, 0.65);
 }
 
 .bg-none {
@@ -9895,8 +9942,12 @@ form .form-group .custom-checkbox:hover input:not(:checked) ~ .checkmark {
   color: rgba(255, 255, 255, 0.8);
 }
 
+body {
+  min-width: 295px;
+}
+
 .background, .blur-bg {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -9909,12 +9960,23 @@ form .form-group .custom-checkbox:hover input:not(:checked) ~ .checkmark {
 }
 
 .blur-bg {
-  -webkit-filter: blur(5px);
-          filter: blur(5px);
+  background-image: url("../images/bg_blur.jpg");
 }
 
 .bg-alpha {
   background-color: rgba(255, 255, 255, 0.5);
+}
+
+#logo {
+  background-image: url("../images/logo.png");
+  width: 202px;
+  height: 75px;
+  display: inline-block;
+}
+
+main {
+  margin-left: 50px;
+  height: 100vh;
 }
 
 span.icon-centered {
@@ -9925,9 +9987,10 @@ span.icon-centered {
 }
 
 #sidebar {
+  position: fixed;
   background-color: rgba(40, 40, 40, 0.7);
   max-width: 50px;
-  height: 100vh;
+  height: 100%;
   transition: width 0.4s;
 }
 #sidebar ul {

@@ -5,7 +5,7 @@
 <div class="row m-0 h-100 justify-content-center align-items-center">
     <div class="col-10 col-sm-8 col-md-6 col-lg-5 col-xl-4 auth-form">
         <div>
-            <img class="bg-alpha rounded-circle mx-auto d-block mb-5" src="{{ asset('images/new-user.png') }}">
+            <img class="img-fluid bg-alpha rounded-circle mx-auto d-block mb-5" src="{{ asset('images/new-user.png') }}">
 
             <div>
                 <form method="POST" action="{{ route('register') }}">
@@ -14,7 +14,7 @@
                     <div class="form-group">
                         <input id="email" type="email"
                             class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email"
-                            value="{{ old('email') }}" 
+                            value="{{ old('email') }}"
                             placeholder="{{ __('E-Mail Address') }}" required>
 
                         @if ($errors->has('email'))
@@ -38,7 +38,7 @@
 
                     <div class="form-group row m-0">
                         <input id="password-confirm" type="password" class="col form-control"
-                            name="password_confirmation" 
+                            name="password_confirmation"
                             placeholder="{{ __('Confirm Password') }}" required>
 
                         <button type="submit" class="col form-btn">

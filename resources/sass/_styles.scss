@@ -1,22 +1,37 @@
-.background, .blur-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+body {
+    min-width: 295px;
+}
 
-  background-image: url('../images/bg.jpg');
-  background-repeat: no-repeat;
-	background-attachment: fixed;
-  background-size: cover;
-  background-position: center center;
+.background, .blur-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-image: url('../images/bg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
 }
 
 .blur-bg {
-  filter: blur(5px); // Temporal hasta editar la imagen con blur
-  // background-image: url('../images/bg_blur.jpg');
+    background-image: url('../images/bg_blur.jpg');
 }
 
 .bg-alpha {
-  background-color: $bg_alpha;
+    background-color: $bg_alpha;
+}
+
+#logo {
+    background-image: url('../images/logo.png');
+    width: 202px;
+    height: 75px;
+    display: inline-block;
+}
+
+main {
+    margin-left: 50px;
+    height: 100vh;
 }

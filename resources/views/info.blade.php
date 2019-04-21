@@ -15,9 +15,7 @@
                 <div id="collapse_1" class="collapse" aria-labelledby="heading_1" data-parent="#accordion">
                     <div class="card-body">
                         <p>Si compartes contenido con copyright y este no te pertenece será eliminado de la plataforma
-                            en
-                            cuanto se detecta la
-                            infracción, además de sumarte un "strike".</p>
+                            en cuanto se detecta la infracción, además de sumarte un "strike".</p>
                     </div>
                 </div>
             </div>

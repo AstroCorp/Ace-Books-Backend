@@ -41,7 +41,11 @@ class db extends Command
         //exec('php artisan migrate:refresh');
         //exec('php artisan db:seed');
         $process = new Process('php artisan migrate:refresh && php artisan db:seed');
-        $process->setTty(true);
+
+        if(PHP_OS !== "WINNT")
+        {
+            $process->setTty(true);
+        }
 
         $process->run(function ($type, $buffer)
         {

@@ -1,13 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.app', ['logo' => true])
 
 @section('content')
 <div class="row m-0 justify-content-center">
     <div class="mt-2 col">
-        <div class="row m-0">
-            <div class="col-12 text-center text-md-right">
-                <div id="logo" class="mx-3"></div>
-            </div>
-        </div>
         <div class="row m-0 justify-content-center">
             <div class="col-11 p-0 mb-5">
                 <div class="main-card mx-auto">

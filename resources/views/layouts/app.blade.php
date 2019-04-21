@@ -41,6 +41,15 @@
             </nav>
 
             <main class="col p-0">
+
+                @if ($logo)
+                    <div class="row m-0 my-3">
+                        <div class="col-12 p-0 text-center text-md-right">
+                            <div id="logo" class="mx-3"></div>
+                        </div>
+                    </div>
+                @endif
+
                 @yield('content')
             </main>
         </div>

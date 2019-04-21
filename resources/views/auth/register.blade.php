@@ -1,5 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', ['logo' => false])
 @section('bg', 'blur-bg')
+@section('logo', 'false')
 
 @section('content')
 <div class="row m-0 h-100 justify-content-center align-items-center">

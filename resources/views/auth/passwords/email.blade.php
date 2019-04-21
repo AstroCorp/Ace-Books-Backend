@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['logo' => false])
 @section('bg', 'blur-bg')
 
 @section('content')

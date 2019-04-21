@@ -17,7 +17,7 @@ class Bookmarks extends Migration
         {
             $table->increments('id');
             $table->integer('book_id')->unsigned();
-            $table->string('color');
+            $table->string('color')->default('#F2F248');
             $table->integer('page')->unsigned();
             $table->string('comment')->nullable();
             $table->timestamps();

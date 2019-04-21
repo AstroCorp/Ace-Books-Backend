@@ -17,11 +17,12 @@ class Books extends Migration
         {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('collection_id')->unsigned();
+            $table->integer('collection_id')->unsigned()->nullable();
             $table->string('name');
-            $table->string('url_download');
-            $table->boolean('download_status')->default(false);
-            $table->string('url_document')->nullable();
+            $table->string('image');
+            $table->string('description')->nullable();
+            $table->boolean('share')->default(false);
+            $table->string('share_password')->nullable();
             $table->timestamps();
         });
     }

@@ -20,6 +20,8 @@ class Collections extends Migration
             $table->string('name');
             $table->string('image');
             $table->string('description')->nullable();
+            $table->boolean('share')->default(false);
+            $table->string('share_password')->nullable();
             $table->timestamps();
         });
     }

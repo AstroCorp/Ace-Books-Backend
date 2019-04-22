@@ -21,16 +21,23 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="{{ route('index') }}">
-                            <span class="icon-centered icon-home"></span>
-                            <span>{{trans("sidebar.home")}}</span>
+                            <span class="icon-centered icon-home">
+                                <span class="sidebar-subtitle">
+                                    <span>{{trans("sidebar.home")}}</span>
+                                </span>
+                            </span>
                         </a>
                     </li>
 
                     @guest
                         <li class="nav-item">
                             <a dusk='link_login' href="{{ route('login') }}">
-                                <span class="icon-centered icon-login"></span>
-                                <span>{{trans("sidebar.login")}}</span>
+                                <span class="icon-centered icon-login">
+                                    <span class="sidebar-subtitle">
+                                        <span>{{trans("sidebar.login")}}</span>
+                                    </span>
+                                </span>
+
                             </a>
                         </li>
                     @endguest
@@ -38,24 +45,34 @@
                     @auth
                     <li class="nav-item">
                         <a href="{{ route('home') }}">
-                            <span class="icon-centered icon-books"></span>
-                            <span>{{trans("sidebar.library")}}</span>
+                            <span class="icon-centered icon-books">
+                                <span class="sidebar-subtitle">
+                                    <span>{{trans("sidebar.library")}}</span>
+                                </span>
+                            </span>
                         </a>
                     </li>
                     @endauth
 
                     <li class="nav-item">
                         <a href="{{ route('info') }}">
-                            <span class="icon-centered icon-info"></span>
-                            <span>{{trans("sidebar.info")}}</span>
+                            <span class="icon-centered icon-info">
+                                <span class="sidebar-subtitle">
+                                    <span>{{trans("sidebar.info")}}</span>
+                                </span>
+                            </span>
+
                         </a>
                     </li>
 
                     @auth
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <span class="icon-centered icon-off"></span>
-                                <span>{{trans("sidebar.exit")}}</span>
+                                <span class="icon-centered icon-off">
+                                    <span class="sidebar-subtitle">
+                                        <span>{{trans("sidebar.exit")}}</span>
+                                    </span>
+                                </span>
                             </a>
                             <form id="logout-form" ckass="d-none" action="{{ route('logout') }}" method="POST">
                                 @csrf
@@ -66,6 +83,15 @@
             </nav>
 
             <main class="col p-0">
+                <nav id="menu" class="navbar navbar-dark bg-dark">
+                    <a class="navbar-brand" href="#">Ace Books</a>
+                    <button class="navbar-toggler" type="button"
+                    data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation" id="menu-toggle">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </nav>
 
                 @if ($logo)
                     <div class="row m-0 my-3">

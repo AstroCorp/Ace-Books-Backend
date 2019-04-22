@@ -49153,7 +49153,14 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.onload = function () {// functions
+window.onload = function () {
+  $("#menu-toggle").click(function () {
+    if ($('#sidebar').hasClass('sidebar-show')) {
+      $('#sidebar').removeClass('sidebar-show');
+    } else {
+      $('#sidebar').addClass('sidebar-show');
+    }
+  });
 };
 
 /***/ }),
@@ -49176,8 +49183,8 @@ window.onload = function () {// functions
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/alejandro/Documentos/github/AceBooks/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/alejandro/Documentos/github/AceBooks/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\AceBooks\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\AceBooks\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

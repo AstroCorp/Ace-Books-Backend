@@ -9943,7 +9943,7 @@ form .form-group .custom-checkbox:hover input:not(:checked) ~ .checkmark {
 }
 
 body {
-  min-width: 295px;
+  min-width: 300px;
 }
 
 .background, .blur-bg {
@@ -9975,8 +9975,12 @@ body {
 }
 
 main {
-  margin-left: 50px;
   height: 100vh;
+}
+@media (min-width: 576px) {
+  main {
+    margin-left: 50px;
+  }
 }
 
 span.icon-centered {
@@ -9985,13 +9989,58 @@ span.icon-centered {
   justify-content: center;
   align-items: center;
 }
+span.icon-centered .sidebar-subtitle {
+  width: 100%;
+  max-width: 250px;
+  font-family: "Nunito", sans-serif;
+  overflow: hidden;
+  position: absolute;
+  left: 50px;
+  line-height: 50px;
+  background-color: #d79d00;
+  white-space: nowrap;
+  transition: max-width 0.4s;
+}
+@media (min-width: 576px) {
+  span.icon-centered .sidebar-subtitle {
+    max-width: 0px;
+    width: auto;
+  }
+}
+span.icon-centered .sidebar-subtitle span {
+  padding: 0 20px;
+}
+
+.sidebar-show {
+  left: 0px !important;
+}
+
+#menu {
+  padding: 5px 10px;
+  height: 50px;
+}
+@media (min-width: 576px) {
+  #menu {
+    display: none;
+  }
+}
 
 #sidebar {
   position: fixed;
   background-color: rgba(40, 40, 40, 0.7);
-  max-width: 50px;
+  max-width: 300px;
   height: 100%;
-  transition: width 0.4s;
+  transition: left 0.4s;
+  left: -300px;
+  top: 50px;
+  z-index: 1;
+}
+@media (min-width: 576px) {
+  #sidebar {
+    left: 0;
+    top: 0;
+    max-width: 50px;
+  }
 }
 #sidebar ul {
   display: flex;
@@ -10000,15 +10049,25 @@ span.icon-centered {
 #sidebar ul li a {
   text-decoration: none;
 }
-#sidebar ul li a span {
+#sidebar ul li a > span {
   height: 50px;
   width: 50px;
   font-size: 18px;
   color: rgba(255, 255, 255, 0.8);
+  background-color: #e6a800;
   transition: background 0.4s;
 }
-#sidebar ul li a span:hover {
+@media (min-width: 576px) {
+  #sidebar ul li a > span {
+    background-color: transparent;
+  }
+}
+#sidebar ul li a > span:hover {
   background-color: #e6a800;
+}
+#sidebar ul li a > span:hover .sidebar-subtitle {
+  max-width: 250px;
+  transition: max-width 0.4s;
 }
 
 .flip {

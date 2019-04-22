@@ -25,6 +25,10 @@
                         <li class="nav-item"><a dusk='link_login' href="{{ route('login') }}"><span class="icon-centered icon-login"></span></a></li>
                     @endguest
 
+                    @auth
+                    <li class="nav-item"><a href="{{ route('home') }}"><span class="icon-centered icon-books"></span></a></li>
+                    @endauth
+
                     <li class="nav-item"><a href="{{ route('info') }}"><span class="icon-centered icon-info"></span></a></li>
 
                     @auth

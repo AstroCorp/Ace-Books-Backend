@@ -17,3 +17,11 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/info', 'StaticController@info')->name('info');
+
+Route::resource('collection', 'CollectionController')->except([
+    'index'
+]);
+
+Route::resource('book', 'BookController')->except([
+    'index'
+]);

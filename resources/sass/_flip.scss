@@ -1,0 +1,36 @@
+.flip {
+	transition: all 1s ease;
+    transform-style: preserve-3d;
+    height: 300px;
+    width: 212px;
+
+    .flip-1, .flip-2 {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        background-color: blue;
+    }
+    
+    .flip-2 {
+        transform: rotateY(-180deg);
+        background-color: red;
+    }
+}
+
+.flip:hover {
+	transform: rotateY(180deg);
+}
+
+/*
+<div class="flip">
+	<a class="flip-1">
+		<div class="titulo"></div>
+		<div class="img"></div>
+	</a>
+	<a class="flip-2"></a>
+</div>
+*/

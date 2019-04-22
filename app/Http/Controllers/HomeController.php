@@ -26,4 +26,10 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    // Buscador de la biblioteca del usuario
+    public function library(Request $request)
+    {
+        // Por hacer
+    }
 }

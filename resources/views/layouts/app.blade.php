@@ -19,22 +19,43 @@
         <div class="row">
             <nav id="sidebar" class="col p-0">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a href="{{ route('index') }}"><span class="icon-centered icon-home"></span></a></li>
+                    <li class="nav-item">
+                        <a href="{{ route('index') }}">
+                            <span class="icon-centered icon-home"></span>
+                            <span>{{trans("sidebar.home")}}</span>
+                        </a>
+                    </li>
 
                     @guest
-                        <li class="nav-item"><a dusk='link_login' href="{{ route('login') }}"><span class="icon-centered icon-login"></span></a></li>
+                        <li class="nav-item">
+                            <a dusk='link_login' href="{{ route('login') }}">
+                                <span class="icon-centered icon-login"></span>
+                                <span>{{trans("sidebar.login")}}</span>
+                            </a>
+                        </li>
                     @endguest
 
                     @auth
-                    <li class="nav-item"><a href="{{ route('home') }}"><span class="icon-centered icon-books"></span></a></li>
+                    <li class="nav-item">
+                        <a href="{{ route('home') }}">
+                            <span class="icon-centered icon-books"></span>
+                            <span>{{trans("sidebar.library")}}</span>
+                        </a>
+                    </li>
                     @endauth
 
-                    <li class="nav-item"><a href="{{ route('info') }}"><span class="icon-centered icon-info"></span></a></li>
+                    <li class="nav-item">
+                        <a href="{{ route('info') }}">
+                            <span class="icon-centered icon-info"></span>
+                            <span>{{trans("sidebar.info")}}</span>
+                        </a>
+                    </li>
 
                     @auth
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <span class="icon-centered icon-off"></span>
+                                <span>{{trans("sidebar.exit")}}</span>
                             </a>
                             <form id="logout-form" ckass="d-none" action="{{ route('logout') }}" method="POST">
                                 @csrf

@@ -96,7 +96,7 @@
             <main class="col p-0">
                 <nav id="menu" class="navbar navbar-dark bg-dark">
                     <a class="navbar-brand" href="#">Ace Books</a>
-                    <button class="navbar-toggler" type="button"
+                    <button class="navbar-toggler border-0" type="button"
                     data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation" id="menu-toggle">

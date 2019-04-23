@@ -25,3 +25,5 @@ Route::resource('collection', 'CollectionController')->except([
 Route::resource('book', 'BookController')->except([
     'index'
 ]);
+
+Route::get('/profile', 'UserController@index')->name('profile');

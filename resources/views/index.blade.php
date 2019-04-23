@@ -7,7 +7,7 @@
             <div class="col-11 p-0 mb-5">
                 <div class="main-card mx-auto">
                     <h2 class="main-title">La mejor opción para disfrutar de tu lectura</h2>
-                    <a class="main-btn" href="">Empezar a leer</a>
+                    <a class="main-btn" href="{{ route('register') }}">Empezar a leer</a>
                 </div>
             </div>
 

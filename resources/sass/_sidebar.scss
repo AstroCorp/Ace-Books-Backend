@@ -34,6 +34,8 @@ span.icon-centered {
 #menu {
     padding: 5px 10px;
     height: 50px;
+    width: 100%;
+    position: fixed;
 
     @include media-breakpoint-up(sm) {
         display: none;

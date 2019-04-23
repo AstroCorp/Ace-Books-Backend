@@ -37,4 +37,12 @@ main {
     }
 
     height: 100vh;
+
+    .cont {
+        margin-top: 75px;
+
+        @include media-breakpoint-up(sm) {
+            margin-top: 0px;
+        }
+    }
 }

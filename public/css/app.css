@@ -9982,6 +9982,14 @@ main {
     margin-left: 50px;
   }
 }
+main .cont {
+  margin-top: 75px;
+}
+@media (min-width: 576px) {
+  main .cont {
+    margin-top: 0px;
+  }
+}
 
 span.icon-centered {
   display: flex;
@@ -10018,6 +10026,8 @@ span.icon-centered .sidebar-subtitle span {
 #menu {
   padding: 5px 10px;
   height: 50px;
+  width: 100%;
+  position: fixed;
 }
 @media (min-width: 576px) {
   #menu {

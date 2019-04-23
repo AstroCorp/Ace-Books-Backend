@@ -6,6 +6,7 @@ return [
     'login' => 'Login',
     'library' => 'Library',
     'info' => 'Frequently asked questions',
+    'confprofile' => 'Settings',
     'exit' => 'Logout',
 
 ];

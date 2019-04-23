@@ -18,7 +18,7 @@
     <div id="app" class="container-fluid">
         <div class="row">
             <nav id="sidebar" class="col p-0">
-                <ul class="navbar-nav">
+                <ul class="h-100 navbar-nav">
                     <li class="nav-item">
                         <a href="{{ route('index') }}">
                             <span class="icon-centered icon-home">
@@ -66,6 +66,17 @@
                     </li>
 
                     @auth
+                        <li class="mt-sm-auto nav-item">
+                            <a href="{{ route('profile') }}">
+                                <span class="icon-centered icon-conf">
+                                    <span class="sidebar-subtitle">
+                                        <span>{{trans("sidebar.confprofile")}}</span>
+                                    </span>
+                                </span>
+
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <span class="icon-centered icon-off">

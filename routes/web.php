@@ -16,6 +16,8 @@ Route::get('/', 'StaticController@index')->name('index');
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/library', 'HomeController@library')->name('library');
+
 Route::get('/info', 'StaticController@info')->name('info');
 
 Route::resource('collection', 'CollectionController')->except([

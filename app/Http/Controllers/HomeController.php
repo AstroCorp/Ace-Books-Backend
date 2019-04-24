@@ -31,16 +31,14 @@ class HomeController extends Controller
     // Buscador de la biblioteca del usuario
     public function library(Request $request)
     {
-        $this->validate($request,
-        [
-            'search' => 'required|min:5'
-        ]);
-
         $user = Auth::user();
 
-        $collections = $user->collections()->where('name', 'like', '%' . $request->input('search') . '%')->get();
-        $books = $user->booksWithoutCollection()->where('name', 'like', '%' . $request->input('search') . '%')->get();
+        $collections = $user->collections()->where('name', 'LIKE', '%' . $request->input('search') . '%')->get();
+        $books = $user->booksWithoutCollection()->where('name', 'LIKE', '%' . $request->input('search') . '%')->get();
 
-        return response([$collections, $books]);
+        return response()->json([
+            'collections' => $collections, 
+            'books' => $books
+        ]);
     }
 }

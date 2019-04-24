@@ -12,25 +12,15 @@
         left: 0;
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
-        background-color: blue;
+        background-color: #FFF;
     }
     
     .flip-2 {
         transform: rotateY(-180deg);
-        background-color: red;
+        background-color: $white_1;
     }
 }
 
 .flip:hover {
 	transform: rotateY(180deg);
 }
-
-/*
-<div class="flip">
-	<a class="flip-1">
-		<div class="titulo"></div>
-		<div class="img"></div>
-	</a>
-	<a class="flip-2"></a>
-</div>
-*/

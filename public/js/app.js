@@ -1784,6 +1784,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -37107,51 +37127,84 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("form", [
-      _c("input", {
-        attrs: { type: "hidden", name: "_token" },
-        domProps: { value: _vm.csrf }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.search,
-              expression: "search"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { type: "text", name: "search", placeholder: "Buscar..." },
-          domProps: { value: _vm.search },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.search = $event.target.value
-            }
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
           }
-        })
-      ])
-    ]),
+        }
+      },
+      [
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.search,
+                expression: "search"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", name: "search", placeholder: "Buscar..." },
+            domProps: { value: _vm.search },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.search = $event.target.value
+              }
+            }
+          })
+        ])
+      ]
+    ),
     _vm._v(" "),
     _c(
       "div",
+      { staticClass: "row" },
       [
-        _c("h1", [_vm._v("Biblioteca:")]),
+        _c("h1", { staticClass: "title-form col-12" }, [_vm._v("Biblioteca:")]),
         _vm._v(" "),
         _vm._l(_vm.collections, function(collection, key) {
           return _c("div", { key: "c" + key }, [
-            _c("p", [_vm._v(_vm._s(collection))])
+            _c("div", { staticClass: "flip col m-2" }, [
+              _c("div", { staticClass: "flip-1" }, [
+                _c("div", { staticClass: "titulo" }, [
+                  _vm._v(_vm._s(collection.name))
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "img" }, [
+                  _vm._v(_vm._s(collection.image))
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(0, true)
+            ])
           ])
         }),
         _vm._v(" "),
         _vm._l(_vm.books, function(book, key) {
           return _c("div", { key: "b" + key }, [
-            _c("p", [_vm._v(_vm._s(book))])
+            _c("div", { staticClass: "flip col m-2" }, [
+              _c("div", { staticClass: "flip-1" }, [
+                _c("div", { staticClass: "titulo" }, [
+                  _vm._v(_vm._s(book.name))
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "img" }, [_vm._v(_vm._s(book.image))])
+              ]),
+              _vm._v(" "),
+              _vm._m(1, true)
+            ])
           ])
         })
       ],
@@ -37159,7 +37212,44 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flip-2" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("span", { staticClass: "icon-centered icon-delete" })
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "#" } }, [
+        _c("span", { staticClass: "icon-centered icon-edit" })
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "#" } }, [
+        _c("span", { staticClass: "icon-centered icon-open-collection" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flip-2" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("span", { staticClass: "icon-centered icon-delete" })
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "#" } }, [
+        _c("span", { staticClass: "icon-centered icon-edit" })
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "#" } }, [
+        _c("span", { staticClass: "icon-centered icon-open-book" })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

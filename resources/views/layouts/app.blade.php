@@ -107,7 +107,7 @@
                 <div class="d-sm-none m-4 p-2"></div>
 
                 @if ($logo)
-                    <div class="row m-0 my-3">
+                    <div class="row m-0 my-3 d-none d-sm-block">
                         <div class="col-12 p-0 text-center text-md-right">
                             <div id="logo" class="mx-3"></div>
                         </div>

@@ -1797,13 +1797,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -37130,6 +37123,7 @@ var render = function() {
     _c(
       "form",
       {
+        staticClass: "row",
         on: {
           submit: function($event) {
             $event.preventDefault()
@@ -37142,7 +37136,7 @@ var render = function() {
           domProps: { value: _vm.csrf }
         }),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
+        _c("div", { staticClass: "form-group col p-0 m-2" }, [
           _c("input", {
             directives: [
               {
@@ -37170,41 +37164,27 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "row" },
+      { staticClass: "row justify-content-center" },
       [
-        _c("h1", { staticClass: "title-form col-12" }, [_vm._v("Biblioteca:")]),
-        _vm._v(" "),
         _vm._l(_vm.collections, function(collection, key) {
-          return _c("div", { key: "c" + key }, [
-            _c("div", { staticClass: "flip col m-2" }, [
-              _c("div", { staticClass: "flip-1" }, [
-                _c("div", { staticClass: "titulo" }, [
-                  _vm._v(_vm._s(collection.name))
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "img" }, [
-                  _vm._v(_vm._s(collection.image))
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(0, true)
-            ])
+          return _c("div", { key: "c" + key, staticClass: "flip col m-2" }, [
+            _c("div", { staticClass: "flip-1 d-flex align-items-center" }, [
+              _c("div", { staticClass: "titulo" }, [
+                _vm._v(_vm._s(collection.name))
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(0, true)
           ])
         }),
         _vm._v(" "),
         _vm._l(_vm.books, function(book, key) {
-          return _c("div", { key: "b" + key }, [
-            _c("div", { staticClass: "flip col m-2" }, [
-              _c("div", { staticClass: "flip-1" }, [
-                _c("div", { staticClass: "titulo" }, [
-                  _vm._v(_vm._s(book.name))
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "img" }, [_vm._v(_vm._s(book.image))])
-              ]),
-              _vm._v(" "),
-              _vm._m(1, true)
-            ])
+          return _c("div", { key: "b" + key, staticClass: "flip col m-2" }, [
+            _c("div", { staticClass: "flip-1 d-flex align-items-center" }, [
+              _c("div", { staticClass: "titulo" }, [_vm._v(_vm._s(book.name))])
+            ]),
+            _vm._v(" "),
+            _vm._m(1, true)
           ])
         })
       ],
@@ -37236,15 +37216,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "flip-2" }, [
-      _c("a", { attrs: { href: "#" } }, [
+      _c("a", { staticClass: "option h-100", attrs: { href: "#" } }, [
         _c("span", { staticClass: "icon-centered icon-delete" })
       ]),
       _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [
+      _c("a", { staticClass: "option h-100", attrs: { href: "#" } }, [
         _c("span", { staticClass: "icon-centered icon-edit" })
       ]),
       _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [
+      _c("a", { staticClass: "option h-100", attrs: { href: "#" } }, [
         _c("span", { staticClass: "icon-centered icon-open-book" })
       ])
     ])
@@ -49494,15 +49474,14 @@ if (token) {
 /*!************************************************************!*\
   !*** ./resources/js/components/SearchLibraryComponent.vue ***!
   \************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SearchLibraryComponent_vue_vue_type_template_id_070af116___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchLibraryComponent.vue?vue&type=template&id=070af116& */ "./resources/js/components/SearchLibraryComponent.vue?vue&type=template&id=070af116&");
 /* harmony import */ var _SearchLibraryComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchLibraryComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/SearchLibraryComponent.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _SearchLibraryComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _SearchLibraryComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -49532,7 +49511,7 @@ component.options.__file = "resources/js/components/SearchLibraryComponent.vue"
 /*!*************************************************************************************!*\
   !*** ./resources/js/components/SearchLibraryComponent.vue?vue&type=script&lang=js& ***!
   \*************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49597,8 +49576,8 @@ window.onload = function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/alejandro/Documentos/github/AceBooks/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/alejandro/Documentos/github/AceBooks/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\AceBooks\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\AceBooks\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

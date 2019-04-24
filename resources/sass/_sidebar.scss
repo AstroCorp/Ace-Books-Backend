@@ -36,6 +36,7 @@ span.icon-centered {
     height: 50px;
     width: 100%;
     position: fixed;
+    z-index: 1;
 
     @include media-breakpoint-up(sm) {
         display: none;

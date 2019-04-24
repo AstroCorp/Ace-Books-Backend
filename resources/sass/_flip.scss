@@ -1,8 +1,10 @@
 .flip {
 	transition: all 1s ease;
     transform-style: preserve-3d;
-    height: 300px;
-    width: 212px;
+    min-height: 300px;
+    min-width: 212px;
+    max-height: 300px;
+    max-width: 212px;
 
     .flip-1, .flip-2 {
         height: 100%;
@@ -14,10 +16,40 @@
         -webkit-backface-visibility: hidden;
         background-color: #FFF;
     }
-    
+
+    .flip-1 {
+        .titulo {
+            text-align: center;
+            width: 100%;
+        }
+    }
+
     .flip-2 {
         transform: rotateY(-180deg);
-        background-color: $white_1;
+        background-color: $sidebar;
+
+        a {
+            text-decoration: none;
+
+            .icon-centered {
+                max-height: 95px;
+                height: 100%;
+                width: 100%;
+                font-size: 35px;
+                color: $white_2;
+            }
+
+            .icon-centered:hover {
+                background-color: $sidebar_hover;
+            }
+        }
+
+        a:nth-child(2) .icon-centered {
+            max-height: 110px;
+            border: 5px solid rgba(darken($sidebar, 2%), 100%);
+            border-left: none;
+            border-right: none;
+        }
     }
 }
 

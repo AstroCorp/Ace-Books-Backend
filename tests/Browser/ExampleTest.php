@@ -4,9 +4,12 @@ namespace Tests\Browser;
 
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ExampleTest extends DuskTestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic browser test example.
      *

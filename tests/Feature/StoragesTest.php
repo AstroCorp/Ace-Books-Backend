@@ -5,9 +5,12 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Storage;
 use App\Collection;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class StorageTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function totalStorages()
     {

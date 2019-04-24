@@ -1,17 +1,11 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component</div>
-
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
+    <form>
+        @csrf
+        
+        <div class="form-group">
+            <input class="form-control" type="text" name="search" placeholder="Buscar...">
         </div>
-    </div>
+    </form>
 </template>
 
 <script>

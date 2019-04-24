@@ -18,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'lang_id'
+        'email', 'password'
     ];
 
     /**
@@ -62,6 +62,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function books()
     {
         return $this->hasMany('App\Book');
+    }
+
+    public function booksWithoutCollection()
+    {
+        return $this->books()->where('collection_id', '=', NULL);
     }
 
     public function sendEmailVerificationNotification()

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class WebLanguage
 {
@@ -16,20 +17,14 @@ class WebLanguage
      */
     public function handle($request, Closure $next)
     {
-        /*
-        Borrar:
-            $request->session()->forget('lang');
-            $request->session()->flush();
+        $locale = 'en';
 
-        Asignar por defecto:
-            if(!$request->session()->has('lang'))
-            {
-                $request->session()->put('lang', 'es');
-            }
-        */
+        if(Auth::check())
+        {
+            $locale = Auth::user()->lang->initial;
+        }
 
-        $lang = $request->session()->get('lang');
-        App::setLocale($lang);
+        App::setLocale($locale);
 
         return $next($request);
     }

@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(Langs::class);
         $this->call(Ranks::class);
         $this->call(Storages::class);
+        $this->call(Users::class);
+        $this->call(BooksAndCollections::class);
 
         Model::reguard();
     }

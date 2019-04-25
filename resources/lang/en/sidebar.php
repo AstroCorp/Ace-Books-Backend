@@ -6,6 +6,7 @@ return [
     'login' => 'Login',
     'library' => 'Library',
     'info' => 'Frequently asked questions',
+    'cpanel' => 'Control panel',
     'confprofile' => 'Settings',
     'exit' => 'Logout',
 

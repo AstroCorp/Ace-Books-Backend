@@ -60,8 +60,6 @@
         {
             search_POST()
             {
-                console.log(this.csrf);
-
                 axios.post('library',
                 {
                     '_token': this.csrf,

@@ -1816,7 +1816,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     search_POST: function search_POST() {
-      console.log(this.csrf);
       axios.post('library', {
         '_token': this.csrf,
         'search': this.search

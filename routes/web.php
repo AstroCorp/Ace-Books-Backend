@@ -29,3 +29,4 @@ Route::resource('book', 'BookController')->except([
 ]);
 
 Route::get('/profile', 'UserController@index')->name('profile');
+Route::get('/cpanel', 'UserController@index')->name('cpanel');

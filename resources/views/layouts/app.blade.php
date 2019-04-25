@@ -66,7 +66,23 @@
                     </li>
 
                     @auth
-                        <li class="mt-sm-auto nav-item">
+                        @rank_more_or_equal(2)
+                            <li class="mt-sm-auto nav-item">
+                                <a href="{{ route('cpanel') }}">
+                                    <span class="icon-centered icon-cpanel">
+                                        <span class="sidebar-subtitle">
+                                            <span>{{trans("sidebar.cpanel")}}</span>
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                        @endrank_more_or_equal
+
+                        @rank_less_or_equal(1)
+                            <li class="mt-sm-auto nav-item">
+                        @else
+                            <li class="nav-item">
+                        @endrank_less_or_equal
                             <a href="{{ route('profile') }}">
                                 <span class="icon-centered icon-conf">
                                     <span class="sidebar-subtitle">

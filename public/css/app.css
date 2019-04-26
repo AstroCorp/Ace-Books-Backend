@@ -10144,7 +10144,7 @@ span.icon-centered .sidebar-subtitle span {
   left: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 .flip .flip-1 .titulo {
   text-align: center;
@@ -10153,26 +10153,23 @@ span.icon-centered .sidebar-subtitle span {
 .flip .flip-2 {
   -webkit-transform: rotateY(-180deg);
           transform: rotateY(-180deg);
-  background-color: rgba(40, 40, 40, 0.7);
+}
+.flip .flip-2 .flip-content {
+  height: calc(100% - 70px);
+  margin-bottom: 10px;
 }
 .flip .flip-2 a {
   text-decoration: none;
 }
 .flip .flip-2 a .icon-centered {
-  max-height: 95px;
-  height: 100%;
-  width: 100%;
-  font-size: 35px;
+  height: 50px;
+  width: 50px;
+  font-size: 22px;
   color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(230, 168, 0, 0.85);
 }
 .flip .flip-2 a .icon-centered:hover {
-  background-color: #e6a800;
-}
-.flip .flip-2 a:nth-child(2) .icon-centered {
-  max-height: 110px;
-  border: 5px solid #232323;
-  border-left: none;
-  border-right: none;
+  background-color: rgba(230, 168, 0, 0.7);
 }
 
 .flip:hover {

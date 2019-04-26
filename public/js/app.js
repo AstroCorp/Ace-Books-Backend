@@ -1797,6 +1797,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -37197,16 +37208,31 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "flip-2" }, [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("span", { staticClass: "icon-centered icon-delete" })
-      ]),
+      _c(
+        "div",
+        {
+          staticClass:
+            "flip-content d-flex justify-content-center align-items-center"
+        },
+        [_c("div", [_vm._v("Texto")])]
+      ),
       _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [
-        _c("span", { staticClass: "icon-centered icon-edit" })
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [
-        _c("span", { staticClass: "icon-centered icon-open-collection" })
+      _c("div", { staticClass: "d-flex justify-content-around" }, [
+        _c("a", { attrs: { href: "#" } }, [
+          _c("span", {
+            staticClass: "rounded-circle icon-centered icon-delete"
+          })
+        ]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [
+          _c("span", { staticClass: "rounded-circle icon-centered icon-edit" })
+        ]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [
+          _c("span", {
+            staticClass: "rounded-circle icon-centered icon-open-collection"
+          })
+        ])
       ])
     ])
   },
@@ -37215,16 +37241,31 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "flip-2" }, [
-      _c("a", { staticClass: "option h-100", attrs: { href: "#" } }, [
-        _c("span", { staticClass: "icon-centered icon-delete" })
-      ]),
+      _c(
+        "div",
+        {
+          staticClass:
+            "flip-content d-flex justify-content-center align-items-center"
+        },
+        [_c("div", [_vm._v("Texto")])]
+      ),
       _vm._v(" "),
-      _c("a", { staticClass: "option h-100", attrs: { href: "#" } }, [
-        _c("span", { staticClass: "icon-centered icon-edit" })
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "option h-100", attrs: { href: "#" } }, [
-        _c("span", { staticClass: "icon-centered icon-open-book" })
+      _c("div", { staticClass: "d-flex justify-content-around" }, [
+        _c("a", { attrs: { href: "#" } }, [
+          _c("span", {
+            staticClass: "rounded-circle icon-centered icon-delete"
+          })
+        ]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [
+          _c("span", { staticClass: "rounded-circle icon-centered icon-edit" })
+        ]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "#" } }, [
+          _c("span", {
+            staticClass: "rounded-circle icon-centered icon-open-book"
+          })
+        ])
       ])
     ])
   }

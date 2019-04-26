@@ -10176,3 +10176,11 @@ span.icon-centered .sidebar-subtitle span {
   -webkit-transform: rotateY(180deg);
           transform: rotateY(180deg);
 }
+
+.library-menu {
+  background-color: rgba(255, 255, 255, 0.8);
+  position: fixed;
+  bottom: 0;
+  right: 50px;
+  height: 500px;
+}

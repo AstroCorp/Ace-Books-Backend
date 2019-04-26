@@ -3,7 +3,7 @@
 @section('content')
 <div class="row m-0 justify-content-center">
     <div class="mt-4 col-10 col-xl-8">
-        <search-library-component></search-library-component>
+        <library-menu></library-menu>
     </div>
 </div>
 @endsection

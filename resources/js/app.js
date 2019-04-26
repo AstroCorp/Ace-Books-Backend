@@ -21,7 +21,8 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('search-library-component', require('./components/SearchLibraryComponent.vue').default);
+Vue.component('library-list', require('./components/LibraryListComponent.vue').default);
+Vue.component('library-menu', require('./components/LibraryMenuComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

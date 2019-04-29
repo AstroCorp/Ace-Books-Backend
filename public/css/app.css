@@ -10181,6 +10181,26 @@ span.icon-centered .sidebar-subtitle span {
   background-color: rgba(255, 255, 255, 0.8);
   position: fixed;
   bottom: 0;
-  right: 50px;
+  left: calc(50% - 135px);
   height: 500px;
+  transition: height 0.4s;
+  cursor: pointer;
+  width: 300px;
+}
+.library-menu > span {
+  position: absolute;
+  font-size: 42px;
+  max-height: 30px;
+  top: -40px;
+  left: calc(50% - 21px);
+}
+@media (min-width: 576px) {
+  .library-menu {
+    left: auto;
+    right: 50px;
+  }
+}
+
+.active-library-menu {
+  height: 0;
 }

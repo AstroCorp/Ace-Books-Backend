@@ -2,17 +2,19 @@
     <div>
         <library-list :collections="collections" :books="books" />
         
-        <div class="row library-menu">
+        <div :class="{ 'active-library-menu': isActive }" class="row library-menu">
 
-            <form class="col-12" v-on:submit.prevent>
+            <span @click="MenuBtn" class="icon-centered icon-storage"></span>
+
+            <form class="col-12" @:submit.prevent>
                 <input type="hidden" name="_token" :value="csrf">
 
                 <div class="form-group mt-3">
                     <input class="form-control" type="text" name="search" v-model="search" placeholder="Buscar...">
                 </div>
             </form>
-            <a class="col-sm-6" href="#"><span class="icon-centered icon-add-collection">Add collection</span></a>
-            <a class="col-sm-6" href="#"><span class="icon-centered icon-add-book">Add book</span></a>
+            <a class="col-12 col-sm-6" href="#"><span class="icon-centered icon-add-collection">Add collection</span></a>
+            <a class="col-12 col-sm-6" href="#"><span class="icon-centered icon-add-book">Add book</span></a>
         </div>
     </div>
 </template>
@@ -23,6 +25,7 @@
         data()
         {
             return {
+                isActive: false,
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 search: '',
 
@@ -57,6 +60,11 @@
                     this.books = response.data.books;
                 }
                 .bind(this));
+            },
+
+            MenuBtn()
+            {
+                this.isActive = !this.isActive;
             }
         }
     }

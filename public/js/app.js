@@ -1833,9 +1833,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      isActive: false,
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       search: '',
       collections: [],
@@ -1859,6 +1862,9 @@ __webpack_require__.r(__webpack_exports__);
         this.collections = response.data.collections;
         this.books = response.data.books;
       }.bind(this));
+    },
+    MenuBtn: function MenuBtn() {
+      this.isActive = !this.isActive;
     }
   }
 });
@@ -37279,57 +37285,69 @@ var render = function() {
         attrs: { collections: _vm.collections, books: _vm.books }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "row library-menu" }, [
-        _c(
-          "form",
-          {
-            staticClass: "col-12",
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-              }
-            }
-          },
-          [
-            _c("input", {
-              attrs: { type: "hidden", name: "_token" },
-              domProps: { value: _vm.csrf }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group mt-3" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.search,
-                    expression: "search"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  name: "search",
-                  placeholder: "Buscar..."
-                },
-                domProps: { value: _vm.search },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.search = $event.target.value
-                  }
+      _c(
+        "div",
+        {
+          staticClass: "row library-menu",
+          class: { "active-library-menu": _vm.isActive }
+        },
+        [
+          _c("span", {
+            staticClass: "icon-centered icon-storage",
+            on: { click: _vm.MenuBtn }
+          }),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              staticClass: "col-12",
+              on: {
+                ":submit": function($event) {
+                  $event.preventDefault()
                 }
-              })
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._m(1)
-      ])
+              }
+            },
+            [
+              _c("input", {
+                attrs: { type: "hidden", name: "_token" },
+                domProps: { value: _vm.csrf }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group mt-3" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.search,
+                      expression: "search"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    name: "search",
+                    placeholder: "Buscar..."
+                  },
+                  domProps: { value: _vm.search },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.search = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1)
+        ]
+      )
     ],
     1
   )
@@ -37339,7 +37357,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "col-sm-6", attrs: { href: "#" } }, [
+    return _c("a", { staticClass: "col-12 col-sm-6", attrs: { href: "#" } }, [
       _c("span", { staticClass: "icon-centered icon-add-collection" }, [
         _vm._v("Add collection")
       ])
@@ -37349,7 +37367,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "col-sm-6", attrs: { href: "#" } }, [
+    return _c("a", { staticClass: "col-12 col-sm-6", attrs: { href: "#" } }, [
       _c("span", { staticClass: "icon-centered icon-add-book" }, [
         _vm._v("Add book")
       ])

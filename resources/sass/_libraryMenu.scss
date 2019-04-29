@@ -2,6 +2,27 @@
     background-color: $white_2;
     position: fixed;
     bottom: 0;
-    right: 50px;
+    left: calc(50% - 135px);
     height: 500px;
+    transition: height 0.4s;
+    cursor: pointer;
+    width: 300px;
+
+
+    > span {
+        position: absolute;
+        font-size: 42px;
+        max-height: 30px;
+        top: -40px;
+        left: calc(50% - 21px);
+    }
+
+    @include media-breakpoint-up(sm) {
+        left: auto;
+        right: 50px;
+    }
+}
+
+.active-library-menu {
+    height: 0;
 }

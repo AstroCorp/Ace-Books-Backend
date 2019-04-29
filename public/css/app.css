@@ -10184,15 +10184,24 @@ span.icon-centered .sidebar-subtitle span {
   left: calc(50% - 135px);
   height: 500px;
   transition: height 0.4s;
-  cursor: pointer;
   width: 300px;
+  cursor: pointer;
 }
-.library-menu > span {
+.library-menu #toggle-library {
   position: absolute;
   font-size: 42px;
   max-height: 30px;
   top: -40px;
   left: calc(50% - 21px);
+}
+.library-menu .library-menu-option {
+  font-size: 18px;
+  text-decoration: none;
+  color: #e6a800;
+  text-align: center;
+}
+.library-menu .library-menu-option span {
+  font-size: 32px;
 }
 @media (min-width: 576px) {
   .library-menu {

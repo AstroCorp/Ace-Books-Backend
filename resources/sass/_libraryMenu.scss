@@ -5,16 +5,26 @@
     left: calc(50% - 135px);
     height: 500px;
     transition: height 0.4s;
-    cursor: pointer;
     width: 300px;
+    cursor: pointer;
 
-
-    > span {
+    #toggle-library {
         position: absolute;
         font-size: 42px;
         max-height: 30px;
         top: -40px;
         left: calc(50% - 21px);
+    }
+
+    .library-menu-option {
+        font-size: 18px;
+        text-decoration: none;
+        color: $sidebar_hover;
+        text-align: center;
+
+        span {
+            font-size: 32px;
+        }
     }
 
     @include media-breakpoint-up(sm) {

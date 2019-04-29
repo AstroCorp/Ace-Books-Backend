@@ -1835,6 +1835,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -37288,19 +37289,20 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "row library-menu",
+          staticClass: "library-menu",
           class: { "active-library-menu": _vm.isActive }
         },
         [
           _c("span", {
             staticClass: "icon-centered icon-storage",
+            attrs: { id: "toggle-library" },
             on: { click: _vm.MenuBtn }
           }),
           _vm._v(" "),
           _c(
             "form",
             {
-              staticClass: "col-12",
+              staticClass: "row search-bar justify-content-center",
               on: {
                 ":submit": function($event) {
                   $event.preventDefault()
@@ -37313,7 +37315,7 @@ var render = function() {
                 domProps: { value: _vm.csrf }
               }),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group mt-3" }, [
+              _c("div", { staticClass: "col-11 form-group mt-3" }, [
                 _c("input", {
                   directives: [
                     {
@@ -37339,13 +37341,13 @@ var render = function() {
                     }
                   }
                 })
-              ])
+              ]),
+              _vm._v(" "),
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._m(1)
             ]
-          ),
-          _vm._v(" "),
-          _vm._m(0),
-          _vm._v(" "),
-          _vm._m(1)
+          )
         ]
       )
     ],
@@ -37357,21 +37359,33 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "col-12 col-sm-6", attrs: { href: "#" } }, [
-      _c("span", { staticClass: "icon-centered icon-add-collection" }, [
+    return _c(
+      "a",
+      {
+        staticClass: "col-12 col-sm-6 library-menu-option",
+        attrs: { href: "#" }
+      },
+      [
+        _c("span", { staticClass: "mb-2 icon-centered icon-open-collection" }),
         _vm._v("Add collection")
-      ])
-    ])
+      ]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "col-12 col-sm-6", attrs: { href: "#" } }, [
-      _c("span", { staticClass: "icon-centered icon-add-book" }, [
+    return _c(
+      "a",
+      {
+        staticClass: "col-12 col-sm-6 library-menu-option",
+        attrs: { href: "#" }
+      },
+      [
+        _c("span", { staticClass: "mb-2 icon-centered icon-open-book" }),
         _vm._v("Add book")
-      ])
-    ])
+      ]
+    )
   }
 ]
 render._withStripped = true

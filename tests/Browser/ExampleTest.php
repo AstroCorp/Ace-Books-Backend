@@ -8,14 +8,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ExampleTest extends DuskTestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     /**
      * A basic browser test example.
      *
      * @return void
      */
-    public function testBasicExample()
+    public function testSidebar()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/') // Va a la dirección dada

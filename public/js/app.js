@@ -1837,9 +1837,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['createCollectionUrl', 'createBookUrl'],
   data: function data() {
     return {
-      isActive: false,
+      isActive: true,
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       search: '',
       collections: [],
@@ -37294,7 +37295,7 @@ var render = function() {
         },
         [
           _c("span", {
-            staticClass: "icon-centered icon-storage",
+            staticClass: "icon-centered icon-menu",
             attrs: { id: "toggle-library" },
             on: { click: _vm.MenuBtn }
           }),
@@ -37302,7 +37303,7 @@ var render = function() {
           _c(
             "form",
             {
-              staticClass: "row search-bar justify-content-center",
+              staticClass: "row search-bar justify-content-center m-0",
               on: {
                 ":submit": function($event) {
                   $event.preventDefault()
@@ -37315,7 +37316,7 @@ var render = function() {
                 domProps: { value: _vm.csrf }
               }),
               _vm._v(" "),
-              _c("div", { staticClass: "col-11 form-group mt-3" }, [
+              _c("div", { staticClass: "col-12 form-group mt-3" }, [
                 _c("input", {
                   directives: [
                     {
@@ -37343,9 +37344,33 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _vm._m(0),
+              _c(
+                "a",
+                {
+                  staticClass: "col-8 library-menu-option p-2 m-2",
+                  attrs: { href: _vm.createCollectionUrl }
+                },
+                [
+                  _c("span", {
+                    staticClass: "mb-2 icon-centered icon-open-collection"
+                  }),
+                  _vm._v("Add collection")
+                ]
+              ),
               _vm._v(" "),
-              _vm._m(1)
+              _c(
+                "a",
+                {
+                  staticClass: "col-8 library-menu-option p-2 m-2",
+                  attrs: { href: _vm.createBookUrl }
+                },
+                [
+                  _c("span", {
+                    staticClass: "mb-2 icon-centered icon-open-book"
+                  }),
+                  _vm._v("Add book")
+                ]
+              )
             ]
           )
         ]
@@ -37354,40 +37379,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "col-12 col-sm-6 library-menu-option",
-        attrs: { href: "#" }
-      },
-      [
-        _c("span", { staticClass: "mb-2 icon-centered icon-open-collection" }),
-        _vm._v("Add collection")
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "col-12 col-sm-6 library-menu-option",
-        attrs: { href: "#" }
-      },
-      [
-        _c("span", { staticClass: "mb-2 icon-centered icon-open-book" }),
-        _vm._v("Add book")
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

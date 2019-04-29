@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:  url('fonts/icomoon.eot?1agthj');
-    src:  url('fonts/icomoon.eot?1agthj#iefix') format('embedded-opentype'),
-      url('fonts/icomoon.ttf?1agthj') format('truetype'),
-      url('fonts/icomoon.woff?1agthj') format('woff'),
-      url('fonts/icomoon.svg?1agthj#icomoon') format('svg');
+    src:  url('fonts/icomoon.eot?e9j5mk');
+    src:  url('fonts/icomoon.eot?e9j5mk#iefix') format('embedded-opentype'),
+      url('fonts/icomoon.ttf?e9j5mk') format('truetype'),
+      url('fonts/icomoon.woff?e9j5mk') format('woff'),
+      url('fonts/icomoon.svg?e9j5mk#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
   }
@@ -33,6 +33,9 @@
   .icon-info:before {
     content: "\e901";
   }
+  .icon-home:before {
+    content: "\e903";
+  }
   .icon-edit:before {
     content: "\e906";
   }
@@ -41,6 +44,12 @@
   }
   .icon-books:before {
     content: "\e920";
+  }
+  .icon-pags:before {
+    content: "\e925";
+  }
+  .icon-paginate:before {
+    content: "\e92c";
   }
   .icon-open-collection:before {
     content: "\e930";
@@ -54,11 +63,26 @@
   .icon-notifications:before {
     content: "\e951";
   }
+  .icon-download:before {
+    content: "\e960";
+  }
   .icon-login:before {
     content: "\e972";
   }
   .icon-search:before {
     content: "\e986";
+  }
+  .icon-zoom-in:before {
+    content: "\e987";
+  }
+  .icon-zoom-out:before {
+    content: "\e988";
+  }
+  .icon-page-full:before {
+    content: "\e989";
+  }
+  .icon-page-auto:before {
+    content: "\e98a";
   }
   .icon-conf:before {
     content: "\e994";
@@ -77,6 +101,15 @@
   }
   .icon-back:before {
     content: "\ea40";
+  }
+  .icon-page-next:before {
+    content: "\ea42";
+  }
+  .icon-page-back:before {
+    content: "\ea44";
+  }
+  .icon-cascade:before {
+    content: "\ea68";
   }
   .icon-cpanel:before {
     content: "\ea81";

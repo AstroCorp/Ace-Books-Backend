@@ -1,20 +1,20 @@
 <template>
     <div>
         <library-list :collections="collections" :books="books" />
-        
+
         <div :class="{ 'active-library-menu': isActive }" class="library-menu">
 
-            <span @click="MenuBtn" id="toggle-library" class="icon-centered icon-storage"></span>
+            <span @click="MenuBtn" id="toggle-library" class="icon-centered icon-menu"></span>
 
-            <form class="row search-bar justify-content-center" @:submit.prevent>
+            <form class="row search-bar justify-content-center m-0" @:submit.prevent>
                 <input type="hidden" name="_token" :value="csrf">
 
-                <div class="col-11 form-group mt-3">
+                <div class="col-12 form-group mt-3">
                     <input class="form-control" type="text" name="search" v-model="search" placeholder="Buscar...">
                 </div>
 
-                <a class="col-12 col-sm-6 library-menu-option" href="#"><span class="mb-2 icon-centered icon-open-collection"></span>Add collection</a>
-                <a class="col-12 col-sm-6 library-menu-option" href="#"><span class="mb-2 icon-centered icon-open-book"></span>Add book</a>
+                <a class="col-8 library-menu-option p-2 m-2" :href="createCollectionUrl"><span class="mb-2 icon-centered icon-open-collection"></span>Add collection</a>
+                <a class="col-8 library-menu-option p-2 m-2" :href="createBookUrl"><span class="mb-2 icon-centered icon-open-book"></span>Add book</a>
             </form>
         </div>
     </div>
@@ -23,10 +23,14 @@
 <script>
     export default
     {
+        props: [
+            'createCollectionUrl',
+            'createBookUrl'
+        ],
         data()
         {
             return {
-                isActive: false,
+                isActive: true,
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 search: '',
 
@@ -43,7 +47,7 @@
             search: _.debounce(function()
             {
                 this.search_POST();
-            }, 
+            },
             200)
         },
         methods:

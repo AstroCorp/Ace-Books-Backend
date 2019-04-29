@@ -48,8 +48,8 @@
             }
         }
     }
-}
 
-.flip:hover {
-	transform: rotateY(180deg);
+    &:hover {
+        transform: rotateY(180deg);
+    }
 }

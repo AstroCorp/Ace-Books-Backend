@@ -1,8 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 @font-face {
   font-family: "icomoon";
-  src: url("fonts/icomoon.eot?1agthj");
-  src: url("fonts/icomoon.eot?1agthj#iefix") format("embedded-opentype"), url("fonts/icomoon.ttf?1agthj") format("truetype"), url("fonts/icomoon.woff?1agthj") format("woff"), url("fonts/icomoon.svg?1agthj#icomoon") format("svg");
+  src: url("fonts/icomoon.eot?e9j5mk");
+  src: url("fonts/icomoon.eot?e9j5mk#iefix") format("embedded-opentype"), url("fonts/icomoon.ttf?e9j5mk") format("truetype"), url("fonts/icomoon.woff?e9j5mk") format("woff"), url("fonts/icomoon.svg?e9j5mk#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -32,6 +32,10 @@
   content: "\E901";
 }
 
+.icon-home:before {
+  content: "\E903";
+}
+
 .icon-edit:before {
   content: "\E906";
 }
@@ -42,6 +46,14 @@
 
 .icon-books:before {
   content: "\E920";
+}
+
+.icon-pags:before {
+  content: "\E925";
+}
+
+.icon-paginate:before {
+  content: "\E92C";
 }
 
 .icon-open-collection:before {
@@ -60,12 +72,32 @@
   content: "\E951";
 }
 
+.icon-download:before {
+  content: "\E960";
+}
+
 .icon-login:before {
   content: "\E972";
 }
 
 .icon-search:before {
   content: "\E986";
+}
+
+.icon-zoom-in:before {
+  content: "\E987";
+}
+
+.icon-zoom-out:before {
+  content: "\E988";
+}
+
+.icon-page-full:before {
+  content: "\E989";
+}
+
+.icon-page-auto:before {
+  content: "\E98A";
 }
 
 .icon-conf:before {
@@ -90,6 +122,18 @@
 
 .icon-back:before {
   content: "\EA40";
+}
+
+.icon-page-next:before {
+  content: "\EA42";
+}
+
+.icon-page-back:before {
+  content: "\EA44";
+}
+
+.icon-cascade:before {
+  content: "\EA68";
 }
 
 .icon-cpanel:before {
@@ -9903,7 +9947,7 @@ h3 {
   white-space: nowrap;
   transition: background 0.4s;
 }
-.main-card a.main-btn:hover {
+.main-card .main-btn:hover {
   text-decoration: none;
   background-color: rgba(230, 168, 0, 0.65);
 }
@@ -10179,37 +10223,41 @@ span.icon-centered .sidebar-subtitle span {
 .flip .flip-2 a .icon-centered:hover {
   background-color: rgba(230, 168, 0, 0.7);
 }
-
 .flip:hover {
   -webkit-transform: rotateY(180deg);
           transform: rotateY(180deg);
 }
 
 .library-menu {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.58);
   position: fixed;
   bottom: 0;
-  left: calc(50% - 135px);
-  height: 500px;
+  left: calc(50% - 150px);
+  height: 300px;
   transition: height 0.4s;
   width: 300px;
   cursor: pointer;
 }
 .library-menu #toggle-library {
   position: absolute;
-  font-size: 42px;
-  max-height: 30px;
+  font-size: 24px;
+  padding: 8px;
   top: -40px;
   left: calc(50% - 21px);
+  background-color: rgba(255, 255, 255, 0.58);
 }
 .library-menu .library-menu-option {
   font-size: 18px;
   text-decoration: none;
-  color: #e6a800;
+  color: rgba(255, 255, 255, 0.8);
   text-align: center;
+  background-color: rgba(40, 40, 40, 0.7);
 }
 .library-menu .library-menu-option span {
   font-size: 32px;
+}
+.library-menu .library-menu-option:hover {
+  background-color: #e6a800;
 }
 @media (min-width: 576px) {
   .library-menu {

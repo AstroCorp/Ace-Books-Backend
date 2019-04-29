@@ -1,29 +1,35 @@
 .library-menu {
-    background-color: $white_2;
+    background-color: $white_1;
     position: fixed;
     bottom: 0;
-    left: calc(50% - 135px);
-    height: 500px;
+    left: calc(50% - 150px);
+    height: 300px;
     transition: height 0.4s;
     width: 300px;
     cursor: pointer;
 
     #toggle-library {
         position: absolute;
-        font-size: 42px;
-        max-height: 30px;
+        font-size: 24px;
+        padding: 8px;
         top: -40px;
         left: calc(50% - 21px);
+        background-color: $white_1;
     }
 
     .library-menu-option {
         font-size: 18px;
         text-decoration: none;
-        color: $sidebar_hover;
+        color: $white_2;
         text-align: center;
+        background-color: $sidebar;
 
         span {
             font-size: 32px;
+        }
+
+        &:hover {
+            background-color: $sidebar_hover;
         }
     }
 

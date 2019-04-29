@@ -64,11 +64,11 @@
         font-style: italic;
         white-space: nowrap;
         transition: background 0.4s;
-    }
 
-    a.main-btn:hover {
-        text-decoration: none;
-        background-color: rgba($sidebar_hover, 0.65);
+        &:hover {
+            text-decoration: none;
+            background-color: rgba($sidebar_hover, 0.65);
+        }
     }
 }
 

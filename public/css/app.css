@@ -1,8 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 @font-face {
   font-family: "icomoon";
-  src: url("fonts/icomoon.eot?gn29cm");
-  src: url("fonts/icomoon.eot?gn29cm#iefix") format("embedded-opentype"), url("fonts/icomoon.ttf?gn29cm") format("truetype"), url("fonts/icomoon.woff?gn29cm") format("woff"), url("fonts/icomoon.svg?gn29cm#icomoon") format("svg");
+  src: url("fonts/icomoon.eot?1agthj");
+  src: url("fonts/icomoon.eot?1agthj#iefix") format("embedded-opentype"), url("fonts/icomoon.ttf?1agthj") format("truetype"), url("fonts/icomoon.woff?1agthj") format("woff"), url("fonts/icomoon.svg?1agthj#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -20,12 +20,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-info:before {
-  content: "\E901";
+.icon-menu:before {
+  content: "\E900";
 }
 
-.icon-home:before {
-  content: "\E900";
+.icon-add-book:before {
+  content: "\E902";
+}
+
+.icon-info:before {
+  content: "\E901";
 }
 
 .icon-edit:before {
@@ -42,6 +46,10 @@
 
 .icon-open-collection:before {
   content: "\E930";
+}
+
+.icon-add-collection:before {
+  content: "\E931";
 }
 
 .icon-qr-code:before {

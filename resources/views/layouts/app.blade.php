@@ -83,7 +83,7 @@
                             @else
                                 <li class="nav-item">
                             @endrank_less_or_equal
-                            <a href="{{ route('profile') }}">
+                            <a href="{{ route('profile.edit', Auth::user()->id) }}">
                                 <span class="icon-centered icon-conf">
                                     <span class="sidebar-subtitle">
                                         <span>{{trans("sidebar.confprofile")}}</span>

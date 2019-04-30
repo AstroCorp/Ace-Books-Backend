@@ -6,25 +6,22 @@
         <div class="row m-0 justify-content-center">
             <div class="col-11 p-0 mb-5">
                 <div class="main-card mx-auto">
-                    <h2 class="main-title">La mejor opción para disfrutar de tu lectura</h2>
-                    <a class="main-btn" href="{{ route('register') }}">Empezar a leer</a>
+                    <h2 class="main-title">{{trans("index.main_title")}}</h2>
+                    <a class="main-btn" href="{{ route('register') }}">{{trans("index.main_button")}}</a>
                 </div>
             </div>
 
             <div class="col-11 col-md-3 m-3 simple-card">
-                <h5 class="simple-title">Guarda tus libros</h5>
-                <div class="simple-content">Te ofrecemos el paquete básico para que empieces a disfrutar de tu lectura.</div>
+                <h5 class="simple-title">{{trans("index.box1_title")}}</h5>
+                <div class="simple-content">{{trans("index.box1_content")}}</div>
             </div>
             <div class="col-11 col-md-3 m-3 simple-card">
-                <h5 class="simple-title">Tu lectura en cualquier lugar</h5>
-                <div class="simple-content">Accede a tus libros desde cualquier dispositivo y retoma tu lectura donde desees.
-                </div>
+                <h5 class="simple-title">{{trans("index.box2_title")}}</h5>
+                <div class="simple-content">{{trans("index.box2_content")}}</div>
             </div>
             <div class="col-11 col-md-3 m-3 simple-card">
-                <h5 class="simple-title">Comparte lo que desees</h5>
-                <div class="simple-content">Comparte fácilmente con los demás, tus libros y colecciones pueden estar
-                    disponibles de forma
-                    pública o privada con un clic.</div>
+                <h5 class="simple-title">{{trans("index.box3_title")}}</h5>
+                <div class="simple-content">{{trans("index.box3_content")}}</div>
             </div>
         </div>
     </div>

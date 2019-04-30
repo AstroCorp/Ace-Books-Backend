@@ -28,8 +28,7 @@ Route::resource('book', 'BookController')->except([
     'index'
 ]);
 
-Route::resource('profile', 'UserController')->only([
-    'edit', 'update'
-]);
+Route::get('/profile', 'UserController@edit')->name('profile.edit');
+Route::post('/profile', 'UserController@update')->name('profile.update');
 
 Route::get('/cpanel', 'UserController@index')->name('cpanel');

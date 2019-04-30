@@ -19,5 +19,5 @@ return [
     'token' => 'This password reset token is invalid.',
     'user' => "We can't find a user with that e-mail address.",
     'lang' => 'The language is not valid',
-
+    'current' => 'This is not your current password',
 ];

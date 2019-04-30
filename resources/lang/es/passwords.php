@@ -19,5 +19,5 @@ return [
     'token' => 'Este token de restablecimiento de contraseña es inválido.',
     'user' => 'No se ha encontrado un usuario con esa dirección de correo.',
     'lang' => 'El idioma no es válido',
-
+    'current' => 'Esta no es tu contraseña actual',
 ];

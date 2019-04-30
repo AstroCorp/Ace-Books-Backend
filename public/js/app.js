@@ -1837,7 +1837,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['createCollectionUrl', 'createBookUrl'],
+  props: ['createCollectionUrl', 'createBookUrl', 'searchText', 'addCollectionText', 'addBookText'],
   data: function data() {
     return {
       isActive: true,
@@ -37330,7 +37330,7 @@ var render = function() {
                   attrs: {
                     type: "text",
                     name: "search",
-                    placeholder: "Buscar..."
+                    placeholder: _vm.searchText
                   },
                   domProps: { value: _vm.search },
                   on: {
@@ -37354,7 +37354,7 @@ var render = function() {
                   _c("span", {
                     staticClass: "mb-2 icon-centered icon-open-collection"
                   }),
-                  _vm._v("Add collection")
+                  _vm._v(_vm._s(_vm.addCollectionText))
                 ]
               ),
               _vm._v(" "),
@@ -37368,7 +37368,7 @@ var render = function() {
                   _c("span", {
                     staticClass: "mb-2 icon-centered icon-open-book"
                   }),
-                  _vm._v("Add book")
+                  _vm._v(_vm._s(_vm.addBookText))
                 ]
               )
             ]

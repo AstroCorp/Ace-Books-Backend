@@ -10,11 +10,11 @@
                 <input type="hidden" name="_token" :value="csrf">
 
                 <div class="col-12 form-group mt-3">
-                    <input class="form-control" type="text" name="search" v-model="search" placeholder="Buscar...">
+                    <input class="form-control" type="text" name="search" v-model="search" :placeholder="searchText">
                 </div>
 
-                <a class="col-8 library-menu-option p-2 m-2" :href="createCollectionUrl"><span class="mb-2 icon-centered icon-open-collection"></span>Add collection</a>
-                <a class="col-8 library-menu-option p-2 m-2" :href="createBookUrl"><span class="mb-2 icon-centered icon-open-book"></span>Add book</a>
+                <a class="col-8 library-menu-option p-2 m-2" :href="createCollectionUrl"><span class="mb-2 icon-centered icon-open-collection"></span>{{addCollectionText}}</a>
+                <a class="col-8 library-menu-option p-2 m-2" :href="createBookUrl"><span class="mb-2 icon-centered icon-open-book"></span>{{addBookText}}</a>
             </form>
         </div>
     </div>
@@ -25,7 +25,11 @@
     {
         props: [
             'createCollectionUrl',
-            'createBookUrl'
+            'createBookUrl',
+
+            'searchText',
+            'addCollectionText',
+            'addBookText'
         ],
         data()
         {

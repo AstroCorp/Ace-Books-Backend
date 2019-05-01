@@ -26,7 +26,7 @@
                             value="{{ old('email') }}"
                             placeholder="{{ __('E-Mail Address') }}" required>
 
-                        <button type="submit" class="col form-btn">
+                        <button type="submit" class="col form-btn form-btn-arrow">
                             <span class="icon-next icon-centered"></span>
                         </button>
 

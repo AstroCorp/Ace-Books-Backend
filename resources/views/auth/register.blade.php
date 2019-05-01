@@ -42,7 +42,7 @@
                             name="password_confirmation"
                             placeholder="{{ __('Confirm Password') }}" required>
 
-                        <button type="submit" class="col form-btn">
+                        <button type="submit" class="col form-btn form-btn-arrow">
                             <span class="icon-next icon-centered"></span>
                         </button>
                     </div>

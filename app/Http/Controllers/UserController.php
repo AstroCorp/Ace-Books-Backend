@@ -12,32 +12,14 @@ use App\Rules\currentPassword;
 
 class UserController extends Controller
 {
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit()
+    // Form para editar el perfil
+    public function edit_profile()
     {
-        $langs = Lang::all();
-
-        return view('profile_edit', compact('langs'));
+        return view('settings_profile');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
-    {
-        // esto comprueba el input oculto y según cual usa una función u otra
-    }
-
-    private function update_user(Request $request)
+    // Lógica del formulario del perfil
+    public function update_profile(Request $request)
     {
         return Validator::make($request, [
             'username' => ['required', 'string', 'max:255'],
@@ -45,7 +27,16 @@ class UserController extends Controller
         ]);
     }
 
-    private function update_website(Request $request)
+    // Form para editar los ajustes de la web
+    public function edit_website()
+    {
+        $langs = Lang::all();
+
+        return view('settings_website', compact('langs'));
+    }
+
+    // Lógica del formulario de los ajustes de la web
+    public function update_website(Request $request)
     {
         return Validator::make($request, [
             'lang' => ['required', new ValidLanguage]

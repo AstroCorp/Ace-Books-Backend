@@ -9956,6 +9956,34 @@ h3 {
   background: none !important;
 }
 
+.sidemenu {
+  padding: 0;
+}
+@media (min-width: 768px) {
+  .sidemenu {
+    min-height: 265px;
+  }
+}
+.sidemenu .sidemenu-title {
+  padding: 20px 14px;
+}
+.sidemenu .sidemenu-option {
+  font-size: 1rem;
+  font-weight: 500;
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  color: #000;
+  border-left: 6px solid rgba(0, 0, 0, 0);
+}
+.sidemenu .sidemenu-option:hover {
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.275);
+}
+.sidemenu .setting-active {
+  border-left: 6px solid #e6a800;
+}
+
 form .form-group .form-control {
   border-radius: 0;
   border: 1px solid rgba(40, 40, 40, 0.5);
@@ -9964,10 +9992,18 @@ form .form-group .form-control {
 form .form-group .form-btn {
   border: 1px solid rgba(40, 40, 40, 0.5);
   background-color: rgba(8, 15, 1, 0.25);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  transition: background 0.4s;
+}
+form .form-group .form-btn:hover {
+  background-color: rgba(8, 15, 1, 0.44);
+}
+form .form-group .form-btn-arrow {
+  padding: 0;
+  border-left: none;
   height: 37px;
   max-width: 37px;
-  border-left: none;
-  color: rgba(255, 255, 255, 0.8);
 }
 form .form-group .custom-checkbox {
   display: block;

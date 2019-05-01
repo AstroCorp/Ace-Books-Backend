@@ -28,7 +28,13 @@ Route::resource('book', 'BookController')->except([
     'index'
 ]);
 
-Route::get('/profile', 'UserController@edit')->name('profile.edit');
-Route::post('/profile', 'UserController@update')->name('profile.update');
+Route::prefix('settings')->group(function()
+{
+    Route::get('profile', 'UserController@edit_profile')->name('profile.edit');
+    Route::post('profile', 'UserController@update_profile')->name('profile.update');
+
+    Route::get('website', 'UserController@edit_website')->name('website.edit');
+    Route::post('website', 'UserController@update_website')->name('website.update');
+});
 
 Route::get('/cpanel', 'UserController@index')->name('cpanel');

@@ -27,7 +27,7 @@
                     <input type="password" class="col form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                         name="password" placeholder="{{ __('Password') }}" required>
 
-                    <button dusk="login" type="submit" class="col form-btn">
+                    <button type="submit" class="col form-btn form-btn-arrow">
                         <span class="icon-next icon-centered"></span>
                     </button>
 

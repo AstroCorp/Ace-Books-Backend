@@ -75,3 +75,34 @@
 .bg-none {
     background: none !important;
 }
+
+.sidemenu {
+    padding: 0;
+
+    @include media-breakpoint-up(md) {
+        min-height: 265px;
+    }
+
+    .sidemenu-title {
+        padding: 20px 14px;
+    }
+
+    .sidemenu-option {
+        font-size: 1rem;
+        font-weight: 500;
+        display: block;
+        width: 100%;
+        padding: 8px 10px;
+        color: #000;
+        border-left: 6px solid rgba(0, 0, 0, 0);
+
+        &:hover {
+            text-decoration: none;
+            background-color: rgba($white_1, 0.275);
+        }
+    }
+
+    .setting-active {
+        border-left: 6px solid $sidebar_hover;
+    }
+}

@@ -3,8 +3,8 @@
 @section('content')
     @component('components.settings', ['option' => 1])
         @slot('form')
-            <form class="row justify-content-center" action="#">
-                <input type="hidden" name="update" value="1">
+            <form class="row justify-content-center" method="POST" action="{{ route('website.update') }}">
+                @csrf
 
                 <div class="form-group col-8">
                     <select id="lang" class="form-control{{ $errors->has('lang') ? ' is-invalid' : '' }}" name="lang" required>
@@ -23,7 +23,7 @@
 
                 <div class="form-group col-8 m-0">
                     <button type="submit" class="form-btn">
-                        Aplicar cambios
+                        {{ __('Apply changes') }}
                     </button>
                 </div>
             </form>

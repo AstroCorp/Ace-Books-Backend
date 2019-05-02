@@ -3,12 +3,12 @@
 @section('content')
     @component('components.settings', ['option' => 0])
         @slot('form')
-            <form class="row justify-content-center" action="#">
-                <input type="hidden" name="update" value="0">
+            <form class="row justify-content-center" method="POST" action="{{ route('profile.update') }}">
+                @csrf
 
                 <div class="form-group col-8">
                     <input type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
-                        name="username" value="{{ old('username') }}" placeholder="Username" required autofocus>
+                        name="username" value="{{ old('username') }}" placeholder="{{ __('Username') }}" required autofocus>
 
                     @if ($errors->has('username'))
                     <span class="alert d-block mt-1 alert-danger" role="alert">
@@ -37,7 +37,7 @@
 
                 <div class="form-group col-8 m-0">
                     <button type="submit" class="form-btn">
-                        Aplicar cambios
+                        {{ __('Apply changes') }}
                     </button>
                 </div>
             </form>

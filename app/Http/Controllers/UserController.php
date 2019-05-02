@@ -21,10 +21,18 @@ class UserController extends Controller
     // Lógica del formulario del perfil
     public function update_profile(Request $request)
     {
-        return Validator::make($request, [
-            'username' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'confirmed', new currentPassword]
+        $request->validate([
+            'username' => ['required', 'string', 'max:50'],
+            'currentpassword' => ['required', 'string', new currentPassword],
+            'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
+
+        $user = Auth::user();
+            $user->username = $request->input('username');
+            $user->password = Hash::make($request->input('password'));
+        $user->save();
+
+        return redirect()->route('profile.edit')->with('status', true);
     }
 
     // Form para editar los ajustes de la web
@@ -38,8 +46,14 @@ class UserController extends Controller
     // Lógica del formulario de los ajustes de la web
     public function update_website(Request $request)
     {
-        return Validator::make($request, [
+        $request->validate([
             'lang' => ['required', new ValidLanguage]
         ]);
+
+        $user = Auth::user();
+            $user->lang_id = $request->input('lang');
+        $user->save();
+
+        return redirect()->route('website.edit')->with('status', true);
     }
 }

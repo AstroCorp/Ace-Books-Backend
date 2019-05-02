@@ -6,11 +6,18 @@
             <form class="row justify-content-center" method="POST" action="{{ route('website.update') }}">
                 @csrf
 
-                <div class="form-group col-8">
+                @if(session('status'))
+                    <div class="alert d-block alert-success col-8" role="alert">
+                        <strong>{{ trans("settings.message_success") }}</strong>
+                    </div>
+                @endif
+
+                <div class="form-group col-8 p-0">
                     <select id="lang" class="form-control{{ $errors->has('lang') ? ' is-invalid' : '' }}" name="lang" required>
                         <option disabled selected hidden>{{ __('Select a language') }}</option>
                         @foreach ($langs as $lang)
-                            <option value="{{ $lang->id }}">{{ trans($lang->name) }}</option>
+                            <option {{ $lang->id === Auth::user()->lang_id ? 'selected' : '' }} 
+                                value="{{ $lang->id }}">{{ trans($lang->name) }}</option>
                         @endforeach
                     </select>
 
@@ -21,7 +28,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-8 m-0">
+                <div class="form-group col-8 m-0 p-0">
                     <button type="submit" class="form-btn">
                         {{ __('Apply changes') }}
                     </button>

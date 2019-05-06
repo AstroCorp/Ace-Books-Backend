@@ -37,13 +37,29 @@
                         @endif
                     </div>
 
-                    <div class="form-group row m-0">
+                    <div class="form-group">
                         <input id="password-confirm" type="password" class="col form-control"
                             name="password_confirmation"
                             placeholder="{{ __('Confirm Password') }}" required>
+                    </div>
 
-                        <button type="submit" class="col form-btn form-btn-arrow">
-                            <span class="icon-next icon-centered"></span>
+                    <div class="form-group">
+                        <label class="custom-checkbox">
+                            <span class="btn-link-secondary">{{ __('Accept the') }} <a href="{{ route('conditions') }}">{{ __('Terms and conditions of use') }}</a></span>
+                            <input class="form-check-input" type="checkbox" name="conditions" id="conditions">
+                            <span class="checkmark"></span>
+                        </label>
+
+                        @if ($errors->has('conditions'))
+                        <span class="alert d-block mt-1 alert-danger" role="alert">
+                            <strong>{{ $errors->first('conditions') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="form-btn">
+                            {{ __('Create account') }}
                         </button>
                     </div>
                 </form>

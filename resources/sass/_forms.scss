@@ -39,6 +39,11 @@ form {
             span:first-child {
                 position: relative;
                 top: 1px;
+
+                a {
+                    color: $white_2;
+                    text-decoration: underline;
+                }
             }
 
             /* Ocultar default checkbox */

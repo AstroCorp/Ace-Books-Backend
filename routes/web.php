@@ -14,6 +14,7 @@
 Route::get('/', 'StaticController@index')->name('index');
 
 Auth::routes(['verify' => true]);
+Route::get('/conditions', 'StaticController@conditions')->name('conditions');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/library', 'HomeController@library')->name('library');

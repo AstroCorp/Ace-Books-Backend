@@ -15,4 +15,9 @@ class StaticController extends Controller
     {
         return view('info');
     }
+
+    public function conditions()
+    {
+        return view('auth.conditions');
+    }
 }

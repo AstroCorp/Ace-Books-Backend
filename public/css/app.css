@@ -10025,6 +10025,10 @@ form .form-group .custom-checkbox span:first-child {
   position: relative;
   top: 1px;
 }
+form .form-group .custom-checkbox span:first-child a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
+}
 form .form-group .custom-checkbox input {
   position: absolute;
   opacity: 0;

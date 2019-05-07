@@ -34,6 +34,9 @@ Route::prefix('settings')->group(function()
     Route::get('profile', 'UserController@edit_profile')->name('profile.edit');
     Route::post('profile', 'UserController@update_profile')->name('profile.update');
 
+    Route::get('password', 'UserController@edit_password')->name('password.edit');
+    Route::post('password', 'UserController@update_password')->name('password.update');
+
     Route::get('website', 'UserController@edit_website')->name('website.edit');
     Route::post('website', 'UserController@update_website')->name('website.update');
 });

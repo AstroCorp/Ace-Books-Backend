@@ -111,3 +111,38 @@ form {
 .btn-link-secondary, .btn-link-secondary:hover {
     color: $white_2;
 }
+
+#preview {
+    position: relative;
+    transition: background 0.5s;
+    min-width: 250px;
+    min-height: 250px;
+
+    .edit {
+        opacity: 0;
+        color: $white_2;
+        position: absolute;
+        top: calc(50% - 32px);
+        left: calc(50% - 32px);
+        font-size: 64px;
+        transition: opacity 0.5;
+    }
+
+    img {
+        opacity: 1;
+        transition: opacity 0.5s;
+    }
+
+    &:hover {
+        background-color: $sidebar;
+        cursor: pointer;
+
+        .edit {
+            opacity: 1;
+        }
+
+        img {
+            opacity: 0.5;
+        }
+    }
+}

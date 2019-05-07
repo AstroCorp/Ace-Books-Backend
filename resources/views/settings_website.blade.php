@@ -1,7 +1,7 @@
 @extends('layouts.app', ['logo' => true])
 
 @section('content')
-    @component('components.settings', ['option' => 1])
+    @component('components.settings', ['option' => 2])
         @slot('form')
             <form class="row justify-content-center" method="POST" action="{{ route('website.update') }}">
                 @csrf

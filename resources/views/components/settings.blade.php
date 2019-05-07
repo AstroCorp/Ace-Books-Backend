@@ -9,8 +9,12 @@
                         class="sidemenu-option {{ $option === 0 ? 'setting-active' : '' }}">{{trans("settings.edit_profile")}}</a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('password.edit') }}" 
+                        class="sidemenu-option {{ $option === 1 ? 'setting-active' : '' }}">{{trans("settings.edit_password")}}</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('website.edit') }}" 
-                        class="sidemenu-option {{ $option === 1 ? 'setting-active' : '' }}">{{trans("settings.edit_website")}}</a>
+                        class="sidemenu-option {{ $option === 2 ? 'setting-active' : '' }}">{{trans("settings.edit_website")}}</a>
                     </li>
                 </ul>
             </div>

@@ -1,8 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 @font-face {
   font-family: "icomoon";
-  src: url("fonts/icomoon.eot?e9j5mk");
-  src: url("fonts/icomoon.eot?e9j5mk#iefix") format("embedded-opentype"), url("fonts/icomoon.ttf?e9j5mk") format("truetype"), url("fonts/icomoon.woff?e9j5mk") format("woff"), url("fonts/icomoon.svg?e9j5mk#icomoon") format("svg");
+  src: url("fonts/icomoon.eot?s3esla");
+  src: url("fonts/icomoon.eot?s3esla#iefix") format("embedded-opentype"), url("fonts/icomoon.ttf?s3esla") format("truetype"), url("fonts/icomoon.woff?s3esla") format("woff"), url("fonts/icomoon.svg?s3esla#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -20,132 +20,136 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-menu:before {
+.icon-add:before {
   content: "\E900";
 }
 
 .icon-add-book:before {
-  content: "\E902";
-}
-
-.icon-info:before {
   content: "\E901";
 }
 
-.icon-home:before {
-  content: "\E903";
-}
-
-.icon-edit:before {
-  content: "\E906";
-}
-
-.icon-open-book:before {
-  content: "\E91F";
-}
-
-.icon-books:before {
-  content: "\E920";
-}
-
-.icon-pags:before {
-  content: "\E925";
-}
-
-.icon-paginate:before {
-  content: "\E92C";
-}
-
-.icon-open-collection:before {
-  content: "\E930";
-}
-
 .icon-add-collection:before {
-  content: "\E931";
-}
-
-.icon-qr-code:before {
-  content: "\E938";
-}
-
-.icon-notifications:before {
-  content: "\E951";
-}
-
-.icon-download:before {
-  content: "\E960";
-}
-
-.icon-login:before {
-  content: "\E972";
-}
-
-.icon-search:before {
-  content: "\E986";
-}
-
-.icon-zoom-in:before {
-  content: "\E987";
-}
-
-.icon-zoom-out:before {
-  content: "\E988";
-}
-
-.icon-page-full:before {
-  content: "\E989";
-}
-
-.icon-page-auto:before {
-  content: "\E98A";
-}
-
-.icon-conf:before {
-  content: "\E994";
-}
-
-.icon-delete:before {
-  content: "\E9AC";
-}
-
-.icon-off:before {
-  content: "\E9B6";
-}
-
-.icon-add:before {
-  content: "\EA0A";
-}
-
-.icon-next:before {
-  content: "\EA3C";
+  content: "\E902";
 }
 
 .icon-back:before {
-  content: "\EA40";
+  content: "\E903";
 }
 
-.icon-page-next:before {
-  content: "\EA42";
-}
-
-.icon-page-back:before {
-  content: "\EA44";
+.icon-books:before {
+  content: "\E904";
 }
 
 .icon-cascade:before {
-  content: "\EA68";
+  content: "\E905";
+}
+
+.icon-conf:before {
+  content: "\E906";
 }
 
 .icon-cpanel:before {
-  content: "\EA81";
+  content: "\E907";
+}
+
+.icon-delete:before {
+  content: "\E908";
+}
+
+.icon-download:before {
+  content: "\E909";
+}
+
+.icon-edit:before {
+  content: "\E90A";
+}
+
+.icon-home:before {
+  content: "\E90B";
+}
+
+.icon-info:before {
+  content: "\E90C";
+}
+
+.icon-login:before {
+  content: "\E90D";
+}
+
+.icon-menu:before {
+  content: "\E90E";
+}
+
+.icon-next:before {
+  content: "\E90F";
+}
+
+.icon-notifications:before {
+  content: "\E910";
+}
+
+.icon-off:before {
+  content: "\E911";
+}
+
+.icon-open-book:before {
+  content: "\E912";
+}
+
+.icon-open-collection:before {
+  content: "\E913";
+}
+
+.icon-page-auto:before {
+  content: "\E914";
+}
+
+.icon-page-back:before {
+  content: "\E915";
+}
+
+.icon-page-full:before {
+  content: "\E916";
+}
+
+.icon-page-next:before {
+  content: "\E917";
+}
+
+.icon-paginate:before {
+  content: "\E918";
+}
+
+.icon-pags:before {
+  content: "\E919";
+}
+
+.icon-qr-code:before {
+  content: "\E91A";
+}
+
+.icon-search:before {
+  content: "\E91B";
 }
 
 .icon-share:before {
-  content: "\EA82";
+  content: "\E91C";
 }
 
 .icon-storage:before {
-  content: "\EAAF";
+  content: "\E91D";
+}
+
+.icon-zoom-in:before {
+  content: "\E91E";
+}
+
+.icon-zoom-out:before {
+  content: "\E91F";
+}
+
+.icon-camera:before {
+  content: "\E920";
 }
 
 /*!
@@ -10078,6 +10082,36 @@ form .form-group .custom-checkbox:hover input:not(:checked) ~ .checkmark {
 
 .btn-link-secondary, .btn-link-secondary:hover {
   color: rgba(255, 255, 255, 0.8);
+}
+
+#preview {
+  position: relative;
+  transition: background 0.5s;
+  min-width: 250px;
+  min-height: 250px;
+}
+#preview .edit {
+  opacity: 0;
+  color: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  top: calc(50% - 32px);
+  left: calc(50% - 32px);
+  font-size: 64px;
+  transition: opacity 0.5;
+}
+#preview img {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+#preview:hover {
+  background-color: rgba(40, 40, 40, 0.7);
+  cursor: pointer;
+}
+#preview:hover .edit {
+  opacity: 1;
+}
+#preview:hover img {
+  opacity: 0.5;
 }
 
 body {

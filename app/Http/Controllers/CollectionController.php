@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 class CollectionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('verified'); // E-Mail verificado
+    }
+    
     /**
      * Show the form for creating a new resource.
      *

@@ -12,6 +12,12 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('verified'); // E-Mail verificado
+    }
+    
     public function edit_profile()
     {
         return view('settings_profile');

@@ -2,7 +2,7 @@
     <div class="row justify-content-center align-items-center">
         <label for="image-upload">
             <div id="preview" class="rounded-circle d-flex align-items-center justify-content-center">
-                <img class="img-fluid" v-if="url" :src="url" />
+                <img class="img-fluid rounded-circle" v-if="url" :src="url" />
                 <div class="edit"><span class="icon-centered icon-camera"></span></div>
             </div>
         </label>

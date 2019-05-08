@@ -10087,8 +10087,10 @@ form .form-group .custom-checkbox:hover input:not(:checked) ~ .checkmark {
 #preview {
   position: relative;
   transition: background 0.5s;
-  min-width: 250px;
-  min-height: 250px;
+}
+#preview, #preview img {
+  width: 200px;
+  height: 200px;
 }
 #preview .edit {
   opacity: 0;

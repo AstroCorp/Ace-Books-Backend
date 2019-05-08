@@ -37218,7 +37218,10 @@ var render = function() {
           },
           [
             _vm.url
-              ? _c("img", { staticClass: "img-fluid", attrs: { src: _vm.url } })
+              ? _c("img", {
+                  staticClass: "img-fluid rounded-circle",
+                  attrs: { src: _vm.url }
+                })
               : _vm._e(),
             _vm._v(" "),
             _vm._m(0)

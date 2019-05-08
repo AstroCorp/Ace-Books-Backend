@@ -115,8 +115,11 @@ form {
 #preview {
     position: relative;
     transition: background 0.5s;
-    min-width: 250px;
-    min-height: 250px;
+
+    &, img {
+        width: 200px;
+        height: 200px;
+    }
 
     .edit {
         opacity: 0;

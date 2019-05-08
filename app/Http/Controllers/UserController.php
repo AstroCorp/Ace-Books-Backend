@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Lang;
 use App\Rules\ValidLanguage;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Rules\currentPassword;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -20,19 +20,25 @@ class UserController extends Controller
     public function update_profile(Request $request)
     {
         $request->validate([
-            'image' => ['required', 'image', 'dimensions:min_width=200,min_height=200,max_width=512,max-height=512,ratio=1/1', 'size:3000'], // 3 MB
-            'username' => ['required', 'string', 'max:50']
+            'image' => ['image', 'max:2000'], // 2 MB 
+            'username' => ['required', 'string', 'max:50', Rule::unique('users', 'username')->ignore(Auth::user()->id)]
         ]);
 
         $user = Auth::user();
-        $imageName = $user->id.'.'.request()->image->getClientOriginalExtension();
 
+        if($request->hasFile('image'))
+        {
+            $userImage = $request->file('image');
+        
+            $imageName = $user->id.".".$userImage->getClientOriginalExtension();
+            $userImage->move(public_path().'/images/profiles/', $imageName);
+
+            $user->user_image = $imageName;
+        }
+        
         $user->username = $request->input('username');
-        $user->user_image = $imageName;
 
         $user->save();
-
-        request()->image->move(public_path('images/profiles'), $imageName);
 
         return redirect()->route('profile.edit')->with('status', true);
     }

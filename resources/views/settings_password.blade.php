@@ -3,7 +3,7 @@
 @section('content')
     @component('components.settings', ['option' => 1])
         @slot('form')
-            <form class="row justify-content-center" method="POST" action="{{ route('profile.update') }}">
+            <form class="row justify-content-center" method="POST" action="{{ route('password.update') }}">
                 @csrf
 
                 @if(session('status'))

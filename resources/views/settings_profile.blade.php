@@ -3,7 +3,7 @@
 @section('content')
     @component('components.settings', ['option' => 0])
         @slot('form')
-            <form class="row justify-content-center" method="POST" action="{{ route('profile.update') }}">
+            <form class="row justify-content-center" method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                 @csrf
 
                 @if(session('status'))
@@ -15,12 +15,12 @@
                 <div class="form-group col-8 p-0">
                     <input-file-with-image-preview image="{{ asset('images/profiles/'.Auth::user()->user_image) }}" />
 
-                    @if ($errors->has('username'))
+                    
+                </div>@if ($errors->has('image'))
                     <span class="alert d-block mt-1 alert-danger" role="alert">
                         <strong>{{ $errors->first('image') }}</strong>
                     </span>
                     @endif
-                </div>
 
                 <div class="form-group col-8 p-0">
                     <input type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"

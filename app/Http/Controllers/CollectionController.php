@@ -19,7 +19,7 @@ class CollectionController extends Controller
      */
     public function create()
     {
-        //
+        return view('collection_create');
     }
 
     /**
@@ -42,6 +42,7 @@ class CollectionController extends Controller
     public function show($id)
     {
         // listaría los libros que hay dentro
+        return view('collection_show');
     }
 
     /**
@@ -52,7 +53,7 @@ class CollectionController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('collection_edit');
     }
 
     /**

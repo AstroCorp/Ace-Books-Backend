@@ -7,7 +7,7 @@ use App\Lang;
 use App\Rules\ValidLanguage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Rules\currentPassword;
+use App\Rules\CurrentPassword;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -59,7 +59,7 @@ class UserController extends Controller
     public function update_password(Request $request)
     {
         $request->validate([
-            'currentpassword' => ['required', 'string', new currentPassword],
+            'currentpassword' => ['required', 'string', new CurrentPassword],
             'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
 

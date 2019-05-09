@@ -10,6 +10,7 @@ class CollectionController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('verified'); // E-Mail verificado
+        $this->middleware('checkAddCollection')->only(['create', 'store']); // Límite de la tarifa
     }
     
     /**

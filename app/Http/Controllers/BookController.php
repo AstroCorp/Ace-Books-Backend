@@ -10,6 +10,7 @@ class BookController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('verified'); // E-Mail verificado
+        $this->middleware('checkAddBook')->only(['create', 'store']); // Límite de la tarifa
     }
     
     /**

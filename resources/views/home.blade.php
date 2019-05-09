@@ -3,6 +3,12 @@
 @section('content')
 <div class="row m-0 justify-content-center">
     <div class="mt-4 col-10 col-xl-8">
+        @if(session('message_limit'))
+            <span class="alert d-block mt-1 alert-danger text-center" role="alert">
+                <strong>{{ session('message_limit') }}</strong>
+            </span>
+        @endif
+
         <library-menu
             create-collection-url="{{ route('collection.create') }}"
             create-book-url="{{ route('book.create') }}"

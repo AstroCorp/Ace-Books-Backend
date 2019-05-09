@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class currentPassword implements Rule
+class CurrentPassword implements Rule
 {
     /**
      * Create a new rule instance.
@@ -27,7 +27,7 @@ class currentPassword implements Rule
      */
     public function passes($attribute, $value)
     {
-        return Hash::check('password', Auth::user()->password);
+        return Hash::check($value, Auth::user()->password);
     }
 
     /**

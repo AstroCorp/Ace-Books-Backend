@@ -13,26 +13,30 @@ class BooksAndCollections extends Seeder
      */
     public function run()
     {
-
         $collection1 = new Collection();
-            $collection1->user_id = 2;
-            $collection1->name = 'Collection 1';
+        $collection1->user_id = 2;
+        $collection1->name = 'Collection 1';
         $collection1->save();
 
         $collection2 = new Collection();
-            $collection2->user_id = 2;
-            $collection2->name = 'Collection 2';
+        $collection2->user_id = 2;
+        $collection2->name = 'Collection 2';
         $collection2->save();
 
         $book1 = new Book();
-            $book1->user_id = 2;
-            $book1->name = 'Book 1';
+        $book1->user_id = 2;
+        $book1->name = 'Book 1';
         $book1->save();
 
         $book2 = new Book();
-            $book2->user_id = 2;
-            $book2->collection_id = 1;
-            $book2->name = 'Book 1';
+        $book2->user_id = 2;
+        $book2->collection_id = 1;
+        $book2->name = 'Book 1';
         $book2->save();
+
+        $user = auth()->loginUsingId(2);
+        $user->n_books = 2;
+        $user->n_collections = 2;
+        $user->save();
     }
 }

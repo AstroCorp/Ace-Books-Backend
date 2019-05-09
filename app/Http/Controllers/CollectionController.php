@@ -76,6 +76,6 @@ class CollectionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // además de eliminarla de la base de datos, todos los libros asignadas a esta ahora son null
     }
 }

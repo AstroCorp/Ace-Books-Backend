@@ -76,6 +76,6 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // el documento es eliminado, además de desaparecer de la base de datos
     }
 }

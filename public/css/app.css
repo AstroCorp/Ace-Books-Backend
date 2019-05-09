@@ -10116,6 +10116,11 @@ form .form-group .custom-checkbox:hover input:not(:checked) ~ .checkmark {
   opacity: 0.5;
 }
 
+.standar-image-cb {
+  height: 300px !important;
+  width: 212px !important;
+}
+
 body {
   min-width: 300px;
 }
@@ -10328,6 +10333,7 @@ span.icon-centered .sidebar-subtitle span {
   color: rgba(255, 255, 255, 0.8);
   text-align: center;
   background-color: rgba(40, 40, 40, 0.7);
+  transition: background 0.4s;
 }
 .library-menu .library-menu-option span {
   font-size: 32px;

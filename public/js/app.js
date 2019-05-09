@@ -1776,8 +1776,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['image'],
+  props: ['image', 'type'],
   data: function data() {
     return {
       url: null
@@ -37209,24 +37214,47 @@ var render = function() {
     { staticClass: "row justify-content-center align-items-center" },
     [
       _c("label", { attrs: { for: "image-upload" } }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "rounded-circle d-flex align-items-center justify-content-center",
-            attrs: { id: "preview" }
-          },
-          [
-            _vm.url
-              ? _c("img", {
-                  staticClass: "img-fluid rounded-circle",
-                  attrs: { src: _vm.url }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            _vm._m(0)
-          ]
-        )
+        _vm.type === "profile"
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "rounded-circle d-flex align-items-center justify-content-center",
+                attrs: { id: "preview" }
+              },
+              [
+                _vm.url
+                  ? _c("img", {
+                      staticClass: "img-fluid rounded-circle",
+                      attrs: { src: _vm.url }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._m(0)
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.type === "library"
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "standar-image-cb d-flex align-items-center justify-content-center",
+                attrs: { id: "preview" }
+              },
+              [
+                _vm.url
+                  ? _c("img", {
+                      staticClass: "standar-image-cb",
+                      attrs: { src: _vm.url }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._m(1)
+              ]
+            )
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("input", {
@@ -37238,6 +37266,14 @@ var render = function() {
   )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "edit" }, [
+      _c("span", { staticClass: "icon-centered icon-camera" })
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

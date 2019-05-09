@@ -1,8 +1,13 @@
 <template>
     <div class="row justify-content-center align-items-center">
         <label for="image-upload">
-            <div id="preview" class="rounded-circle d-flex align-items-center justify-content-center">
+            <div v-if="type === 'profile'" id="preview" class="rounded-circle d-flex align-items-center justify-content-center">
                 <img class="img-fluid rounded-circle" v-if="url" :src="url" />
+                <div class="edit"><span class="icon-centered icon-camera"></span></div>
+            </div>
+
+            <div v-if="type === 'library'" id="preview" class="standar-image-cb d-flex align-items-center justify-content-center">
+                <img class="standar-image-cb" v-if="url" :src="url" />
                 <div class="edit"><span class="icon-centered icon-camera"></span></div>
             </div>
         </label>
@@ -15,7 +20,8 @@
     export default
     {
         props: [
-            'image'
+            'image',
+            'type'
         ],
         data()
         {

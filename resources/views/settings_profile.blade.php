@@ -13,14 +13,13 @@
                 @endif
 
                 <div class="form-group col-8 p-0">
-                    <input-file-with-image-preview image="{{ asset('images/profiles/'.Auth::user()->user_image) }}" />
-
-                    
-                </div>@if ($errors->has('image'))
+                    <input-file-with-image-preview image="{{ asset('images/profiles/'.Auth::user()->user_image) }}" type="profile" />                 
+                </div>
+                @if ($errors->has('image'))
                     <span class="alert d-block mt-1 alert-danger" role="alert">
                         <strong>{{ $errors->first('image') }}</strong>
                     </span>
-                    @endif
+                @endif
 
                 <div class="form-group col-8 p-0">
                     <input type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"

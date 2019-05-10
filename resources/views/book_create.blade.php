@@ -7,6 +7,10 @@
             <div class="card-header">{{trans("books.create")}}</div>
             <div class="card-body">
                 <form class="row justify-content-center" method="POST" action="{{ route('book.store') }}" enctype="multipart/form-data">
+                    <div class="form-group col-10 p-0 text-center mb-3">
+                        <input name="book" id="image-upload" type="file" />
+                    </div>
+                    
                     <div class="form-group col-10 p-0">
                         <input-file-with-image-preview image="{{ asset('images/null.png') }}" type="library" />                 
                     </div>
@@ -37,6 +41,27 @@
                         </span>
                         @endif
                     </div>
+
+                    <div class="form-group col-10 p-0">
+                    <select id="collection" class="form-control{{ $errors->has('collection') ? ' is-invalid' : '' }}" name="collection" required>
+                        <option disabled selected hidden>{{ trans('books.input_collection') }}</option>
+                        @foreach ($collections as $collection)
+                            <option value="{{ $collection->id }}">{{ trans($collection->name) }}</option>
+                        @endforeach
+                    </select>
+
+                    @if ($errors->has('collection'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('collection') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group col-12 m-0 p-0 text-center">
+                    <button type="submit" class="form-btn">
+                        {{trans("books.create")}}
+                    </button>
+                </div>
                 </form>
             </div>
         </div>

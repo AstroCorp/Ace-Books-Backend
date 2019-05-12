@@ -8,11 +8,11 @@
             <div class="card-body">
                 <form class="row justify-content-center" method="POST" action="{{ route('book.store') }}" enctype="multipart/form-data">
                     <div class="form-group col-10 p-0 text-center mb-3">
-                        <input name="book" id="image-upload" type="file" />
+                        <input-file-custom button-text="{{trans('books.select_book')}}"/>
                     </div>
-                    
+
                     <div class="form-group col-10 p-0">
-                        <input-file-with-image-preview image="{{ asset('images/null.png') }}" type="library" />                 
+                        <input-file-with-image-preview text-input="{{ trans('books.input_img') }}" type="library" />
                     </div>
                     @if ($errors->has('image'))
                         <span class="alert d-block mt-1 alert-danger" role="alert">
@@ -33,7 +33,7 @@
 
                     <div class="form-group col-10 p-0">
                         <input type="text" id="description" name="description" placeholder="{{ trans('books.input_description') }}"
-                        class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" required>
+                        class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}">
 
                         @if ($errors->has('description'))
                         <span class="alert d-block mt-1 alert-danger" role="alert">
@@ -42,26 +42,26 @@
                         @endif
                     </div>
 
-                    <div class="form-group col-10 p-0">
-                    <select id="collection" class="form-control{{ $errors->has('collection') ? ' is-invalid' : '' }}" name="collection" required>
-                        <option disabled selected hidden>{{ trans('books.input_collection') }}</option>
-                        @foreach ($collections as $collection)
-                            <option value="{{ $collection->id }}">{{ trans($collection->name) }}</option>
-                        @endforeach
-                    </select>
+                    <div class="form-group col-10 p-0 {{ count($collections) === 0 ? ' hidden' : '' }}">
+                        <select id="collection" class="form-control{{ $errors->has('collection') ? ' is-invalid' : '' }}" name="collection">
+                            <option disabled selected hidden>{{ trans('books.input_collection') }}</option>
+                            @foreach ($collections as $collection)
+                                <option value="{{ $collection->id }}">{{ trans($collection->name) }}</option>
+                            @endforeach
+                        </select>
 
-                    @if ($errors->has('collection'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('collection') }}</strong>
-                        </span>
-                    @endif
-                </div>
+                        @if ($errors->has('collection'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('collection') }}</strong>
+                            </span>
+                        @endif
+                    </div>
 
-                <div class="form-group col-12 m-0 p-0 text-center">
-                    <button type="submit" class="form-btn">
-                        {{trans("books.create")}}
-                    </button>
-                </div>
+                    <div class="form-group col-12 m-0 p-0 text-center">
+                        <button type="submit" class="form-btn">
+                            {{trans("books.create")}}
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

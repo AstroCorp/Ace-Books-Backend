@@ -7,6 +7,7 @@
             </div>
 
             <div v-if="type === 'library'" id="preview" class="standar-image-cb d-flex align-items-center justify-content-center">
+                <div class="" v-if="!url">{{ textInput }}</div>
                 <img class="standar-image-cb" v-if="url" :src="url" />
                 <div class="edit"><span class="icon-centered icon-camera"></span></div>
             </div>
@@ -21,7 +22,9 @@
     {
         props: [
             'image',
-            'type'
+            'type',
+
+            'textInput'
         ],
         data()
         {
@@ -41,5 +44,5 @@
                 this.url = URL.createObjectURL(image);
             }
         }
-    }  
+    }
 </script>

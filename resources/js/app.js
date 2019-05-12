@@ -24,6 +24,7 @@ window.Vue = require('vue');
 Vue.component('library-list', require('./components/LibraryListComponent.vue').default);
 Vue.component('library-menu', require('./components/LibraryMenuComponent.vue').default);
 Vue.component('input-file-with-image-preview', require('./components/InputFileWithImagePreviewComponent.vue').default);
+Vue.component('input-file-custom', require('./components/InputFileCustomComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

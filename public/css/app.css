@@ -10119,6 +10119,7 @@ form .form-group .custom-checkbox:hover input:not(:checked) ~ .checkmark {
 .standar-image-cb {
   height: 300px !important;
   width: 212px !important;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 body {
@@ -10168,6 +10169,10 @@ main .cont {
   main .cont {
     margin-top: 0px;
   }
+}
+
+.hidden {
+  display: none;
 }
 
 span.icon-centered {

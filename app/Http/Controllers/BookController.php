@@ -13,7 +13,7 @@ class BookController extends Controller
         $this->middleware('verified'); // E-Mail verificado
         $this->middleware('checkAddBook')->only(['create', 'store']); // Límite de la tarifa
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *

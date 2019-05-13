@@ -2,8 +2,8 @@
     <div class="row justify-content-center align-items-center">
         <label for="file-upload">
             <div class="d-flex align-items-center justify-content-center">
-                <div>{{ buttonText }}</div>
-                <div>{{ fileName }}</div>
+                <span class="form-btn">{{ buttonText }}</span>
+                <span v-if="fileName" class="ml-2">{{ fileName }}</span>
             </div>
         </label>
 

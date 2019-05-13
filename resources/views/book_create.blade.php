@@ -21,7 +21,7 @@
                     @endif
 
                     <div class="form-group col-10 p-0">
-                        <input type="text" id="name" name="name" placeholder="{{ trans('books.input_name') }}"
+                        <input type="text" id="name" name="name" placeholder="*{{ trans('books.input_name') }}"
                         class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" required>
 
                         @if ($errors->has('name'))

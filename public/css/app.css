@@ -9998,6 +9998,7 @@ form .form-group .form-btn {
   background-color: rgba(8, 15, 1, 0.25);
   color: rgba(255, 255, 255, 0.8);
   padding: 5px;
+  cursor: pointer;
   transition: background 0.4s;
 }
 form .form-group .form-btn:hover {

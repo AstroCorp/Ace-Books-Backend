@@ -37257,9 +37257,15 @@ var render = function() {
           "div",
           { staticClass: "d-flex align-items-center justify-content-center" },
           [
-            _c("div", [_vm._v(_vm._s(_vm.buttonText))]),
+            _c("span", { staticClass: "form-btn" }, [
+              _vm._v(_vm._s(_vm.buttonText))
+            ]),
             _vm._v(" "),
-            _c("div", [_vm._v(_vm._s(_vm.fileName))])
+            _vm.fileName
+              ? _c("span", { staticClass: "ml-2" }, [
+                  _vm._v(_vm._s(_vm.fileName))
+                ])
+              : _vm._e()
           ]
         )
       ]),
@@ -50167,8 +50173,8 @@ window.onload = function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\AceBooks\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\AceBooks\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/alejandro/Documentos/github/AceBooks/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/alejandro/Documentos/github/AceBooks/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

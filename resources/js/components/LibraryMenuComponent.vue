@@ -13,8 +13,8 @@
                     <input class="form-control" type="text" name="search" v-model="search" :placeholder="searchText">
                 </div>
 
-                <a class="col-8 library-menu-option p-2 m-2" href="book/create"><span class="mb-2 icon-centered icon-open-collection"></span>{{addCollectionText}}</a>
-                <a class="col-8 library-menu-option p-2 m-2" href="collection/create"><span class="mb-2 icon-centered icon-open-book"></span>{{addBookText}}</a>
+                <a class="col-8 library-menu-option p-2 m-2" href="book/create"><span class="mb-2 icon-centered icon-open-book"></span>{{addBookText}}</a>
+                <a class="col-8 library-menu-option p-2 m-2" href="collection/create"><span class="mb-2 icon-centered icon-open-collection"></span>{{addCollectionText}}</a>
             </form>
         </div>
     </div>

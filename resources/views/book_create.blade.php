@@ -11,7 +11,7 @@
 
                     @if(session('status'))
                         <div class="alert d-block alert-success col-8" role="alert">
-                            <strong>{{ trans("books.message_success") }}</strong>
+                            <strong>{{ trans("books.message_success1") }}</strong>
                         </div>
                     @endif
 
@@ -58,8 +58,9 @@
                     <div class="form-group col-10 p-0 {{ count($collections) === 0 ? ' hidden' : '' }}">
                         <select id="collection" class="form-control{{ $errors->has('collection') ? ' is-invalid' : '' }}" name="collection">
                             <option disabled selected hidden>{{ trans('books.input_collection') }}</option>
+                            <option value="">{{ trans('books.collectionNull') }}</option>
                             @foreach ($collections as $collection)
-                                <option value="{{ $collection->id }}">{{ trans($collection->name) }}</option>
+                                <option value="{{ $collection->id }}">{{ $collection->name }}</option>
                             @endforeach
                         </select>
 

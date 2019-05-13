@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Book;
+use App\Rules\CheckCollection;
+use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
@@ -34,7 +37,45 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'file' => ['required', 'file', 'mimetypes:application/pdf', 'max:'.$request->user()->storage->size_books],
+            'image' => ['image', 'max:2000'], // 2 MB 
+            'name' => ['required', 'string'],
+            'description' => ['nullable', 'string'],
+            'collection' => ['nullable', 'integer', new CheckCollection]
+        ]);
+
+        $book = new Book();
+        
+        $book->user_id = $request->user()->id;
+        $book->collection_id = $request->input('collection');
+        $book->name = $request->input('name');
+        $book->description = $request->input('description');
+
+        $request->user()->n_books += 1;
+
+        // Subida de imagen
+        if($request->hasFile('image'))
+        {
+            $image = $request->file('image');
+        
+            $imageName = Str::uuid().".".$image->getClientOriginalExtension();
+            $image->move(public_path().'/images/books/', $imageName);
+
+            $book->image = $imageName;
+        }
+
+        // Subida de archivo
+        $file = $request->file('file');
+        
+        $fileName = Str::uuid().".".$file->getClientOriginalExtension();
+        $file->move(public_path().'/books/', $fileName);
+
+        $book->fileName = $fileName;
+
+        $book->save();
+
+        return redirect()->route('book.create')->with('status', true);
     }
 
     /**

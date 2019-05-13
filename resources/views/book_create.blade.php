@@ -7,9 +7,22 @@
             <div class="card-header">{{trans("books.create")}}</div>
             <div class="card-body">
                 <form class="row justify-content-center" method="POST" action="{{ route('book.store') }}" enctype="multipart/form-data">
+                    @csrf
+
+                    @if(session('status'))
+                        <div class="alert d-block alert-success col-8" role="alert">
+                            <strong>{{ trans("books.message_success") }}</strong>
+                        </div>
+                    @endif
+
                     <div class="form-group col-10 p-0 text-center mb-3">
                         <input-file-custom button-text="{{trans('books.select_book')}}"/>
                     </div>
+                    @if ($errors->has('file'))
+                        <span class="alert d-block mt-1 alert-danger" role="alert">
+                            <strong>{{ $errors->first('file') }}</strong>
+                        </span>
+                    @endif
 
                     <div class="form-group col-10 p-0">
                         <input-file-with-image-preview text-input="{{ trans('books.input_img') }}" type="library" />

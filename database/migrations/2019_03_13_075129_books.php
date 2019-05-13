@@ -21,6 +21,7 @@ class Books extends Migration
             $table->string('name');
             $table->string('image')->nullable();
             $table->string('description')->nullable();
+            $table->string('filename');
             $table->boolean('share')->default(false);
             $table->string('share_password')->nullable();
             $table->timestamps();

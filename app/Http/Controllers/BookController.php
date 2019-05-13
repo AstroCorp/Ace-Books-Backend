@@ -123,5 +123,6 @@ class BookController extends Controller
     {
         // el documento es eliminado, además de desaparecer de la base de datos
         // unlink(public_path().'/images/profiles/2.jpg');
+        dd('hello');
     }
 }

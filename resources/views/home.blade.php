@@ -10,9 +10,6 @@
         @endif
 
         <library-menu
-            create-collection-url="{{ route('collection.create') }}"
-            create-book-url="{{ route('book.create') }}"
-
             search-text="{{trans('library.search')}}"
             add-collection-text="{{trans('library.add_collection')}}"
             add-book-text="{{trans('library.add_book')}}"

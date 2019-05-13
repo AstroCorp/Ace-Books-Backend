@@ -10,8 +10,8 @@
                 </div>
                 <div class="d-flex justify-content-around">
                     <a href="#"><span class="rounded-circle icon-centered icon-delete"></span></a>
-                    <a href="#"><span class="rounded-circle icon-centered icon-edit"></span></a>
-                    <a href="#"><span class="rounded-circle icon-centered icon-open-collection"></span></a>
+                    <a :href="'collection/' + collection.id + '/edit'"><span class="rounded-circle icon-centered icon-edit"></span></a>
+                    <a :href="'collection/' + collection.id"><span class="rounded-circle icon-centered icon-open-collection"></span></a>
                 </div>
             </div>
         </div>
@@ -26,8 +26,8 @@
                 </div>
                 <div class="d-flex justify-content-around">
                     <a href="#"><span class="rounded-circle icon-centered icon-delete"></span></a>
-                    <a href="#"><span class="rounded-circle icon-centered icon-edit"></span></a>
-                    <a href="#"><span class="rounded-circle icon-centered icon-open-book"></span></a>
+                    <a :href="'book/' + book.id + '/edit'"><span class="rounded-circle icon-centered icon-edit"></span></a>
+                    <a :href="'book/' + book.id"><span class="rounded-circle icon-centered icon-open-book"></span></a>
                 </div>
             </div>
         </div>

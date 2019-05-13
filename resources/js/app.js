@@ -20,7 +20,6 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-
 Vue.component('library-list', require('./components/LibraryListComponent.vue').default);
 Vue.component('library-menu', require('./components/LibraryMenuComponent.vue').default);
 Vue.component('input-file-with-image-preview', require('./components/InputFileWithImagePreviewComponent.vue').default);

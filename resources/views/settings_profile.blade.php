@@ -16,7 +16,7 @@
                     <input-file-with-image-preview image="{{ asset('images/profiles/'.Auth::user()->user_image) }}" type="profile" />
                 </div>
                 @if ($errors->has('image'))
-                    <span class="alert d-block mt-1 alert-danger" role="alert">
+                    <span class="col-8 alert d-block mt-1 alert-danger" role="alert">
                         <strong>{{ $errors->first('image') }}</strong>
                     </span>
                 @endif

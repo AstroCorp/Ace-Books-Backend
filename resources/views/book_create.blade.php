@@ -19,7 +19,7 @@
                         <input-file-custom button-text="{{trans('books.select_book')}}"/>
                     </div>
                     @if ($errors->has('file'))
-                        <span class="alert d-block mt-1 alert-danger" role="alert">
+                        <span class="col-10 alert d-block mt-1 alert-danger" role="alert">
                             <strong>{{ $errors->first('file') }}</strong>
                         </span>
                     @endif
@@ -28,7 +28,7 @@
                         <input-file-with-image-preview text-input="{{ trans('books.input_img') }}" type="library" />
                     </div>
                     @if ($errors->has('image'))
-                        <span class="alert d-block mt-1 alert-danger" role="alert">
+                        <span class="col-10 alert d-block mt-1 alert-danger" role="alert">
                             <strong>{{ $errors->first('image') }}</strong>
                         </span>
                     @endif

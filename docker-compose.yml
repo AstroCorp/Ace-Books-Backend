@@ -1,0 +1,56 @@
+version: '2'
+services:
+  app:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    volumes:
+     - .:/var/www/html
+    ports:
+     - 80:80
+    networks:
+     - sdnet
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+     - ./docker/mysql:/var/lib/mysql
+    ports:
+     - 3306:3306
+    networks:
+     - sdnet
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+     - PMA_USER=root
+     - PMA_PASSWORD=secret
+     - PMA_HOST=mysql
+    ports:
+     - 8080:80
+    volumes:
+     - ./docker/phpmyadmin:/sessions
+    networks:
+     - sdnet
+
+  redis:
+    image: redis:alpine
+    networks:
+     - sdnet
+  phpredisadmin:
+    image: faktiva/php-redis-admin
+    environment:
+      - PHPREDMIN_DATABASE_REDIS_0_HOST=redis
+    ports:
+     - 9000:80
+    networks:
+     - sdnet
+networks:
+  sdnet:
+    driver: "bridge"

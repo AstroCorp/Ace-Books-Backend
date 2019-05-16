@@ -42,3 +42,10 @@ Route::prefix('settings')->group(function()
 });
 
 Route::get('/cpanel', 'UserController@index')->name('cpanel');
+
+Route::get('/phpinfo', function()
+{
+    phpinfo();
+});
+
+Route::get('/test', 'StaticController@test');

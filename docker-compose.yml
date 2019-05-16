@@ -20,7 +20,7 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
-     - ./docker/mysql:/var/lib/mysql
+     - .\docker\mysql:/var/lib/mysql
     ports:
      - 3306:3306
     networks:
@@ -35,7 +35,7 @@ services:
     ports:
      - 8080:80
     volumes:
-     - ./docker/phpmyadmin:/sessions
+     - .\docker\phpmyadmin:/sessions
     networks:
      - sdnet
 

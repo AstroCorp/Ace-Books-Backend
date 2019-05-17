@@ -14,7 +14,7 @@ RUN apt-get update \
     && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
     && add-apt-repository universe \
     && apt-get update \
-    && apt-get install -y jpegoptim optipng pngquant gifsicle libpng-dev \
+    && apt-get install -y jpegoptim optipng pngquant gifsicle libpng-dev nano \
     && apt-get install -y nodejs \
     && npm install -g svgo yarn \
     && apt-get install -y php7.3-fpm php7.3-cli php7.3-gd php7.3-mysql php7.3-gmp \

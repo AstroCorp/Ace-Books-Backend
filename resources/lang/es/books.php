@@ -16,4 +16,5 @@ return [
     'input_description' => 'Descripción',
     'input_collection' => 'Seleccionar colección',
     'collectionNull' => 'Sin colección',
+    'image_info' => '*Se recomiendo usar el siguiente tamaño, alto: 300px | ancho: 212px',
 ];

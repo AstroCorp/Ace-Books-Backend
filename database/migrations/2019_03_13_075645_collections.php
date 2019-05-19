@@ -18,7 +18,7 @@ class Collections extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('name');
-            $table->string('image')->default('collection_default.png');
+            $table->string('image')->nullable();
             $table->string('description')->nullable();
             $table->boolean('share')->default(false);
             $table->string('share_password')->nullable();

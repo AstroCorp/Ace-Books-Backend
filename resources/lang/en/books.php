@@ -16,4 +16,5 @@ return [
     'input_description' => 'Description',
     'input_collection' => 'Select collection',
     'collectionNull' => 'Without collection',
+    'image_info' => '*It is recommended to use the following size, height: 300px | width: 212px',
 ];

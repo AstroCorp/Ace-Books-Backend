@@ -27,6 +27,9 @@
                     <div class="form-group col-10 p-0">
                         <input-file-with-image-preview text-input="{{ trans('books.input_img') }}" type="library" />
                     </div>
+                    <div class="alert d-block alert-info col-8" role="alert">
+                        <strong>{{ trans("books.image_info") }}</strong>
+                    </div>
                     @if ($errors->has('image'))
                         <span class="col-10 alert d-block mt-1 alert-danger" role="alert">
                             <strong>{{ $errors->first('image') }}</strong>
@@ -34,7 +37,7 @@
                     @endif
 
                     <div class="form-group col-10 p-0">
-                        <input type="text" id="name" name="name" placeholder="{{ trans('books.input_name') }}*"
+                        <input type="text" id="name" name="name" placeholder="* {{ trans('books.input_name') }}"
                         class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" required>
 
                         @if ($errors->has('name'))

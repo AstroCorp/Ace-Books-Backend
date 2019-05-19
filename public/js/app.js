@@ -1885,6 +1885,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['collections', 'books']
 });
@@ -37346,7 +37348,7 @@ var render = function() {
               },
               [
                 !_vm.url
-                  ? _c("div", {}, [_vm._v(_vm._s(_vm.textInput))])
+                  ? _c("div", [_vm._v(_vm._s(_vm.textInput))])
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.url
@@ -37422,9 +37424,13 @@ var render = function() {
                 "flip-1 d-flex align-items-center justify-content-center"
             },
             [
-              _c("img", {
-                attrs: { src: "/images/collections/" + collection.image }
-              })
+              collection.image
+                ? _c("img", {
+                    attrs: { src: "/images/collections/" + collection.image }
+                  })
+                : _c("img", {
+                    attrs: { src: "/images/collections/collection_default.png" }
+                  })
             ]
           ),
           _vm._v(" "),
@@ -37470,7 +37476,13 @@ var render = function() {
               staticClass:
                 "flip-1 d-flex align-items-center justify-content-center"
             },
-            [_c("img", { attrs: { src: "/images/books/" + book.image } })]
+            [
+              book.image
+                ? _c("img", { attrs: { src: "/images/books/" + book.image } })
+                : _c("img", {
+                    attrs: { src: "/images/books/book_default.png" }
+                  })
+            ]
           ),
           _vm._v(" "),
           _c("div", { staticClass: "flip-2" }, [

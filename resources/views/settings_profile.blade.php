@@ -15,6 +15,9 @@
                 <div class="form-group col-8 p-0">
                     <input-file-with-image-preview image="{{ asset('images/profiles/'.Auth::user()->user_image) }}" type="profile" />
                 </div>
+                <div class="alert d-block alert-info col-8" role="alert">
+                    <strong>{{ trans("settings.image_info") }}</strong>
+                </div>
                 @if ($errors->has('image'))
                     <span class="col-8 alert d-block mt-1 alert-danger" role="alert">
                         <strong>{{ $errors->first('image') }}</strong>

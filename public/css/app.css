@@ -10176,6 +10176,10 @@ main .cont {
   display: none;
 }
 
+.alert {
+  text-align: center;
+}
+
 span.icon-centered {
   display: flex;
   flex-direction: column;

@@ -6444,7 +6444,7 @@ function isSlowBuffer (obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jQuery JavaScript Library v3.4.0
+ * jQuery JavaScript Library v3.4.1
  * https://jquery.com/
  *
  * Includes Sizzle.js
@@ -6454,7 +6454,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2019-04-10T19:48Z
+ * Date: 2019-05-01T21:04Z
  */
 ( function( global, factory ) {
 
@@ -6587,7 +6587,7 @@ function toType( obj ) {
 
 
 var
-	version = "3.4.0",
+	version = "3.4.1",
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
@@ -10943,8 +10943,12 @@ var documentElement = document.documentElement;
 		},
 		composed = { composed: true };
 
+	// Support: IE 9 - 11+, Edge 12 - 18+, iOS 10.0 - 10.2 only
 	// Check attachment across shadow DOM boundaries when possible (gh-3504)
-	if ( documentElement.attachShadow ) {
+	// Support: iOS 10.0-10.2 only
+	// Early iOS 10 versions support `attachShadow` but not `getRootNode`,
+	// leading to errors. We need to check for `getRootNode`.
+	if ( documentElement.getRootNode ) {
 		isAttached = function( elem ) {
 			return jQuery.contains( elem.ownerDocument, elem ) ||
 				elem.getRootNode( composed ) === elem.ownerDocument;
@@ -11804,8 +11808,7 @@ jQuery.event = {
 
 				// Claim the first handler
 				if ( rcheckableType.test( el.type ) &&
-					el.click && nodeName( el, "input" ) &&
-					dataPriv.get( el, "click" ) === undefined ) {
+					el.click && nodeName( el, "input" ) ) {
 
 					// dataPriv.set( el, "click", ... )
 					leverageNative( el, "click", returnTrue );
@@ -11822,8 +11825,7 @@ jQuery.event = {
 
 				// Force setup before triggering a click
 				if ( rcheckableType.test( el.type ) &&
-					el.click && nodeName( el, "input" ) &&
-					dataPriv.get( el, "click" ) === undefined ) {
+					el.click && nodeName( el, "input" ) ) {
 
 					leverageNative( el, "click" );
 				}
@@ -11864,7 +11866,9 @@ function leverageNative( el, type, expectSync ) {
 
 	// Missing expectSync indicates a trigger call, which must force setup through jQuery.event.add
 	if ( !expectSync ) {
-		jQuery.event.add( el, type, returnTrue );
+		if ( dataPriv.get( el, type ) === undefined ) {
+			jQuery.event.add( el, type, returnTrue );
+		}
 		return;
 	}
 
@@ -11879,9 +11883,13 @@ function leverageNative( el, type, expectSync ) {
 			if ( ( event.isTrigger & 1 ) && this[ type ] ) {
 
 				// Interrupt processing of the outer synthetic .trigger()ed event
-				if ( !saved ) {
+				// Saved data should be false in such cases, but might be a leftover capture object
+				// from an async native handler (gh-4350)
+				if ( !saved.length ) {
 
 					// Store arguments for use when handling the inner native event
+					// There will always be at least one argument (an event object), so this array
+					// will not be confused with a leftover capture object.
 					saved = slice.call( arguments );
 					dataPriv.set( this, type, saved );
 
@@ -11894,14 +11902,14 @@ function leverageNative( el, type, expectSync ) {
 					if ( saved !== result || notAsync ) {
 						dataPriv.set( this, type, false );
 					} else {
-						result = undefined;
+						result = {};
 					}
 					if ( saved !== result ) {
 
 						// Cancel the outer synthetic event
 						event.stopImmediatePropagation();
 						event.preventDefault();
-						return result;
+						return result.value;
 					}
 
 				// If this is an inner synthetic event for an event with a bubbling surrogate
@@ -11916,17 +11924,19 @@ function leverageNative( el, type, expectSync ) {
 
 			// If this is a native event triggered above, everything is now in order
 			// Fire an inner synthetic event with the original arguments
-			} else if ( saved ) {
+			} else if ( saved.length ) {
 
 				// ...and capture the result
-				dataPriv.set( this, type, jQuery.event.trigger(
+				dataPriv.set( this, type, {
+					value: jQuery.event.trigger(
 
-					// Support: IE <=9 - 11+
-					// Extend with the prototype to reset the above stopImmediatePropagation()
-					jQuery.extend( saved.shift(), jQuery.Event.prototype ),
-					saved,
-					this
-				) );
+						// Support: IE <=9 - 11+
+						// Extend with the prototype to reset the above stopImmediatePropagation()
+						jQuery.extend( saved[ 0 ], jQuery.Event.prototype ),
+						saved.slice( 1 ),
+						this
+					)
+				} );
 
 				// Abort handling of the native event
 				event.stopImmediatePropagation();
@@ -37405,17 +37415,31 @@ var render = function() {
     [
       _vm._l(_vm.collections, function(collection, key) {
         return _c("div", { key: "c" + key, staticClass: "flip col m-2" }, [
-          _c("div", { staticClass: "flip-1 d-flex align-items-center" }, [
-            _c("div", { staticClass: "titulo" }, [
-              _vm._v(_vm._s(collection.name))
-            ])
-          ]),
+          _c(
+            "div",
+            {
+              staticClass:
+                "flip-1 d-flex align-items-center justify-content-center"
+            },
+            [
+              _c("img", {
+                attrs: { src: "/images/collections/" + collection.image }
+              })
+            ]
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "flip-2" }, [
-            _vm._m(0, true),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flip-content d-flex justify-content-center align-items-center p-2 text-center"
+              },
+              [_c("div", [_vm._v(_vm._s(collection.name))])]
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "d-flex justify-content-around" }, [
-              _vm._m(1, true),
+              _vm._m(0, true),
               _vm._v(" "),
               _c(
                 "a",
@@ -37440,15 +37464,27 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.books, function(book, key) {
         return _c("div", { key: "b" + key, staticClass: "flip col m-2" }, [
-          _c("div", { staticClass: "flip-1 d-flex align-items-center" }, [
-            _c("div", { staticClass: "titulo" }, [_vm._v(_vm._s(book.name))])
-          ]),
+          _c(
+            "div",
+            {
+              staticClass:
+                "flip-1 d-flex align-items-center justify-content-center"
+            },
+            [_c("img", { attrs: { src: "/images/books/" + book.image } })]
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "flip-2" }, [
-            _vm._m(2, true),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flip-content d-flex justify-content-center align-items-center p-2 text-center"
+              },
+              [_c("div", [_vm._v(_vm._s(book.name))])]
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "d-flex justify-content-around" }, [
-              _vm._m(3, true),
+              _vm._m(1, true),
               _vm._v(" "),
               _c("a", { attrs: { href: "book/" + book.id + "/edit" } }, [
                 _c("span", {
@@ -37474,35 +37510,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "flip-content d-flex justify-content-center align-items-center"
-      },
-      [_c("div", [_vm._v("Texto")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
       _c("span", { staticClass: "rounded-circle icon-centered icon-delete" })
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "flip-content d-flex justify-content-center align-items-center"
-      },
-      [_c("div", [_vm._v("Texto")])]
-    )
   },
   function() {
     var _vm = this

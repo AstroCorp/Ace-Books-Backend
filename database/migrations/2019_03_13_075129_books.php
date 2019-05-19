@@ -19,7 +19,7 @@ class Books extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('collection_id')->unsigned()->nullable();
             $table->string('name');
-            $table->string('image')->nullable();
+            $table->string('image')->default('book_default.png');
             $table->string('description')->nullable();
             $table->string('filename');
             $table->boolean('share')->default(false);

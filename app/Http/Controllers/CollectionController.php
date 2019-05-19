@@ -11,8 +11,9 @@ class CollectionController extends Controller
         $this->middleware('auth');
         $this->middleware('verified'); // E-Mail verificado
         $this->middleware('checkAddCollection')->only(['create', 'store']); // Límite de la tarifa
+        $this->middleware('checkCollectionOwner')->except(['create', 'store']); // Esto limita el acceso solo al dueño
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *

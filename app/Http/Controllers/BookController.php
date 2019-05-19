@@ -15,7 +15,7 @@ class BookController extends Controller
         $this->middleware('auth');
         $this->middleware('verified'); // E-Mail verificado
         $this->middleware('checkAddBook')->only(['create', 'store']); // Límite de la tarifa
-        $this->middleware('checkBookOwner'); // Esto limita el acceso solo al dueño
+        $this->middleware('checkBookOwner')->except(['create', 'store']); // Esto limita el acceso solo al dueño
     }
 
     /**

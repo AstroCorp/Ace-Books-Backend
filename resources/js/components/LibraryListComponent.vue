@@ -10,7 +10,7 @@
                     <div>{{ collection.name }}</div>
                 </div>
                 <div class="d-flex justify-content-around">
-                    <a href="#"><span class="rounded-circle icon-centered icon-delete"></span></a>
+                    <a href="#" data-toggle="modal" data-target="#modalCenter" v-on:click="selectToRemove(collection.id, 'collection')"><span class="rounded-circle icon-centered icon-delete"></span></a>
                     <a :href="'collection/' + collection.id + '/edit'"><span class="rounded-circle icon-centered icon-edit"></span></a>
                     <a :href="'collection/' + collection.id"><span class="rounded-circle icon-centered icon-open-collection"></span></a>
                 </div>
@@ -27,11 +27,36 @@
                     <div>{{ book.name }}</div>
                 </div>
                 <div class="d-flex justify-content-around">
-                    <a href="#"><span class="rounded-circle icon-centered icon-delete"></span></a>
+                    <a href="#" data-toggle="modal" data-target="#modalCenter" v-on:click="selectToRemove(book.id, 'book')"><span class="rounded-circle icon-centered icon-delete"></span></a>
                     <a :href="'book/' + book.id + '/edit'"><span class="rounded-circle icon-centered icon-edit"></span></a>
                     <a :href="'book/' + book.id"><span class="rounded-circle icon-centered icon-open-book"></span></a>
                 </div>
             </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="ModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form method="POST" :action="type + '/' + id">
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <input type="hidden" name="_token" :value="csrf">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
 </template>
@@ -42,6 +67,22 @@
         props: [
             'collections',
             'books'
-        ]
+        ],
+        data()
+        {
+            return {
+                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                id: '',
+                type: '',
+            };
+        },
+        methods:
+        {
+            selectToRemove(id, type)
+            {
+                this.id = id;
+                this.type = type;
+            }
+        }
     }
 </script>

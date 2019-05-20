@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Collection;
 
 class CollectionController extends Controller
 {
@@ -41,7 +42,7 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Collection $collection)
     {
         // listaría los libros que hay dentro
         return view('collection_show');
@@ -53,7 +54,7 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Collection $collection)
     {
         return view('collection_edit');
     }
@@ -65,7 +66,7 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Collection $collection)
     {
         //
     }
@@ -76,7 +77,7 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Collection $collection)
     {
         // además de eliminarla de la base de datos, todos los libros asignadas a esta ahora son null
     }

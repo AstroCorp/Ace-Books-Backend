@@ -146,7 +146,7 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Book $book)
     {
         // el documento es eliminado, además de desaparecer de la base de datos
         // unlink(public_path().'/images/profiles/2.jpg');

@@ -1887,8 +1887,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['collections', 'books']
+  props: ['collections', 'books'],
+  data: function data() {
+    return {
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      id: '',
+      type: ''
+    };
+  },
+  methods: {
+    selectToRemove: function selectToRemove(id, type) {
+      this.id = id;
+      this.type = type;
+    }
+  }
 });
 
 /***/ }),
@@ -37445,7 +37483,26 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("div", { staticClass: "d-flex justify-content-around" }, [
-              _vm._m(0, true),
+              _c(
+                "a",
+                {
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#modalCenter"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.selectToRemove(collection.id, "collection")
+                    }
+                  }
+                },
+                [
+                  _c("span", {
+                    staticClass: "rounded-circle icon-centered icon-delete"
+                  })
+                ]
+              ),
               _vm._v(" "),
               _c(
                 "a",
@@ -37496,7 +37553,26 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("div", { staticClass: "d-flex justify-content-around" }, [
-              _vm._m(1, true),
+              _c(
+                "a",
+                {
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#modalCenter"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.selectToRemove(book.id, "book")
+                    }
+                  }
+                },
+                [
+                  _c("span", {
+                    staticClass: "rounded-circle icon-centered icon-delete"
+                  })
+                ]
+              ),
               _vm._v(" "),
               _c("a", { attrs: { href: "book/" + book.id + "/edit" } }, [
                 _c("span", {
@@ -37512,7 +37588,80 @@ var render = function() {
             ])
           ])
         ])
-      })
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "modalCenter",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "ModalCenterTitle",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "modal-dialog modal-dialog-centered",
+              attrs: { role: "document" }
+            },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _vm._v("\n            ...\n          ")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", "data-dismiss": "modal" }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    {
+                      attrs: { method: "POST", action: _vm.type + "/" + _vm.id }
+                    },
+                    [
+                      _c("input", {
+                        attrs: {
+                          type: "hidden",
+                          name: "_method",
+                          value: "DELETE"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        attrs: { type: "hidden", name: "_token" },
+                        domProps: { value: _vm.csrf }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          attrs: { type: "submit" }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      )
     ],
     2
   )
@@ -37522,16 +37671,25 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#" } }, [
-      _c("span", { staticClass: "rounded-circle icon-centered icon-delete" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#" } }, [
-      _c("span", { staticClass: "rounded-circle icon-centered icon-delete" })
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "ModalLongTitle" } },
+        [_vm._v("Modal title")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   }
 ]

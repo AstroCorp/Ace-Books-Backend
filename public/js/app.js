@@ -1913,17 +1913,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['collections', 'books'],
+  props: ['collections', 'books', 'titleModal', 'bodyModal', 'cancelModal', 'deleteModal'],
   data: function data() {
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       id: '',
+      name: '',
       type: ''
     };
   },
   methods: {
-    selectToRemove: function selectToRemove(id, type) {
+    selectToRemove: function selectToRemove(id, name, type) {
       this.id = id;
+      this.name = name;
       this.type = type;
     }
   }
@@ -1962,8 +1964,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['searchText', 'addCollectionText', 'addBookText'],
+  props: ['searchText', 'addCollectionText', 'addBookText', 'titleModal', 'bodyModal', 'cancelModal', 'deleteModal'],
   data: function data() {
     return {
       isActive: true,
@@ -37493,7 +37496,11 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
-                      return _vm.selectToRemove(collection.id, "collection")
+                      return _vm.selectToRemove(
+                        collection.id,
+                        collection.name,
+                        "collection"
+                      )
                     }
                   }
                 },
@@ -37563,7 +37570,7 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
-                      return _vm.selectToRemove(book.id, "book")
+                      return _vm.selectToRemove(book.id, book.name, "book")
                     }
                   }
                 },
@@ -37614,7 +37621,11 @@ var render = function() {
                 _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
-                  _vm._v("\n            ...\n          ")
+                  _c("p", [
+                    _vm._v(_vm._s(_vm.titleModal) + _vm._s(_vm.name) + "?")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(_vm.bodyModal))])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer" }, [
@@ -37624,7 +37635,7 @@ var render = function() {
                       staticClass: "btn btn-secondary",
                       attrs: { type: "button", "data-dismiss": "modal" }
                     },
-                    [_vm._v("Cancel")]
+                    [_vm._v(_vm._s(_vm.cancelModal))]
                   ),
                   _vm._v(" "),
                   _c(
@@ -37652,7 +37663,7 @@ var render = function() {
                           staticClass: "btn btn-danger",
                           attrs: { type: "submit" }
                         },
-                        [_vm._v("Delete")]
+                        [_vm._v(_vm._s(_vm.deleteModal))]
                       )
                     ]
                   )
@@ -37672,12 +37683,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "ModalLongTitle" } },
-        [_vm._v("Modal title")]
-      ),
-      _vm._v(" "),
       _c(
         "button",
         {
@@ -37718,7 +37723,14 @@ var render = function() {
     "div",
     [
       _c("library-list", {
-        attrs: { collections: _vm.collections, books: _vm.books }
+        attrs: {
+          collections: _vm.collections,
+          books: _vm.books,
+          titleModal: _vm.titleModal,
+          bodyModal: _vm.bodyModal,
+          cancelModal: _vm.cancelModal,
+          deleteModal: _vm.deleteModal
+        }
       }),
       _vm._v(" "),
       _c(

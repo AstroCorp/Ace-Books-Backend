@@ -1,6 +1,7 @@
 <template>
     <div>
-        <library-list :collections="collections" :books="books" />
+        <library-list :collections="collections" :books="books"
+            :titleModal="titleModal" :bodyModal="bodyModal" :cancelModal="cancelModal" :deleteModal="deleteModal"/>
 
         <div :class="{ 'active-library-menu': isActive }" class="library-menu">
 
@@ -26,7 +27,12 @@
         props: [
             'searchText',
             'addCollectionText',
-            'addBookText'
+            'addBookText',
+
+            'titleModal',
+            'bodyModal',
+            'cancelModal',
+            'deleteModal',
         ],
         data()
         {

@@ -143,13 +143,21 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Book $book
      * @return \Illuminate\Http\Response
      */
     public function destroy(Book $book)
     {
-        // el documento es eliminado, además de desaparecer de la base de datos
-        // unlink(public_path().'/images/profiles/2.jpg');
-        dd('hello');
+        // Archivos eliminados, además de desaparecer de la base de datos
+        if($book->image !== null)
+        {
+            unlink(public_path().'/images/books/'.$book->image);
+        }
+
+        unlink(public_path().'/books/'.$book->filename);
+
+        $book->delete();
+
+        return redirect()->route('home')->with(['status' => true, 'type' => 'book', 'name' => $book->name]);
     }
 }

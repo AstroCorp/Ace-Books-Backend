@@ -26,14 +26,14 @@ class BooksAndCollections extends Seeder
         $book1 = new Book();
         $book1->user_id = 2;
         $book1->name = 'Book 1';
-        $book1->filename = 'example.pdf';
+        $book1->filename = 'example1.pdf';
         $book1->save();
 
         $book2 = new Book();
         $book2->user_id = 2;
         $book2->collection_id = 1;
         $book2->name = 'Book 2';
-        $book2->filename = 'example.pdf';
+        $book2->filename = 'example2.pdf';
         $book2->save();
 
         $user = auth()->loginUsingId(2);

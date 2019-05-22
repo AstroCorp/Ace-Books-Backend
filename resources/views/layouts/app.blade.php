@@ -124,7 +124,7 @@
                 @if ($logo)
                     <div class="row m-0 my-3 d-none d-sm-block">
                         <div class="col-12 p-0 text-center text-md-right">
-                            <div id="logo" class="mx-3"></div>
+                            <a href="/" id="logo" class="mx-3"></a>
                         </div>
                     </div>
                 @endif

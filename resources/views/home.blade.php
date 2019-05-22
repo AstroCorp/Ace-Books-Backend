@@ -31,6 +31,7 @@
                 </button>
               </div>
               <div class="modal-body">
+                <img class="mb-3" src="./images/true.png">
                 <p>{{ session('type') === 'book' ? trans('library.modal_message_book', ['name' => session('name')]) : trans('library.modal_message_collection', ['name' => session('name')]) }}</p>
               </div>
               <div class="modal-footer">

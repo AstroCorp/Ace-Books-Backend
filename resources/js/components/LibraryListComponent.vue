@@ -44,7 +44,8 @@
                 </button>
               </div>
               <div class="modal-body">
-                <p>{{titleModal}}{{name}}?</p>
+                <img class="mb-3" v-bind:src="'./images/false.png'">
+                <h2>{{titleModal}}{{name}}?</h2>
                 <p>{{bodyModal}}</p>
               </div>
               <div class="modal-footer">

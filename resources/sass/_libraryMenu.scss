@@ -1,5 +1,5 @@
 .library-menu {
-    background-color: $white_1;
+    background-color: $white_2;
     position: fixed;
     bottom: 0;
     left: calc(50% - 150px);
@@ -14,7 +14,7 @@
         padding: 8px;
         top: -40px;
         left: calc(50% - 21px);
-        background-color: $white_1;
+        background-color: $white_2;
     }
 
     .library-menu-option {
@@ -35,8 +35,7 @@
     }
 
     @include media-breakpoint-up(sm) {
-        left: auto;
-        right: 50px;
+        left: calc(50% - 125px);
     }
 }
 

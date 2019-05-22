@@ -1912,6 +1912,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['collections', 'books', 'titleModal', 'bodyModal', 'cancelModal', 'deleteModal'],
   data: function data() {
@@ -37621,7 +37622,12 @@ var render = function() {
                 _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
-                  _c("p", [
+                  _c("img", {
+                    staticClass: "mb-3",
+                    attrs: { src: "./images/false.png" }
+                  }),
+                  _vm._v(" "),
+                  _c("h2", [
                     _vm._v(_vm._s(_vm.titleModal) + _vm._s(_vm.name) + "?")
                   ]),
                   _vm._v(" "),

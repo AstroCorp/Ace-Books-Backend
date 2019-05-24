@@ -1,6 +1,7 @@
 
 window._ = require('lodash');
-
+var pdfjsdist = require('pdfjs-dist/webpack.js');
+//console.log(JSON.stringify(pdfjs));
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This

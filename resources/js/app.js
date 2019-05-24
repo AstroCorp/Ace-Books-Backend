@@ -25,6 +25,11 @@ Vue.component('library-menu', require('./components/LibraryMenuComponent.vue').d
 Vue.component('input-file-with-image-preview', require('./components/InputFileWithImagePreviewComponent.vue').default);
 Vue.component('input-file-custom', require('./components/InputFileCustomComponent.vue').default);
 
+Vue.component('pdf-viewer', require('./components/pdf/PDF.vue').default);
+Vue.component('pdf-document', require('./components/pdf/PDFDocument.vue').default);
+Vue.component('pdf-page', require('./components/pdf/PDFPage.vue').default);
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

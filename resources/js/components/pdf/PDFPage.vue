@@ -3,16 +3,19 @@
     {
         props: ['page', 'scale'],
 
-        render(h)
+        // Creamos un canvas con un nuevo atributo llamado canvasAttrs
+        render(createElement)
         {
             const { canvasAttrs: attrs } = this;
 
-            return h('canvas',
+            return createElement('canvas',
             {
                 attrs
             });
         },
 
+        // https://vuejs.org/v2/guide/instance.html
+        // Se crea el componente, creamos el atributo viewport usando el valor del viewport de la página
         created()
         {
             // PDFPageProxy#getViewport
@@ -20,11 +23,13 @@
             this.viewport = this.page.getViewport(this.scale);
         },
 
+        // Tras crear el componente se monta
         mounted()
         {
             this.drawPage();
         },
 
+        // Antes de eliminar o reemplazar el componente se destruye
         beforeDestroy()
         {
             this.destroyPage(this.page);
@@ -36,9 +41,11 @@
 
             canvasAttrs()
             {
+                // Se obtiene el ancho y alto del viewport y de redondea a lo alto para quitar decimales
                 let { width, height } = this.viewport;
                 [width, height] = [width, height].map(dim => Math.ceil(dim));
 
+                // Se obtiene la variable computada canvasStyle para asignarla a canvasAttrs como style
                 const style = this.canvasStyle;
 
                 return {
@@ -51,13 +58,15 @@
 
             canvasStyle()
             {
+                // Se obtiene el ancho, alto y el ratio de aspecto en CSS, para evtar redibujados, todo esto usando un clon del viewport
                 const { width: actualSizeWidth, height: actualSizeHeight } = this.actualSizeViewport;
                 const pixelRatio = window.devicePixelRatio || 1;
                 const [pixelWidth, pixelHeight] = [actualSizeWidth, actualSizeHeight].map(dim => Math.ceil(dim / pixelRatio));
 
-                return `width: ${pixelWidth}px; height: ${pixelHeight}px;`
+                return `width: ${pixelWidth}px; height: ${pixelHeight}px;`;
             },
 
+            // Clon del viewport
             actualSizeViewport()
             {
                 return this.viewport.clone(
@@ -67,8 +76,13 @@
             },
         },
 
-         methods:
-         {
+        methods:
+        {
+            /*
+                Cuando el canvas se monta, renderizamos la página utilizando el método PDFPageProxy#render.
+                Necesita el viewport y canvasContext como argumentos. Como eso devuelve una promesa, podemos
+                saber cuando se completa el dibujado.
+            */
             drawPage()
             {
                 if (this.renderTask) return;
@@ -85,7 +99,12 @@
                 this.renderTask.then(/* */).catch(this.destroyRenderTask);
             },
 
-            destroyPage(page) {
+            /*
+                Si el render falla, la página es reemplazada o el componente es eliminado se ejecuta esto, para eliminar la página
+                se usa el método destro() de pdf.js ya que esto escaba del control de vue.
+            */
+            destroyPage(page)
+            {
               if (!page) return;
 
               // PDFPageProxy#_destroy

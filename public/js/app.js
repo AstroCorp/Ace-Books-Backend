@@ -2110,26 +2110,32 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['page', 'scale'],
-  render: function render(h) {
+  // Creamos un canvas con un nuevo atributo llamado canvasAttrs
+  render: function render(createElement) {
     var attrs = this.canvasAttrs;
-    return h('canvas', {
+    return createElement('canvas', {
       attrs: attrs
     });
   },
+  // https://vuejs.org/v2/guide/instance.html
+  // Se crea el componente, creamos el atributo viewport usando el valor del viewport de la página
   created: function created() {
     // PDFPageProxy#getViewport
     // https://mozilla.github.io/pdf.js/api/draft/PDFPageProxy.html
     this.viewport = this.page.getViewport(this.scale);
   },
+  // Tras crear el componente se monta
   mounted: function mounted() {
     this.drawPage();
   },
+  // Antes de eliminar o reemplazar el componente se destruye
   beforeDestroy: function beforeDestroy() {
     this.destroyPage(this.page);
   },
   computed: {
     // variables computadas
     canvasAttrs: function canvasAttrs() {
+      // Se obtiene el ancho y alto del viewport y de redondea a lo alto para quitar decimales
       var _this$viewport = this.viewport,
           width = _this$viewport.width,
           height = _this$viewport.height;
@@ -2142,6 +2148,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       width = _map2[0];
       height = _map2[1];
+      // Se obtiene la variable computada canvasStyle para asignarla a canvasAttrs como style
       var style = this.canvasStyle;
       return {
         width: width,
@@ -2151,6 +2158,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       };
     },
     canvasStyle: function canvasStyle() {
+      // Se obtiene el ancho, alto y el ratio de aspecto en CSS, para evtar redibujados, todo esto usando un clon del viewport
       var _this$actualSizeViewp = this.actualSizeViewport,
           actualSizeWidth = _this$actualSizeViewp.width,
           actualSizeHeight = _this$actualSizeViewp.height;
@@ -2165,6 +2173,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       return "width: ".concat(pixelWidth, "px; height: ").concat(pixelHeight, "px;");
     },
+    // Clon del viewport
     actualSizeViewport: function actualSizeViewport() {
       return this.viewport.clone({
         scale: this.scale
@@ -2172,6 +2181,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     }
   },
   methods: {
+    /*
+        Cuando el canvas se monta, renderizamos la página utilizando el método PDFPageProxy#render.
+        Necesita el viewport y canvasContext como argumentos. Como eso devuelve una promesa, podemos
+        saber cuando se completa el dibujado.
+    */
     drawPage: function drawPage() {
       var _this = this;
 
@@ -2190,6 +2204,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       });
       this.renderTask.then()["catch"](this.destroyRenderTask);
     },
+    // Si el render falla, la página es reemplazada o el componente es eliminado se ejecuta esto, para eliminar la página
+    // Se usa el método destro() de pdf.js ya que esto escaba del control de vue
     destroyPage: function destroyPage(page) {
       if (!page) return; // PDFPageProxy#_destroy
       // https://mozilla.github.io/pdf.js/api/draft/PDFPageProxy.html

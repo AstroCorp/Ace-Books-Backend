@@ -2019,7 +2019,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // ...
   data: function data() {
     return {
       url: 'https://cdn.filestackcontent.com/5qOCEpKzQldoRsVatUPS',
@@ -2040,10 +2039,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
 //
 //
 //
@@ -2075,11 +2070,13 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getPages: function getPages() {
+      var _this2 = this;
+
       this.pdf.promise.then(function (pdfDocument) {
         for (var index = 1; index <= pdfDocument._pdfInfo.numPages; index++) {
-          var page = pdfDocument.getPage(index).then(function (page) {
-            return page;
-          }); // this.pages.push(page);
+          pdfDocument.getPage(index).then(function (page) {
+            _this2.pages.push(page);
+          });
         }
       });
     }
@@ -2104,8 +2101,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var _methods;
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -2114,10 +2109,14 @@ function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = 
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['page', 'scale'],
+  render: function render(h) {
+    var attrs = this.canvasAttrs;
+    return h('canvas', {
+      attrs: attrs
+    });
+  },
   created: function created() {
     // PDFPageProxy#getViewport
     // https://mozilla.github.io/pdf.js/api/draft/PDFPageProxy.html
@@ -2129,49 +2128,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   beforeDestroy: function beforeDestroy() {
     this.destroyPage(this.page);
   },
-  methods: (_methods = {
-    drawPage: function drawPage() {
-      var _this = this;
-
-      if (this.renderTask) return;
-      var viewport = this.viewport;
-      var canvasContext = this.$el.getContext('2d');
-      var renderContext = {
-        canvasContext: canvasContext,
-        viewport: viewport
-      }; // PDFPageProxy#render
-      // https://mozilla.github.io/pdf.js/api/draft/PDFPageProxy.html
-
-      this.renderTask = this.page.render(renderContext);
-      this.renderTask.then(function () {
-        return _this.$emit('rendered', _this.page);
-      });
-    }
-  }, _defineProperty(_methods, "drawPage", function drawPage() {
-    // ...
-    this.renderTask.then()["catch"](this.destroyRenderTask);
-  }), _defineProperty(_methods, "destroyPage", function destroyPage(page) {
-    if (!page) return; // PDFPageProxy#_destroy
-    // https://mozilla.github.io/pdf.js/api/draft/PDFPageProxy.html
-
-    page._destroy(); // RenderTask#cancel
-    // https://mozilla.github.io/pdf.js/api/draft/RenderTask.html
-
-
-    if (this.renderTask) this.renderTask.cancel();
-  }), _defineProperty(_methods, "destroyRenderTask", function destroyRenderTask() {
-    if (!this.renderTask) return; // RenderTask#cancel
-    // https://mozilla.github.io/pdf.js/api/draft/RenderTask.html
-
-    this.renderTask.cancel();
-    delete this.renderTask;
-  }), _methods),
-  watch: {
-    page: function page(_page, oldPage) {
-      this.destroyPage(oldPage);
-    }
-  },
   computed: {
+    // variables computadas
     canvasAttrs: function canvasAttrs() {
       var _this$viewport = this.viewport,
           width = _this$viewport.width,
@@ -2214,11 +2172,47 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   },
-  render: function render(h) {
-    var attrs = this.canvasAttrs;
-    return h('canvas', {
-      attrs: attrs
-    });
+  methods: {
+    drawPage: function drawPage() {
+      var _this = this;
+
+      if (this.renderTask) return;
+      var viewport = this.viewport;
+      var canvasContext = this.$el.getContext('2d');
+      var renderContext = {
+        canvasContext: canvasContext,
+        viewport: viewport
+      }; // PDFPageProxy#render
+      // https://mozilla.github.io/pdf.js/api/draft/PDFPageProxy.html
+
+      this.renderTask = this.page.render(renderContext);
+      this.renderTask.then(function () {
+        return _this.$emit('rendered', _this.page);
+      });
+      this.renderTask.then()["catch"](this.destroyRenderTask);
+    },
+    destroyPage: function destroyPage(page) {
+      if (!page) return; // PDFPageProxy#_destroy
+      // https://mozilla.github.io/pdf.js/api/draft/PDFPageProxy.html
+
+      page._destroy(); // RenderTask#cancel
+      // https://mozilla.github.io/pdf.js/api/draft/RenderTask.html
+
+
+      if (this.renderTask) this.renderTask.cancel();
+    },
+    destroyRenderTask: function destroyRenderTask() {
+      if (!this.renderTask) return; // RenderTask#cancel
+      // https://mozilla.github.io/pdf.js/api/draft/RenderTask.html
+
+      this.renderTask.cancel();
+      delete this.renderTask;
+    }
+  },
+  watch: {
+    page: function page(_page, oldPage) {
+      this.destroyPage(oldPage);
+    }
   }
 });
 
@@ -120946,8 +120940,8 @@ window.onload = function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/alejandro/Documentos/github/AceBooks/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/alejandro/Documentos/github/AceBooks/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\AceBooks\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\AceBooks\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ }),

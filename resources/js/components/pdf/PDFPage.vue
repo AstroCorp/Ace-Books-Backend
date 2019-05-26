@@ -1,5 +1,6 @@
 <script>
-    export default {
+    export default
+    {
         props: ['page', 'scale'],
 
         render(h)

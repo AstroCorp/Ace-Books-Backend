@@ -31,7 +31,7 @@
                 pdfjsLib.GlobalWorkerOptions.workerSrc = require('pdfjs-dist/build/pdf.worker');
                 this.pdf = pdfjsLib.getDocument(this.url);
 
-                let x = this.pdf.promise.then(message =>
+                this.pdf.promise.then(message =>
                 {
                     this.numPages = message._pdfInfo.numPages;
                 });

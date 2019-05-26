@@ -7,10 +7,13 @@
 <script>
     export default
     {
+        props: [
+            'url'
+        ],
+
         data()
         {
             return {
-                url: 'https://cdn.filestackcontent.com/5qOCEpKzQldoRsVatUPS', // a PDF
                 scale: 2,
             }
         },

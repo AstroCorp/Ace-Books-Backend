@@ -2019,10 +2019,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['url'],
   data: function data() {
     return {
-      url: 'https://cdn.filestackcontent.com/5qOCEpKzQldoRsVatUPS',
-      // a PDF
       scale: 2
     };
   }
@@ -2065,7 +2064,7 @@ __webpack_require__.r(__webpack_exports__);
 
       pdfjsLib.GlobalWorkerOptions.workerSrc = __webpack_require__(/*! pdfjs-dist/build/pdf.worker */ "./node_modules/pdfjs-dist/build/pdf.worker.js");
       this.pdf = pdfjsLib.getDocument(this.url);
-      var x = this.pdf.promise.then(function (message) {
+      this.pdf.promise.then(function (message) {
         _this.numPages = message._pdfInfo.numPages;
       });
     },

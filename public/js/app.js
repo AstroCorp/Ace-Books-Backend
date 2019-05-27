@@ -2204,8 +2204,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       });
       this.renderTask.then()["catch"](this.destroyRenderTask);
     },
-    // Si el render falla, la página es reemplazada o el componente es eliminado se ejecuta esto, para eliminar la página
-    // Se usa el método destro() de pdf.js ya que esto escaba del control de vue
+
+    /*
+        Si el render falla, la página es reemplazada o el componente es eliminado se ejecuta esto, para eliminar la página
+        se usa el método destro() de pdf.js ya que esto escaba del control de vue.
+    */
     destroyPage: function destroyPage(page) {
       if (!page) return; // PDFPageProxy#_destroy
       // https://mozilla.github.io/pdf.js/api/draft/PDFPageProxy.html
@@ -120955,8 +120958,8 @@ window.onload = function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\AceBooks\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\AceBooks\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/alejandro/Documentos/github/AceBooks/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/alejandro/Documentos/github/AceBooks/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ }),

@@ -58,21 +58,11 @@ class BookController extends Controller
         // Subida de imagen
         if($request->hasFile('image'))
         {
-            $image = $request->file('image');
-
-            $imageName = Str::uuid().".".$image->getClientOriginalExtension();
-            $image->move(public_path().'/images/books/', $imageName);
-
-            $book->image = $imageName;
+            $book->setImage($request->file('image'));
         }
 
         // Subida de archivo
-        $file = $request->file('file');
-
-        $fileName = Str::uuid().".".$file->getClientOriginalExtension();
-        $file->move(public_path().'/books/', $fileName);
-
-        $book->fileName = $fileName;
+        $book->setPDF($request->file('file'));
 
         $book->save();
 
@@ -127,12 +117,7 @@ class BookController extends Controller
         // Subida de imagen
         if($request->hasFile('image'))
         {
-            $image = $request->file('image');
-
-            $imageName = Str::uuid().".".$image->getClientOriginalExtension();
-            $image->move(public_path().'/images/books/', $imageName);
-
-            $book->image = $imageName;
+            $book->setImage($request->file('image'));
         }
 
         $book->save();

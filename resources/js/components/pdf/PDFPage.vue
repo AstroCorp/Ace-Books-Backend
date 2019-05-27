@@ -1,7 +1,15 @@
 <script>
     export default
     {
-        props: ['page', 'scale'],
+        props: ['page', 'scale', 'scrollTop', 'clientHeight'],
+
+        data()
+        {
+            return {
+                elementTop: 0,
+                elementHeight: 0,
+            };
+        },
 
         // Creamos un canvas con un nuevo atributo llamado canvasAttrs
         render(createElement)
@@ -26,7 +34,7 @@
         // Tras crear el componente se monta
         mounted()
         {
-            this.drawPage();
+            this.updateElementBounds();
         },
 
         // Antes de eliminar o reemplazar el componente se destruye
@@ -73,6 +81,24 @@
                 {
                     scale: this.scale
                 });
+            },
+
+            isElementVisible() 
+            {
+                const {elementTop, elementBottom, scrollTop, scrollBottom} = this;
+                if (!elementBottom) return;
+            
+                return elementTop < scrollBottom && elementBottom > scrollTop;
+            },
+            
+            elementBottom()
+            {
+                return this.elementTop + this.elementHeight;
+            },
+            
+            scrollBottom()
+            {
+                return this.scrollTop + this.clientHeight;
             },
         },
 
@@ -125,13 +151,29 @@
               this.renderTask.cancel();
               delete this.renderTask;
             },
+
+            updateElementBounds()
+            {
+                const {offsetTop, offsetHeight} = this.$el;
+                this.elementTop = offsetTop;
+                this.elementHeight = offsetHeight;
+            },
         },
 
         watch:
         {
+            scale: 'updateElementBounds',
+            scrollTop: 'updateElementBounds',
+            clientHeight: 'updateElementBounds',
+
             page(page, oldPage)
             {
                 this.destroyPage(oldPage);
+            },
+
+            isElementVisible(isElementVisible)
+            {
+                if (isElementVisible) this.drawPage();
             },
         },
     }

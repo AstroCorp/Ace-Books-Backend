@@ -2044,19 +2044,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+var BATCH_COUNT = 10;
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url', 'scale'],
   data: function data() {
     return {
       pdf: undefined,
-      numPages: 0,
-      pages: []
+      numPages: 1,
+      pages: [],
+      scrollTop: 0,
+      clientHeight: 0,
+      cursor: 0,
+      didReachBottom: false
     };
   },
   created: function created() {
     this.getPDF();
   },
+  mounted: function mounted() {
+    this.updateScrollBounds();
+
+    var throttledCallback = _.throttle(this.updateScrollBounds, 300);
+
+    this.$el.addEventListener('scroll', throttledCallback, true);
+    window.addEventListener('resize', throttledCallback, true);
+    this.throttledOnResize = throttledCallback;
+  },
+  beforeDestroy: function beforeDestroy() {
+    window.removeEventListener('resize', this.throttledOnResize, true);
+  },
   methods: {
+    updateScrollBounds: function updateScrollBounds() {
+      var _this$$el = this.$el,
+          scrollTop = _this$$el.scrollTop,
+          clientHeight = _this$$el.clientHeight;
+      this.scrollTop = scrollTop;
+      this.clientHeight = clientHeight;
+      this.didReachBottom = this.isBottomVisible();
+    },
     getPDF: function getPDF() {
       var _this = this;
 
@@ -2065,26 +2090,50 @@ __webpack_require__.r(__webpack_exports__);
       pdfjsLib.GlobalWorkerOptions.workerSrc = __webpack_require__(/*! pdfjs-dist/build/pdf.worker */ "./node_modules/pdfjs-dist/build/pdf.worker.js");
       this.pdf = pdfjsLib.getDocument(this.url);
       this.pdf.promise.then(function (message) {
+        console.log('x');
         _this.numPages = message._pdfInfo.numPages;
       });
     },
-    getPages: function getPages() {
+    getPages: function getPages(startPage, endPage) {
       var _this2 = this;
 
+      console.log(endPage);
       this.pdf.promise.then(function (pdfDocument) {
-        for (var index = 1; index <= pdfDocument._pdfInfo.numPages; index++) {
+        for (var index = startPage; index <= endPage; index++) {
           pdfDocument.getPage(index).then(function (page) {
             _this2.pages.push(page);
           });
         }
       });
+    },
+    fetchPages: function fetchPages() {
+      if (!this.pdf) return;
+      var currentCount = this.pages.length;
+      if (this.numPages > 0 && currentCount === this.numPages) return;
+      if (this.cursor > currentCount) return;
+      var startPage = currentCount + 1; // La primera página es 1
+
+      var endPage = Math.min(currentCount + BATCH_COUNT, this.numPages);
+      this.cursor = endPage;
+      this.getPages(startPage, endPage);
+    },
+    isBottomVisible: function isBottomVisible() {
+      var _this$$el2 = this.$el,
+          scrollTop = _this$$el2.scrollTop,
+          clientHeight = _this$$el2.clientHeight,
+          scrollHeight = _this$$el2.scrollHeight;
+      return scrollTop + clientHeight >= scrollHeight;
     }
   },
   watch: {
     pdf: function pdf() {
       if (this.pdf !== undefined) {
-        this.getPages();
+        this.pages = [];
+        this.fetchPages();
       }
+    },
+    didReachBottom: function didReachBottom(_didReachBottom) {
+      if (_didReachBottom) this.fetchPages();
     }
   }
 });
@@ -2109,7 +2158,13 @@ function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['page', 'scale'],
+  props: ['page', 'scale', 'scrollTop', 'clientHeight'],
+  data: function data() {
+    return {
+      elementTop: 0,
+      elementHeight: 0
+    };
+  },
   // Creamos un canvas con un nuevo atributo llamado canvasAttrs
   render: function render(createElement) {
     var attrs = this.canvasAttrs;
@@ -2126,7 +2181,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   },
   // Tras crear el componente se monta
   mounted: function mounted() {
-    this.drawPage();
+    this.updateElementBounds();
   },
   // Antes de eliminar o reemplazar el componente se destruye
   beforeDestroy: function beforeDestroy() {
@@ -2178,6 +2233,20 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       return this.viewport.clone({
         scale: this.scale
       });
+    },
+    isElementVisible: function isElementVisible() {
+      var elementTop = this.elementTop,
+          elementBottom = this.elementBottom,
+          scrollTop = this.scrollTop,
+          scrollBottom = this.scrollBottom;
+      if (!elementBottom) return;
+      return elementTop < scrollBottom && elementBottom > scrollTop;
+    },
+    elementBottom: function elementBottom() {
+      return this.elementTop + this.elementHeight;
+    },
+    scrollBottom: function scrollBottom() {
+      return this.scrollTop + this.clientHeight;
     }
   },
   methods: {
@@ -2225,11 +2294,24 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       this.renderTask.cancel();
       delete this.renderTask;
+    },
+    updateElementBounds: function updateElementBounds() {
+      var _this$$el = this.$el,
+          offsetTop = _this$$el.offsetTop,
+          offsetHeight = _this$$el.offsetHeight;
+      this.elementTop = offsetTop;
+      this.elementHeight = offsetHeight;
     }
   },
   watch: {
+    scale: 'updateElementBounds',
+    scrollTop: 'updateElementBounds',
+    clientHeight: 'updateElementBounds',
     page: function page(_page, oldPage) {
       this.destroyPage(oldPage);
+    },
+    isElementVisible: function isElementVisible(_isElementVisible) {
+      if (_isElementVisible) this.drawPage();
     }
   }
 });
@@ -108185,7 +108267,12 @@ var render = function() {
         _vm._b(
           { key: page.pageNumber },
           "pdf-page",
-          { page: page, scale: _vm.scale },
+          {
+            page: page,
+            scale: _vm.scale,
+            scrollTop: _vm.scrollTop,
+            clientHeight: _vm.clientHeight
+          },
           false
         )
       )

@@ -45,7 +45,7 @@
 
                     <div class="form-group">
                         <label class="custom-checkbox">
-                            <span class="btn-link-secondary">{{ __('Accept the') }} <a href="{{ route('conditions') }}">{{ __('Terms and conditions of use') }}</a></span>
+                            <span class="btn-link-secondary">{{ __('Accept the') }} <a href="{{ route('conditions') }}" target="_blank">{{ __('Terms and conditions of use') }}</a></span>
                             <input class="form-check-input" type="checkbox" name="conditions" id="conditions">
                             <span class="checkmark"></span>
                         </label>

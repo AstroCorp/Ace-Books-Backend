@@ -23,5 +23,11 @@ return [
     'section2_q2_content' => 'Simply select the rate and make the payment, there is no type of discount when changing rates, but we keep track of purchases to offer different rewards.',
 
     'section2_q3_title' => 'What happens to my documents if I stop paying or change to a cheaper rate?',
-    'section2_q3_content' => 'Do not worry, your documents will not be deleted, you have a period of 15 days to eliminate those you do not need, in case of not deleting the documents will be compressed and sent to your E-Mail.'
+    'section2_q3_content' => 'Do not worry, your documents will not be deleted, you have a period of 15 days to eliminate those you do not need, in case of not deleting the documents will be compressed and sent to your E-Mail.',
+
+
+    'sectionExtra_title' => 'Extras',
+
+    'sectionExtra_q1_title' => 'Terms and conditions of use',
+    'sectionExtra_q1_content' => 'Read terms and conditions of use',
 ];

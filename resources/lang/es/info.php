@@ -23,5 +23,11 @@ return [
     'section2_q2_content' => 'Simplemente seleccione la tarifa y realice el pago, no hay ningún tipo de descuento al cambiar de tarifa, pero llevamos un registro de las compras para ofrecer distintas recompensas.',
 
     'section2_q3_title' => '¿Qué pasa con mis documentos si dejo de pagar o cambio a una tarifa más barata?',
-    'section2_q3_content' => 'No te preocupes, tus documentos no serán eliminados, tienes un plazo de 15 días para eliminar aquellos que no necesites, en caso de no eliminar los documentos serán comprimidos y enviados a tu E-Mail.'
+    'section2_q3_content' => 'No te preocupes, tus documentos no serán eliminados, tienes un plazo de 15 días para eliminar aquellos que no necesites, en caso de no eliminar los documentos serán comprimidos y enviados a tu E-Mail.',
+
+
+    'sectionExtra_title' => 'Extras',
+
+    'sectionExtra_q1_title' => 'Términos y condiciones de uso',
+    'sectionExtra_q1_content' => 'Leer términos y condiciones de uso',
 ];

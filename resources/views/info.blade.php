@@ -66,6 +66,20 @@
                     </div>
                 </div>
             </div>
+
+            <h3 class="mt-4 title-form">{{trans("info.sectionExtra_title")}}</h3>
+            <div class="card mb-1">
+                <button id="heading_6" class="card-header btn collapsed" data-toggle="collapse"
+                    data-target="#collapse_6" aria-expanded="false" aria-controls="collapse_6">
+                    <h5 class="m-0 text-left">{{trans("info.sectionExtra_q1_title")}}</h5>
+                </button>
+
+                <div id="collapse_6" class="collapse" aria-labelledby="heading_6" data-parent="#accordion">
+                    <div class="card-body">
+                        <u><a class="text-reset" href="{{ route('conditions') }}" target="_blank">{{trans("info.sectionExtra_q1_content")}}</a></u>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

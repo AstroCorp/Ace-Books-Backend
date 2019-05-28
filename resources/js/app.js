@@ -27,6 +27,8 @@ Vue.component('input-file-custom', require('./components/InputFileCustomComponen
 
 Vue.component('pdf-viewer', require('./components/pdf/PDF.vue').default);
 Vue.component('pdf-document', require('./components/pdf/PDFDocument.vue').default);
+Vue.component('pdf-thumbnail', require('./components/pdf/PDFThumbnail.vue').default);
+Vue.component('pdf-data', require('./components/pdf/PDFData.vue').default);
 Vue.component('pdf-page', require('./components/pdf/PDFPage.vue').default);
 
 

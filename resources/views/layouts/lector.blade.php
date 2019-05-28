@@ -17,7 +17,7 @@
     <div class="@yield('bg', 'background')"></div>
     <div id="app" class="container-fluid">
         <div class="row">
-            <main class="col p-0">
+            <main class="col p-0 m-0">
                 @yield('content')
             </main>
         </div>

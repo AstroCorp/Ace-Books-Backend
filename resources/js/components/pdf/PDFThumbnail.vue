@@ -1,5 +1,5 @@
 <template>
-    <div class="pdf-document row justify-content-center">
+    <div class="pdf-thumbnail">
         <pdf-page v-for="page in pages" v-bind="{page, scale, scrollTop, clientHeight}" :key="page.pageNumber" />
     </div>
 </template>
@@ -98,7 +98,7 @@
                 }
                 else if(this.numPages > 10 && this.pages.length == 1)
                 {
-                    currentCount = 5;
+                    currentCount = 10;
                 }
 
                 const endPage = Math.min(currentCount + BATCH_COUNT, this.numPages);

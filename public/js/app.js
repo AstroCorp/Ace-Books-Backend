@@ -2018,13 +2018,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['url'],
-  data: function data() {
-    return {
-      scale: 2
-    };
-  }
+  props: ['url']
 });
 
 /***/ }),
@@ -2050,7 +2046,7 @@ var BATCH_COUNT = 10;
   data: function data() {
     return {
       pdf: undefined,
-      numPages: 1,
+      numPages: undefined,
       pages: [],
       scrollTop: 0,
       clientHeight: 0,
@@ -2090,14 +2086,12 @@ var BATCH_COUNT = 10;
       pdfjsLib.GlobalWorkerOptions.workerSrc = __webpack_require__(/*! pdfjs-dist/build/pdf.worker */ "./node_modules/pdfjs-dist/build/pdf.worker.js");
       this.pdf = pdfjsLib.getDocument(this.url);
       this.pdf.promise.then(function (message) {
-        console.log('x');
         _this.numPages = message._pdfInfo.numPages;
       });
     },
     getPages: function getPages(startPage, endPage) {
       var _this2 = this;
 
-      console.log(endPage);
       this.pdf.promise.then(function (pdfDocument) {
         for (var index = startPage; index <= endPage; index++) {
           pdfDocument.getPage(index).then(function (page) {
@@ -2107,11 +2101,17 @@ var BATCH_COUNT = 10;
       });
     },
     fetchPages: function fetchPages() {
-      if (!this.pdf) return;
+      if (!this.pdf && !this.numPages) return;
       var currentCount = this.pages.length;
       if (this.numPages > 0 && currentCount === this.numPages) return;
       if (this.cursor > currentCount) return;
       var startPage = currentCount + 1; // La primera página es 1
+
+      if (this.numPages <= 10 && this.pages.length == 1) {
+        currentCount = this.numPages;
+      } else if (this.numPages > 10 && this.pages.length == 1) {
+        currentCount = 5;
+      }
 
       var endPage = Math.min(currentCount + BATCH_COUNT, this.numPages);
       this.cursor = endPage;
@@ -2127,6 +2127,12 @@ var BATCH_COUNT = 10;
   },
   watch: {
     pdf: function pdf() {
+      if (this.pdf !== undefined) {
+        this.pages = [];
+        this.fetchPages();
+      }
+    },
+    numPages: function numPages() {
       if (this.pdf !== undefined) {
         this.pages = [];
         this.fetchPages();
@@ -2312,6 +2318,127 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     },
     isElementVisible: function isElementVisible(_isElementVisible) {
       if (_isElementVisible) this.drawPage();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pdf/PDFThumbnail.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pdf/PDFThumbnail.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+var BATCH_COUNT = 10;
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['url', 'scale'],
+  data: function data() {
+    return {
+      pdf: undefined,
+      numPages: undefined,
+      pages: [],
+      scrollTop: 0,
+      clientHeight: 0,
+      cursor: 0,
+      didReachBottom: false
+    };
+  },
+  created: function created() {
+    this.getPDF();
+  },
+  mounted: function mounted() {
+    this.updateScrollBounds();
+
+    var throttledCallback = _.throttle(this.updateScrollBounds, 300);
+
+    this.$el.addEventListener('scroll', throttledCallback, true);
+    window.addEventListener('resize', throttledCallback, true);
+    this.throttledOnResize = throttledCallback;
+  },
+  beforeDestroy: function beforeDestroy() {
+    window.removeEventListener('resize', this.throttledOnResize, true);
+  },
+  methods: {
+    updateScrollBounds: function updateScrollBounds() {
+      var _this$$el = this.$el,
+          scrollTop = _this$$el.scrollTop,
+          clientHeight = _this$$el.clientHeight;
+      this.scrollTop = scrollTop;
+      this.clientHeight = clientHeight;
+      this.didReachBottom = this.isBottomVisible();
+    },
+    getPDF: function getPDF() {
+      var _this = this;
+
+      var pdfjsLib = __webpack_require__(/*! pdfjs-dist */ "./node_modules/pdfjs-dist/build/pdf.js");
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc = __webpack_require__(/*! pdfjs-dist/build/pdf.worker */ "./node_modules/pdfjs-dist/build/pdf.worker.js");
+      this.pdf = pdfjsLib.getDocument(this.url);
+      this.pdf.promise.then(function (message) {
+        _this.numPages = message._pdfInfo.numPages;
+      });
+    },
+    getPages: function getPages(startPage, endPage) {
+      var _this2 = this;
+
+      this.pdf.promise.then(function (pdfDocument) {
+        for (var index = startPage; index <= endPage; index++) {
+          pdfDocument.getPage(index).then(function (page) {
+            _this2.pages.push(page);
+          });
+        }
+      });
+    },
+    fetchPages: function fetchPages() {
+      if (!this.pdf && !this.numPages) return;
+      var currentCount = this.pages.length;
+      if (this.numPages > 0 && currentCount === this.numPages) return;
+      if (this.cursor > currentCount) return;
+      var startPage = currentCount + 1; // La primera página es 1
+
+      if (this.numPages <= 10 && this.pages.length == 1) {
+        currentCount = this.numPages;
+      } else if (this.numPages > 10 && this.pages.length == 1) {
+        currentCount = 10;
+      }
+
+      var endPage = Math.min(currentCount + BATCH_COUNT, this.numPages);
+      this.cursor = endPage;
+      this.getPages(startPage, endPage);
+    },
+    isBottomVisible: function isBottomVisible() {
+      var _this$$el2 = this.$el,
+          scrollTop = _this$$el2.scrollTop,
+          clientHeight = _this$$el2.clientHeight,
+          scrollHeight = _this$$el2.scrollHeight;
+      return scrollTop + clientHeight >= scrollHeight;
+    }
+  },
+  watch: {
+    pdf: function pdf() {
+      if (this.pdf !== undefined) {
+        this.pages = [];
+        this.fetchPages();
+      }
+    },
+    numPages: function numPages() {
+      if (this.pdf !== undefined) {
+        this.pages = [];
+        this.fetchPages();
+      }
+    },
+    didReachBottom: function didReachBottom(_didReachBottom) {
+      if (_didReachBottom) this.fetchPages();
     }
   }
 });
@@ -108226,11 +108353,26 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "app" } },
+    { staticClass: "row" },
     [
       _c(
+        "pdf-thumbnail",
+        _vm._b(
+          { staticClass: "col-4 d-none" },
+          "pdf-thumbnail",
+          { url: _vm.url, scale: 0.4 },
+          false
+        )
+      ),
+      _vm._v(" "),
+      _c(
         "pdf-document",
-        _vm._b({}, "pdf-document", { url: _vm.url, scale: _vm.scale }, false)
+        _vm._b(
+          { staticClass: "col" },
+          "pdf-document",
+          { url: _vm.url, scale: 2 },
+          false
+        )
       )
     ],
     1
@@ -108260,7 +108402,51 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "pdf-document" },
+    { staticClass: "pdf-document row justify-content-center" },
+    _vm._l(_vm.pages, function(page) {
+      return _c(
+        "pdf-page",
+        _vm._b(
+          { key: page.pageNumber },
+          "pdf-page",
+          {
+            page: page,
+            scale: _vm.scale,
+            scrollTop: _vm.scrollTop,
+            clientHeight: _vm.clientHeight
+          },
+          false
+        )
+      )
+    }),
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pdf/PDFThumbnail.vue?vue&type=template&id=822de5fc&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pdf/PDFThumbnail.vue?vue&type=template&id=822de5fc& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "pdf-thumbnail" },
     _vm._l(_vm.pages, function(page) {
       return _c(
         "pdf-page",
@@ -120469,6 +120655,8 @@ Vue.component('input-file-with-image-preview', __webpack_require__(/*! ./compone
 Vue.component('input-file-custom', __webpack_require__(/*! ./components/InputFileCustomComponent.vue */ "./resources/js/components/InputFileCustomComponent.vue")["default"]);
 Vue.component('pdf-viewer', __webpack_require__(/*! ./components/pdf/PDF.vue */ "./resources/js/components/pdf/PDF.vue")["default"]);
 Vue.component('pdf-document', __webpack_require__(/*! ./components/pdf/PDFDocument.vue */ "./resources/js/components/pdf/PDFDocument.vue")["default"]);
+Vue.component('pdf-thumbnail', __webpack_require__(/*! ./components/pdf/PDFThumbnail.vue */ "./resources/js/components/pdf/PDFThumbnail.vue")["default"]);
+Vue.component('pdf-data', __webpack_require__(/*! ./components/pdf/PDFData.vue */ "./resources/js/components/pdf/PDFData.vue")["default"]);
 Vue.component('pdf-page', __webpack_require__(/*! ./components/pdf/PDFPage.vue */ "./resources/js/components/pdf/PDFPage.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -120889,6 +121077,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/pdf/PDFData.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/pdf/PDFData.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/components/pdf/PDFData.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/pdf/PDFDocument.vue":
 /*!*****************************************************!*\
   !*** ./resources/js/components/pdf/PDFDocument.vue ***!
@@ -121005,6 +121225,75 @@ component.options.__file = "resources/js/components/pdf/PDFPage.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PDFPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PDFPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pdf/PDFPage.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PDFPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pdf/PDFThumbnail.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/pdf/PDFThumbnail.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PDFThumbnail_vue_vue_type_template_id_822de5fc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PDFThumbnail.vue?vue&type=template&id=822de5fc& */ "./resources/js/components/pdf/PDFThumbnail.vue?vue&type=template&id=822de5fc&");
+/* harmony import */ var _PDFThumbnail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PDFThumbnail.vue?vue&type=script&lang=js& */ "./resources/js/components/pdf/PDFThumbnail.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PDFThumbnail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PDFThumbnail_vue_vue_type_template_id_822de5fc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PDFThumbnail_vue_vue_type_template_id_822de5fc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/pdf/PDFThumbnail.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pdf/PDFThumbnail.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/pdf/PDFThumbnail.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PDFThumbnail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PDFThumbnail.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pdf/PDFThumbnail.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PDFThumbnail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pdf/PDFThumbnail.vue?vue&type=template&id=822de5fc&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/pdf/PDFThumbnail.vue?vue&type=template&id=822de5fc& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PDFThumbnail_vue_vue_type_template_id_822de5fc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./PDFThumbnail.vue?vue&type=template&id=822de5fc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pdf/PDFThumbnail.vue?vue&type=template&id=822de5fc&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PDFThumbnail_vue_vue_type_template_id_822de5fc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PDFThumbnail_vue_vue_type_template_id_822de5fc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

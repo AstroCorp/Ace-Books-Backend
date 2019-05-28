@@ -1,6 +1,7 @@
 <template>
-    <div id="app">
-        <pdf-document v-bind="{url, scale}" />
+    <div class="row">
+        <pdf-thumbnail class="col-4 d-none" v-bind="{url, scale: 0.4}" />
+        <pdf-document class="col" v-bind="{url, scale: 2}" />
     </div>
 </template>
 
@@ -9,13 +10,6 @@
     {
         props: [
             'url'
-        ],
-
-        data()
-        {
-            return {
-                scale: 2,
-            }
-        },
+        ]
     }
 </script>

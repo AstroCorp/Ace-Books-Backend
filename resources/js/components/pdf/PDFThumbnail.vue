@@ -1,5 +1,5 @@
 <template>
-    <div class="pdf-thumbnail">
+    <div class="pdf-thumbnail d-none">
         <pdf-page v-for="page in pages" v-bind="{page, scale, scrollTop, clientHeight}" :key="page.pageNumber" />
     </div>
 </template>

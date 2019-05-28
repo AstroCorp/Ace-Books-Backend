@@ -2019,6 +2019,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url']
 });
@@ -108355,6 +108373,8 @@ var render = function() {
     "div",
     { staticClass: "row" },
     [
+      _vm._m(0),
+      _vm._v(" "),
       _c(
         "pdf-thumbnail",
         _vm._b(
@@ -108368,7 +108388,7 @@ var render = function() {
       _c(
         "pdf-document",
         _vm._b(
-          { staticClass: "col" },
+          { staticClass: "col-12" },
           "pdf-document",
           { url: _vm.url, scale: 2 },
           false
@@ -108378,7 +108398,68 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("nav", { staticClass: "col-12", attrs: { id: "topbar" } }, [
+      _c("ul", { staticClass: "nav justify-content-between" }, [
+        _c("span", { staticClass: "nav" }, [
+          _c("li", { staticClass: "nav-item" }, [
+            _c("a", { attrs: { href: "/home" } }, [
+              _c("span", { staticClass: "icon-centered icon-back" })
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "nav" }, [
+          _c("li", { staticClass: "nav-item" }, [
+            _c("a", { attrs: { href: "#" } }, [
+              _c("span", { staticClass: "icon-centered icon-page-auto" })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c("a", { attrs: { href: "#" } }, [
+              _c("span", { staticClass: "icon-centered icon-page-full" })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c("span", [_vm._v("x / x")])
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c("a", { attrs: { href: "#" } }, [
+              _c("span", { staticClass: "icon-centered icon-zoom-in" })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c("a", { attrs: { href: "#" } }, [
+              _c("span", { staticClass: "icon-centered icon-zoom-out" })
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "nav" }, [
+          _c("li", { staticClass: "nav-item" }, [
+            _c("a", { attrs: { href: "#" } }, [
+              _c("span", { staticClass: "icon-centered icon-page-back" })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c("a", { attrs: { href: "#" } }, [
+              _c("span", { staticClass: "icon-centered icon-page-next" })
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -108446,7 +108527,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "pdf-thumbnail" },
+    { staticClass: "pdf-thumbnail d-none" },
     _vm._l(_vm.pages, function(page) {
       return _c(
         "pdf-page",
@@ -120656,7 +120737,6 @@ Vue.component('input-file-custom', __webpack_require__(/*! ./components/InputFil
 Vue.component('pdf-viewer', __webpack_require__(/*! ./components/pdf/PDF.vue */ "./resources/js/components/pdf/PDF.vue")["default"]);
 Vue.component('pdf-document', __webpack_require__(/*! ./components/pdf/PDFDocument.vue */ "./resources/js/components/pdf/PDFDocument.vue")["default"]);
 Vue.component('pdf-thumbnail', __webpack_require__(/*! ./components/pdf/PDFThumbnail.vue */ "./resources/js/components/pdf/PDFThumbnail.vue")["default"]);
-Vue.component('pdf-data', __webpack_require__(/*! ./components/pdf/PDFData.vue */ "./resources/js/components/pdf/PDFData.vue")["default"]);
 Vue.component('pdf-page', __webpack_require__(/*! ./components/pdf/PDFPage.vue */ "./resources/js/components/pdf/PDFPage.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -121074,38 +121154,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PDF_vue_vue_type_template_id_2a6bd93a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
-
-/***/ }),
-
-/***/ "./resources/js/components/pdf/PDFData.vue":
-/*!*************************************************!*\
-  !*** ./resources/js/components/pdf/PDFData.vue ***!
-  \*************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-component.options.__file = "resources/js/components/pdf/PDFData.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 

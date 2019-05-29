@@ -4,6 +4,8 @@
             <ul class="row nav justify-content-between m-0">
                 <span class="nav col-12 col-sm-auto p-0">
                     <li class="nav-item"><a href="/home"><span class="icon-centered icon-back"></span></a></li>
+                    <li class="nav-item" v-if="mode === 'cascade'"><a href="#"><span class="icon-centered icon-cascade"></span></a></li>
+                    <li class="nav-item" v-if="mode === 'paginate'"><a href="#"><span class="icon-centered icon-paginate"></span></a></li>
                 </span>
                 <span class="nav col-12 col-sm-auto p-0">
                     <li class="nav-item"><a href="#" @click="updateZoom('auto')"><span class="icon-centered icon-page-auto"></span></a></li>
@@ -24,7 +26,7 @@
 		<div class="pdf-document" ref="reader" v-bind:class="{ 'overflow-x-active': checkZoom }">
             <pdf-page
                 class="mx-auto pdf-page"
-                v-for="i in 2"
+                v-for="i in 10"
                 :key="i"
                 :ref="'page' + i"
                 :src="url"
@@ -67,30 +69,37 @@ export default
     },
     methods:
     {
+        changeMode()
+        {
+            if(this.mode === 'cascade')
+            {
+                this.mode = 'paginate';
+            }
+            else
+            {
+                this.mode = 'cascade';
+            }
+        },
         updatePage()
         {
-            let calc = Math.floor((this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight + 1)) + 1);
-            this.currentPage = calc;
+            if(this.mode === 'cascade')
+            {
+                let calc = Math.floor((this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight + 1)) + 1);
+                this.currentPage = calc;
+            }
         },
         nextPage()
         {
-            if(this.currentPage >= this.numPages)
+            if(this.mode === 'cascade')
             {
-                return;
-            }
+                if(this.currentPage >= this.numPages)
+                {
+                    return;
+                }
 
-            this.reader.scrollBy(0, this.reader.scrollTop + this.$refs['page1'][0].$el.clientHeight + 10);
-            this.currentPage++;
-        },
-        nextPage()
-        {
-            if(this.currentPage >= this.numPages)
-            {
-                return;
+                this.reader.scrollBy(0, this.$refs['page1'][0].$el.clientHeight + 10);
+                this.currentPage++;
             }
-
-            this.reader.scrollBy(0, this.$refs['page1'][0].$el.clientHeight + 10);
-            this.currentPage++;
         },
         previousPage()
         {

@@ -2029,10 +2029,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var _methods;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
+//
 //
 //
 //
@@ -2089,70 +2087,78 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.reader = this.$refs['reader'];
     this.reader.addEventListener('scroll', this.updatePage);
   },
-  methods: (_methods = {
+  methods: {
+    changeMode: function changeMode() {
+      if (this.mode === 'cascade') {
+        this.mode = 'paginate';
+      } else {
+        this.mode = 'cascade';
+      }
+    },
     updatePage: function updatePage() {
-      var calc = Math.floor(this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight + 1) + 1);
-      this.currentPage = calc;
+      if (this.mode === 'cascade') {
+        var calc = Math.floor(this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight + 1) + 1);
+        this.currentPage = calc;
+      }
     },
     nextPage: function nextPage() {
-      if (this.currentPage >= this.numPages) {
+      if (this.mode === 'cascade') {
+        if (this.currentPage >= this.numPages) {
+          return;
+        }
+
+        this.reader.scrollBy(0, this.$refs['page1'][0].$el.clientHeight + 10);
+        this.currentPage++;
+      }
+    },
+    previousPage: function previousPage() {
+      if (this.currentPage === 1) {
         return;
       }
 
-      this.reader.scrollBy(0, this.reader.scrollTop + this.$refs['page1'][0].$el.clientHeight + 10);
-      this.currentPage++;
-    }
-  }, _defineProperty(_methods, "nextPage", function nextPage() {
-    if (this.currentPage >= this.numPages) {
-      return;
-    }
-
-    this.reader.scrollBy(0, this.$refs['page1'][0].$el.clientHeight + 10);
-    this.currentPage++;
-  }), _defineProperty(_methods, "previousPage", function previousPage() {
-    if (this.currentPage === 1) {
-      return;
-    }
-
-    this.reader.scrollBy(0, -(this.$refs['page1'][0].$el.clientHeight + 10));
-    this.currentPage--;
-  }), _defineProperty(_methods, "checkZoom", function checkZoom() {
-    return this.zoom > 100;
-  }), _defineProperty(_methods, "updateZoom", function updateZoom(zoom) {
-    if (zoom === 'auto') {
-      if (window.innerWidth <= 600) {
+      this.reader.scrollBy(0, -(this.$refs['page1'][0].$el.clientHeight + 10));
+      this.currentPage--;
+    },
+    checkZoom: function checkZoom() {
+      return this.zoom > 100;
+    },
+    updateZoom: function updateZoom(zoom) {
+      if (zoom === 'auto') {
+        if (window.innerWidth <= 600) {
+          this.zoom = 100;
+        } else if (window.innerWidth > 600 && window.innerWidth < 1000) {
+          this.zoom = 75;
+        } else {
+          this.zoom = 50;
+        }
+      } else if (zoom === 'full') {
         this.zoom = 100;
-      } else if (window.innerWidth > 600 && window.innerWidth < 1000) {
-        this.zoom = 75;
       } else {
-        this.zoom = 50;
-      }
-    } else if (zoom === 'full') {
-      this.zoom = 100;
-    } else {
-      if (zoom < 0 && this.zoom === 10 || zoom > 0 && this.zoom === 200) {
-        return;
-      }
+        if (zoom < 0 && this.zoom === 10 || zoom > 0 && this.zoom === 200) {
+          return;
+        }
 
-      this.zoom += zoom;
+        this.zoom += zoom;
+      }
+    },
+    getPDF: function getPDF() {
+      var _this = this;
+
+      var pdfjsLib = __webpack_require__(/*! pdfjs-dist */ "./node_modules/pdfjs-dist/build/pdf.js");
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc = __webpack_require__(/*! pdfjs-dist/build/pdf.worker */ "./node_modules/pdfjs-dist/build/pdf.worker.js");
+      this.pdf = pdfjsLib.getDocument(this.url);
+      this.pdf.promise.then(function (message) {
+        _this.numPages = message._pdfInfo.numPages;
+
+        if (_this.numPages <= 10) {
+          _this.showPages = _this.numPages;
+        } else {
+          _this.showPages = 10;
+        }
+      });
     }
-  }), _defineProperty(_methods, "getPDF", function getPDF() {
-    var _this = this;
-
-    var pdfjsLib = __webpack_require__(/*! pdfjs-dist */ "./node_modules/pdfjs-dist/build/pdf.js");
-
-    pdfjsLib.GlobalWorkerOptions.workerSrc = __webpack_require__(/*! pdfjs-dist/build/pdf.worker */ "./node_modules/pdfjs-dist/build/pdf.worker.js");
-    this.pdf = pdfjsLib.getDocument(this.url);
-    this.pdf.promise.then(function (message) {
-      _this.numPages = message._pdfInfo.numPages;
-
-      if (_this.numPages <= 10) {
-        _this.showPages = _this.numPages;
-      } else {
-        _this.showPages = 10;
-      }
-    });
-  }), _methods)
+  }
 });
 
 /***/ }),
@@ -111068,7 +111074,17 @@ var render = function() {
   return _c("div", [
     _c("nav", { staticClass: "col-12 p-0", attrs: { id: "topbar" } }, [
       _c("ul", { staticClass: "row nav justify-content-between m-0" }, [
-        _vm._m(0),
+        _c("span", { staticClass: "nav col-12 col-sm-auto p-0" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm.mode === "cascade"
+            ? _c("li", { staticClass: "nav-item" }, [_vm._m(1)])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.mode === "paginate"
+            ? _c("li", { staticClass: "nav-item" }, [_vm._m(2)])
+            : _vm._e()
+        ]),
         _vm._v(" "),
         _c("span", { staticClass: "nav col-12 col-sm-auto p-0" }, [
           _c("li", { staticClass: "nav-item" }, [
@@ -111205,7 +111221,7 @@ var render = function() {
         staticClass: "pdf-document",
         class: { "overflow-x-active": _vm.checkZoom }
       },
-      _vm._l(2, function(i) {
+      _vm._l(10, function(i) {
         return _c("pdf-page", {
           key: i,
           ref: "page" + i,
@@ -111224,12 +111240,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "nav col-12 col-sm-auto p-0" }, [
-      _c("li", { staticClass: "nav-item" }, [
-        _c("a", { attrs: { href: "/home" } }, [
-          _c("span", { staticClass: "icon-centered icon-back" })
-        ])
+    return _c("li", { staticClass: "nav-item" }, [
+      _c("a", { attrs: { href: "/home" } }, [
+        _c("span", { staticClass: "icon-centered icon-back" })
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("span", { staticClass: "icon-centered icon-cascade" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("span", { staticClass: "icon-centered icon-paginate" })
     ])
   }
 ]

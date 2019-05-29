@@ -1,5 +1,6 @@
 #topbar {
     background-color: rgba($sidebar_hover, 0.8);
+    color: $white_2;
 
     a {
         text-decoration: none;
@@ -9,11 +10,26 @@
             height: 50px;
             width: 50px;
             font-size: 24px;
+            transition: background 0.4s;
+
+            &:hover {
+                background-color: lighten($sidebar_hover, 3%);
+            }
+        }
+    }
+
+    .numPages {
+        padding: 10px 15px;
+
+        .input-currentPage {
+            background-color: transparent;
+            border: none;
+            color: $white_2;
+            border-bottom: 1px solid $white_2;
+            text-align: right;
         }
     }
 }
-
-
 
 .pdf-thumbnail, .pdf-document {
     position: absolute;
@@ -21,15 +37,19 @@
     overflow-x: hidden;
     width: 100%;
     height: calc(100% - 50px);
-    top: 50px;
+    top: 150px;
     bottom: 0;
     left: 0;
     right: 0;
-}
 
-.pdf-page {
-    display: block;
-    margin-bottom: 10px;
+    @include media-breakpoint-up(sm) {
+        top: 50px;
+    }
+
+    .pdf-page {
+        display: block;
+        margin-bottom: 10px;
+    }
 }
 
 .overflow-x-active {

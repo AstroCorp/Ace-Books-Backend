@@ -10388,6 +10388,7 @@ span.icon-centered .sidebar-subtitle span {
 
 #topbar {
   background-color: rgba(230, 168, 0, 0.8);
+  color: rgba(255, 255, 255, 0.8);
 }
 #topbar a {
   text-decoration: none;
@@ -10397,6 +10398,20 @@ span.icon-centered .sidebar-subtitle span {
   height: 50px;
   width: 50px;
   font-size: 24px;
+  transition: background 0.4s;
+}
+#topbar a .icon-centered:hover {
+  background-color: #f5b300;
+}
+#topbar .numPages {
+  padding: 10px 15px;
+}
+#topbar .numPages .input-currentPage {
+  background-color: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+  text-align: right;
 }
 
 .pdf-thumbnail, .pdf-document {
@@ -10405,13 +10420,17 @@ span.icon-centered .sidebar-subtitle span {
   overflow-x: hidden;
   width: 100%;
   height: calc(100% - 50px);
-  top: 50px;
+  top: 150px;
   bottom: 0;
   left: 0;
   right: 0;
 }
-
-.pdf-page {
+@media (min-width: 576px) {
+  .pdf-thumbnail, .pdf-document {
+    top: 50px;
+  }
+}
+.pdf-thumbnail .pdf-page, .pdf-document .pdf-page {
   display: block;
   margin-bottom: 10px;
 }

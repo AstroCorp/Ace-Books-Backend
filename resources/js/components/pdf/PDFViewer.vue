@@ -9,23 +9,24 @@
                     <li class="nav-item"><a href="#" @click="updateZoom('auto')"><span class="icon-centered icon-page-auto"></span></a></li>
                     <li class="nav-item"><a href="#" @click="updateZoom('full')"><span class="icon-centered icon-page-full"></span></a></li>
                     <li class="nav-item numPages">
-                        <input type="number" name="currentPage" class="input-currentPage" value="1" min="1" :max="numPages">
+                        <input type="number" name="currentPage" class="input-currentPage" v-model="currentPage" min="1" :max="numPages">
                         <span class="pr-3"> / </span><span>{{numPages}}</span>
                     </li>
                     <li class="nav-item"><a href="#" @click="updateZoom(10)"><span class="icon-centered icon-zoom-in"></span></a></li>
                     <li class="nav-item"><a href="#" @click="updateZoom(-10)"><span class="icon-centered icon-zoom-out"></span></a></li>
                 </span>
                 <span class="nav col-12 col-sm-auto p-0">
-                    <li class="nav-item"><a href="#"><span class="icon-centered icon-page-back"></span></a></li>
-                    <li class="nav-item"><a href="#"><span class="icon-centered icon-page-next"></span></a></li>
+                    <li class="nav-item"><a href="#" @click="previousPage()"><span class="icon-centered icon-page-back"></span></a></li>
+                    <li class="nav-item"><a href="#" @click="nextPage()"><span class="icon-centered icon-page-next"></span></a></li>
                 </span>  
             </ul>
         </nav>
-		<div class="pdf-document" v-bind:class="{ 'overflow-x-active': checkZoom }">
+		<div class="pdf-document" ref="reader" v-bind:class="{ 'overflow-x-active': checkZoom }">
             <pdf-page
                 class="mx-auto pdf-page"
                 v-for="i in 2"
                 :key="i"
+                :ref="'page' + i"
                 :src="url"
                 :page="i"
                 :style="'display: block; width: ' + zoom + '%;'"
@@ -41,30 +42,72 @@ export default
     data() 
     {
 		return {
-			currentPage: 0,
+			currentPage: 1,
             numPages: 0,
+            showPages: 1,
 
             zoom: 50,
+
+            mode: 'cascade',
+
+            reader: undefined,
 		}
     },
     props: [
         'url'
     ],
-    mounted() 
+    created() 
     {
-        this.updateZoom('auto');
         this.getPDF();
-	},
+    },
+    mounted: function()
+    {
+        this.reader = this.$refs['reader'];
+        this.reader.addEventListener('scroll', this.updatePage);
+    },
     methods:
     {
+        updatePage()
+        {
+            let calc = Math.floor((this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight + 1)) + 1);
+            this.currentPage = calc;
+        },
+        nextPage()
+        {
+            if(this.currentPage >= this.numPages)
+            {
+                return;
+            }
+
+            this.reader.scrollBy(0, this.reader.scrollTop + this.$refs['page1'][0].$el.clientHeight + 10);
+            this.currentPage++;
+        },
+        nextPage()
+        {
+            if(this.currentPage >= this.numPages)
+            {
+                return;
+            }
+
+            this.reader.scrollBy(0, this.$refs['page1'][0].$el.clientHeight + 10);
+            this.currentPage++;
+        },
+        previousPage()
+        {
+            if(this.currentPage === 1)
+            {
+                return;
+            }
+
+            this.reader.scrollBy(0, -(this.$refs['page1'][0].$el.clientHeight + 10));
+            this.currentPage--;
+        },
         checkZoom()
         {
             return this.zoom > 100;
         },
         updateZoom(zoom)
         {
-            //event.preventDefault();
-            
             if(zoom === 'auto')
             {
                 if(window.innerWidth <= 600)
@@ -103,6 +146,15 @@ export default
             this.pdf.promise.then(message =>
             {
                 this.numPages = message._pdfInfo.numPages;
+                
+                if(this.numPages <= 10)
+                {
+                    this.showPages = this.numPages;
+                }
+                else
+                {
+                    this.showPages = 10;
+                }
             });
         }
     }

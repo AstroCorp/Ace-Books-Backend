@@ -2029,6 +2029,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _methods;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
 //
 //
 //
@@ -2068,52 +2073,86 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      currentPage: 0,
+      currentPage: 1,
       numPages: 0,
-      zoom: 50
+      showPages: 1,
+      zoom: 50,
+      mode: 'cascade',
+      reader: undefined
     };
   },
   props: ['url'],
-  mounted: function mounted() {
-    this.updateZoom('auto');
+  created: function created() {
     this.getPDF();
   },
-  methods: {
-    checkZoom: function checkZoom() {
-      return this.zoom > 100;
+  mounted: function mounted() {
+    this.reader = this.$refs['reader'];
+    this.reader.addEventListener('scroll', this.updatePage);
+  },
+  methods: (_methods = {
+    updatePage: function updatePage() {
+      var calc = Math.floor(this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight + 1) + 1);
+      this.currentPage = calc;
     },
-    updateZoom: function updateZoom(zoom) {
-      //event.preventDefault();
-      if (zoom === 'auto') {
-        if (window.innerWidth <= 600) {
-          this.zoom = 100;
-        } else if (window.innerWidth > 600 && window.innerWidth < 1000) {
-          this.zoom = 75;
-        } else {
-          this.zoom = 50;
-        }
-      } else if (zoom === 'full') {
-        this.zoom = 100;
-      } else {
-        if (zoom < 0 && this.zoom === 10 || zoom > 0 && this.zoom === 200) {
-          return;
-        }
-
-        this.zoom += zoom;
+    nextPage: function nextPage() {
+      if (this.currentPage >= this.numPages) {
+        return;
       }
-    },
-    getPDF: function getPDF() {
-      var _this = this;
 
-      var pdfjsLib = __webpack_require__(/*! pdfjs-dist */ "./node_modules/pdfjs-dist/build/pdf.js");
-
-      pdfjsLib.GlobalWorkerOptions.workerSrc = __webpack_require__(/*! pdfjs-dist/build/pdf.worker */ "./node_modules/pdfjs-dist/build/pdf.worker.js");
-      this.pdf = pdfjsLib.getDocument(this.url);
-      this.pdf.promise.then(function (message) {
-        _this.numPages = message._pdfInfo.numPages;
-      });
+      this.reader.scrollBy(0, this.reader.scrollTop + this.$refs['page1'][0].$el.clientHeight + 10);
+      this.currentPage++;
     }
-  }
+  }, _defineProperty(_methods, "nextPage", function nextPage() {
+    if (this.currentPage >= this.numPages) {
+      return;
+    }
+
+    this.reader.scrollBy(0, this.$refs['page1'][0].$el.clientHeight + 10);
+    this.currentPage++;
+  }), _defineProperty(_methods, "previousPage", function previousPage() {
+    if (this.currentPage === 1) {
+      return;
+    }
+
+    this.reader.scrollBy(0, -(this.$refs['page1'][0].$el.clientHeight + 10));
+    this.currentPage--;
+  }), _defineProperty(_methods, "checkZoom", function checkZoom() {
+    return this.zoom > 100;
+  }), _defineProperty(_methods, "updateZoom", function updateZoom(zoom) {
+    if (zoom === 'auto') {
+      if (window.innerWidth <= 600) {
+        this.zoom = 100;
+      } else if (window.innerWidth > 600 && window.innerWidth < 1000) {
+        this.zoom = 75;
+      } else {
+        this.zoom = 50;
+      }
+    } else if (zoom === 'full') {
+      this.zoom = 100;
+    } else {
+      if (zoom < 0 && this.zoom === 10 || zoom > 0 && this.zoom === 200) {
+        return;
+      }
+
+      this.zoom += zoom;
+    }
+  }), _defineProperty(_methods, "getPDF", function getPDF() {
+    var _this = this;
+
+    var pdfjsLib = __webpack_require__(/*! pdfjs-dist */ "./node_modules/pdfjs-dist/build/pdf.js");
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc = __webpack_require__(/*! pdfjs-dist/build/pdf.worker */ "./node_modules/pdfjs-dist/build/pdf.worker.js");
+    this.pdf = pdfjsLib.getDocument(this.url);
+    this.pdf.promise.then(function (message) {
+      _this.numPages = message._pdfInfo.numPages;
+
+      if (_this.numPages <= 10) {
+        _this.showPages = _this.numPages;
+      } else {
+        _this.showPages = 10;
+      }
+    });
+  }), _methods)
 });
 
 /***/ }),
@@ -111064,13 +111103,29 @@ var render = function() {
           _vm._v(" "),
           _c("li", { staticClass: "nav-item numPages" }, [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.currentPage,
+                  expression: "currentPage"
+                }
+              ],
               staticClass: "input-currentPage",
               attrs: {
                 type: "number",
                 name: "currentPage",
-                value: "1",
                 min: "1",
                 max: _vm.numPages
+              },
+              domProps: { value: _vm.currentPage },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.currentPage = $event.target.value
+                }
               }
             }),
             _vm._v(" "),
@@ -111109,19 +111164,52 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(1)
+        _c("span", { staticClass: "nav col-12 col-sm-auto p-0" }, [
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    return _vm.previousPage()
+                  }
+                }
+              },
+              [_c("span", { staticClass: "icon-centered icon-page-back" })]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    return _vm.nextPage()
+                  }
+                }
+              },
+              [_c("span", { staticClass: "icon-centered icon-page-next" })]
+            )
+          ])
+        ])
       ])
     ]),
     _vm._v(" "),
     _c(
       "div",
       {
+        ref: "reader",
         staticClass: "pdf-document",
         class: { "overflow-x-active": _vm.checkZoom }
       },
       _vm._l(2, function(i) {
         return _c("pdf-page", {
           key: i,
+          ref: "page" + i,
+          refInFor: true,
           staticClass: "mx-auto pdf-page",
           style: "display: block; width: " + _vm.zoom + "%;",
           attrs: { src: _vm.url, page: i }
@@ -111140,24 +111228,6 @@ var staticRenderFns = [
       _c("li", { staticClass: "nav-item" }, [
         _c("a", { attrs: { href: "/home" } }, [
           _c("span", { staticClass: "icon-centered icon-back" })
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "nav col-12 col-sm-auto p-0" }, [
-      _c("li", { staticClass: "nav-item" }, [
-        _c("a", { attrs: { href: "#" } }, [
-          _c("span", { staticClass: "icon-centered icon-page-back" })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "nav-item" }, [
-        _c("a", { attrs: { href: "#" } }, [
-          _c("span", { staticClass: "icon-centered icon-page-next" })
         ])
       ])
     ])

@@ -10402,15 +10402,20 @@ span.icon-centered .sidebar-subtitle span {
 .pdf-thumbnail, .pdf-document {
   position: absolute;
   overflow: auto;
+  overflow-x: hidden;
   width: 100%;
   height: calc(100% - 50px);
   top: 50px;
   bottom: 0;
-  left: 15px;
+  left: 0;
   right: 0;
 }
 
 .pdf-page {
   display: block;
   margin-bottom: 10px;
+}
+
+.overflow-x-active {
+  overflow-x: auto !important;
 }

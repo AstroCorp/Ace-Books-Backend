@@ -25,9 +25,7 @@ Vue.component('library-menu', require('./components/LibraryMenuComponent.vue').d
 Vue.component('input-file-with-image-preview', require('./components/InputFileWithImagePreviewComponent.vue').default);
 Vue.component('input-file-custom', require('./components/InputFileCustomComponent.vue').default);
 
-Vue.component('pdf-viewer', require('./components/pdf/PDF.vue').default);
-Vue.component('pdf-document', require('./components/pdf/PDFDocument.vue').default);
-Vue.component('pdf-thumbnail', require('./components/pdf/PDFThumbnail.vue').default);
+Vue.component('pdf-viewer', require('./components/pdf/PDFViewer.vue').default);
 Vue.component('pdf-page', require('./components/pdf/PDFPage.vue').default);
 
 

@@ -11,7 +11,7 @@
                     <li class="nav-item"><a href="#" @click="updateZoom('auto')"><span class="icon-centered icon-page-auto"></span></a></li>
                     <li class="nav-item"><a href="#" @click="updateZoom('full')"><span class="icon-centered icon-page-full"></span></a></li>
                     <li class="nav-item numPages">
-                        <input type="number" name="currentPage" class="input-currentPage" v-model="currentPage" min="1" :max="numPages">
+                        <input type="number" name="currentPage" class="input-currentPage" v-model="currentPage" @change="updatePageWithInput()" min="1" :max="numPages">
                         <span class="pr-3"> / </span><span>{{numPages}}</span>
                     </li>
                     <li class="nav-item"><a href="#" @click="updateZoom(10)"><span class="icon-centered icon-zoom-in"></span></a></li>
@@ -26,7 +26,7 @@
 		<div class="pdf-document" ref="reader" v-bind:class="{ 'overflow-x-active': checkZoom }">
             <pdf-page
                 class="mx-auto pdf-page"
-                v-for="i in 10"
+                v-for="i in showPages"
                 :key="i"
                 :ref="'page' + i"
                 :src="url"
@@ -65,7 +65,7 @@ export default
     mounted: function()
     {
         this.reader = this.$refs['reader'];
-        this.reader.addEventListener('scroll', this.updatePage);
+        this.reader.addEventListener('scroll', this.updatePageWithScroll);
     },
     methods:
     {
@@ -80,12 +80,22 @@ export default
                 this.mode = 'cascade';
             }
         },
-        updatePage()
+        updatePageWithScroll()
         {
             if(this.mode === 'cascade')
             {
-                let calc = Math.floor((this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight + 1)) + 1);
+                // nivel de scroll / tamaño de la página + 1
+                let calc = Math.floor((this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight + 10)) + 1);
                 this.currentPage = calc;
+            }
+        },
+        updatePageWithInput()
+        {
+            if(this.mode === 'cascade')
+            {
+                // tamaño de la página * número de páginas
+                let calc = (this.$refs['page1'][0].$el.clientHeight + 10) * (this.currentPage - 1);
+                this.reader.scrollTo(0, calc);
             }
         },
         nextPage()

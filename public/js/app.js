@@ -2085,7 +2085,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.reader = this.$refs['reader'];
-    this.reader.addEventListener('scroll', this.updatePage);
+    this.reader.addEventListener('scroll', this.updatePageWithScroll);
   },
   methods: {
     changeMode: function changeMode() {
@@ -2095,10 +2095,18 @@ __webpack_require__.r(__webpack_exports__);
         this.mode = 'cascade';
       }
     },
-    updatePage: function updatePage() {
+    updatePageWithScroll: function updatePageWithScroll() {
       if (this.mode === 'cascade') {
-        var calc = Math.floor(this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight + 1) + 1);
+        // nivel de scroll / tamaño de la página + 1
+        var calc = Math.floor(this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight + 10) + 1);
         this.currentPage = calc;
+      }
+    },
+    updatePageWithInput: function updatePageWithInput() {
+      if (this.mode === 'cascade') {
+        // tamaño de la página * número de páginas
+        var calc = (this.$refs['page1'][0].$el.clientHeight + 10) * (this.currentPage - 1);
+        this.reader.scrollTo(0, calc);
       }
     },
     nextPage: function nextPage() {
@@ -111136,6 +111144,9 @@ var render = function() {
               },
               domProps: { value: _vm.currentPage },
               on: {
+                change: function($event) {
+                  return _vm.updatePageWithInput()
+                },
                 input: function($event) {
                   if ($event.target.composing) {
                     return
@@ -111221,7 +111232,7 @@ var render = function() {
         staticClass: "pdf-document",
         class: { "overflow-x-active": _vm.checkZoom }
       },
-      _vm._l(10, function(i) {
+      _vm._l(_vm.showPages, function(i) {
         return _c("pdf-page", {
           key: i,
           ref: "page" + i,
@@ -124108,15 +124119,13 @@ var app = new Vue({
 /***/ (function(module, exports, __webpack_require__) {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-
-var pdfjsdist = __webpack_require__(/*! pdfjs-dist/webpack.js */ "./node_modules/pdfjs-dist/webpack.js"); //console.log(JSON.stringify(pdfjs));
+window.pdfjsdist = __webpack_require__(/*! pdfjs-dist/webpack.js */ "./node_modules/pdfjs-dist/webpack.js"); //console.log(JSON.stringify(pdfjs));
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
  * code may be modified to fit the specific needs of your application.
  */
-
 
 try {
   window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");

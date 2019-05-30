@@ -4,8 +4,8 @@
             <ul class="row nav justify-content-between m-0">
                 <span class="nav col-12 col-sm-auto p-0">
                     <li class="nav-item"><a href="/home"><span class="icon-centered icon-back"></span></a></li>
-                    <li class="nav-item" v-if="mode === 'cascade'"><a href="#"><span class="icon-centered icon-cascade"></span></a></li>
-                    <li class="nav-item" v-if="mode === 'paginate'"><a href="#"><span class="icon-centered icon-paginate"></span></a></li>
+                    <li class="nav-item" v-if="mode === 'paginate'" @click="changeMode()"><a href="#"><span class="icon-centered icon-cascade"></span></a></li>
+                    <li class="nav-item" v-if="mode === 'cascade'" @click="changeMode()"><a href="#"><span class="icon-centered icon-paginate"></span></a></li>
                 </span>
                 <span class="nav col-12 col-sm-auto p-0">
                     <li class="nav-item"><a href="#" @click="updateZoom('auto')"><span class="icon-centered icon-page-auto"></span></a></li>
@@ -27,6 +27,7 @@
             <pdf-page
                 class="mx-auto pdf-page"
                 v-for="i in showPages"
+                v-show="mode === 'cascade' || (mode === 'paginate' && i === currentPage)"
                 :key="i"
                 :ref="'page' + i"
                 :src="url"
@@ -84,7 +85,7 @@ export default
         {
             if(this.mode === 'cascade')
             {
-                // nivel de scroll / tamaño de la página + 1
+                // Nivel de scroll / tamaño de la página + 1
                 let calc = Math.floor((this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight + 10)) + 1);
                 this.currentPage = calc;
             }
@@ -93,23 +94,20 @@ export default
         {
             if(this.mode === 'cascade')
             {
-                // tamaño de la página * número de páginas
+                // Tamaño de la página * número de páginas
                 let calc = (this.$refs['page1'][0].$el.clientHeight + 10) * (this.currentPage - 1);
                 this.reader.scrollTo(0, calc);
             }
         },
         nextPage()
         {
-            if(this.mode === 'cascade')
+            if(this.currentPage >= this.numPages)
             {
-                if(this.currentPage >= this.numPages)
-                {
-                    return;
-                }
-
-                this.reader.scrollBy(0, this.$refs['page1'][0].$el.clientHeight + 10);
-                this.currentPage++;
+                return;
             }
+
+            this.currentPage++;
+            this.updatePageWithInput();
         },
         previousPage()
         {
@@ -118,8 +116,8 @@ export default
                 return;
             }
 
-            this.reader.scrollBy(0, -(this.$refs['page1'][0].$el.clientHeight + 10));
             this.currentPage--;
+            this.updatePageWithInput();
         },
         checkZoom()
         {
@@ -175,6 +173,25 @@ export default
                     this.showPages = 10;
                 }
             });
+        }
+    },
+    watch:
+    {
+        currentPage: function(currentPage)
+        {
+            console.log(currentPage);
+
+            if(currentPage === this.showPages && this.showPages < this.numPages)
+            {
+                if(this.numPages - this.showPages >= 10)
+                {
+                    this.showPages += 10;
+                }
+                else
+                {
+                    this.showPages += (this.numPages - this.showPages);
+                }
+            }
         }
     }
 }

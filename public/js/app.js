@@ -2068,6 +2068,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2097,35 +2098,33 @@ __webpack_require__.r(__webpack_exports__);
     },
     updatePageWithScroll: function updatePageWithScroll() {
       if (this.mode === 'cascade') {
-        // nivel de scroll / tamaño de la página + 1
+        // Nivel de scroll / tamaño de la página + 1
         var calc = Math.floor(this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight + 10) + 1);
         this.currentPage = calc;
       }
     },
     updatePageWithInput: function updatePageWithInput() {
       if (this.mode === 'cascade') {
-        // tamaño de la página * número de páginas
+        // Tamaño de la página * número de páginas
         var calc = (this.$refs['page1'][0].$el.clientHeight + 10) * (this.currentPage - 1);
         this.reader.scrollTo(0, calc);
       }
     },
     nextPage: function nextPage() {
-      if (this.mode === 'cascade') {
-        if (this.currentPage >= this.numPages) {
-          return;
-        }
-
-        this.reader.scrollBy(0, this.$refs['page1'][0].$el.clientHeight + 10);
-        this.currentPage++;
+      if (this.currentPage >= this.numPages) {
+        return;
       }
+
+      this.currentPage++;
+      this.updatePageWithInput();
     },
     previousPage: function previousPage() {
       if (this.currentPage === 1) {
         return;
       }
 
-      this.reader.scrollBy(0, -(this.$refs['page1'][0].$el.clientHeight + 10));
       this.currentPage--;
+      this.updatePageWithInput();
     },
     checkZoom: function checkZoom() {
       return this.zoom > 100;
@@ -2165,6 +2164,19 @@ __webpack_require__.r(__webpack_exports__);
           _this.showPages = 10;
         }
       });
+    }
+  },
+  watch: {
+    currentPage: function currentPage(_currentPage) {
+      console.log(_currentPage);
+
+      if (_currentPage === this.showPages && this.showPages < this.numPages) {
+        if (this.numPages - this.showPages >= 10) {
+          this.showPages += 10;
+        } else {
+          this.showPages += this.numPages - this.showPages;
+        }
+      }
     }
   }
 });
@@ -111085,12 +111097,34 @@ var render = function() {
         _c("span", { staticClass: "nav col-12 col-sm-auto p-0" }, [
           _vm._m(0),
           _vm._v(" "),
-          _vm.mode === "cascade"
-            ? _c("li", { staticClass: "nav-item" }, [_vm._m(1)])
+          _vm.mode === "paginate"
+            ? _c(
+                "li",
+                {
+                  staticClass: "nav-item",
+                  on: {
+                    click: function($event) {
+                      return _vm.changeMode()
+                    }
+                  }
+                },
+                [_vm._m(1)]
+              )
             : _vm._e(),
           _vm._v(" "),
-          _vm.mode === "paginate"
-            ? _c("li", { staticClass: "nav-item" }, [_vm._m(2)])
+          _vm.mode === "cascade"
+            ? _c(
+                "li",
+                {
+                  staticClass: "nav-item",
+                  on: {
+                    click: function($event) {
+                      return _vm.changeMode()
+                    }
+                  }
+                },
+                [_vm._m(2)]
+              )
             : _vm._e()
         ]),
         _vm._v(" "),
@@ -111234,6 +111268,17 @@ var render = function() {
       },
       _vm._l(_vm.showPages, function(i) {
         return _c("pdf-page", {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value:
+                _vm.mode === "cascade" ||
+                (_vm.mode === "paginate" && i === _vm.currentPage),
+              expression:
+                "mode === 'cascade' || (mode === 'paginate' && i === currentPage)"
+            }
+          ],
           key: i,
           ref: "page" + i,
           refInFor: true,

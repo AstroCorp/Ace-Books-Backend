@@ -2300,7 +2300,7 @@ var loadingTask = vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingT
         return;
       }
 
-      this.currentPage;
+      this.currentPage++;
       this.updatePageWithInput();
     },
     previousPage: function previousPage() {

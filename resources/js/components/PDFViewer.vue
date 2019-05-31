@@ -115,8 +115,6 @@ export default
                     this.reader.addEventListener('scroll', this.updatePageWithScroll);
                 }
                 .bind(this), 150);
-
-                
             }
         },
         nextPage()
@@ -126,7 +124,7 @@ export default
                 return;
             }
 
-            this.currentPage;
+            this.currentPage++;
             this.updatePageWithInput();
         },
         previousPage()

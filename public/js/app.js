@@ -2242,7 +2242,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 var loadingTask = vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingTask('/books/x.pdf');
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2256,7 +2255,6 @@ var loadingTask = vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingT
       zoom: 0.5,
       mode: 'cascade',
       src: loadingTask,
-      pdfStatus: 0,
       reader: undefined
     };
   },
@@ -2288,10 +2286,13 @@ var loadingTask = vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingT
       var activate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
       if (this.mode === 'cascade' || activate) {
-        // ((Tamaño de la página * escala) * número de páginas) + (número de páginas * (margin-button * escala))
+        this.reader.removeEventListener('scroll', this.updatePageWithScroll); // ((Tamaño de la página * escala) * número de páginas) + (número de páginas * (margin-button * escala))
+
         var calc = this.$refs['page1'][0].$el.clientHeight * this.zoom * (this.currentPage - 1) + (this.currentPage - 1) * (10 * this.zoom);
         this.reader.scrollTo(0, calc);
-        console.log(calc);
+        setTimeout(function () {
+          this.reader.addEventListener('scroll', this.updatePageWithScroll);
+        }.bind(this), 150);
       }
     },
     nextPage: function nextPage() {
@@ -2299,7 +2300,7 @@ var loadingTask = vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingT
         return;
       }
 
-      this.currentPage++;
+      this.currentPage;
       this.updatePageWithInput();
     },
     previousPage: function previousPage() {
@@ -2341,7 +2342,7 @@ var loadingTask = vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingT
     }
   },
   watch: {
-    currentPage: function currentPage() {
+    currentPage: function currentPage(_currentPage) {
       if (this.currentPage < 1) {
         this.currentPage = 1;
       } else if (this.currentPage > this.numPages) {
@@ -64285,9 +64286,7 @@ var render = function() {
               },
               domProps: { value: _vm.currentPage },
               on: {
-                change: function($event) {
-                  return _vm.updatePageWithInput()
-                },
+                change: _vm.updatePageWithInput,
                 input: function($event) {
                   if ($event.target.composing) {
                     return
@@ -64411,12 +64410,7 @@ var render = function() {
               refInFor: true,
               staticClass: "mx-auto pdf-page",
               style: "width: 100%;",
-              attrs: { src: _vm.src, page: i },
-              on: {
-                loaded: function($event) {
-                  _vm.pdfStatus = $event
-                }
-              }
+              attrs: { src: _vm.src, page: i }
             })
           }),
           1

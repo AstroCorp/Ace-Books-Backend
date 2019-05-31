@@ -11,7 +11,7 @@
                     <li class="nav-item"><a href="#" @click="updateZoom('auto')"><span class="icon-centered icon-page-auto"></span></a></li>
                     <li class="nav-item"><a href="#" @click="updateZoom('full')"><span class="icon-centered icon-page-full"></span></a></li>
                     <li class="nav-item numPages">
-                        <input type="number" name="currentPage" class="input-currentPage" v-model="currentPage" @change="updatePageWithInput()" min="1" :max="numPages">
+                        <input type="number" name="currentPage" class="input-currentPage" v-model="currentPage" @change="updatePageWithInput" min="1" :max="numPages">
                         <span class="pr-3"> / </span><span>{{numPages}}</span>
                     </li>
                     <li class="nav-item"><a href="#" @click="updateZoom(0.1)"><span class="icon-centered icon-zoom-in"></span></a></li>
@@ -33,7 +33,6 @@
                     :ref="'page' + i"
                     :src="src"
                     :page="i"
-                    @loaded="pdfStatus = $event"
                     :style="'width: 100%;'"
 		        />
             </div>
@@ -60,7 +59,6 @@ export default
 
             mode: 'cascade',
             src: loadingTask,
-            pdfStatus: 0,
             reader: undefined,
 		}
     },
@@ -106,10 +104,19 @@ export default
         {
             if(this.mode === 'cascade' || activate)
             {
+                this.reader.removeEventListener('scroll', this.updatePageWithScroll);
+
                 // ((Tamaño de la página * escala) * número de páginas) + (número de páginas * (margin-button * escala))
                 let calc = (this.$refs['page1'][0].$el.clientHeight * this.zoom) * (this.currentPage - 1) + ((this.currentPage - 1) * (10 * this.zoom));
                 this.reader.scrollTo(0, calc);
-                console.log(calc);
+
+                setTimeout(function() 
+                {
+                    this.reader.addEventListener('scroll', this.updatePageWithScroll);
+                }
+                .bind(this), 150);
+
+                
             }
         },
         nextPage()
@@ -119,7 +126,7 @@ export default
                 return;
             }
 
-            this.currentPage++;
+            this.currentPage;
             this.updatePageWithInput();
         },
         previousPage()
@@ -177,7 +184,7 @@ export default
     },
     watch:
     {
-        currentPage: function()
+        currentPage: function(currentPage)
         {
             if(this.currentPage < 1)
             {

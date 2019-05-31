@@ -14,8 +14,8 @@
                         <input type="number" name="currentPage" class="input-currentPage" v-model="currentPage" @change="updatePageWithInput()" min="1" :max="numPages">
                         <span class="pr-3"> / </span><span>{{numPages}}</span>
                     </li>
-                    <li class="nav-item"><a href="#" @click="updateZoom(10)"><span class="icon-centered icon-zoom-in"></span></a></li>
-                    <li class="nav-item"><a href="#" @click="updateZoom(-10)"><span class="icon-centered icon-zoom-out"></span></a></li>
+                    <li class="nav-item"><a href="#" @click="updateZoom(0.1)"><span class="icon-centered icon-zoom-in"></span></a></li>
+                    <li class="nav-item"><a href="#" @click="updateZoom(-0.1)"><span class="icon-centered icon-zoom-out"></span></a></li>
                 </span>
                 <span class="nav col-12 col-sm-auto p-0">
                     <li class="nav-item"><a href="#" @click="previousPage()"><span class="icon-centered icon-page-back"></span></a></li>
@@ -24,16 +24,19 @@
             </ul>
         </nav>
 		<div class="pdf-document" ref="reader" v-bind:class="{ 'overflow-x-active': checkZoom }">
-            <pdf
-                class="mx-auto pdf-page"
-                v-for="i in numPages"
-                v-show="mode === 'cascade' || (mode === 'paginate' && i == currentPage)"
-                :key="i"
-                :ref="'page' + i"
-                :src="src"
-                :page="i"
-                :style="'display: block; width: ' + zoom + '%;'"
-		    />
+            <div class="grid" :style="'-ms-transform: scale(' + zoom + ', ' + zoom + '); -webkit-transform: scale(' + zoom + ', ' + zoom + '); transform: scale( ' + zoom + ', ' + zoom + ');'">
+                <pdf
+                    class="mx-auto pdf-page"
+                    v-for="i in numPages"
+                    v-show="mode === 'cascade' || (mode === 'paginate' && i == currentPage)"
+                    :key="i"
+                    :ref="'page' + i"
+                    :src="src"
+                    :page="i"
+                    @loaded="pdfStatus = $event"
+                    :style="'width: 100%;'"
+		        />
+            </div>
         </div>
 	</div>
 </template>
@@ -53,10 +56,11 @@ export default
 			currentPage: 1,
             numPages: 0,
 
-            zoom: 50,
+            zoom: 0.5,
 
             mode: 'cascade',
             src: loadingTask,
+            pdfStatus: 0,
             reader: undefined,
 		}
     },
@@ -87,8 +91,8 @@ export default
         {
             if(this.mode === 'cascade')
             {
-                // Nivel de scroll / tamaño de la página + 1
-                let calc = Math.floor((this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight + 10)) + 1);
+                // Nivel de scroll / tamaño de la página / escala + 1
+                let calc = Math.floor((this.reader.scrollTop / ((this.$refs['page1'][0].$el.clientHeight * this.zoom) + 10)) + 1);
                 this.currentPage = calc;
             }
         },
@@ -131,20 +135,20 @@ export default
             {
                 if(window.innerWidth <= 600)
                 {
-                    this.zoom = 100;
+                    this.zoom = 1;
                 }
                 else if(window.innerWidth > 600 && window.innerWidth < 1000)
                 {
-                    this.zoom = 75;
+                    this.zoom = 0.75;
                 }
                 else
                 {
-                    this.zoom = 50;
+                    this.zoom = 0.5;
                 }
             }
             else if(zoom === 'full')
             {
-                this.zoom = 100;
+                this.zoom = 1;
             }
             else
             {

@@ -2165,6 +2165,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 var loadingTask = vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingTask('/books/x.pdf');
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2175,9 +2178,10 @@ var loadingTask = vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingT
     return {
       currentPage: 1,
       numPages: 0,
-      zoom: 50,
+      zoom: 0.5,
       mode: 'cascade',
       src: loadingTask,
+      pdfStatus: 0,
       reader: undefined
     };
   },
@@ -2197,8 +2201,8 @@ var loadingTask = vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingT
     },
     updatePageWithScroll: function updatePageWithScroll() {
       if (this.mode === 'cascade') {
-        // Nivel de scroll / tamaño de la página + 1
-        var calc = Math.floor(this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight + 10) + 1);
+        // Nivel de scroll / tamaño de la página / escala + 1
+        var calc = Math.floor(this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight * this.zoom + 10) + 1);
         this.currentPage = calc;
       }
     },
@@ -2231,14 +2235,14 @@ var loadingTask = vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingT
     updateZoom: function updateZoom(zoom) {
       if (zoom === 'auto') {
         if (window.innerWidth <= 600) {
-          this.zoom = 100;
+          this.zoom = 1;
         } else if (window.innerWidth > 600 && window.innerWidth < 1000) {
-          this.zoom = 75;
+          this.zoom = 0.75;
         } else {
-          this.zoom = 50;
+          this.zoom = 0.5;
         }
       } else if (zoom === 'full') {
-        this.zoom = 100;
+        this.zoom = 1;
       } else {
         if (zoom < 0 && this.zoom === 10 || zoom > 0 && this.zoom === 200) {
           return;
@@ -63393,7 +63397,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-if ( Object({"MIX_PUSHER_APP_CLUSTER":"mt1","MIX_PUSHER_APP_KEY":"","NODE_ENV":"development"}).VUE_ENV !== 'server' ) {
+if ( Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","NODE_ENV":"development"}).VUE_ENV !== 'server' ) {
 
 	var pdfjsWrapper = __webpack_require__(/*! ./pdfjsWrapper.js */ "./node_modules/vue-pdf/src/pdfjsWrapper.js").default;
 	var PDFJS = __webpack_require__(/*! pdfjs-dist/build/pdf.js */ "./node_modules/pdfjs-dist/build/pdf.js");
@@ -64223,7 +64227,7 @@ var render = function() {
                 attrs: { href: "#" },
                 on: {
                   click: function($event) {
-                    return _vm.updateZoom(10)
+                    return _vm.updateZoom(0.1)
                   }
                 }
               },
@@ -64238,7 +64242,7 @@ var render = function() {
                 attrs: { href: "#" },
                 on: {
                   click: function($event) {
-                    return _vm.updateZoom(-10)
+                    return _vm.updateZoom(-0.1)
                   }
                 }
               },
@@ -64288,28 +64292,55 @@ var render = function() {
         staticClass: "pdf-document",
         class: { "overflow-x-active": _vm.checkZoom }
       },
-      _vm._l(_vm.numPages, function(i) {
-        return _c("pdf", {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value:
-                _vm.mode === "cascade" ||
-                (_vm.mode === "paginate" && i == _vm.currentPage),
-              expression:
-                "mode === 'cascade' || (mode === 'paginate' && i == currentPage)"
-            }
-          ],
-          key: i,
-          ref: "page" + i,
-          refInFor: true,
-          staticClass: "mx-auto pdf-page",
-          style: "display: block; width: " + _vm.zoom + "%;",
-          attrs: { src: _vm.src, page: i }
-        })
-      }),
-      1
+      [
+        _c(
+          "div",
+          {
+            staticClass: "grid",
+            style:
+              "-ms-transform: scale(" +
+              _vm.zoom +
+              ", " +
+              _vm.zoom +
+              "); -webkit-transform: scale(" +
+              _vm.zoom +
+              ", " +
+              _vm.zoom +
+              "); transform: scale( " +
+              _vm.zoom +
+              ", " +
+              _vm.zoom +
+              ");"
+          },
+          _vm._l(_vm.numPages, function(i) {
+            return _c("pdf", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.mode === "cascade" ||
+                    (_vm.mode === "paginate" && i == _vm.currentPage),
+                  expression:
+                    "mode === 'cascade' || (mode === 'paginate' && i == currentPage)"
+                }
+              ],
+              key: i,
+              ref: "page" + i,
+              refInFor: true,
+              staticClass: "mx-auto pdf-page",
+              style: "width: 100%;",
+              attrs: { src: _vm.src, page: i },
+              on: {
+                loaded: function($event) {
+                  _vm.pdfStatus = $event
+                }
+              }
+            })
+          }),
+          1
+        )
+      ]
     )
   ])
 }
@@ -77619,8 +77650,8 @@ window.onload = function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\AceBooks\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\AceBooks\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/alejandro/Documentos/github/AceBooks/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/alejandro/Documentos/github/AceBooks/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ }),

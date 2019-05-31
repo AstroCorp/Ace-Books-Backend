@@ -10430,7 +10430,12 @@ span.icon-centered .sidebar-subtitle span {
     top: 50px;
   }
 }
-.pdf-thumbnail .pdf-page, .pdf-document .pdf-page {
+.pdf-thumbnail .grid, .pdf-document .grid {
+  height: 100%;
+  -webkit-transform-origin: top;
+          transform-origin: top;
+}
+.pdf-thumbnail .grid .pdf-page, .pdf-document .grid .pdf-page {
   display: block;
   margin-bottom: 10px;
 }

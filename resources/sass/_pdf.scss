@@ -46,9 +46,14 @@
         top: 50px;
     }
 
-    .pdf-page {
-        display: block;
-        margin-bottom: 10px;
+    .grid {
+        height: 100%;
+        transform-origin: top;
+        
+        .pdf-page {
+            display: block;
+            margin-bottom: 10px;
+        }
     }
 }
 

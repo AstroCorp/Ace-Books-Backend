@@ -2197,20 +2197,26 @@ var loadingTask = vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingT
         this.mode = 'paginate';
       } else {
         this.mode = 'cascade';
+        setTimeout(function () {
+          this.updatePageWithInput(true);
+        }.bind(this), 50);
       }
     },
     updatePageWithScroll: function updatePageWithScroll() {
       if (this.mode === 'cascade') {
-        // Nivel de scroll / tamaño de la página / escala + 1
-        var calc = Math.floor(this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight * this.zoom + 10) + 1);
+        // (scroll actual / ((tamaño de la página * escala) + (margin-bottom * escala))) + 1 (este 1 es para mostrar bien el número de página, ya que es un array)
+        var calc = Math.floor(this.reader.scrollTop / (this.$refs['page1'][0].$el.clientHeight * this.zoom + 10 * this.zoom) + 1);
         this.currentPage = calc;
       }
     },
     updatePageWithInput: function updatePageWithInput() {
-      if (this.mode === 'cascade') {
-        // Tamaño de la página * número de páginas
-        var calc = (this.$refs['page1'][0].$el.clientHeight + 10) * (this.currentPage - 1);
+      var activate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+      if (this.mode === 'cascade' || activate) {
+        // ((Tamaño de la página * escala) * número de páginas) + (número de páginas * (margin-button * escala))
+        var calc = this.$refs['page1'][0].$el.clientHeight * this.zoom * (this.currentPage - 1) + (this.currentPage - 1) * (10 * this.zoom);
         this.reader.scrollTo(0, calc);
+        console.log(calc);
       }
     },
     nextPage: function nextPage() {

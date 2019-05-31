@@ -85,24 +85,31 @@ export default
             else
             {
                 this.mode = 'cascade';
+
+                setTimeout(function() 
+                {
+                    this.updatePageWithInput(true);
+                }
+                .bind(this), 50);
             }
         },
         updatePageWithScroll()
         {
             if(this.mode === 'cascade')
             {
-                // Nivel de scroll / tamaño de la página / escala + 1
-                let calc = Math.floor((this.reader.scrollTop / ((this.$refs['page1'][0].$el.clientHeight * this.zoom) + 10)) + 1);
+                // (scroll actual / ((tamaño de la página * escala) + (margin-bottom * escala))) + 1 (este 1 es para mostrar bien el número de página, ya que es un array)
+                let calc = Math.floor((this.reader.scrollTop / ((this.$refs['page1'][0].$el.clientHeight * this.zoom) + (10 * this.zoom))) + 1);
                 this.currentPage = calc;
             }
         },
-        updatePageWithInput()
+        updatePageWithInput(activate = false)
         {
-            if(this.mode === 'cascade')
+            if(this.mode === 'cascade' || activate)
             {
-                // Tamaño de la página * número de páginas
-                let calc = (this.$refs['page1'][0].$el.clientHeight + 10) * (this.currentPage - 1);
+                // ((Tamaño de la página * escala) * número de páginas) + (número de páginas * (margin-button * escala))
+                let calc = (this.$refs['page1'][0].$el.clientHeight * this.zoom) * (this.currentPage - 1) + ((this.currentPage - 1) * (10 * this.zoom));
                 this.reader.scrollTo(0, calc);
+                console.log(calc);
             }
         },
         nextPage()

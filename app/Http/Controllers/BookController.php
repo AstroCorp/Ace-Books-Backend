@@ -40,7 +40,7 @@ class BookController extends Controller
     {
         $request->validate([
             'file' => ['required', 'file', 'mimetypes:application/pdf', 'max:'.$request->user()->storage->size_books],
-            'image' => ['image', 'max:2000'], // 2 MB
+            'image' => ['image', 'max:500'], // 500 Kb
             'name' => ['required', 'string'],
             'description' => ['nullable', 'string'],
             'collection' => ['nullable', 'integer', new CheckCollection]
@@ -104,7 +104,7 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $request->validate([
-            'image' => ['image', 'max:2000'], // 2 MB
+            'image' => ['image', 'max:500'], // 500 Kb
             'name' => ['required', 'string'],
             'description' => ['nullable', 'string'],
             'collection' => ['nullable', 'integer', new CheckCollection]

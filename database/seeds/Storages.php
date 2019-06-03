@@ -24,12 +24,12 @@ class Storages extends Seeder
 
         $newStorage2 = new Storage();
         $newStorage2->name = 'storages.storage2';
-        $newStorage2->amount_books = 20;
-        $newStorage2->size_books = 5000;
+        $newStorage2->amount_books = 50;
+        $newStorage2->size_books = 10000;
         $newStorage2->share_books = true;
-        $newStorage2->amount_collections = 10;
+        $newStorage2->amount_collections = 15;
         $newStorage2->share_collections = true;
-        $newStorage2->price = 0;
+        $newStorage2->price = 4.95;
         $newStorage2->save();
     }
 }

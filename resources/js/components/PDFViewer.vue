@@ -25,16 +25,24 @@
         </nav>
 		<div class="pdf-document" ref="reader" v-bind:class="{ 'overflow-x-active': checkZoom }">
             <div class="grid" :style="'-ms-transform: scale(' + zoom + ', ' + zoom + '); -webkit-transform: scale(' + zoom + ', ' + zoom + '); transform: scale( ' + zoom + ', ' + zoom + ');'">
-                <pdf
-                    class="mx-auto pdf-page"
-                    v-for="i in numPages"
-                    v-show="mode === 'cascade' || (mode === 'paginate' && i == currentPage)"
-                    :key="i"
-                    :ref="'page' + i"
-                    :src="src"
-                    :page="i"
-                    :style="'width: 100%;'"
-		        />
+                <div
+                class="mx-auto pdf-page"
+                v-for="i in numPages"
+                v-show="mode === 'cascade' || (mode === 'paginate' && i == currentPage)"
+                :key="i">
+                    <pdf
+                        v-if="i >= currentPage - 5 && i <= currentPage + 5"
+                        :ref="'page' + i"
+                        :src="src"
+                        :page="i"
+                        :style="'width: 100%;'"
+		            />
+                    <pdf
+                        v-else
+                        :ref="'page' + i"
+                        :style="'width: 100%;'"
+		            />
+                </div>
             </div>
         </div>
 	</div>
@@ -84,7 +92,7 @@ export default
             {
                 this.mode = 'cascade';
 
-                setTimeout(function() 
+                setTimeout(function()
                 {
                     this.updatePageWithInput(true);
                 }
@@ -110,7 +118,7 @@ export default
                 let calc = (this.$refs['page1'][0].$el.clientHeight * this.zoom) * (this.currentPage - 1) + ((this.currentPage - 1) * (10 * this.zoom));
                 this.reader.scrollTo(0, calc);
 
-                setTimeout(function() 
+                setTimeout(function()
                 {
                     this.reader.addEventListener('scroll', this.updatePageWithScroll);
                 }

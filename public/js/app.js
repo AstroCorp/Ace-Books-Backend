@@ -1606,7 +1606,7 @@ module.exports = function spread(callback) {
 
 
 var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
-var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/is-buffer/index.js");
+var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/axios/node_modules/is-buffer/index.js");
 
 /*global toString:true*/
 
@@ -1941,6 +1941,28 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/axios/node_modules/is-buffer/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/axios/node_modules/is-buffer/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InputFileCustomComponent.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InputFileCustomComponent.vue?vue&type=script&lang=js& ***!
@@ -2200,6 +2222,14 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_pdf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-pdf */ "./node_modules/vue-pdf/src/vuePdfNoSss.vue");
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9775,38 +9805,6 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
 
   buffer[offset + i - d] |= s * 128
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/is-buffer/index.js":
-/*!*****************************************!*\
-  !*** ./node_modules/is-buffer/index.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-
-// The _isBuffer check is for Safari 5-7 support, because it's missing
-// Object.prototype.constructor. Remove this eventually
-module.exports = function (obj) {
-  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
-}
-
-function isBuffer (obj) {
-  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-}
-
-// For Node v0.10 support. Remove this eventually.
-function isSlowBuffer (obj) {
-  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
 
@@ -63479,7 +63477,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-if ( Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","NODE_ENV":"development"}).VUE_ENV !== 'server' ) {
+if ( Object({"MIX_PUSHER_APP_CLUSTER":"mt1","MIX_PUSHER_APP_KEY":"","NODE_ENV":"development"}).VUE_ENV !== 'server' ) {
 
 	var pdfjsWrapper = __webpack_require__(/*! ./pdfjsWrapper.js */ "./node_modules/vue-pdf/src/pdfjsWrapper.js").default;
 	var PDFJS = __webpack_require__(/*! pdfjs-dist/build/pdf.js */ "./node_modules/pdfjs-dist/build/pdf.js");
@@ -64393,27 +64391,41 @@ var render = function() {
               ");"
           },
           _vm._l(_vm.numPages, function(i) {
-            return _c("pdf", {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.mode === "cascade" ||
-                    (_vm.mode === "paginate" && i == _vm.currentPage),
-                  expression:
-                    "mode === 'cascade' || (mode === 'paginate' && i == currentPage)"
-                }
+            return _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value:
+                      _vm.mode === "cascade" ||
+                      (_vm.mode === "paginate" && i == _vm.currentPage),
+                    expression:
+                      "mode === 'cascade' || (mode === 'paginate' && i == currentPage)"
+                  }
+                ],
+                key: i,
+                staticClass: "mx-auto pdf-page"
+              },
+              [
+                i >= _vm.currentPage - 5 && i <= _vm.currentPage + 5
+                  ? _c("pdf", {
+                      ref: "page" + i,
+                      refInFor: true,
+                      style: "width: 100%;",
+                      attrs: { src: _vm.src, page: i }
+                    })
+                  : _c("pdf", {
+                      ref: "page" + i,
+                      refInFor: true,
+                      style: "width: 100%;"
+                    })
               ],
-              key: i,
-              ref: "page" + i,
-              refInFor: true,
-              staticClass: "mx-auto pdf-page",
-              style: "width: 100%;",
-              attrs: { src: _vm.src, page: i }
-            })
+              1
+            )
           }),
-          1
+          0
         )
       ]
     )
@@ -77725,8 +77737,8 @@ window.onload = function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/alejandro/Documentos/github/AceBooks/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/alejandro/Documentos/github/AceBooks/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\AceBooks\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\AceBooks\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ }),

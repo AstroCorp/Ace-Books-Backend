@@ -41,8 +41,11 @@ Route::prefix('settings')->group(function()
     Route::post('website', 'UserController@update_website')->name('website.update');
 });
 
+Route::get('/storage', 'StorageController@index')->name('storage');
+
 Route::get('/cpanel', 'UserController@index')->name('cpanel');
 
+// Dev
 Route::get('/phpinfo', function()
 {
     phpinfo();

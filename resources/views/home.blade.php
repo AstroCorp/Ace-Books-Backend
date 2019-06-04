@@ -16,6 +16,7 @@
 
             title-modal="{{trans('library.modal_delete_title')}}"
             body-modal="{{trans('library.modal_delete_body')}}"
+            collection-option-modal="{{trans('library.modal_collection_option')}}"
             cancel-modal="{{trans('library.modal_delete_cancel')}}"
             delete-modal="{{trans('library.modal_delete_delete')}}"
         />

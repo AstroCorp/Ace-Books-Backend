@@ -37,4 +37,17 @@ class Book extends Model
 
         $this->fileName = $fileName;
     }
+
+    // Archivos eliminados, además desaparece de la base de datos
+    public function remove()
+    {
+        if($this->image !== null)
+        {
+            unlink(public_path().'/images/books/'.$this->image);
+        }
+
+        unlink(public_path().'/books/'.$this->filename);
+
+        $this->delete();
+    }
 }

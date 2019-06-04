@@ -133,15 +133,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        // Archivos eliminados, además de desaparecer de la base de datos
-        if($book->image !== null)
-        {
-            unlink(public_path().'/images/books/'.$book->image);
-        }
-
-        unlink(public_path().'/books/'.$book->filename);
-
-        $book->delete();
+        $book->remove();
 
         return redirect()->route('home')->with(['status' => true, 'type' => 'book', 'name' => $book->name]);
     }

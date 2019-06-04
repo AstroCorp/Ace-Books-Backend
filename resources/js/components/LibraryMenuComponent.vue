@@ -1,7 +1,7 @@
 <template>
     <div>
         <library-list :collections="collections" :books="books"
-            :titleModal="titleModal" :bodyModal="bodyModal" :cancelModal="cancelModal" :deleteModal="deleteModal"/>
+            :titleModal="titleModal" :bodyModal="bodyModal" :cancelModal="cancelModal" :deleteModal="deleteModal" :collectionOptionModal="collectionOptionModal" />
 
         <div :class="{ 'active-library-menu': isActive }" class="library-menu">
 
@@ -31,6 +31,7 @@
 
             'titleModal',
             'bodyModal',
+            'collectionOptionModal',
             'cancelModal',
             'deleteModal',
         ],

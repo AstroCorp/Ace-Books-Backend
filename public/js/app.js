@@ -2122,8 +2122,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['collections', 'books', 'titleModal', 'bodyModal', 'cancelModal', 'deleteModal'],
+  props: ['collections', 'books', 'titleModal', 'bodyModal', 'collectionOptionModal', 'cancelModal', 'deleteModal'],
   data: function data() {
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -2176,7 +2185,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['searchText', 'addCollectionText', 'addBookText', 'titleModal', 'bodyModal', 'cancelModal', 'deleteModal'],
+  props: ['searchText', 'addCollectionText', 'addBookText', 'titleModal', 'bodyModal', 'collectionOptionModal', 'cancelModal', 'deleteModal'],
   data: function data() {
     return {
       isActive: true,
@@ -63980,15 +63989,6 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer" }, [
                   _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary",
-                      attrs: { type: "button", "data-dismiss": "modal" }
-                    },
-                    [_vm._v(_vm._s(_vm.cancelModal))]
-                  ),
-                  _vm._v(" "),
-                  _c(
                     "form",
                     {
                       attrs: { method: "POST", action: _vm.type + "/" + _vm.id }
@@ -64007,14 +64007,48 @@ var render = function() {
                         domProps: { value: _vm.csrf }
                       }),
                       _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger",
-                          attrs: { type: "submit" }
-                        },
-                        [_vm._v(_vm._s(_vm.deleteModal))]
-                      )
+                      _c("div", { staticClass: "form-group mb-4" }, [
+                        _vm.type === "collection"
+                          ? _c("label", { staticClass: "custom-checkbox" }, [
+                              _c(
+                                "span",
+                                { staticClass: "btn-link-secondary text-dark" },
+                                [_vm._v(_vm._s(_vm.collectionOptionModal))]
+                              ),
+                              _vm._v(" "),
+                              _c("input", {
+                                staticClass: "form-check-input",
+                                attrs: {
+                                  type: "checkbox",
+                                  name: "collectionOption",
+                                  id: "collectionOption"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "checkmark" })
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group text-center" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-secondary mx-1",
+                            attrs: { type: "button", "data-dismiss": "modal" }
+                          },
+                          [_vm._v(_vm._s(_vm.cancelModal))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger mx-1",
+                            attrs: { type: "submit" }
+                          },
+                          [_vm._v(_vm._s(_vm.deleteModal))]
+                        )
+                      ])
                     ]
                   )
                 ])
@@ -64079,7 +64113,8 @@ var render = function() {
           titleModal: _vm.titleModal,
           bodyModal: _vm.bodyModal,
           cancelModal: _vm.cancelModal,
-          deleteModal: _vm.deleteModal
+          deleteModal: _vm.deleteModal,
+          collectionOptionModal: _vm.collectionOptionModal
         }
       }),
       _vm._v(" "),

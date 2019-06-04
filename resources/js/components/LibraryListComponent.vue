@@ -49,11 +49,20 @@
                 <p>{{bodyModal}}</p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{cancelModal}}</button>
                 <form method="POST" :action="type + '/' + id">
                     <input type="hidden" name="_method" value="DELETE" />
                     <input type="hidden" name="_token" :value="csrf">
-                    <button type="submit" class="btn btn-danger">{{deleteModal}}</button>
+                    <div class="form-group mb-4">
+                        <label v-if="type === 'collection'" class="custom-checkbox">
+                        <span class="btn-link-secondary text-dark">{{collectionOptionModal}}</span>
+                            <input class="form-check-input" type="checkbox" name="collectionOption" id="collectionOption">
+                        <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="button" class="btn btn-secondary mx-1" data-dismiss="modal">{{cancelModal}}</button>
+                        <button type="submit" class="btn btn-danger mx-1">{{deleteModal}}</button>
+                    </div>
                 </form>
               </div>
             </div>
@@ -71,6 +80,7 @@
 
             'titleModal',
             'bodyModal',
+            'collectionOptionModal',
             'cancelModal',
             'deleteModal',
         ],

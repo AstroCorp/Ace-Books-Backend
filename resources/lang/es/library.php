@@ -6,6 +6,7 @@ return [
     'add_book' => 'Añadir libro',
     'modal_delete_title' => '¿Borrar ',
     'modal_delete_body' => 'Una vez borres un libro o una colección no se podrá recuperar.',
+    'modal_collection_option' => 'Eliminar libros de la colección.',
     'modal_delete_cancel' => 'Cancelar',
     'modal_delete_delete' => 'Borrar',
     'modal_message_book' => 'El libro ":name" se ha eliminado.',

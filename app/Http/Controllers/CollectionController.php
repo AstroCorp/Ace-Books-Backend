@@ -77,8 +77,17 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Collection $collection)
+    public function destroy(Request $request, Collection $collection)
     {
-        // además de eliminarla de la base de datos, todos los libros asignadas a esta ahora son null
+        if($request->has('collectionOption'))
+        {
+            $collection->deleteWithBooks();
+        }
+        else
+        {
+            $collection->deleteWithoutBooks();
+        }
+
+        return redirect()->route('home')->with(['status' => true, 'type' => 'collection', 'name' => $collection->name]);
     }
 }

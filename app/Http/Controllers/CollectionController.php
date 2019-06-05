@@ -44,8 +44,9 @@ class CollectionController extends Controller
      */
     public function show(Collection $collection)
     {
-        // listaría los libros que hay dentro
-        return view('collection_show');
+        $books = $collection->books()->paginate(15);
+
+        return view('collection_show', compact('books'));
     }
 
     /**

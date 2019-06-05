@@ -12,4 +12,6 @@ return [
     'modal_message_book' => 'The book ":name" has been removed.',
     'modal_message_collection' => 'The collection ":name" has been removed.',
     'modal_button' => 'Accept',
+    'collectionEmpty' => 'The collection is empty.',
+    'library_empty' => 'The library is empty.',
 ];

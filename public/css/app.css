@@ -10395,6 +10395,26 @@ span.icon-centered .sidebar-subtitle span {
   height: 0;
 }
 
+.pagination {
+  justify-content: center;
+}
+.pagination .page-link {
+  margin-left: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: #000;
+  padding: 12px;
+}
+.pagination .page-link:hover {
+  background-color: rgba(108, 178, 235, 0.58);
+  color: white;
+  cursor: pointer;
+}
+.pagination .page-item.disabled .page-link {
+  background-color: rgba(255, 255, 255, 0.58);
+}
+
 #topbar {
   background-color: rgba(230, 168, 0, 0.8);
   color: rgba(255, 255, 255, 0.8);

@@ -18,21 +18,21 @@ class Collection extends Model
 
     public function deleteWithoutBooks()
     {
-        foreach ($this->books as $book)
+        $this->books()->each(function($book, $key)
         {
             $book->collection_id = null;
             $book->save();
-        }
+        });
 
         $this->remove();
     }
 
     public function deleteWithBooks()
     {
-        foreach ($this->books as $book)
+        $this->books()->each(function($book, $key)
         {
             $book->remove();
-        }
+        });
 
         $this->remove();
     }

@@ -42,3 +42,28 @@
 .active-library-menu {
     height: 0;
 }
+
+.pagination {
+    justify-content: center;
+
+    .page-link {
+        margin-left: 0;
+        background-color: $white_2;
+        border: 0 !important;
+        border-radius: 0 !important;
+        color: #000;
+        padding: 12px;
+
+        &:hover {
+            background-color: $cyan;
+            color: white;
+            cursor: pointer;
+        }
+    }
+
+    .page-item.disabled {
+        .page-link {
+            background-color: $white_1;
+        }
+    }
+}

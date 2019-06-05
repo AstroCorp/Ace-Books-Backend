@@ -19,6 +19,7 @@
             collection-option-modal="{{trans('library.modal_collection_option')}}"
             cancel-modal="{{trans('library.modal_delete_cancel')}}"
             delete-modal="{{trans('library.modal_delete_delete')}}"
+            empty-message="{{trans('library.library_empty')}}"
         />
     </div>
     @if(session('status'))

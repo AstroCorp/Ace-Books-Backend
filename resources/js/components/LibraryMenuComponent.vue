@@ -1,6 +1,6 @@
 <template>
     <div>
-        <library-list :collections="collections" :books="books"
+        <library-list :collections="collections" :books="books" :emptyMessage="emptyMessage"
             :titleModal="titleModal" :bodyModal="bodyModal" :cancelModal="cancelModal" :deleteModal="deleteModal" :collectionOptionModal="collectionOptionModal" />
 
         <div :class="{ 'active-library-menu': isActive }" class="library-menu">
@@ -34,6 +34,7 @@
             'collectionOptionModal',
             'cancelModal',
             'deleteModal',
+            'emptyMessage',
         ],
         data()
         {

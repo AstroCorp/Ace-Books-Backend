@@ -50,7 +50,6 @@
 
 <script>
 import pdf from 'vue-pdf';
-var loadingTask = pdf.createLoadingTask('/books/x.pdf');
 
 export default
 {
@@ -66,7 +65,7 @@ export default
             zoom: 0.5,
 
             mode: 'cascade',
-            src: loadingTask,
+            src: pdf.createLoadingTask(this.url),
             reader: undefined,
 		}
     },

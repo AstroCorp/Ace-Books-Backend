@@ -12,4 +12,6 @@ return [
     'modal_message_book' => 'El libro ":name" se ha eliminado.',
     'modal_message_collection' => 'La colección ":name" se ha eliminado.',
     'modal_button' => 'Aceptar',
+    'collectionEmpty' => 'La colección esta vacía.',
+    'library_empty' => 'La biblioteca está vacía.',
 ];

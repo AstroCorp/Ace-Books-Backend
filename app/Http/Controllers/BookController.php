@@ -135,6 +135,6 @@ class BookController extends Controller
     {
         $book->remove();
 
-        return redirect()->route('home')->with(['status' => true, 'type' => 'book', 'name' => $book->name]);
+        return back()->with(['status' => true, 'type' => 'book', 'name' => $book->name]);
     }
 }

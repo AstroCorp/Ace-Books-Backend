@@ -1,5 +1,9 @@
 <template>
     <div class="row justify-content-center">
+        <span v-if="collections.length === 0 && books.length === 0" class="col-12 alert d-block mt-1 alert-info text-center" role="alert">
+            <strong>{{emptyMessage}}</strong>
+        </span>
+
         <div class="flip col m-2" v-for="(collection, key) in collections" :key="'c' + key">
         	<div class="flip-1 d-flex align-items-center justify-content-center">
                 <img v-if="collection.image" :src="'/images/collections/' + collection.image">
@@ -83,6 +87,7 @@
             'collectionOptionModal',
             'cancelModal',
             'deleteModal',
+            'emptyMessage',
         ],
         data()
         {

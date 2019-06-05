@@ -2131,8 +2131,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['collections', 'books', 'titleModal', 'bodyModal', 'collectionOptionModal', 'cancelModal', 'deleteModal'],
+  props: ['collections', 'books', 'titleModal', 'bodyModal', 'collectionOptionModal', 'cancelModal', 'deleteModal', 'emptyMessage'],
   data: function data() {
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -2185,7 +2189,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['searchText', 'addCollectionText', 'addBookText', 'titleModal', 'bodyModal', 'collectionOptionModal', 'cancelModal', 'deleteModal'],
+  props: ['searchText', 'addCollectionText', 'addBookText', 'titleModal', 'bodyModal', 'collectionOptionModal', 'cancelModal', 'deleteModal', 'emptyMessage'],
   data: function data() {
     return {
       isActive: true,
@@ -2282,7 +2286,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-var loadingTask = vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingTask('/books/x.pdf');
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     pdf: vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -2293,7 +2296,7 @@ var loadingTask = vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingT
       numPages: 0,
       zoom: 0.5,
       mode: 'cascade',
-      src: loadingTask,
+      src: vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingTask(this.url),
       reader: undefined
     };
   },
@@ -63810,6 +63813,17 @@ var render = function() {
     "div",
     { staticClass: "row justify-content-center" },
     [
+      _vm.collections.length === 0 && _vm.books.length === 0
+        ? _c(
+            "span",
+            {
+              staticClass: "col-12 alert d-block mt-1 alert-info text-center",
+              attrs: { role: "alert" }
+            },
+            [_c("strong", [_vm._v(_vm._s(_vm.emptyMessage))])]
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _vm._l(_vm.collections, function(collection, key) {
         return _c("div", { key: "c" + key, staticClass: "flip col m-2" }, [
           _c(
@@ -64110,6 +64124,7 @@ var render = function() {
         attrs: {
           collections: _vm.collections,
           books: _vm.books,
+          emptyMessage: _vm.emptyMessage,
           titleModal: _vm.titleModal,
           bodyModal: _vm.bodyModal,
           cancelModal: _vm.cancelModal,

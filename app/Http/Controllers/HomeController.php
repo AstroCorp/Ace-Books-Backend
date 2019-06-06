@@ -27,7 +27,7 @@ class HomeController extends Controller
         $books = $user->booksWithoutCollection()->where('name', 'LIKE', '%' . $request->input('search') . '%')->get();
 
         return response()->json([
-            'collections' => $collections, 
+            'collections' => $collections,
             'books' => $books
         ]);
     }

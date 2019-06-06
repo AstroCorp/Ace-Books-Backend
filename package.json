@@ -29,6 +29,7 @@
         "babel-runtime": "^6.26.0",
         "bootstrap-vue": "^2.0.0-rc.21",
         "update": "^0.7.4",
-        "vue-pdf": "^4.0.7"
+        "vue-pdf": "^4.0.7",
+        "vue-plain-pagination": "^0.3.0"
     }
 }

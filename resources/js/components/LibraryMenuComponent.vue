@@ -1,7 +1,8 @@
 <template>
     <div>
-        <library-list :collections="collections" :books="books" :emptyMessage="emptyMessage"
-            :titleModal="titleModal" :bodyModal="bodyModal" :cancelModal="cancelModal" :deleteModal="deleteModal" :collectionOptionModal="collectionOptionModal" />
+        <library-list :library="library" :emptyMessage="emptyMessage"
+            :titleModal="titleModal" :bodyModal="bodyModal" :cancelModal="cancelModal" :deleteModal="deleteModal"
+            :collectionOptionModal="collectionOptionModal" />
 
         <div :class="{ 'active-library-menu': isActive }" class="library-menu">
 
@@ -43,8 +44,7 @@
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 search: '',
 
-                collections: [],
-                books: []
+                library: ['null']
             }
         },
         mounted()
@@ -70,8 +70,13 @@
                 })
                 .then(function(response)
                 {
-                    this.collections = response.data.collections;
-                    this.books = response.data.books;
+                    let collections = response.data.collections;
+                    let books = response.data.books;
+
+                    collections.forEach(collection => collection.type = "collection");
+                    books.forEach(book => book.type = "book");
+
+                    this.library = collections.concat(books);
                 }
                 .bind(this));
             },

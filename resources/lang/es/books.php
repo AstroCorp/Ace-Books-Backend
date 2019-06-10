@@ -17,4 +17,5 @@ return [
     'input_collection' => 'Seleccionar colección',
     'collectionNull' => 'Sin colección',
     'image_info' => '*Se recomiendo usar el siguiente tamaño, alto: 300px | ancho: 212px',
+    'bookNameError' => 'Ya existe un libro con este nombre',
 ];

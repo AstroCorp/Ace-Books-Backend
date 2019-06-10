@@ -17,4 +17,5 @@ return [
     'input_collection' => 'Select collection',
     'collectionNull' => 'Without collection',
     'image_info' => '*It is recommended to use the following size, height: 300px | width: 212px',
+    'bookNameError' => 'A book with this name already exists',
 ];

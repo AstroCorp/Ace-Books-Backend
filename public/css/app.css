@@ -10416,6 +10416,13 @@ span.icon-centered .sidebar-subtitle span {
   background-color: rgba(255, 255, 255, 0.58);
 }
 
+@media (min-width: 768px) {
+  .bookCollection {
+    min-width: 200px;
+    max-width: 200px;
+  }
+}
+
 #topbar {
   background-color: rgba(230, 168, 0, 0.8);
   color: rgba(255, 255, 255, 0.8);

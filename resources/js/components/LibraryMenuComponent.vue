@@ -44,7 +44,7 @@
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 search: '',
 
-                library: ['null']
+                library: null
             }
         },
         mounted()

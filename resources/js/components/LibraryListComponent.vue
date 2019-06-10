@@ -1,6 +1,6 @@
 <template>
     <div class="row justify-content-center">
-        <span v-if="library.length === 0" class="col-12 alert d-block mt-1 alert-info text-center" role="alert">
+        <span v-if="library.length === 0 && library !== null" class="col-12 alert d-block mt-1 alert-info text-center" role="alert">
             <strong>{{emptyMessage}}</strong>
         </span>
 

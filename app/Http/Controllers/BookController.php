@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Book;
 use App\Rules\CheckCollection;
+use App\Rules\CheckBookName;
 use Illuminate\Support\Str;
 
 class BookController extends Controller
@@ -41,7 +42,7 @@ class BookController extends Controller
         $request->validate([
             'file' => ['required', 'file', 'mimetypes:application/pdf', 'max:'.$request->user()->storage->size_books],
             'image' => ['image', 'max:500'], // 500 Kb
-            'name' => ['required', 'string'],
+            'name' => ['required', 'string', new CheckBookName],
             'description' => ['nullable', 'string'],
             'collection' => ['nullable', 'integer', new CheckCollection]
         ]);
@@ -105,7 +106,7 @@ class BookController extends Controller
     {
         $request->validate([
             'image' => ['image', 'max:500'], // 500 Kb
-            'name' => ['required', 'string'],
+            'name' => ['required', 'string', new CheckBookName],
             'description' => ['nullable', 'string'],
             'collection' => ['nullable', 'integer', new CheckCollection]
         ]);

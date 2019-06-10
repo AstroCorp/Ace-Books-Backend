@@ -1963,6 +1963,79 @@ module.exports = function isBuffer (obj) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InputAddBookToCollectionComponent.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InputAddBookToCollectionComponent.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['books'],
+  data: function data() {
+    return {
+      selected: 0,
+      booksNotSelected: [],
+      booksSelected: []
+    };
+  },
+  mounted: function mounted() {
+    this.booksNotSelected = JSON.parse(this.books);
+  },
+  methods: {
+    addBook: function addBook() {
+      var _this = this;
+
+      if (this.selected !== 0) {
+        var index = this.booksNotSelected.findIndex(function (book) {
+          return book.id === _this.selected;
+        });
+        this.booksSelected.push(this.booksNotSelected.splice(index, 1)[0]);
+        this.selected = 0;
+      }
+    },
+    delBook: function delBook(id) {
+      var index = this.booksSelected.findIndex(function (book) {
+        return book.id === id;
+      });
+      this.booksNotSelected.push(this.booksSelected.splice(index, 1)[0]);
+      this.selected = 0;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InputFileCustomComponent.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InputFileCustomComponent.vue?vue&type=script&lang=js& ***!
@@ -2205,7 +2278,7 @@ __webpack_require__.r(__webpack_exports__);
       isActive: true,
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       search: '',
-      library: ['null']
+      library: null
     };
   },
   mounted: function mounted() {
@@ -63659,6 +63732,154 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InputAddBookToCollectionComponent.vue?vue&type=template&id=dfdb1aee&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InputAddBookToCollectionComponent.vue?vue&type=template&id=dfdb1aee& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "form-group col-10" }, [
+    _c(
+      "div",
+      { staticClass: "row justify-content-between" },
+      _vm._l(_vm.booksSelected, function(book) {
+        return _c(
+          "div",
+          {
+            key: "bs" + book.id,
+            staticClass: "col-12 col-md bookCollection p-0 my-1"
+          },
+          [
+            _c("div", { staticClass: "row m-0" }, [
+              _c("input", {
+                attrs: { type: "hidden", name: "bookCollection[]" },
+                domProps: { value: book.id }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "form-control col",
+                attrs: { type: "text", disabled: "" },
+                domProps: { value: book.name }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "col form-btn form-btn-arrow",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.delBook(book.id)
+                    }
+                  }
+                },
+                [_c("span", { staticClass: "icon-delete icon-centered" })]
+              )
+            ])
+          ]
+        )
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _vm.booksNotSelected.length !== 0
+      ? _c(
+          "div",
+          { class: _vm.booksSelected.length > 0 ? "row mt-3" : "row" },
+          [
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selected,
+                    expression: "selected"
+                  }
+                ],
+                staticClass: "col form-control",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selected = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c(
+                  "option",
+                  {
+                    attrs: {
+                      disabled: "",
+                      selected: "",
+                      hidden: "",
+                      value: "0"
+                    }
+                  },
+                  [_vm._v("Select a book")]
+                ),
+                _vm._v(" "),
+                _vm._l(_vm.booksNotSelected, function(book) {
+                  return _c(
+                    "option",
+                    { key: "bns" + book.id, domProps: { value: book.id } },
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(book.name) +
+                          "\n            "
+                      )
+                    ]
+                  )
+                })
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "col form-btn form-btn-arrow",
+                attrs: { type: "button", disabled: _vm.selected === 0 },
+                on: {
+                  click: function($event) {
+                    return _vm.addBook()
+                  }
+                }
+              },
+              [_c("span", { staticClass: "icon-add icon-centered" })]
+            )
+          ]
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InputFileCustomComponent.vue?vue&type=template&id=2a10609e&":
 /*!***************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InputFileCustomComponent.vue?vue&type=template&id=2a10609e& ***!
@@ -63829,7 +64050,7 @@ var render = function() {
     "div",
     { staticClass: "row justify-content-center" },
     [
-      _vm.library.length === 0
+      _vm.library.length === 0 && _vm.library !== null
         ? _c(
             "span",
             {
@@ -77325,6 +77546,7 @@ Vue.component('library-list', __webpack_require__(/*! ./components/LibraryListCo
 Vue.component('library-menu', __webpack_require__(/*! ./components/LibraryMenuComponent.vue */ "./resources/js/components/LibraryMenuComponent.vue")["default"]);
 Vue.component('input-file-with-image-preview', __webpack_require__(/*! ./components/InputFileWithImagePreviewComponent.vue */ "./resources/js/components/InputFileWithImagePreviewComponent.vue")["default"]);
 Vue.component('input-file-custom', __webpack_require__(/*! ./components/InputFileCustomComponent.vue */ "./resources/js/components/InputFileCustomComponent.vue")["default"]);
+Vue.component('input-add-book-to-collection', __webpack_require__(/*! ./components/InputAddBookToCollectionComponent.vue */ "./resources/js/components/InputAddBookToCollectionComponent.vue")["default"]);
 Vue.component('pdf-viewer', __webpack_require__(/*! ./components/PDFViewer.vue */ "./resources/js/components/PDFViewer.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -77346,8 +77568,7 @@ var app = new Vue({
 /***/ (function(module, exports, __webpack_require__) {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-window.pdfjsdist = __webpack_require__(/*! pdfjs-dist/webpack.js */ "./node_modules/pdfjs-dist/webpack.js"); //console.log(JSON.stringify(pdfjs));
-
+window.pdfjsdist = __webpack_require__(/*! pdfjs-dist/webpack.js */ "./node_modules/pdfjs-dist/webpack.js");
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -77395,6 +77616,75 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/InputAddBookToCollectionComponent.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/InputAddBookToCollectionComponent.vue ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _InputAddBookToCollectionComponent_vue_vue_type_template_id_dfdb1aee___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InputAddBookToCollectionComponent.vue?vue&type=template&id=dfdb1aee& */ "./resources/js/components/InputAddBookToCollectionComponent.vue?vue&type=template&id=dfdb1aee&");
+/* harmony import */ var _InputAddBookToCollectionComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InputAddBookToCollectionComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/InputAddBookToCollectionComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _InputAddBookToCollectionComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InputAddBookToCollectionComponent_vue_vue_type_template_id_dfdb1aee___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InputAddBookToCollectionComponent_vue_vue_type_template_id_dfdb1aee___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/InputAddBookToCollectionComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/InputAddBookToCollectionComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/InputAddBookToCollectionComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InputAddBookToCollectionComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./InputAddBookToCollectionComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InputAddBookToCollectionComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InputAddBookToCollectionComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/InputAddBookToCollectionComponent.vue?vue&type=template&id=dfdb1aee&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/InputAddBookToCollectionComponent.vue?vue&type=template&id=dfdb1aee& ***!
+  \******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InputAddBookToCollectionComponent_vue_vue_type_template_id_dfdb1aee___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./InputAddBookToCollectionComponent.vue?vue&type=template&id=dfdb1aee& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InputAddBookToCollectionComponent.vue?vue&type=template&id=dfdb1aee&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InputAddBookToCollectionComponent_vue_vue_type_template_id_dfdb1aee___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InputAddBookToCollectionComponent_vue_vue_type_template_id_dfdb1aee___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Collection;
+use App\Rules\CheckCollectionName;
+use App\Rules\CheckBookOwner;
 
 class CollectionController extends Controller
 {
@@ -22,7 +25,9 @@ class CollectionController extends Controller
      */
     public function create()
     {
-        return view('collection_create');
+        $books = json_encode(Auth::user()->books->map->only(['id', 'name']));
+
+        return view('collection_create', compact('books'));
     }
 
     /**
@@ -57,7 +62,9 @@ class CollectionController extends Controller
      */
     public function edit(Collection $collection)
     {
-        return view('collection_edit');
+        $books = Auth::user()->books->all();
+
+        return view('collection_edit', compact('books', 'collection'));
     }
 
     /**

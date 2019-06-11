@@ -2383,6 +2383,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       currentPage: 1,
       numPages: 0,
+      checkZoom: false,
       zoom: 0.5,
       mode: 'cascade',
       src: vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingTask(this.url),
@@ -2442,9 +2443,6 @@ __webpack_require__.r(__webpack_exports__);
       this.currentPage--;
       this.updatePageWithInput();
     },
-    checkZoom: function checkZoom() {
-      return this.zoom > 100;
-    },
     updateZoom: function updateZoom(zoom) {
       if (zoom === 'auto') {
         if (window.innerWidth <= 600) {
@@ -2479,6 +2477,9 @@ __webpack_require__.r(__webpack_exports__);
       } else if (this.currentPage > this.numPages) {
         this.currentPage = this.numPages;
       }
+    },
+    zoom: function zoom() {
+      this.checkZoom = this.zoom > 1;
     }
   }
 });
@@ -64627,6 +64628,7 @@ var render = function() {
           "div",
           {
             staticClass: "grid",
+            class: { "transform-active": _vm.checkZoom },
             style:
               "-ms-transform: scale(" +
               _vm.zoom +

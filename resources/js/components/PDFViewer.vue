@@ -24,7 +24,7 @@
             </ul>
         </nav>
 		<div class="pdf-document" ref="reader" v-bind:class="{ 'overflow-x-active': checkZoom }">
-            <div class="grid" :style="'-ms-transform: scale(' + zoom + ', ' + zoom + '); -webkit-transform: scale(' + zoom + ', ' + zoom + '); transform: scale( ' + zoom + ', ' + zoom + ');'">
+            <div class="grid" v-bind:class="{ 'transform-active': checkZoom }" :style="'-ms-transform: scale(' + zoom + ', ' + zoom + '); -webkit-transform: scale(' + zoom + ', ' + zoom + '); transform: scale( ' + zoom + ', ' + zoom + ');'">
                 <div
                 class="mx-auto pdf-page"
                 v-for="i in numPages"
@@ -62,6 +62,7 @@ export default
 			currentPage: 1,
             numPages: 0,
 
+            checkZoom: false,
             zoom: 0.5,
 
             mode: 'cascade',
@@ -144,10 +145,6 @@ export default
             this.currentPage--;
             this.updatePageWithInput();
         },
-        checkZoom()
-        {
-            return this.zoom > 100;
-        },
         updateZoom(zoom)
         {
             if(zoom === 'auto')
@@ -199,6 +196,10 @@ export default
             {
                 this.currentPage = this.numPages;
             }
+        },
+        zoom: function()
+        {
+            this.checkZoom = this.zoom > 1;
         }
     }
 }

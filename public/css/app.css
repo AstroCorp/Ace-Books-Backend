@@ -10480,3 +10480,8 @@ span.icon-centered .sidebar-subtitle span {
 .overflow-x-active {
   overflow-x: auto !important;
 }
+
+.transform-active {
+  -webkit-transform-origin: top left !important;
+          transform-origin: top left !important;
+}

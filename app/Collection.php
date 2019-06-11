@@ -2,7 +2,10 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+use App\Book;
 
 class Collection extends Model
 {
@@ -45,5 +48,33 @@ class Collection extends Model
         }
 
         $this->delete();
+    }
+
+    public function setImage($image)
+    {
+        $imageName = Str::uuid().".".$image->getClientOriginalExtension();
+        $image->move(public_path().'/images/collections/', $imageName);
+
+        $this->image = $imageName;
+    }
+
+    public function addBooks($newBooks)
+    {
+        $books = Book::all()->only($newBooks);
+
+        foreach ($books as $book)
+        {
+            $book->collection_id = $this->id;
+            $book->save();
+        }
+    }
+
+    public function updateBooks($newBooks)
+    {
+        DB::table('books')
+            ->where('collection_id', 1)
+            ->update(['collection_id' => null]);
+
+        $this->addBooks($newBooks);
     }
 }

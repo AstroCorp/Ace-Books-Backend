@@ -38,7 +38,33 @@ class CollectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'image' => ['image', 'max:500'], // 500 Kb
+            'name' => ['required', 'string', new CheckCollectionName],
+            'description' => ['nullable', 'string'],
+            'bookCollection' => ['nullable', 'array', new CheckBookOwner]
+        ]);
+
+        $collection = new Collection();
+
+        $collection->user_id = $request->user()->id;
+        $collection->name = $request->input('name');
+        $collection->description = $request->input('description');
+
+        $request->user()->n_collections += 1;
+        $request->user()->save();
+
+        // Subida de imagen
+        if($request->hasFile('image'))
+        {
+            $collection->setImage($request->file('image'));
+        }
+
+        $collection->save();
+
+        $collection->addBooks($request->input('bookCollection'));
+
+        return redirect()->route('collection.create')->with('status', true);
     }
 
     /**
@@ -62,9 +88,12 @@ class CollectionController extends Controller
      */
     public function edit(Collection $collection)
     {
-        $books = Auth::user()->books->all();
+        $booksInCollection = $collection->books->pluck('id')->toArray();
 
-        return view('collection_edit', compact('books', 'collection'));
+        $collectionBooks = json_encode($collection->books->map->only(['id', 'name']));
+        $books = json_encode(Auth::user()->books->except($booksInCollection)->map->only(['id', 'name']));
+
+        return view('collection_edit', compact('books', 'collectionBooks', 'collection'));
     }
 
     /**
@@ -76,7 +105,27 @@ class CollectionController extends Controller
      */
     public function update(Request $request, Collection $collection)
     {
-        //
+        $request->validate([
+            'image' => ['image', 'max:500'], // 500 Kb
+            'name' => ['required', 'string', new CheckCollectionName($collection->id)],
+            'description' => ['nullable', 'string'],
+            'bookCollection' => ['nullable', 'array', new CheckBookOwner]
+        ]);
+
+        $collection->name = $request->input('name');
+        $collection->description = $request->input('description');
+
+        // Subida de imagen
+        if($request->hasFile('image'))
+        {
+            $collection->setImage($request->file('image'));
+        }
+
+        $collection->updateBooks($request->input('bookCollection'));
+
+        $collection->save();
+
+        return redirect()->route('collection.edit', $collection->id)->with('status', true);
     }
 
     /**
@@ -95,6 +144,9 @@ class CollectionController extends Controller
         {
             $collection->deleteWithoutBooks();
         }
+
+        $request->user()->n_collections -= 1;
+        $request->user()->save();
 
         return redirect()->route('home')->with(['status' => true, 'type' => 'collection', 'name' => $collection->name]);
     }

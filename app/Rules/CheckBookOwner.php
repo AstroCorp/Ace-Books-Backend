@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class CheckBookOwner implements Rule
 {
@@ -25,7 +26,19 @@ class CheckBookOwner implements Rule
      */
     public function passes($attribute, $value)
     {
-        //
+        $status = true;
+
+        foreach($value as $bookid)
+        {
+            $status = Auth::user()->books->contains('id', $bookid);
+
+            if(!$status)
+            {
+                return;
+            }
+        }
+
+        return $status;
     }
 
     /**

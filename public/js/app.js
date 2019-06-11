@@ -2001,7 +2001,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['books'],
+  props: ['books', 'collectionBooks', 'selectBookText'],
   data: function data() {
     return {
       selected: 0,
@@ -2010,7 +2010,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.booksNotSelected = JSON.parse(this.books);
+    this.booksNotSelected = this.books !== undefined ? JSON.parse(this.books) : [];
+    this.booksSelected = this.collectionBooks !== undefined ? JSON.parse(this.collectionBooks) : [];
   },
   methods: {
     addBook: function addBook() {
@@ -2230,8 +2231,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     library: function library() {
+      var libLength = this.library ? 0 : this.library.length;
       this.currentPage = 1;
-      this.totalPages = Math.ceil(this.library.length / this.nItems);
+      this.totalPages = Math.ceil(libLength / this.nItems);
     }
   }
 });
@@ -63836,7 +63838,7 @@ var render = function() {
                       value: "0"
                     }
                   },
-                  [_vm._v("Select a book")]
+                  [_vm._v(_vm._s(_vm.selectBookText))]
                 ),
                 _vm._v(" "),
                 _vm._l(_vm.booksNotSelected, function(book) {
@@ -64051,7 +64053,7 @@ var render = function() {
     "div",
     { staticClass: "row justify-content-center" },
     [
-      _vm.library.length === 0 && _vm.library !== null
+      _vm.library === null || _vm.library.length === 0
         ? _c(
             "span",
             {

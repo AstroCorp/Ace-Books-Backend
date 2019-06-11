@@ -2,6 +2,7 @@
 
 return [
     'create' => 'Añadir colección',
+    'edit' => 'Editar colección',
     'ownerError' => 'No puedes acceder a esta colección',
     'limit1' => 'Has llegado al límite de creación de colecciones',
     'limit2' => 'No puedes compartir colecciones',
@@ -12,4 +13,7 @@ return [
     'input_img' => 'Seleccionar portada',
     'input_name' => 'Nombre',
     'input_description' => 'Descripción',
+    'collectionNameError' => 'Ya existe una colección con este nombre',
+    'bookOwnerError' => 'No puedes añadir libros que no te pertenecen',
+    'selectBookText' => 'Seleccionar libro',
 ];

@@ -55,6 +55,7 @@ class BookController extends Controller
         $book->description = $request->input('description');
 
         $request->user()->n_books += 1;
+        $request->user()->save();
 
         // Subida de imagen
         if($request->hasFile('image'))
@@ -106,7 +107,7 @@ class BookController extends Controller
     {
         $request->validate([
             'image' => ['image', 'max:500'], // 500 Kb
-            'name' => ['required', 'string', new CheckBookName],
+            'name' => ['required', 'string', new CheckBookName($book->id)],
             'description' => ['nullable', 'string'],
             'collection' => ['nullable', 'integer', new CheckCollection]
         ]);
@@ -132,9 +133,11 @@ class BookController extends Controller
      * @param  Book $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Book $book)
+    public function destroy(Request $request, Book $book)
     {
         $book->remove();
+        $request->user()->n_books -= 1;
+        $request->user()->save();
 
         return back()->with(['status' => true, 'type' => 'book', 'name' => $book->name]);
     }

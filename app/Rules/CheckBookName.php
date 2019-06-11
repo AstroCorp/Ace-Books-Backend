@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class CheckBookName implements Rule
 {
@@ -12,9 +13,11 @@ class CheckBookName implements Rule
      *
      * @return void
      */
-    public function __construct()
+    public $id;
+
+    public function __construct($id = 0)
     {
-        //
+        $this->id = $id;
     }
 
     /**
@@ -27,7 +30,7 @@ class CheckBookName implements Rule
     public function passes($attribute, $value)
     {
         // Si existe uno con ese nombre no es admitido
-        return !Auth::user()->books->contains('name', $value);
+        return !Auth::user()->books->except($this->id)->contains('name', $value);
     }
 
     /**

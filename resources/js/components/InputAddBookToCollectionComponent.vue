@@ -13,7 +13,7 @@
         </div>
         <div :class="booksSelected.length > 0 ? 'row mt-3' : 'row'" v-if="booksNotSelected.length !== 0">
             <select class="col form-control" v-model="selected">
-                <option disabled selected hidden value="0">Select a book</option>
+                <option disabled selected hidden value="0">{{ selectBookText }}</option>
                 <option v-for="book in booksNotSelected" :value="book.id" :key="'bns' + book.id">
                     {{ book.name }}
                 </option>
@@ -30,7 +30,10 @@
     export default
     {
         props: [
-            'books'
+            'books',
+            'collectionBooks',
+
+            'selectBookText'
         ],
         data()
         {
@@ -42,7 +45,8 @@
         },
         mounted()
         {
-            this.booksNotSelected = JSON.parse(this.books);
+            this.booksNotSelected = this.books !== undefined ? JSON.parse(this.books) : [];
+            this.booksSelected = this.collectionBooks !== undefined ? JSON.parse(this.collectionBooks) : [];
         },
         methods:
         {

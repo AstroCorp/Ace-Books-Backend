@@ -49,7 +49,14 @@
                         @endif
                     </div>
 
-                    <input-add-book-to-collection books="{{ $books }}" />
+                    <input-add-book-to-collection books="{{ $books }}" select-book-text="{{ trans('collections.selectBookText') }}"></input-add-book-to-collection>
+                    <div class="col-10 p-0">
+                        @if ($errors->has('bookCollection'))
+                        <span class="alert d-block mt-1 alert-danger" role="alert">
+                            <strong>{{ $errors->first('bookCollection') }}</strong>
+                        </span>
+                        @endif
+                    </div>
 
                     <div class="form-group col-12 m-0 p-0 text-center">
                         <button type="submit" class="form-btn">

@@ -29,6 +29,15 @@ Route::resource('book', 'BookController')->except([
     'index'
 ]);
 
+
+Route::prefix('bookmarks')->group(function()
+{
+    Route::post('/', 'BookmarkController@index')->name('bookmarks.index');
+    Route::post('add', 'BookmarkController@add')->name('bookmarks.add');
+    Route::post('update', 'BookmarkController@update')->name('bookmarks.update');
+    Route::post('delete', 'BookmarkController@delete')->name('bookmarks.delete');
+});
+
 Route::prefix('settings')->group(function()
 {
     Route::get('profile', 'UserController@edit_profile')->name('profile.edit');

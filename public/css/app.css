@@ -1,8 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 @font-face {
   font-family: "icomoon";
-  src: url("fonts/icomoon.eot?s3esla");
-  src: url("fonts/icomoon.eot?s3esla#iefix") format("embedded-opentype"), url("fonts/icomoon.ttf?s3esla") format("truetype"), url("fonts/icomoon.woff?s3esla") format("woff"), url("fonts/icomoon.svg?s3esla#icomoon") format("svg");
+  src: url("fonts/icomoon.eot?m8w3ge");
+  src: url("fonts/icomoon.eot?m8w3ge#iefix") format("embedded-opentype"), url("fonts/icomoon.ttf?m8w3ge") format("truetype"), url("fonts/icomoon.woff?m8w3ge") format("woff"), url("fonts/icomoon.svg?m8w3ge#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -36,120 +36,124 @@
   content: "\E903";
 }
 
-.icon-books:before {
+.icon-bookmarks:before {
   content: "\E904";
 }
 
-.icon-cascade:before {
+.icon-books:before {
   content: "\E905";
 }
 
-.icon-conf:before {
+.icon-camera:before {
   content: "\E906";
 }
 
-.icon-cpanel:before {
+.icon-cascade:before {
   content: "\E907";
 }
 
-.icon-delete:before {
+.icon-conf:before {
   content: "\E908";
 }
 
-.icon-download:before {
+.icon-cpanel:before {
   content: "\E909";
 }
 
-.icon-edit:before {
+.icon-delete:before {
   content: "\E90A";
 }
 
-.icon-home:before {
+.icon-download:before {
   content: "\E90B";
 }
 
-.icon-info:before {
+.icon-edit:before {
   content: "\E90C";
 }
 
-.icon-login:before {
+.icon-home:before {
   content: "\E90D";
 }
 
-.icon-menu:before {
+.icon-info:before {
   content: "\E90E";
 }
 
-.icon-next:before {
+.icon-login:before {
   content: "\E90F";
 }
 
-.icon-notifications:before {
+.icon-menu:before {
   content: "\E910";
 }
 
-.icon-off:before {
+.icon-next:before {
   content: "\E911";
 }
 
-.icon-open-book:before {
+.icon-notifications:before {
   content: "\E912";
 }
 
-.icon-open-collection:before {
+.icon-off:before {
   content: "\E913";
 }
 
-.icon-page-auto:before {
+.icon-open-book:before {
   content: "\E914";
 }
 
-.icon-page-back:before {
+.icon-open-collection:before {
   content: "\E915";
 }
 
-.icon-page-full:before {
+.icon-page-auto:before {
   content: "\E916";
 }
 
-.icon-page-next:before {
+.icon-page-back:before {
   content: "\E917";
 }
 
-.icon-paginate:before {
+.icon-page-full:before {
   content: "\E918";
 }
 
-.icon-pags:before {
+.icon-page-next:before {
   content: "\E919";
 }
 
-.icon-qr-code:before {
+.icon-paginate:before {
   content: "\E91A";
 }
 
-.icon-search:before {
+.icon-pags:before {
   content: "\E91B";
 }
 
-.icon-share:before {
+.icon-qr-code:before {
   content: "\E91C";
 }
 
-.icon-storage:before {
+.icon-search:before {
   content: "\E91D";
 }
 
-.icon-zoom-in:before {
+.icon-share:before {
   content: "\E91E";
 }
 
-.icon-zoom-out:before {
+.icon-storage:before {
   content: "\E91F";
 }
 
-.icon-camera:before {
+.icon-zoom-in:before {
   content: "\E920";
+}
+
+.icon-zoom-out:before {
+  content: "\E921";
 }
 
 /*!
@@ -10437,7 +10441,7 @@ span.icon-centered .sidebar-subtitle span {
   font-size: 24px;
   transition: background 0.4s;
 }
-#topbar a .icon-centered:hover {
+#topbar a .icon-centered:not(.hidden-icon):hover {
   background-color: #f5b300;
 }
 #topbar .numPages {

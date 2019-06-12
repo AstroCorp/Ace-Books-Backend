@@ -6,6 +6,7 @@
                     <li class="nav-item"><a href="/home"><span class="icon-centered icon-back"></span></a></li>
                     <li class="nav-item" v-if="mode === 'paginate'" @click="changeMode()"><a href="#"><span class="icon-centered icon-cascade"></span></a></li>
                     <li class="nav-item" v-if="mode === 'cascade'" @click="changeMode()"><a href="#"><span class="icon-centered icon-paginate"></span></a></li>
+                    <li class="nav-item" @click="openBookmarks" data-toggle="modal" data-target="#modalCenter"><a href="#"><span class="icon-centered icon-bookmarks"></span></a></li>
                 </span>
                 <span class="nav col-12 col-sm-auto p-0">
                     <li class="nav-item"><a href="#" @click="updateZoom('auto')"><span class="icon-centered icon-page-auto"></span></a></li>
@@ -18,6 +19,7 @@
                     <li class="nav-item"><a href="#" @click="updateZoom(-0.1)"><span class="icon-centered icon-zoom-out"></span></a></li>
                 </span>
                 <span class="nav col-12 col-sm-auto p-0">
+                    <li class="nav-item"><a><span class="icon-centered hidden-icon"></span></a></li>
                     <li class="nav-item"><a href="#" @click="previousPage()"><span class="icon-centered icon-page-back"></span></a></li>
                     <li class="nav-item"><a href="#" @click="nextPage()"><span class="icon-centered icon-page-next"></span></a></li>
                 </span>
@@ -31,7 +33,7 @@
                 v-show="mode === 'cascade' || (mode === 'paginate' && i == currentPage)"
                 :key="i">
                     <pdf
-                        v-if="i >= currentPage - 5 && i <= currentPage + 5"
+                        v-if="i >= currentPage - 3 && i <= currentPage + 3"
                         :ref="'page' + i"
                         :src="src"
                         :page="i"
@@ -45,6 +47,37 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p v-if="bookmarks.length === 0">No hay nah</p>
+                <div id="accordion">
+                    <div v-for="bookmark in bookmarks" :key="bookmark.id" class="card mb-1">
+                        <button :id="'heading_' + bookmark.id" class="card-header btn collapsed" data-toggle="collapse"
+                            :data-target="'#collapse_' + bookmark.id" aria-expanded="false" :aria-controls="'collapse_' + bookmark.id"
+                            :style="'background-color:' + bookmark.color">
+                            <h5 class="m-0 text-left">{{ bookmark.page }} <a @click="deleteBookmark(bookmark.id)" href="#">Delete</a></h5>
+                        </button>
+
+                        <div v-if="bookmark.comment" :id="'collapse_' + bookmark.id" class="collapse" :aria-labelledby="'heading_'  + bookmark.id" data-parent="#accordion">
+                            <div class="card-body">
+                                <p>{{ bookmark.comment }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 	</div>
 </template>
 
@@ -54,7 +87,7 @@ import pdf from 'vue-pdf';
 export default
 {
     components: {
-		pdf
+        pdf
 	},
     data()
     {
@@ -68,10 +101,14 @@ export default
             mode: 'cascade',
             src: pdf.createLoadingTask(this.url),
             reader: undefined,
+
+            bookmarks: [],
+            bookmarkDelSel: 0,
 		}
     },
     props: [
-        'url'
+        'url',
+        'idBook'
     ],
     mounted: function()
     {
@@ -182,6 +219,40 @@ export default
             {
 			    this.numPages = pdf.numPages;
 		    });
+        },
+        openBookmarks()
+        {
+            this.loadBookmarks();
+        },
+        loadBookmarks()
+        {
+            axios.post('/bookmarks',
+            {
+                '_token': this.csrf,
+                'book': this.idBook
+            })
+            .then(function(response)
+            {
+                this.bookmarks = response.data.bookmarks;
+            }
+            .bind(this));
+        },
+        deleteBookmark(bookmark)
+        {
+            axios.post('/bookmarks/delete',
+            {
+                '_token': this.csrf,
+                'book': this.idBook,
+                bookmark
+            })
+            .then(function(response)
+            {
+                if(response.status)
+                {
+                    this.loadBookmarks();
+                }
+            }
+            .bind(this));
         }
     },
     watch:

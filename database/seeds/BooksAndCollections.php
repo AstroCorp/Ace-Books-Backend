@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Book;
 use App\Collection;
+use App\Bookmark;
 
 class BooksAndCollections extends Seeder
 {
@@ -33,6 +34,17 @@ class BooksAndCollections extends Seeder
         $book2->name = 'Book 2';
         $book2->filename = 'example2.pdf';
         $book2->save();
+
+        $bookmark1 = new Bookmark();
+        $bookmark1->book_id = 2;
+        $bookmark1->page = 1;
+        $bookmark1->comment = 'test';
+        $bookmark1->save();
+
+        $bookmark2 = new Bookmark();
+        $bookmark2->book_id = 2;
+        $bookmark2->page = 2;
+        $bookmark2->save();
 
         $user = auth()->loginUsingId(2);
         $user->n_books = 2;

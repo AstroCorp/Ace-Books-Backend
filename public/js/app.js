@@ -2376,6 +2376,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2389,10 +2422,12 @@ __webpack_require__.r(__webpack_exports__);
       zoom: 0.5,
       mode: 'cascade',
       src: vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingTask(this.url),
-      reader: undefined
+      reader: undefined,
+      bookmarks: [],
+      bookmarkDelSel: 0
     };
   },
-  props: ['url'],
+  props: ['url', 'idBook'],
   mounted: function mounted() {
     this.reader = this.$refs['reader'];
     this.reader.addEventListener('scroll', this.updatePageWithScroll);
@@ -2470,6 +2505,28 @@ __webpack_require__.r(__webpack_exports__);
       this.src.then(function (pdf) {
         _this.numPages = pdf.numPages;
       });
+    },
+    openBookmarks: function openBookmarks() {
+      this.loadBookmarks();
+    },
+    loadBookmarks: function loadBookmarks() {
+      axios.post('/bookmarks', {
+        '_token': this.csrf,
+        'book': this.idBook
+      }).then(function (response) {
+        this.bookmarks = response.data.bookmarks;
+      }.bind(this));
+    },
+    deleteBookmark: function deleteBookmark(bookmark) {
+      axios.post('/bookmarks/delete', {
+        '_token': this.csrf,
+        'book': this.idBook,
+        bookmark: bookmark
+      }).then(function (response) {
+        if (response.status) {
+          this.loadBookmarks();
+        }
+      }.bind(this));
     }
   },
   watch: {
@@ -64486,7 +64543,17 @@ var render = function() {
                 },
                 [_vm._m(2)]
               )
-            : _vm._e()
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "li",
+            {
+              staticClass: "nav-item",
+              attrs: { "data-toggle": "modal", "data-target": "#modalCenter" },
+              on: { click: _vm.openBookmarks }
+            },
+            [_vm._m(3)]
+          )
         ]),
         _vm._v(" "),
         _c("span", { staticClass: "nav col-12 col-sm-auto p-0" }, [
@@ -64585,6 +64652,8 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("span", { staticClass: "nav col-12 col-sm-auto p-0" }, [
+          _vm._m(4),
+          _vm._v(" "),
           _c("li", { staticClass: "nav-item" }, [
             _c(
               "a",
@@ -64665,7 +64734,7 @@ var render = function() {
                 staticClass: "mx-auto pdf-page"
               },
               [
-                i >= _vm.currentPage - 5 && i <= _vm.currentPage + 5
+                i >= _vm.currentPage - 3 && i <= _vm.currentPage + 3
                   ? _c("pdf", {
                       ref: "page" + i,
                       refInFor: true,
@@ -64682,6 +64751,104 @@ var render = function() {
             )
           }),
           0
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "modalCenter",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "ModalCenterTitle",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(5),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm.bookmarks.length === 0
+                  ? _c("p", [_vm._v("No hay nah")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { attrs: { id: "accordion" } },
+                  _vm._l(_vm.bookmarks, function(bookmark) {
+                    return _c(
+                      "div",
+                      { key: bookmark.id, staticClass: "card mb-1" },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "card-header btn collapsed",
+                            style: "background-color:" + bookmark.color,
+                            attrs: {
+                              id: "heading_" + bookmark.id,
+                              "data-toggle": "collapse",
+                              "data-target": "#collapse_" + bookmark.id,
+                              "aria-expanded": "false",
+                              "aria-controls": "collapse_" + bookmark.id
+                            }
+                          },
+                          [
+                            _c("h5", { staticClass: "m-0 text-left" }, [
+                              _vm._v(_vm._s(bookmark.page) + " "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteBookmark(bookmark.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Delete")]
+                              )
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        bookmark.comment
+                          ? _c(
+                              "div",
+                              {
+                                staticClass: "collapse",
+                                attrs: {
+                                  id: "collapse_" + bookmark.id,
+                                  "aria-labelledby": "heading_" + bookmark.id,
+                                  "data-parent": "#accordion"
+                                }
+                              },
+                              [
+                                _c("div", { staticClass: "card-body" }, [
+                                  _c("p", [_vm._v(_vm._s(bookmark.comment))])
+                                ])
+                              ]
+                            )
+                          : _vm._e()
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ])
+            ])
+          ]
         )
       ]
     )
@@ -64712,6 +64879,41 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
       _c("span", { staticClass: "icon-centered icon-paginate" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("span", { staticClass: "icon-centered icon-bookmarks" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c("a", [_c("span", { staticClass: "icon-centered hidden-icon" })])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   }
 ]

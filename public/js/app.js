@@ -2409,6 +2409,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2420,6 +2421,7 @@ __webpack_require__.r(__webpack_exports__);
       numPages: 0,
       checkZoom: false,
       zoom: 0.5,
+      pageHeight: 0,
       mode: 'cascade',
       src: vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingTask(this.url),
       reader: undefined,
@@ -2498,6 +2500,8 @@ __webpack_require__.r(__webpack_exports__);
 
         this.zoom += zoom;
       }
+
+      this.updatePageWithInput();
     },
     getPDF: function getPDF() {
       var _this = this;
@@ -64734,17 +64738,26 @@ var render = function() {
                 staticClass: "mx-auto pdf-page"
               },
               [
-                i >= _vm.currentPage - 3 && i <= _vm.currentPage + 3
+                (i >= _vm.currentPage - 3 && i <= _vm.currentPage + 3) ||
+                i === 1
                   ? _c("pdf", {
                       ref: "page" + i,
                       refInFor: true,
                       style: "width: 100%;",
-                      attrs: { src: _vm.src, page: i }
+                      attrs: { src: _vm.src, page: i },
+                      on: {
+                        "page-loaded": function($event) {
+                          _vm.pageHeight === 0
+                            ? (_vm.pageHeight =
+                                _vm.$refs["page1"][0].$el.clientHeight)
+                            : null
+                        }
+                      }
                     })
                   : _c("pdf", {
                       ref: "page" + i,
                       refInFor: true,
-                      style: "width: 100%;"
+                      style: "height: " + _vm.pageHeight + "px;"
                     })
               ],
               1

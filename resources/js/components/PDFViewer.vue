@@ -33,16 +33,17 @@
                 v-show="mode === 'cascade' || (mode === 'paginate' && i == currentPage)"
                 :key="i">
                     <pdf
-                        v-if="i >= currentPage - 3 && i <= currentPage + 3"
+                        v-if="i >= currentPage - 3 && i <= currentPage + 3 || i === 1"
                         :ref="'page' + i"
                         :src="src"
                         :page="i"
                         :style="'width: 100%;'"
+                        @page-loaded="pageHeight === 0 ? pageHeight = $refs['page1'][0].$el.clientHeight : null"
 		            />
                     <pdf
                         v-else
                         :ref="'page' + i"
-                        :style="'width: 100%;'"
+                        :style="'height: ' + pageHeight + 'px;'"
 		            />
                 </div>
             </div>
@@ -97,6 +98,7 @@ export default
 
             checkZoom: false,
             zoom: 0.5,
+            pageHeight: 0,
 
             mode: 'cascade',
             src: pdf.createLoadingTask(this.url),
@@ -212,6 +214,8 @@ export default
 
                 this.zoom += zoom;
             }
+
+            this.updatePageWithInput();
         },
         getPDF()
         {

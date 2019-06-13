@@ -9997,17 +9997,6 @@ form .form-group .form-control {
   border: 1px solid rgba(40, 40, 40, 0.5);
   background-color: rgba(255, 255, 255, 0.58);
 }
-form .form-group .form-btn {
-  border: 1px solid rgba(40, 40, 40, 0.5);
-  background-color: rgba(8, 15, 1, 0.25);
-  color: rgba(255, 255, 255, 0.8);
-  padding: 5px;
-  cursor: pointer;
-  transition: background 0.4s;
-}
-form .form-group .form-btn:hover {
-  background-color: rgba(8, 15, 1, 0.44);
-}
 form .form-group .form-btn-arrow {
   padding: 0;
   border-left: none;
@@ -10077,6 +10066,20 @@ form .form-group .custom-checkbox:hover input:not(:checked) ~ .checkmark {
   background-color: rgba(255, 255, 255, 0.58);
 }
 
+.form-btn {
+  border: 1px solid rgba(40, 40, 40, 0.5);
+  background-color: rgba(8, 15, 1, 0.25);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  cursor: pointer;
+  transition: background 0.4s;
+}
+.form-btn:hover {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  background-color: rgba(8, 15, 1, 0.44);
+}
+
 .auth-form {
   max-width: 512px;
 }
@@ -10125,6 +10128,10 @@ form .form-group .custom-checkbox:hover input:not(:checked) ~ .checkmark {
   height: 300px !important;
   width: 212px !important;
   background-color: rgba(255, 255, 255, 0.8);
+}
+
+textarea {
+  resize: none;
 }
 
 .modal-backdrop {
@@ -10488,4 +10495,11 @@ span.icon-centered .sidebar-subtitle span {
 .transform-active {
   -webkit-transform-origin: top left !important;
           transform-origin: top left !important;
+}
+
+.comment {
+  width: 100%;
+  height: 150px;
+  background-color: rgba(255, 255, 255, 0.58);
+  border: none;
 }

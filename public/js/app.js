@@ -2410,6 +2410,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2426,7 +2459,11 @@ __webpack_require__.r(__webpack_exports__);
       src: vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"].createLoadingTask(this.url),
       reader: undefined,
       bookmarks: [],
-      bookmarkDelSel: 0
+      newComment: '',
+      newCommentStatus: null,
+      deleteCommentStatus: false,
+      updateCommentStatus: null,
+      lastUpdated: 0
     };
   },
   props: ['url', 'idBook'],
@@ -2527,8 +2564,41 @@ __webpack_require__.r(__webpack_exports__);
         'book': this.idBook,
         bookmark: bookmark
       }).then(function (response) {
-        if (response.status) {
+        if (response.data.status) {
           this.loadBookmarks();
+          this.deleteCommentStatus = true;
+        }
+      }.bind(this));
+    },
+    addBookmark: function addBookmark() {
+      axios.post('/bookmarks/add', {
+        '_token': this.csrf,
+        'book': this.idBook,
+        'page': this.currentPage,
+        'comment': this.newComment
+      }).then(function (response) {
+        this.loadBookmarks();
+        this.newCommentStatus = response.data.status;
+        this.newComment = '';
+      }.bind(this));
+    },
+    resetForms: function resetForms() {
+      this.newCommentStatus = null;
+      this.newComment = '';
+      this.deleteCommentStatus = false;
+      this.updateCommentStatus = false;
+    },
+    updateBookmark: function updateBookmark(bookmark, comment) {
+      axios.post('/bookmarks/update', {
+        '_token': this.csrf,
+        'book': this.idBook,
+        'bookmark': bookmark,
+        'comment': comment
+      }).then(function (response) {
+        if (response.data.status) {
+          this.loadBookmarks();
+          this.updateCommentStatus = true;
+          this.lastUpdated = response.data.id;
         }
       }.bind(this));
     }
@@ -64789,11 +64859,53 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(5),
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "form-btn",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Close",
+                      "data-toggle": "modal",
+                      "data-target": "#modalCenterAdd"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.resetForms()
+                      }
+                    }
+                  },
+                  [_vm._v("\n                  Add\n                ")]
+                ),
+                _vm._v(" "),
+                _vm._m(5)
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm.bookmarks.length === 0
-                  ? _c("p", [_vm._v("No hay nah")])
+                  ? _c(
+                      "span",
+                      {
+                        staticClass:
+                          "col-12 alert d-block mt-1 alert-info text-center",
+                        attrs: { role: "alert" }
+                      },
+                      [_c("strong", [_vm._v("No hay nah")])]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.deleteCommentStatus
+                  ? _c(
+                      "span",
+                      {
+                        staticClass:
+                          "col-12 alert d-block mt-1 alert-danger text-center",
+                        attrs: { role: "alert" }
+                      },
+                      [_c("strong", [_vm._v("deleted!")])]
+                    )
                   : _vm._e(),
                 _vm._v(" "),
                 _c(
@@ -64815,14 +64927,20 @@ var render = function() {
                               "data-target": "#collapse_" + bookmark.id,
                               "aria-expanded": "false",
                               "aria-controls": "collapse_" + bookmark.id
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.resetForms()
+                              }
                             }
                           },
                           [
                             _c("h5", { staticClass: "m-0 text-left" }, [
-                              _vm._v(_vm._s(bookmark.page) + " "),
+                              _vm._v("Page: " + _vm._s(bookmark.page) + " "),
                               _c(
                                 "a",
                                 {
+                                  staticClass: "float-right text-black-50",
                                   attrs: { href: "#" },
                                   on: {
                                     click: function($event) {
@@ -64836,28 +64954,170 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        bookmark.comment
-                          ? _c(
-                              "div",
-                              {
-                                staticClass: "collapse",
-                                attrs: {
-                                  id: "collapse_" + bookmark.id,
-                                  "aria-labelledby": "heading_" + bookmark.id,
-                                  "data-parent": "#accordion"
+                        _c(
+                          "div",
+                          {
+                            staticClass: "collapse",
+                            attrs: {
+                              id: "collapse_" + bookmark.id,
+                              "aria-labelledby": "heading_" + bookmark.id,
+                              "data-parent": "#accordion"
+                            }
+                          },
+                          [
+                            _c("div", { staticClass: "card-body p-0 pb-3" }, [
+                              _vm.updateCommentStatus &&
+                              _vm.lastUpdated === bookmark.id
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "col-12 alert d-block m-0 alert-success text-center",
+                                      attrs: { role: "alert" }
+                                    },
+                                    [_c("strong", [_vm._v("updated!")])]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: bookmark.comment,
+                                    expression: "bookmark.comment"
+                                  }
+                                ],
+                                staticClass: "comment p-2 mb-2",
+                                attrs: { placeholder: "Comment... " },
+                                domProps: { value: bookmark.comment },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      bookmark,
+                                      "comment",
+                                      $event.target.value
+                                    )
+                                  }
                                 }
-                              },
-                              [
-                                _c("div", { staticClass: "card-body" }, [
-                                  _c("p", [_vm._v(_vm._s(bookmark.comment))])
-                                ])
-                              ]
-                            )
-                          : _vm._e()
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "form-btn",
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.updateBookmark(
+                                        bookmark.id,
+                                        bookmark.comment
+                                      )
+                                    }
+                                  }
+                                },
+                                [_vm._v("Edit")]
+                              )
+                            ])
+                          ]
+                        )
                       ]
                     )
                   }),
                   0
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "modalCenterAdd",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "ModalCenterTitle",
+          "aria-hidden": "true"
+        },
+        on: {
+          click: function($event) {
+            return _vm.resetForms()
+          }
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(6),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm.newCommentStatus !== null
+                  ? _c(
+                      "span",
+                      {
+                        staticClass: "col-12 alert d-block mt-1 text-center",
+                        class: {
+                          "alert-success": _vm.newCommentStatus,
+                          "alert-danger": !_vm.newCommentStatus
+                        },
+                        attrs: { role: "alert" }
+                      },
+                      [
+                        _vm.newCommentStatus
+                          ? _c("strong", [_vm._v("Ok!")])
+                          : _c("strong", [_vm._v("Error!")])
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.newComment,
+                      expression: "newComment"
+                    }
+                  ],
+                  staticClass: "comment p-2 mb-2",
+                  attrs: { placeholder: "Comment... " },
+                  domProps: { value: _vm.newComment },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.newComment = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "form-btn",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.addBookmark()
+                      }
+                    }
+                  },
+                  [_vm._v("Add")]
                 )
               ])
             ])
@@ -64909,6 +65169,23 @@ var staticRenderFns = [
     return _c("li", { staticClass: "nav-item" }, [
       _c("a", [_c("span", { staticClass: "icon-centered hidden-icon" })])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   },
   function() {
     var _vm = this

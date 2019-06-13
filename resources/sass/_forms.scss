@@ -6,19 +6,6 @@ form {
             background-color: $white_1;
         }
 
-        .form-btn {
-            border: 1px solid $input_border;
-            background-color: $btn;
-            color: $white_2;
-            padding: 5px;
-            cursor: pointer;
-            transition: background 0.4s;
-
-            &:hover {
-                background-color: rgba($btn, 0.44);
-            }
-        }
-
         .form-btn-arrow {
             padding: 0;
             border-left: none;
@@ -101,6 +88,21 @@ form {
     }
 }
 
+.form-btn {
+    border: 1px solid $input_border;
+    background-color: $btn;
+    color: $white_2;
+    padding: 5px;
+    cursor: pointer;
+    transition: background 0.4s;
+
+    &:hover {
+        color: $white_2;
+        text-decoration: none;
+        background-color: rgba($btn, 0.44);
+    }
+}
+
 .auth-form {
     max-width: 512px;
 }
@@ -155,4 +157,8 @@ form {
     height: 300px !important;
     width: 212px !important;
     background-color: $white_2;
+}
+
+textarea {
+    resize: none;
 }

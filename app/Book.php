@@ -48,6 +48,11 @@ class Book extends Model
 
         unlink(public_path().'/books/'.$this->filename);
 
+        $this->bookmarks()->each(function($bookmark, $key)
+        {
+            $bookmark->delete();
+        });
+
         $this->delete();
     }
 }

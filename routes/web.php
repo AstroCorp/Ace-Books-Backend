@@ -29,7 +29,6 @@ Route::resource('book', 'BookController')->except([
     'index'
 ]);
 
-
 Route::prefix('bookmarks')->group(function()
 {
     Route::post('/', 'BookmarkController@index')->name('bookmarks.index');

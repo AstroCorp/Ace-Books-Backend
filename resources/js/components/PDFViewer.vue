@@ -3,7 +3,7 @@
         <nav id="topbar" class="col-12 p-0">
             <ul class="row nav justify-content-between m-0">
                 <span class="nav col-12 col-sm-auto p-0">
-                    <li class="nav-item"><a href="/home"><span class="icon-centered icon-back"></span></a></li>
+                    <li class="nav-item"><a :href="back"><span class="icon-centered icon-back"></span></a></li>
                     <li class="nav-item" v-if="mode === 'paginate'" @click="changeMode()"><a href="#"><span class="icon-centered icon-cascade"></span></a></li>
                     <li class="nav-item" v-if="mode === 'cascade'" @click="changeMode()"><a href="#"><span class="icon-centered icon-paginate"></span></a></li>
                     <li class="nav-item" @click="openBookmarks" data-toggle="modal" data-target="#modalCenter"><a href="#"><span class="icon-centered icon-bookmarks"></span></a></li>
@@ -148,7 +148,8 @@ export default
     },
     props: [
         'url',
-        'idBook'
+        'idBook',
+        'back'
     ],
     mounted: function()
     {

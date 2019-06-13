@@ -2466,7 +2466,7 @@ __webpack_require__.r(__webpack_exports__);
       lastUpdated: 0
     };
   },
-  props: ['url', 'idBook'],
+  props: ['url', 'idBook', 'back'],
   mounted: function mounted() {
     this.reader = this.$refs['reader'];
     this.reader.addEventListener('scroll', this.updatePageWithScroll);
@@ -64587,7 +64587,11 @@ var render = function() {
     _c("nav", { staticClass: "col-12 p-0", attrs: { id: "topbar" } }, [
       _c("ul", { staticClass: "row nav justify-content-between m-0" }, [
         _c("span", { staticClass: "nav col-12 col-sm-auto p-0" }, [
-          _vm._m(0),
+          _c("li", { staticClass: "nav-item" }, [
+            _c("a", { attrs: { href: _vm.back } }, [
+              _c("span", { staticClass: "icon-centered icon-back" })
+            ])
+          ]),
           _vm._v(" "),
           _vm.mode === "paginate"
             ? _c(
@@ -64600,7 +64604,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._m(1)]
+                [_vm._m(0)]
               )
             : _vm._e(),
           _vm._v(" "),
@@ -64615,7 +64619,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._m(2)]
+                [_vm._m(1)]
               )
             : _vm._e(),
           _vm._v(" "),
@@ -64626,7 +64630,7 @@ var render = function() {
               attrs: { "data-toggle": "modal", "data-target": "#modalCenter" },
               on: { click: _vm.openBookmarks }
             },
-            [_vm._m(3)]
+            [_vm._m(2)]
           )
         ]),
         _vm._v(" "),
@@ -64726,7 +64730,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("span", { staticClass: "nav col-12 col-sm-auto p-0" }, [
-          _vm._m(4),
+          _vm._m(3),
           _vm._v(" "),
           _c("li", { staticClass: "nav-item" }, [
             _c(
@@ -64880,7 +64884,7 @@ var render = function() {
                   [_vm._v("\n                  Add\n                ")]
                 ),
                 _vm._v(" "),
-                _vm._m(5)
+                _vm._m(4)
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
@@ -65062,7 +65066,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(6),
+              _vm._m(5),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm.newCommentStatus !== null
@@ -65128,16 +65132,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { attrs: { href: "/home" } }, [
-        _c("span", { staticClass: "icon-centered icon-back" })
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

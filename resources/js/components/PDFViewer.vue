@@ -55,7 +55,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="form-btn" data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#modalCenterAdd" @click="resetForms()">
-                  Add
+                  {{ addBookmarkText }}
                 </button>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -64,26 +64,26 @@
               </div>
               <div class="modal-body">
                 <span v-if="bookmarks.length === 0" class="col-12 alert d-block mt-1 alert-info text-center" role="alert">
-                    <strong>No hay nah</strong>
+                    <strong>{{ noResultsBookmarkText }}</strong>
                 </span>
                 <span v-if="deleteCommentStatus" class="col-12 alert d-block mt-1 alert-danger text-center" role="alert">
-                    <strong>deleted!</strong>
+                    <strong>{{ deleteMessageBookmarkText }}</strong>
                 </span>
                 <div id="accordion">
                     <div v-for="bookmark in bookmarks" :key="bookmark.id" class="card mb-1">
                         <button :id="'heading_' + bookmark.id" class="card-header btn collapsed" data-toggle="collapse" @click="resetForms()"
                             :data-target="'#collapse_' + bookmark.id" aria-expanded="false" :aria-controls="'collapse_' + bookmark.id"
                             :style="'background-color:' + bookmark.color">
-                            <h5 class="m-0 text-left">Page: {{ bookmark.page }} <a class="float-right text-black-50" @click="deleteBookmark(bookmark.id)" href="#">Delete</a></h5>
+                            <h5 class="m-0 text-left">{{ pageText }}: {{ bookmark.page }} <a class="float-right text-black-50" @click="deleteBookmark(bookmark.id)" href="#">{{ deleteBookmarkText }}</a></h5>
                         </button>
 
                         <div :id="'collapse_' + bookmark.id" class="collapse" :aria-labelledby="'heading_'  + bookmark.id" data-parent="#accordion">
                             <div class="card-body p-0 pb-3">
                                 <span v-if="updateCommentStatus && lastUpdated ===bookmark.id" class="col-12 alert d-block m-0 alert-success text-center" role="alert">
-                                    <strong>updated!</strong>
+                                    <strong>{{ updateMessageBookmarkText }}</strong>
                                 </span>
-                                <textarea placeholder="Comment... " class="comment p-2 mb-2" v-model="bookmark.comment"></textarea>
-                                <a class="form-btn" @click="updateBookmark(bookmark.id, bookmark.comment)" href="#">Edit</a>
+                                <textarea :placeholder="commentText " class="comment p-2 mb-2" v-model="bookmark.comment"></textarea>
+                                <a class="form-btn" @click="updateBookmark(bookmark.id, bookmark.comment)" href="#">{{ updateBookmarkText }}</a>
                             </div>
                         </div>
                     </div>
@@ -103,11 +103,11 @@
               </div>
               <div class="modal-body">
                 <span v-if="newCommentStatus !== null" class="col-12 alert d-block mt-1 text-center" v-bind:class="{ 'alert-success': newCommentStatus, 'alert-danger': !newCommentStatus }" role="alert">
-                    <strong v-if="newCommentStatus">Ok!</strong>
-                    <strong v-else>Error!</strong>
+                    <strong v-if="newCommentStatus">{{ successAddBookmarkText }}</strong>
+                    <strong v-else>{{ errorAddBookmarkText }}</strong>
                 </span>
-                <textarea placeholder="Comment... " class="comment p-2 mb-2" v-model="newComment"></textarea>
-                <a class="form-btn" @click="addBookmark()" href="#">Add</a>
+                <textarea :placeholder="commentText" class="comment p-2 mb-2" v-model="newComment"></textarea>
+                <a class="form-btn" @click="addBookmark()" href="#">{{ addBookmarkText }}</a>
               </div>
             </div>
           </div>
@@ -149,7 +149,18 @@ export default
     props: [
         'url',
         'idBook',
-        'back'
+        'back',
+
+        'addBookmarkText',
+        'errorAddBookmarkText',
+        'successAddBookmarkText',
+        'deleteBookmarkText',
+        'deleteMessageBookmarkText',
+        'updateBookmarkText',
+        'updateMessageBookmarkText',
+        'noResultsBookmarkText',
+        'pageText',
+        'commentText',
     ],
     mounted: function()
     {

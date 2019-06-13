@@ -18,4 +18,15 @@ return [
     'collectionNull' => 'Without collection',
     'image_info' => '*It is recommended to use the following size, height: 300px | width: 212px',
     'bookNameError' => 'A book with this name already exists',
+
+    'addBookmarkText' => 'Add bookmark',
+    'errorAddBookmarkText' => 'Unable to create bookmark',
+    'successAddBookmarkText' => 'Bookmark created correctly',
+    'deleteBookmarkText' => 'Delete bookmark',
+    'deleteMessageBookmarkText' => 'Bookmark removed',
+    'updateBookmarkText' => 'Update bookmark',
+    'updateMessageBookmarkText' => 'Updated bookmark',
+    'noResultsBookmarkText' => 'There is not bookmark',
+    'pageText' => 'Page',
+    'commentText' => 'Commentary...',
 ];

@@ -2466,7 +2466,7 @@ __webpack_require__.r(__webpack_exports__);
       lastUpdated: 0
     };
   },
-  props: ['url', 'idBook', 'back'],
+  props: ['url', 'idBook', 'back', 'addBookmarkText', 'errorAddBookmarkText', 'successAddBookmarkText', 'deleteBookmarkText', 'deleteMessageBookmarkText', 'updateBookmarkText', 'updateMessageBookmarkText', 'noResultsBookmarkText', 'pageText', 'commentText'],
   mounted: function mounted() {
     this.reader = this.$refs['reader'];
     this.reader.addEventListener('scroll', this.updatePageWithScroll);
@@ -64881,7 +64881,13 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n                  Add\n                ")]
+                  [
+                    _vm._v(
+                      "\n                  " +
+                        _vm._s(_vm.addBookmarkText) +
+                        "\n                "
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _vm._m(4)
@@ -64896,7 +64902,11 @@ var render = function() {
                           "col-12 alert d-block mt-1 alert-info text-center",
                         attrs: { role: "alert" }
                       },
-                      [_c("strong", [_vm._v("No hay nah")])]
+                      [
+                        _c("strong", [
+                          _vm._v(_vm._s(_vm.noResultsBookmarkText))
+                        ])
+                      ]
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -64908,7 +64918,11 @@ var render = function() {
                           "col-12 alert d-block mt-1 alert-danger text-center",
                         attrs: { role: "alert" }
                       },
-                      [_c("strong", [_vm._v("deleted!")])]
+                      [
+                        _c("strong", [
+                          _vm._v(_vm._s(_vm.deleteMessageBookmarkText))
+                        ])
+                      ]
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -64940,7 +64954,12 @@ var render = function() {
                           },
                           [
                             _c("h5", { staticClass: "m-0 text-left" }, [
-                              _vm._v("Page: " + _vm._s(bookmark.page) + " "),
+                              _vm._v(
+                                _vm._s(_vm.pageText) +
+                                  ": " +
+                                  _vm._s(bookmark.page) +
+                                  " "
+                              ),
                               _c(
                                 "a",
                                 {
@@ -64952,7 +64971,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("Delete")]
+                                [_vm._v(_vm._s(_vm.deleteBookmarkText))]
                               )
                             ])
                           ]
@@ -64979,7 +64998,13 @@ var render = function() {
                                         "col-12 alert d-block m-0 alert-success text-center",
                                       attrs: { role: "alert" }
                                     },
-                                    [_c("strong", [_vm._v("updated!")])]
+                                    [
+                                      _c("strong", [
+                                        _vm._v(
+                                          _vm._s(_vm.updateMessageBookmarkText)
+                                        )
+                                      ])
+                                    ]
                                   )
                                 : _vm._e(),
                               _vm._v(" "),
@@ -64993,7 +65018,7 @@ var render = function() {
                                   }
                                 ],
                                 staticClass: "comment p-2 mb-2",
-                                attrs: { placeholder: "Comment... " },
+                                attrs: { placeholder: _vm.commentText },
                                 domProps: { value: bookmark.comment },
                                 on: {
                                   input: function($event) {
@@ -65023,7 +65048,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("Edit")]
+                                [_vm._v(_vm._s(_vm.updateBookmarkText))]
                               )
                             ])
                           ]
@@ -65082,8 +65107,12 @@ var render = function() {
                       },
                       [
                         _vm.newCommentStatus
-                          ? _c("strong", [_vm._v("Ok!")])
-                          : _c("strong", [_vm._v("Error!")])
+                          ? _c("strong", [
+                              _vm._v(_vm._s(_vm.successAddBookmarkText))
+                            ])
+                          : _c("strong", [
+                              _vm._v(_vm._s(_vm.errorAddBookmarkText))
+                            ])
                       ]
                     )
                   : _vm._e(),
@@ -65098,7 +65127,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "comment p-2 mb-2",
-                  attrs: { placeholder: "Comment... " },
+                  attrs: { placeholder: _vm.commentText },
                   domProps: { value: _vm.newComment },
                   on: {
                     input: function($event) {
@@ -65121,7 +65150,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Add")]
+                  [_vm._v(_vm._s(_vm.addBookmarkText))]
                 )
               ])
             ])

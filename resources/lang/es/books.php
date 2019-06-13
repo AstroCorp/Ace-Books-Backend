@@ -18,4 +18,15 @@ return [
     'collectionNull' => 'Sin colección',
     'image_info' => '*Se recomiendo usar el siguiente tamaño, alto: 300px | ancho: 212px',
     'bookNameError' => 'Ya existe un libro con este nombre',
+
+    'addBookmarkText' => 'Añadir marca-páginas',
+    'errorAddBookmarkText' => 'No se ha podido crear el marca-páginas',
+    'successAddBookmarkText' => 'Marca-páginas creado correctamente',
+    'deleteBookmarkText' => 'Eliminar marca-páginas',
+    'deleteMessageBookmarkText' => 'Marca-páginas eliminado',
+    'updateBookmarkText' => 'Actualizar marca-páginas',
+    'updateMessageBookmarkText' => 'Marca-páginas actualizado',
+    'noResultsBookmarkText' => 'No hay marca-páginas',
+    'pageText' => 'Página',
+    'commentText' => 'Comentario...',
 ];

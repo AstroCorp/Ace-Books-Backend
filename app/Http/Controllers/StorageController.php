@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Storage;
 
 class StorageController extends Controller
 {
     public function index()
     {
-        return view('storage');
+        $storages = Storage::all();
+
+        return view('storage', compact('storages'));
+    }
+
+    public function buy(Request $request)
+    {
+        dd($request);
     }
 }

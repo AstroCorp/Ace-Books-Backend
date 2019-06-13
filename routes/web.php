@@ -49,7 +49,12 @@ Route::prefix('settings')->group(function()
     Route::post('website', 'UserController@update_website')->name('website.update');
 });
 
-Route::get('/storage', 'StorageController@index')->name('storage');
+
+Route::prefix('storage')->group(function()
+{
+    Route::get('/', 'StorageController@index')->name('storage');
+    Route::post('buy', 'StorageController@buy')->name('storage.buy');
+});
 
 Route::get('/cpanel', 'UserController@index')->name('cpanel');
 

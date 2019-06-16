@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
         {
             $table->increments('id');
             $table->string('user_image')->default('default.png');
+            $table->string('name')->nullable();
             $table->string('username')->unique()->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -25,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->integer('n_collections')->unsigned()->default(0);
             $table->rememberToken();
             $table->timestamps();
-            
+
             $table->integer('storage_id')->unsigned()->default(1);
             $table->integer('rank_id')->unsigned()->default(1);
             $table->integer('lang_id')->unsigned()->default(1);

@@ -14,6 +14,7 @@
         "laravel/tinker": "^1.0",
         "laraveles/spanish": "^1.1",
         "predis/predis": "^1.1",
+        "tcg/voyager": "^1.2",
         "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {
@@ -63,5 +64,11 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
+    },
+    "repositories": {
+        "hooks": {
+            "type": "composer",
+            "url": "https://larapack.io"
+        }
     }
 }

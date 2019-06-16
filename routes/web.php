@@ -56,7 +56,10 @@ Route::prefix('storage')->group(function()
     Route::post('buy', 'StorageController@buy')->name('storage.buy');
 });
 
-Route::get('/cpanel', 'UserController@index')->name('cpanel');
+Route::get('/cpanel', function()
+{
+    return redirect('admin');
+})->name('cpanel');
 
 // Dev
 Route::get('/phpinfo', function()
@@ -65,3 +68,8 @@ Route::get('/phpinfo', function()
 });
 
 Route::get('/test', 'StaticController@test');
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});

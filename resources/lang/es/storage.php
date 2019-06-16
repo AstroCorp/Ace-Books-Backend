@@ -10,6 +10,8 @@ return [
     'yes' => 'Si',
     'no' => 'No',
     'buy' => 'Comprar',
+    'buyError' => 'No se ha podido comprar el paquete.',
+    'buyOk' => 'Compra realizada correctamente.',
     'package1' => 'Paquete 1',
     'package2' => 'Paquete 2',
 ];

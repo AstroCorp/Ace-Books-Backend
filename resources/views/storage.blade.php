@@ -4,52 +4,65 @@
 <div class="row m-0 justify-content-center">
     <div class="mt-2 col">
         <div class="row m-0 justify-content-center">
+            @if ($errors->has('buy'))
+                <div class="alert d-block alert-danger col-11 col-sm-8" role="alert">
+                    <strong>{{ $errors->first('buy') }}</strong>
+                </div>
+            @endif
+
+            @if (session('status'))
+                <div class="alert d-block alert-success col-11 col-sm-8" role="alert">
+                    <strong>{{ trans("storage.buyOk") }}</strong>
+                </div>
+            @endif
             <div class="col-11 col-sm-8">
                 <table class="table table-borderless">
                     <thead>
                         <tr>
                             <th></th>
+                            @foreach ($storages as $storage)
                             <th class="table-option text-center">
-                                <p>{{trans("storage.package1")}} (0 €)</p>
+                                <p>{{ trans($storage->name) }} ({{ $storage->price }} €)</p>
+                                @if ($storage->id !== Auth::user()->storage_id)
                                 <form method="POST" action="{{ route('storage.buy') }}">
                                     @csrf
-                                    <button class="form-btn" type="submit" name="buy" value="1">{{trans("storage.buy")}}</button>
+                                    <button class="form-btn" type="submit" name="buy" value="{{ $storage->id }}">{{trans("storage.buy")}}</button>
                                 </form>
+                                @endif
                             </th>
-                            <th class="table-option text-center">
-                                <p>{{trans("storage.package2")}} (4.95 €)</p>
-                                <form method="POST" action="{{ route('storage.buy') }}">
-                                    @csrf
-                                    <button class="form-btn" type="submit" name="buy" value="1">{{trans("storage.buy")}}</button>
-                                </form>
-                            </th>
+                            @endforeach
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th class="table-option">{{trans("storage.nDocuments")}}</th>
-                            <td class="table-data">10</td>
-                            <td class="table-data">50</td>
+                            @foreach ($storages as $storage)
+                            <td class="table-data">{{ $storage->amount_books }}</td>
+                            @endforeach
                         </tr>
                         <tr>
                             <th class="table-option">{{trans("storage.sizeDocuments")}}</th>
-                            <td class="table-data">5 MB</td>
-                            <td class="table-data">10 MB</td>
+                            @foreach ($storages as $storage)
+                            <td class="table-data">{{ $storage->size_books / 1000 }} MB</td>
+                            @endforeach
                         </tr>
                         <tr>
                             <th class="table-option">{{trans("storage.shareDocuments")}}</th>
-                            <td class="table-data">{{trans("storage.yes")}}</td>
-                            <td class="table-data">{{trans("storage.yes")}}</td>
+                            @foreach ($storages as $storage)
+                            <td class="table-data">{{ $storage->share_documents ? trans("storage.yes") : trans("storage.no") }}</td>
+                            @endforeach
                         </tr>
                         <tr>
                             <th class="table-option">{{trans("storage.nCollections")}}</th>
-                            <td class="table-data">5</td>
-                            <td class="table-data">15</td>
+                            @foreach ($storages as $storage)
+                            <td class="table-data">{{ $storage->amount_collections }}</td>
+                            @endforeach
                         </tr>
                         <tr>
                             <th class="table-option">{{trans("storage.shareCollections")}}</th>
-                            <td class="table-data">{{trans("storage.no")}}</td>
-                            <td class="table-data">{{trans("storage.yes")}}</td>
+                            @foreach ($storages as $storage)
+                            <td class="table-data">{{ $storage->share_collections ? trans("storage.yes") : trans("storage.no") }}</td>
+                            @endforeach
                         </tr>
                     </tbody>
                 </table>

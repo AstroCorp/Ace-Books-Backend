@@ -2,10 +2,10 @@
 
 namespace App\Rules;
 
+use App\Storage;
 use Illuminate\Contracts\Validation\Rule;
-use App\Lang;
 
-class ValidLanguage implements Rule
+class CheckValidStorage implements Rule
 {
     /**
      * Create a new rule instance.
@@ -26,9 +26,9 @@ class ValidLanguage implements Rule
      */
     public function passes($attribute, $value)
     {
-        $search_lang = Lang::all();
+        $storages = Storage::all();
 
-        return $search_lang->contains($value);
+        return $storages->contains($value);
     }
 
     /**
@@ -38,6 +38,6 @@ class ValidLanguage implements Rule
      */
     public function message()
     {
-        return trans('passwords.lang');
+        return trans('storage.buyError');
     }
 }

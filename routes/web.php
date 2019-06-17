@@ -52,24 +52,23 @@ Route::prefix('settings')->group(function()
 
 Route::prefix('storage')->group(function()
 {
-    Route::get('/', 'StorageController@index')->name('storage');
+    Route::get('list', 'StorageController@index')->name('storage');
     Route::post('buy', 'StorageController@buy')->name('storage.buy');
 });
 
-Route::get('/cpanel', function()
+Route::get('cpanel', function()
 {
     return redirect('admin');
 })->name('cpanel');
 
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
+
 // Dev
-Route::get('/phpinfo', function()
+Route::get('phpinfo', function()
 {
     phpinfo();
 });
 
-Route::get('/test', 'StaticController@test');
-
-
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
-});
+Route::get('test', 'StaticController@test');

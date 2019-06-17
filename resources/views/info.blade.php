@@ -47,7 +47,7 @@
             <div class="card mb-1">
                 <button id="heading_4" class="card-header btn collapsed" data-toggle="collapse"
                     data-target="#collapse_4" aria-expanded="false" aria-controls="collapse_4">
-                    <h5 class="m-0 text-left">{{trans("info.section2_q1_title")}}</h5>
+                    <h5 class="m-0 text-left">{{trans("info.section2_q2_title")}}</h5>
                 </button>
                 <div id="collapse_4" class="collapse" aria-labelledby="heading_4" data-parent="#accordion">
                     <div class="card-body">

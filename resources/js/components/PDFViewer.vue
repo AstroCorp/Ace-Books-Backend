@@ -33,7 +33,7 @@
                 v-show="mode === 'cascade' || (mode === 'paginate' && i == currentPage)"
                 :key="i">
                     <pdf
-                        v-if="i >= currentPage - 3 && i <= currentPage + 3 || i === 1"
+                        v-if="i >= currentPage - 5 && i <= currentPage + 5 || i === 1"
                         :ref="'page' + i"
                         :src="src"
                         :page="i"

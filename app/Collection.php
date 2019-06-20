@@ -60,19 +60,22 @@ class Collection extends Model
 
     public function addBooks($newBooks)
     {
-        $books = Book::all()->only($newBooks);
-
-        foreach ($books as $book)
+        if($newBooks !== null)
         {
-            $book->collection_id = $this->id;
-            $book->save();
+            $books = Book::all()->only($newBooks);
+
+            foreach ($books as $book)
+            {
+                $book->collection_id = $this->id;
+                $book->save();
+            }
         }
     }
 
     public function updateBooks($newBooks)
     {
         DB::table('books')
-            ->where('collection_id', 1)
+            ->where('collection_id', $this->id)
             ->update(['collection_id' => null]);
 
         $this->addBooks($newBooks);

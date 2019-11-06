@@ -1,35 +1,20 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "docker": "docker exec -it acebooks_app_1 bash"
-    },
-    "devDependencies": {
-        "axios": "^0.19",
-        "bootstrap": "^4.3.1",
-        "cross-env": "^5.1",
-        "jquery": "^3.4.1",
-        "laravel-mix": "^4.0.7",
-        "lodash": "^4.17.5",
-        "popper.js": "^1.15.0",
-        "resolve-url-loader": "^2.3.1",
-        "sass": "^1.20.1",
-        "sass-loader": "^7.1.0",
-        "vue": "^2.6.10",
-        "vue-template-compiler": "^2.6.10",
-        "pdfjs-dist": "^2.0.489"
-    },
-    "dependencies": {
-        "babel-runtime": "^6.26.0",
-        "bootstrap-vue": "^2.0.0-rc.21",
-        "update": "^0.7.4",
-        "vue-pdf": "^4.0.7",
-        "vue-plain-pagination": "^0.3.0"
-    }
+  "name": "acebooks-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "Astro_Corp",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
 }

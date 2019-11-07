@@ -5,6 +5,19 @@ router.get('/api', (req, res) => {
     res.render('index');
 });
 
+router.get('/api/test', (req, res) => {
+    const db = req.app.get('db');
+
+    db.query("SELECT * FROM test", function (err, result, fields) {
+        if(err)
+        {
+            res.status(500).send(err);
+        }
+
+        res.send(result);
+    });
+});
+
 router.post('/api/register', (req, res) => {
     const { email, password } = req.body;
     

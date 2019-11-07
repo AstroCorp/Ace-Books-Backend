@@ -7,6 +7,7 @@ const flash = require('connect-flash');
 // Settings
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('db', require('./database'));
 
 // Middlewares
 app.use(express.urlencoded({extended: false}));

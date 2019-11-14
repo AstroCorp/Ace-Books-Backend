@@ -4,7 +4,7 @@ const path = require('path');
 const session = require('express-session');
 const flash = require('connect-flash');
 
-// Settings
+// Configuración
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 

@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js",
-    "test": "npx percy exec -- node snapshots.js"
+    "dev": "nodemon ./src/index.js"
   },
   "keywords": [],
   "author": "Astro_Corp",
@@ -19,7 +18,6 @@
     "mysql": "^2.17.1"
   },
   "devDependencies": {
-    "@percy/script": "^1.0.2",
     "nodemon": "^1.19.4"
   }
 }

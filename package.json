@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "connect-flash": "^0.1.1",
-    "ejs": "^2.7.2",
+    "ejs": "^2.7.3",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "mysql": "^2.17.1"

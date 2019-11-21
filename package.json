@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "tsc": "tsc",
     "start": "node ./src/index.js",
     "dev": "nodemon ./src/index.js"
   },
@@ -11,11 +12,14 @@
   "author": "Astro_Corp",
   "license": "ISC",
   "dependencies": {
+    "@types/express": "^4.17.2",
     "connect-flash": "^0.1.1",
     "ejs": "^2.7.4",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
-    "mysql": "^2.17.1"
+    "mikro-orm": "^2.7.9",
+    "mysql2": "^2.0.1",
+    "typescript": "^3.7.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.0"

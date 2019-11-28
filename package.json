@@ -1,74 +1,74 @@
 {
-  "name": "acebooks",
-  "version": "1.0.0",
-  "description": "AceBooks API",
-  "author": "AstroCorp",
-  "license": "MIT",
-  "scripts": {
-    "format": "prettier --write \"src/**/*.ts\"",
-    "start": "ts-node -r tsconfig-paths/register src/main.ts",
-    "start:dev": "nodemon",
-    "start:debug": "nodemon --config nodemon-debug.json",
-    "prestart:prod": "rimraf dist && tsc",
-    "start:prod": "node dist/main.js",
-    "start:hmr": "node dist/server",
-    "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "webpack": "webpack --config webpack.config.js"
-  },
-  "dependencies": {
-    "@nestjs/common": "^6.10.2",
-    "@nestjs/core": "^6.10.2",
-    "@nestjs/platform-express": "^6.10.2",
-    "mikro-orm": "3.0.0-rc",
-    "nestjs-mikro-orm": "^0.1.8",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^6.5.3",
-    "sqlite3": "^4.1.0",
-    "typescript": "^3.7.2"
-  },
-  "devDependencies": {
-    "@nestjs/testing": "^6.10.2",
-    "@types/express": "^4.17.2",
-    "@types/jest": "^24.0.23",
-    "@types/node": "^12.12.14",
-    "@types/supertest": "^2.0.8",
-    "jest": "^24.9.0",
-    "nodemon": "^2.0.1",
-    "prettier": "^1.19.1",
-    "rimraf": "^3.0.0",
-    "supertest": "^4.0.2",
-    "ts-jest": "^24.2.0",
-    "ts-loader": "^6.2.1",
-    "ts-node": "^8.5.3",
-    "tsconfig-paths": "^3.9.0",
-    "tslint": "5.20.1",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10",
-    "webpack-node-externals": "^1.7.2"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".spec.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
-  },
-  "mikro-orm": {
-    "useTsNode": true,
-    "configPaths": [
-      "./src/mikro-orm.config.ts",
-      "./dist/mikro-orm.config.js"
-    ]
-  }
+	"name": "acebooks",
+	"version": "1.0.0",
+	"description": "AceBooks API",
+	"author": "AstroCorp",
+	"license": "MIT",
+	"scripts": {
+		"format": "prettier --write \"src/**/*.ts\"",
+		"start": "ts-node -r tsconfig-paths/register src/main.ts",
+		"start:dev": "nodemon",
+		"start:debug": "nodemon --config nodemon-debug.json",
+		"prestart:prod": "rimraf dist && tsc",
+		"start:prod": "node dist/main.js",
+		"start:hmr": "node dist/server",
+		"lint": "tslint -p tsconfig.json -c tslint.json",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:cov": "jest --coverage",
+		"test:e2e": "jest --config ./test/jest-e2e.json",
+		"webpack": "webpack --config webpack.config.js"
+	},
+	"dependencies": {
+		"@nestjs/common": "^6.10.2",
+		"@nestjs/core": "^6.10.2",
+		"@nestjs/platform-express": "^6.10.2",
+		"mikro-orm": "3.0.0-rc",
+		"nestjs-mikro-orm": "^0.1.8",
+		"reflect-metadata": "^0.1.13",
+		"rxjs": "^6.5.3",
+		"sqlite3": "^4.1.0",
+		"typescript": "^3.7.2"
+	},
+	"devDependencies": {
+		"@nestjs/testing": "^6.10.2",
+		"@types/express": "^4.17.2",
+		"@types/jest": "^24.0.23",
+		"@types/node": "^12.12.14",
+		"@types/supertest": "^2.0.8",
+		"jest": "^24.9.0",
+		"nodemon": "^2.0.1",
+		"prettier": "^1.19.1",
+		"rimraf": "^3.0.0",
+		"supertest": "^4.0.2",
+		"ts-jest": "^24.2.0",
+		"ts-loader": "^6.2.1",
+		"ts-node": "^8.5.3",
+		"tsconfig-paths": "^3.9.0",
+		"tslint": "5.20.1",
+		"webpack": "^4.41.2",
+		"webpack-cli": "^3.3.10",
+		"webpack-node-externals": "^1.7.2"
+	},
+	"jest": {
+		"moduleFileExtensions": [
+			"js",
+			"json",
+			"ts"
+		],
+		"rootDir": "src",
+		"testRegex": ".spec.ts$",
+		"transform": {
+			"^.+\\.(t|j)s$": "ts-jest"
+		},
+		"coverageDirectory": "../coverage",
+		"testEnvironment": "node"
+	},
+	"mikro-orm": {
+		"useTsNode": true,
+		"configPaths": [
+			"./src/mikro-orm.config.ts",
+			"./dist/mikro-orm.config.js"
+		]
+	}
 }

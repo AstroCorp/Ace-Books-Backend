@@ -294,10 +294,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@nestjs/common@^6.10.2":
-  version "6.10.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-6.10.2.tgz#629329bb36dde8e9d9820de36df0b16257a1f7e0"
-  integrity sha512-v1FaympATrYiymi1PVmOBJcXUo8iFb+cdb0kMsvHW2Bzf99SMeRQFOAa3pb+xylxGxJMtePY0JaFzmhQaXPI8Q==
+"@nestjs/common@^6.10.4":
+  version "6.10.4"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-6.10.4.tgz#276c63bccc89261ad57ab09beee3a819630c4357"
+  integrity sha512-LdsvYzIubUUncAYw2c/1zn9Gv9Fg9ZFAKblDOSM/q9nNVhgL38P6FBikYXN0p4GP4OIf0YxZaP8wPD5hjXn8Og==
   dependencies:
     axios "0.19.0"
     cli-color "2.0.0"
@@ -314,10 +314,10 @@
     object-hash "2.0.0"
     uuid "3.3.3"
 
-"@nestjs/platform-express@^6.10.2":
-  version "6.10.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-6.10.2.tgz#6c5599654595da73074f8c9f90ff1bb4c5bbd7c0"
-  integrity sha512-Lf2VaMz8drkcz+eZAq+DKcZyrGleRzyPQcrVDCz7yDeUOieUtLbH2guXUayyh5hBE4nZDCocPrYTDFDRdnAZvw==
+"@nestjs/platform-express@^6.10.4":
+  version "6.10.4"
+  resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-6.10.4.tgz#d2f5251bae92ecbe9056a23bc7d37bb2712efe2c"
+  integrity sha512-s9puru5KWgnAoHwMjB0ynrYzFU++wCKBnsU3RPMUmAlzPXMCEPmSsEHEMIVescpCgUrE/zolhD1uzgCVF+XHLg==
   dependencies:
     body-parser "1.19.0"
     cors "2.8.5"

@@ -20,8 +20,8 @@
 		"webpack": "webpack --config webpack.config.js"
 	},
 	"dependencies": {
+		"@nestjs/core": "^6.10.4",
 		"@nestjs/common": "^6.10.4",
-		"@nestjs/core": "^6.10.2",
 		"@nestjs/platform-express": "^6.10.4",
 		"mikro-orm": "3.0.0-rc",
 		"nestjs-mikro-orm": "^0.1.8",

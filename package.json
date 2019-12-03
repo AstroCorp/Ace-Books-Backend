@@ -17,12 +17,13 @@
 		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",
 		"test:e2e": "jest --config ./test/jest-e2e.json",
-		"webpack": "webpack --config webpack.config.js"
+		"webpack": "webpack --config webpack.config.js",
+		"reset-db": "npx mikro-orm schema:drop -r && npx mikro-orm schema:create -r"
 	},
 	"dependencies": {
 		"@nestjs/core": "^6.10.4",
 		"@nestjs/common": "^6.10.5",
-		"@nestjs/platform-express": "^6.10.4",
+		"@nestjs/platform-express": "^6.10.5",
 		"mikro-orm": "3.0.0-rc.2",
 		"nestjs-mikro-orm": "^0.1.8",
 		"reflect-metadata": "^0.1.13",

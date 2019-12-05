@@ -28,8 +28,8 @@
 		"nestjs-mikro-orm": "^0.1.8",
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "^6.5.3",
+		"typescript": "^3.7.3"
 		"sqlite3": "^4.1.1",
-		"typescript": "^3.7.2"
 	},
 	"devDependencies": {
 		"@nestjs/testing": "^6.10.5",

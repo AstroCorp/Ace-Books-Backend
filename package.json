@@ -18,7 +18,7 @@
 		"test:cov": "jest --coverage",
 		"test:e2e": "jest --config ./test/jest-e2e.json",
 		"webpack": "webpack --config webpack.config.js",
-		"reset-db": "npx mikro-orm schema:drop -r && npx mikro-orm schema:create -r"
+		"reset-db": "npx mikro-orm schema:drop -r && npx mikro-orm schema:create -r && npx mikro-orm database:import ./src/seeds/base_data.sql"
 	},
 	"dependencies": {
 		"@nestjs/core": "^6.10.5",
@@ -28,8 +28,8 @@
 		"nestjs-mikro-orm": "^0.1.8",
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "^6.5.3",
-		"typescript": "^3.7.3"
-		"sqlite3": "^4.1.1",
+		"typescript": "^3.7.3",
+		"sqlite3": "^4.1.1"
 	},
 	"devDependencies": {
 		"@nestjs/testing": "^6.10.5",

@@ -1,9 +1,9 @@
 # Ace Books
 
-## Comandos del proyecto
+## Comandos
 
-- **Crear base de datos:** npx mikro-orm schema:create -r
-- **Nodemon:** yarn start:dev
+- **Importar base de datos:** yarn reset-db
+- **Servidor para desarrollo:** yarn start:dev
 
 ## Rutas de la API
 

@@ -5,7 +5,7 @@ import { Book } from "./Book";
 @Entity()
 export class Bookmark extends BaseEntity {
 	@ManyToOne("Book")
-	book_id!: Book;
+	book!: Book;
 
 	@Property()
 	color: string;

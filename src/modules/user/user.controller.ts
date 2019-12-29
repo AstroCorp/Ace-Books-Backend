@@ -1,4 +1,4 @@
-import { Get, Controller, Post, Req } from "@nestjs/common";
+import { Get, Controller, Post, Req, Res } from "@nestjs/common";
 import { EntityRepository } from "mikro-orm";
 import { InjectRepository } from "nestjs-mikro-orm";
 import { User } from "../../entities";
@@ -16,22 +16,22 @@ export class UserController {
 	}
 
 	@Post('/register')
-	async register(@Req() req: any) {
-		if(!req.body.email || !req.body.password) {
-			return 'fail';
+	async register(@Req() req: any, @Res() res: any) {
+		if(!req.body.email || !req.body.email_repeat || !req.body.password) {
+			return false;
 		}
 
 		const { email, password } = req.body;
 		req.session.user = { email, password };
 
-		return "register + login";
+		return true;
 	}
 
 	@Get('/logout')
 	async logout(@Req() req: any) {
 		delete req.session.user;
 
-		return "logout";
+		return true;
 	}
 
 	@Get('/test')

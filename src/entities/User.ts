@@ -6,10 +6,10 @@ import { Lang } from "./Lang";
 @Entity()
 export class User extends BaseEntity {
 	@ManyToOne("Rank")
-	rank_id!: Rank;
+	rank!: Rank;
 
 	@ManyToOne("Lang")
-	lang_id!: Lang;
+	lang!: Lang;
 
 	@Property()
 	username: string;
@@ -19,9 +19,6 @@ export class User extends BaseEntity {
 
 	@Property()
 	image: string;
-
-	@Property()
-	termsAccepted = false;
 
 	constructor(username: string, email: string, image: string) {
 		super();

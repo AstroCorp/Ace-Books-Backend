@@ -5,7 +5,7 @@ import { User } from "./User";
 @Entity()
 export class Collection extends BaseEntity {
 	@ManyToOne("User")
-	user_id!: User;
+	user!: User;
 
 	@Property()
 	name: string;

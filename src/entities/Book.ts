@@ -6,10 +6,10 @@ import { Collection } from "./Collection";
 @Entity()
 export class Book extends BaseEntity {
 	@ManyToOne("User")
-	user_id!: User;
+	user!: User;
 
 	@ManyToOne("Collection")
-	collection_id!: Collection;
+	collection!: Collection;
 
 	@Property()
 	name: string;

@@ -15,26 +15,41 @@ export class UserController {
 		return await this.userRepository.findAll();
 	}
 
-	@Post('/register')
+	@Post("/register")
 	async register(@Req() req: any, @Res() res: any) {
-		if(!req.body.email || !req.body.email_repeat || !req.body.password) {
-			return false;
+		// Campos rellenados
+		if (
+			!req.body.username ||
+			!req.body.email ||
+			!req.body.email_repeat ||
+			!req.body.password
+		) {
+			return {
+				code: 400,
+				message: "No has completado todos los campos",
+			};
 		}
 
-		const { email, password } = req.body;
-		req.session.user = { email, password };
+		const newUser = new User(req.body.username, req.body.email);
+		await this.userRepository.persistAndFlush(newUser);
 
-		return true;
+		const { username, email, password } = req.body;
+		req.session.user = { username, email, password };
+
+		return {
+			code: 200,
+			message: "Usuario creado correctamente",
+		};
 	}
 
-	@Get('/logout')
+	@Get("/logout")
 	async logout(@Req() req: any) {
 		delete req.session.user;
 
 		return true;
 	}
 
-	@Get('/test')
+	@Get("/test")
 	async test(@Req() req: any) {
 		return req.session.user;
 	}

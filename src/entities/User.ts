@@ -18,12 +18,11 @@ export class User extends BaseEntity {
 	email: string;
 
 	@Property()
-	image: string;
+	image: string = "";
 
-	constructor(username: string, email: string, image: string) {
+	constructor(username: string, email: string) {
 		super();
 		this.username = username;
 		this.email = email;
-		this.image = image;
 	}
 }

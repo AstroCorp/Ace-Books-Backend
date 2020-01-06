@@ -294,10 +294,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@nestjs/common@^6.10.13":
-  version "6.10.13"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-6.10.13.tgz#7b0adfe65a8b289e1544eb1d68e5bce4ecd6d441"
-  integrity sha512-x4pQGe30FZd/CcbvOJy130nv9RDSLamBGKqIzRhH6x7lrHEn99wferFGzbW2Ti5pwKoOfwquhh+9Loc/AquozA==
+"@nestjs/common@^6.10.14":
+  version "6.10.14"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-6.10.14.tgz#559d513a7ad1765f8516abac9754af80674cfefc"
+  integrity sha512-3msjd03BAIVV0hIrAUrB1KZFHBXLQFEg1i7mAdFbXzMQDoKzI8s0gRvFwlHnEAcMLvk3fKdYenrVkYJKC2dMBg==
   dependencies:
     axios "0.19.0"
     cli-color "2.0.0"
@@ -324,10 +324,10 @@
     express "4.17.1"
     multer "1.4.2"
 
-"@nestjs/testing@^6.10.13":
-  version "6.10.13"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-6.10.13.tgz#bbe3d30130c78030c33a3c7ff9d51add33af1cf4"
-  integrity sha512-aQKGkXEB1fMDs3gvta9w037il73sWU7giNHIh3jtr6c4olVmIwffsZmZs+CMyESb+kOQRMn77V6nu8NNfywdlQ==
+"@nestjs/testing@^6.10.14":
+  version "6.10.14"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-6.10.14.tgz#f78b92821a35fc1f3acd96e734994856bb15a185"
+  integrity sha512-jKzT9eAIJ6xeYXd/Jxtr7lgcixqq6ArNFnzhlM7FeHe/24wFBfWLfTCHe1GJoUo381Y5tPYw3pDr4yELp/Vo9Q==
   dependencies:
     optional "0.1.4"
 
@@ -492,10 +492,10 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
-"@types/node@*", "@types/node@^13.1.2":
-  version "13.1.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.2.tgz#fe94285bf5e0782e1a9e5a8c482b1c34465fa385"
-  integrity sha512-B8emQA1qeKerqd1dmIsQYnXi+mmAzTB7flExjmy5X1aVAKFNNNDubkavwR13kR6JnpeLp3aLoJhwn9trWPAyFQ==
+"@types/node@*", "@types/node@^13.1.4":
+  version "13.1.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.4.tgz#4cfd90175a200ee9b02bd6b1cd19bc349741607e"
+  integrity sha512-Lue/mlp2egZJoHXZr4LndxDAd7i/7SQYhV0EjWfb/a4/OZ6tuVwMCVPiwkU5nsEipxEf7hmkSU7Em5VQ8P5NGA==
 
 "@types/range-parser@*":
   version "1.2.3"

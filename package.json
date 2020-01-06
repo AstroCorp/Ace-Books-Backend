@@ -21,7 +21,7 @@
 		"reset-db": "npx mikro-orm schema:drop -r && npx mikro-orm schema:create -r && npx mikro-orm database:import ./src/seeds/base_data.sql"
 	},
 	"dependencies": {
-		"@nestjs/platform-express": "^6.10.13",
+		"@nestjs/platform-express": "^6.10.14",
 		"@nestjs/common": "^6.10.13",
 		"@nestjs/core": "^6.10.14",
 		"express-session": "^1.17.0",

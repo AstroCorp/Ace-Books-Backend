@@ -30,6 +30,19 @@ export class UserController {
 			};
 		}
 
+		// El correo ya está en uso
+		const author = await this.userRepository.findOne({
+			email: req.body.email,
+		});
+
+		if (author !== null) {
+			return {
+				code: 400,
+				message: "El correo ya está en uso",
+			};
+		}
+
+		// Si todo va bien se crea el usuario y se inicia sesión
 		const newUser = new User(req.body.username, req.body.email);
 		await this.userRepository.persistAndFlush(newUser);
 

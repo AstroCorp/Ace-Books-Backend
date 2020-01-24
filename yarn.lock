@@ -525,10 +525,10 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^24.9.0":
-  version "24.9.0"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.9.0.tgz#78c6991cd1734cf0d390be24875e310bb0a9fb74"
-  integrity sha512-dXvuABY9nM1xgsXlOtLQXJKdacxZJd7AtvLsKZ/0b57ruMXDKCOXAC/M75GbllQX6o1pcZ5hAG4JzYy7Z/wM2w==
+"@types/jest@^24.9.1":
+  version "24.9.1"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.9.1.tgz#02baf9573c78f1b9974a5f36778b366aa77bd534"
+  integrity sha512-Fb38HkXSVA4L8fGKEZ6le5bB8r6MRWlOCZbVuWZcmOMSCd2wCYOwN1ibj8daIoV9naq7aaOZjrLCoCMptKU/4Q==
   dependencies:
     jest-diff "^24.3.0"
 
@@ -4438,10 +4438,10 @@ micromatch@^4.0.0, micromatch@^4.0.2:
     braces "^3.0.1"
     picomatch "^2.0.5"
 
-mikro-orm@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/mikro-orm/-/mikro-orm-3.0.0.tgz#c21eb6994788c7b8351fa93c61690a272691b361"
-  integrity sha512-5DdJem+apPjFWTQn633dMXb5upPo4hnVOtsg5T8QdMFIx+JLJQaFFMveLKMkjcKmxfSIXaW+zOPoWJs5YvRlzw==
+mikro-orm@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/mikro-orm/-/mikro-orm-3.0.1.tgz#90d0d0d762a734fcf5673391d40bfec7e27cf321"
+  integrity sha512-ym3vXkcEgdN4nH6swlz9OjouBzNWsTZXKtS1Nm2t6CSVz5MC/OY09xOcTgdC1zUZBT7bStP4ZauAJFa9fUJIxA==
   dependencies:
     acorn-loose "^7.0.0"
     acorn-walk "^7.0.0"

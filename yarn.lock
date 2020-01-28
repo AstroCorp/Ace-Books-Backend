@@ -4669,10 +4669,10 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
-nestjs-mikro-orm@^0.1.8:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/nestjs-mikro-orm/-/nestjs-mikro-orm-0.1.8.tgz#fb409d272e57fd19d8a987eeb5cc6bd162307890"
-  integrity sha512-/iBEPEOw8uEgo04Xdiw3QUfkDzbCJ0oTS95dAqJkO9O3KAwjT7HsIW+McTvoP9GDrgMnt7+CxsJykTzgQCZQPw==
+nestjs-mikro-orm@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/nestjs-mikro-orm/-/nestjs-mikro-orm-1.0.1.tgz#deb5ece687d097e520fa606d590b0b3ba8cc7fdf"
+  integrity sha512-ox5jFX2HIUkzNMFAT2ibrvx5GcISXMbSaa+1P/eehQNxKtRW7UYOv/VxUHisvn/pnAZeWcdr1KQ857WXsr5pFg==
 
 next-tick@1, next-tick@~1.0.0:
   version "1.0.0"
@@ -6865,11 +6865,6 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
-
-uuid@3.3.3:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.3.tgz#4568f0216e78760ee1dbf3a4d2cf53e224112866"
-  integrity sha512-pW0No1RGHgzlpHJO1nsVrHKpOEIxkGg1xB+v0ZmdNH5OAeAwzAVrCnI2/6Mtx+Uys6iaylxa+D3g4j63IKKjSQ==
 
 uuid@3.4.0, uuid@^3.3.2, uuid@^3.3.3:
   version "3.4.0"

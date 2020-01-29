@@ -22,7 +22,7 @@
 	},
 	"dependencies": {
 		"@nestjs/common": "^6.11.1",
-		"@nestjs/platform-express": "^6.11.1",
+		"@nestjs/platform-express": "^6.11.4",
 		"@nestjs/core": "^6.11.1",
 		"express-session": "^1.17.0",
 		"mikro-orm": "3.1.0",

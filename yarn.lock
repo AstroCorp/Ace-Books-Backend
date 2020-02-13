@@ -333,10 +333,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@nestjs/common@^6.11.6":
-  version "6.11.6"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-6.11.6.tgz#b0bca24a30f6822c2a7e885fef699f6bac99b44f"
-  integrity sha512-KUqXIklIivO7O7V7bELZLRthBqK+KPzCy4Zt0CWHfmoW3fuxnBKEE3hEqt9awWP3l2GeLCakYi472F3BFLGL5Q==
+"@nestjs/common@^6.11.7":
+  version "6.11.7"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-6.11.7.tgz#59b6e4a580b61f5d4964e4fca3a0cc8d52d73c5a"
+  integrity sha512-Rh3SYFAOLMlwZlWBsVNFo13Bt1NSoplOebs273w7ZRH8y3hTTsVcvJDKBAZ5a3RokEqYFZWjEXJpwRJ/7wzSNg==
   dependencies:
     axios "0.19.2"
     cli-color "2.0.0"
@@ -356,10 +356,10 @@
     tslib "1.10.0"
     uuid "3.4.0"
 
-"@nestjs/platform-express@^6.11.6":
-  version "6.11.6"
-  resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-6.11.6.tgz#fcb1c2a654ee0d3164fbe1bea203261c3a9a9584"
-  integrity sha512-+W63WZA1n8Z6xLGjDsahk21xJU11L1s/1dYDD5DYYt7di7h6JNlKAluwfp57eUbbRN6usT+wr0rGLYU8vbRJQA==
+"@nestjs/platform-express@^6.11.7":
+  version "6.11.7"
+  resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-6.11.7.tgz#9b9990ee47f5bcefaa75e0e6a4db50298f968507"
+  integrity sha512-V9+y2jw6TmoI/VPiBjMQNOUpT4ebfZwEwkSm+rtZpPiz5pU+g4vCmJdmEXjTrUGJuxsFHK7YYryM6umBkoQdlA==
   dependencies:
     body-parser "1.19.0"
     cors "2.8.5"
@@ -367,10 +367,10 @@
     multer "1.4.2"
     tslib "1.10.0"
 
-"@nestjs/testing@^6.11.6":
-  version "6.11.6"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-6.11.6.tgz#d5c770f45a9b5bed96034cc7fe36112b35d3100d"
-  integrity sha512-PKVmK/oOUAlbi9MSRZLQ0Q1BCtXypymeDTHfR+NtXbyonDuhF8muzBYSwV6+JfU/sMH5HqsF8MDY3eY/iHqzhA==
+"@nestjs/testing@^6.11.7":
+  version "6.11.7"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-6.11.7.tgz#bece1beddfb41c30baba80ba015ddfa8d401b6b6"
+  integrity sha512-VuciM/LfkX3PQkG5ILDCjf/FQD6mykMuU9wqmreeeO+Tigkcirst9Di7l55aWWIYiwlOBP2VBscFi68Njwrc0w==
   dependencies:
     optional "0.1.4"
     tslib "1.10.0"

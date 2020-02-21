@@ -24,7 +24,7 @@
 		"@nestjs/platform-express": "^6.11.8",
 		"@nestjs/common": "^6.11.5",
 		"@nestjs/core": "^6.11.7",
-		"@nestjs/common": "^6.11.7",
+		"@nestjs/common": "^6.11.8",
 		"express-session": "^1.17.0",
 		"mikro-orm": "3.2.0",
 		"nestjs-mikro-orm": "^1.0.2",

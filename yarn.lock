@@ -343,15 +343,15 @@
     tslib "1.10.0"
     uuid "3.4.0"
 
-"@nestjs/core@^6.11.7":
-  version "6.11.7"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-6.11.7.tgz#b4e6d23674e95013eda3811f1965821c1117975a"
-  integrity sha512-91C6GPpMj/Zbnntxb9ANyBeFeZ3zIbYrUQgoYK6dHX38Fn/a0ptCuy7Rv9X8GGsTEt984+nhL18+IlglKHMNnw==
+"@nestjs/core@^6.11.8":
+  version "6.11.8"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-6.11.8.tgz#9c149d4aaf49fc94f0a61a58e9661b9aacd13cd7"
+  integrity sha512-QXsik+f0voaWmkMZhX3VDWB+q4jBBXwCJqJurK47h7ksTKJAcpHxV0SVOOrbWoZK0aHSMl3KMU/JNYL/p0mwNw==
   dependencies:
     "@nuxtjs/opencollective" "0.2.2"
     fast-safe-stringify "2.0.7"
     iterare "1.2.0"
-    object-hash "2.0.2"
+    object-hash "2.0.3"
     path-to-regexp "3.2.0"
     tslib "1.10.0"
     uuid "3.4.0"
@@ -367,10 +367,10 @@
     multer "1.4.2"
     tslib "1.10.0"
 
-"@nestjs/testing@^6.11.7":
-  version "6.11.7"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-6.11.7.tgz#bece1beddfb41c30baba80ba015ddfa8d401b6b6"
-  integrity sha512-VuciM/LfkX3PQkG5ILDCjf/FQD6mykMuU9wqmreeeO+Tigkcirst9Di7l55aWWIYiwlOBP2VBscFi68Njwrc0w==
+"@nestjs/testing@^6.11.8":
+  version "6.11.8"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-6.11.8.tgz#79bf0bc858aaffe2d8b6e9e7d638634298764b24"
+  integrity sha512-BuqaqVWVNtRR00NGXiXD2O8Lxbtuv9o+x+7mDfzNFCedy9v1BSfkXpGnbVk9C4Phf9oFhsBnRqZm3kmfXvdlpw==
   dependencies:
     optional "0.1.4"
     tslib "1.10.0"
@@ -4402,10 +4402,10 @@ micromatch@^4.0.0, micromatch@^4.0.2:
     braces "^3.0.1"
     picomatch "^2.0.5"
 
-mikro-orm@3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/mikro-orm/-/mikro-orm-3.2.0.tgz#7cd0a8c46ecb856cbff2fad94ed60aa2fd150705"
-  integrity sha512-24ARTIVi/Ev0mB6ikviztgvrcS86ovtTte7o5a37zFO/Zfay18UcVOgNu6OvDOyvsubFkCETAABY+xH2DiAtkA==
+mikro-orm@3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/mikro-orm/-/mikro-orm-3.2.1.tgz#7f983847ffbc2bd756b2a4d7fcbd977b14578950"
+  integrity sha512-lYxnQCg7Bn6Z1NNscEjrpkBUj+nxo4wquZuEwECY9+8w3u0kXCi+IcSqGjL9L7ik0+uF0jtxQqSK4wf9OOcYjA==
   dependencies:
     acorn-loose "^7.0.0"
     acorn-walk "^7.0.0"
@@ -4836,10 +4836,10 @@ object-copy@^0.1.0:
     define-property "^0.2.5"
     kind-of "^3.0.3"
 
-object-hash@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-2.0.2.tgz#f7b2212dbe07d07e340ccd6004c59504fc4015cf"
-  integrity sha512-b+2AKjAf6uQlxxv8ChHdM+VT4eeX+ZSwv+pk2xIXZWbo+yxn4/En1iC+GHe/OFYa9on0AhFF2PvuAcFHoiiHaA==
+object-hash@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-2.0.3.tgz#d12db044e03cd2ca3d77c0570d87225b02e1e6ea"
+  integrity sha512-JPKn0GMu+Fa3zt3Bmr66JhokJU5BaNBIh4ZeTlaCBzrBsOeXzwcKKAK1tbLiPKgvwmPXsDvvLHoWh5Bm7ofIYg==
 
 object-inspect@^1.7.0:
   version "1.7.0"
@@ -6648,10 +6648,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.6.4.tgz#b18752bb3792bc1a0281335f7f6ebf1bbfc5b91d"
   integrity sha512-unoCll1+l+YK4i4F8f22TaNVPRHcD9PA3yCuZ8g5e0qGqlVlJ/8FSateOLLSagn+Yg5+ZwuPkL8LFUc0Jcvksg==
 
-typescript@^3.7.5:
-  version "3.7.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.5.tgz#0692e21f65fd4108b9330238aac11dd2e177a1ae"
-  integrity sha512-/P5lkRXkWHNAbcJIiHPfRoKqyd7bsyCma1hZNUGfn20qm64T6ZBlrzprymeu918H+mB/0rIg2gGK/BXkhhYgBw==
+typescript@^3.8.2:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.2.tgz#91d6868aaead7da74f493c553aeff76c0c0b1d5a"
+  integrity sha512-EgOVgL/4xfVrCMbhYKUQTdF37SQn4Iw73H5BgCrF1Abdun7Kwy/QZsE/ssAy0y4LxBbvua3PIbFsbRczWWnDdQ==
 
 uid-safe@~2.1.5:
   version "2.1.5"

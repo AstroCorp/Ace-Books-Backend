@@ -4402,10 +4402,10 @@ micromatch@^4.0.0, micromatch@^4.0.2:
     braces "^3.0.1"
     picomatch "^2.0.5"
 
-mikro-orm@3.3.3:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/mikro-orm/-/mikro-orm-3.3.3.tgz#9f6e429cdbeb160ec3439451cd8fe5602b7ef5a0"
-  integrity sha512-nR9C0s5Vw+9/rcqubV8+MlYbtaSsh+QQbOoHHgO5fSnnBCnkecsVQncWTMnL/fRqjr4qjhvC8kPVJIwQwgHkBQ==
+mikro-orm@3.3.4:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/mikro-orm/-/mikro-orm-3.3.4.tgz#baddbfa6857f870fe7c6f9d5082e461b952cc667"
+  integrity sha512-Ninmygrwqaxb0aJuiBSYC7povX6B9OG/H2cLBWy0pWa/P+PzDp1T6FX7J2Zjja1KvVwH0yC40HzsU0NNX3T4bA==
   dependencies:
     acorn-loose "^7.0.0"
     acorn-walk "^7.0.0"

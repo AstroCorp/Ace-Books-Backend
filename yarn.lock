@@ -4634,10 +4634,10 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
-nestjs-mikro-orm@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/nestjs-mikro-orm/-/nestjs-mikro-orm-1.0.2.tgz#12a35a1fe3934b7a39104890692cd6cc05c4f4d4"
-  integrity sha512-44/zWM1yBfqool+sJdSzamQy3TTwhQdjdL9PNLdwq0vVAHNkXMMmLSdI7QrPzOlgROkq2QIQD2IXe+CLgtkhgA==
+nestjs-mikro-orm@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/nestjs-mikro-orm/-/nestjs-mikro-orm-1.0.3.tgz#835c1e598dcd717c56c61d13c38e2c78185b7e68"
+  integrity sha512-/yJ6uxFqpy9yHgx7WiIxy2ro/9vC0819iQOcb/lc+3QYoOhhLTJ1Whhq9qdsDAYmAt3CyjgaKxplsn5TRm2B3w==
 
 next-tick@1, next-tick@~1.0.0:
   version "1.0.0"

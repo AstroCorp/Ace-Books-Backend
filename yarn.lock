@@ -4096,10 +4096,10 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-knex@^0.20.11:
-  version "0.20.11"
-  resolved "https://registry.yarnpkg.com/knex/-/knex-0.20.11.tgz#c25167cdd562b08252a53b833b91cb6436e76a35"
-  integrity sha512-8H3dUVSQOxDRVxRd9YcfL3Xli5BdblYy8Yg4hGSaII2XHEqfGhWrcMxuL2hogBuQ5CL85Bzp+dUEeRCHb94fCw==
+knex@^0.20.12:
+  version "0.20.13"
+  resolved "https://registry.yarnpkg.com/knex/-/knex-0.20.13.tgz#056c310d963f7efce1b3c7397576add1323f1146"
+  integrity sha512-YVl//Te0G5suc+d9KyeI6WuhtgVlxu6HXYQB+WqrccFkSZAbHqlqZlUMogYG3UoVq69c3kiFbbxgUNkrO0PVfg==
   dependencies:
     colorette "1.1.0"
     commander "^4.1.1"
@@ -4401,10 +4401,10 @@ micromatch@^4.0.0, micromatch@^4.0.2:
     braces "^3.0.1"
     picomatch "^2.0.5"
 
-mikro-orm@3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/mikro-orm/-/mikro-orm-3.5.1.tgz#b91a971bcc41265ca9b67af83bfa00e24f69ee46"
-  integrity sha512-7Kn85uO0LLlfyVbx6K7zlC3ErZXekzadEIKl6W1ucr3xYIMW/JtSEuAoUnVL4GWp4COFV/MDZhdnn54wzilD/g==
+mikro-orm@3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/mikro-orm/-/mikro-orm-3.5.2.tgz#7544b948a38d7aa881a3c2bc540d657817ab5e88"
+  integrity sha512-FaX7G7oZ32LrnVOTXXksznIbyUHg8ZHEDBCbw5XbxWxk87vbHOatIsunFSOJ2/wujYCPOOjEXIPAviob7aY5QQ==
   dependencies:
     acorn-loose "^7.0.0"
     acorn-walk "^7.1.1"
@@ -4415,7 +4415,7 @@ mikro-orm@3.5.1:
     fast-deep-equal "^3.1.1"
     fs-extra "^8.1.0"
     globby "^10.0.0"
-    knex "^0.20.11"
+    knex "^0.20.12"
     reflect-metadata "^0.1.13"
     ts-morph "^4.3.3"
     umzug "^2.2.0"

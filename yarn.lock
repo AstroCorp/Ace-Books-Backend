@@ -4338,10 +4338,10 @@ micromatch@^3.0.4, micromatch@^3.1.10, micromatch@^3.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.2"
 
-mikro-orm@3.6.4:
-  version "3.6.4"
-  resolved "https://registry.yarnpkg.com/mikro-orm/-/mikro-orm-3.6.4.tgz#3a4d8b880ca47a9d33f5b8a89d4d9139686806f5"
-  integrity sha512-EPNlt8KxVJHdX4Yw1CwWkJlQGL+VTvs7l3VNMs+WNxN17ltIdBJnyf/9kNSFYbFnXMiAk5dFa68WwX8HG2KE7w==
+mikro-orm@3.6.5:
+  version "3.6.5"
+  resolved "https://registry.yarnpkg.com/mikro-orm/-/mikro-orm-3.6.5.tgz#c9403df754d8f14cd0d664929ceb14ad42f29bd2"
+  integrity sha512-jNds+6P0Nffx/Lt1q6tytuqRwabe01NwfxEYXQPSFk2cYwzw5n1myW9BhEzdp9aH4U/x0Fch4vI1CbWgkNMWMg==
   dependencies:
     acorn-loose "^7.0.0"
     acorn-walk "^7.1.1"

@@ -4514,10 +4514,10 @@ micromatch@^3.0.4, micromatch@^3.1.10, micromatch@^3.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.2"
 
-mikro-orm@3.6.12:
-  version "3.6.12"
-  resolved "https://registry.yarnpkg.com/mikro-orm/-/mikro-orm-3.6.12.tgz#fbd943a52aeb0294cdb7b9c9d9ee3008ab3799d3"
-  integrity sha512-3l5u5UcogyJStFR7lkY8izF8S7PQHzczZXjVos82+EOe+H5RPXoieeWcpccdE2UVNl1gqYvekrRfDz0emO0ThA==
+mikro-orm@3.6.13:
+  version "3.6.13"
+  resolved "https://registry.yarnpkg.com/mikro-orm/-/mikro-orm-3.6.13.tgz#be5017f146ea3a86c08c26ebf2227d071a932a6f"
+  integrity sha512-6+f+zJOVHav7oCDGf2jYCYqAEOmSLprYB8Bl/jYRDF/jJP9nl4DFYfOBcYyH3sQX1O9Sr48AGW0BbAk+Pu7y5Q==
   dependencies:
     acorn-loose "^7.0.0"
     acorn-walk "^7.1.1"
@@ -4532,7 +4532,7 @@ mikro-orm@3.6.12:
     reflect-metadata "^0.1.13"
     ts-morph "^4.3.3"
     umzug "^2.2.0"
-    uuid "^7.0.2"
+    uuid "^8.0.0"
     yargonaut "^1.1.4"
     yargs "^15.1.0"
 
@@ -6971,10 +6971,15 @@ uuid@^3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
-uuid@^7.0.1, uuid@^7.0.2:
+uuid@^7.0.1:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.2.tgz#7ff5c203467e91f5e0d85cfcbaaf7d2ebbca9be6"
   integrity sha512-vy9V/+pKG+5ZTYKf+VcphF5Oc6EFiu3W8Nv3P3zIh0EqVI80ZxOzuPfe9EHjkFNvf8+xuTHVeei4Drydlx4zjw==
+
+uuid@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.0.0.tgz#bc6ccf91b5ff0ac07bbcdbf1c7c4e150db4dbb6c"
+  integrity sha512-jOXGuXZAWdsTH7eZLtyXMqUb9EcWMGZNbL9YcGBJl4MH4nrxHmZJhEHvyLFrkxo+28uLb/NYRcStH48fnD0Vzw==
 
 v8-compile-cache@2.0.3:
   version "2.0.3"

@@ -28,8 +28,8 @@
 		"express-session": "^1.17.1",
 		"nestjs-mikro-orm": "^1.0.3",
 		"reflect-metadata": "^0.1.13",
+		"sqlite3": "^5.0.0",
 		"rxjs": "^6.6.0",
-		"sqlite3": "^4.2.0",
 		"typescript": "^3.9.6"
 	},
 	"devDependencies": {

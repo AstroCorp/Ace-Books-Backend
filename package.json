@@ -28,9 +28,9 @@
 		"express-session": "^1.17.1",
 		"nestjs-mikro-orm": "^1.0.3",
 		"reflect-metadata": "^0.1.13",
-		"rxjs": "^6.5.5",
 		"sqlite3": "^5.0.0",
-		"typescript": "^3.9.5"
+		"rxjs": "^6.6.0",
+		"typescript": "^3.9.6"
 	},
 	"devDependencies": {
 		"@nestjs/testing": "^7.0.0",

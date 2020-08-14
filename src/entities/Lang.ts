@@ -6,13 +6,9 @@ export class Lang {
 	id!: number;
 
 	@Property()
-	name: string;
-
-	@Property()
 	initial: string;
 
-	constructor(name: string, initial: string) {
-		this.name = name;
+	constructor(initial: string) {
 		this.initial = initial;
 	}
 }

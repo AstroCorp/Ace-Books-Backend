@@ -1,28 +1,27 @@
 import { Entity, Property, ManyToOne } from "mikro-orm";
 import { BaseEntity } from "./BaseEntity";
-import { Rank } from "./Rank";
 import { Lang } from "./Lang";
 
 @Entity()
 export class User extends BaseEntity {
-	@ManyToOne("Rank")
-	rank!: Rank;
-
-	@ManyToOne("Lang")
+	@ManyToOne("Lang", { default: 1 })
 	lang!: Lang;
-
-	@Property()
-	username: string;
 
 	@Property()
 	email: string;
 
 	@Property()
-	image: string = "";
+	password: string;
 
-	constructor(username: string, email: string) {
+	@Property({ nullable: true })
+	image?: string;
+
+	@Property()
+	isAdmin: boolean = false;
+
+	constructor(email: string, password: string) {
 		super();
-		this.username = username;
 		this.email = email;
+		this.password = password;
 	}
 }

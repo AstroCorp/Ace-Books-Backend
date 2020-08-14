@@ -4,9 +4,9 @@ export abstract class BaseEntity implements IdEntity<BaseEntity> {
 	@PrimaryKey()
 	id!: number;
 
-	@Property()
-	createdAt = new Date();
+	@Property({ default: 'CURRENT_TIMESTAMP' })
+	createdAt!: Date;
 
-	@Property({ onUpdate: () => new Date() })
-	updatedAt = new Date();
+	@Property({ default: 'CURRENT_TIMESTAMP', onUpdate: () => 'CURRENT_TIMESTAMP' })
+	updatedAt!: Date;
 }

@@ -5,55 +5,28 @@ import { InjectRepository } from "nestjs-mikro-orm";
 import { User } from "orm/entities";
 import { LocalAuthGuard } from "./guards/local-auth.guard";
 import { JwtAuthGuard } from "./guards/jwt-auth.guard";
+import { AuthService } from "./auth.service";
 
 @Controller("auth")
 export class AuthController {
-	constructor(@InjectRepository(User) private readonly userRepository: EntityRepository<User>, private jwtService: JwtService) {
+	constructor(
+		@InjectRepository(User) 
+		private readonly userRepository: EntityRepository<User>, 
+		
+		private authService: AuthService,
+	) {
 		//
+	}
+
+	@Post("register")
+	async register(@Req() req) {
+		return await this.authService.register(req.body.email, req.body.password);
 	}
 
 	@UseGuards(LocalAuthGuard)
 	@Post('login')
 	async login(@Request() req) {
-		return req.user;
-	}
-
-	@UseGuards(LocalAuthGuard)
-	@Post("register")
-	async register(@Req() req: any, @Res() res: any) {
-		// Campos rellenados
-		if (!req.body.email || !req.body.password) {
-			return {
-				code: 400,
-				message: "No has completado todos los campos",
-			};
-		}
-
-		// El correo ya está en uso
-		const author = await this.userRepository.findOne({
-			email: req.body.email,
-		});
-
-		if (author) {
-			return {
-				code: 400,
-				message: "El correo ya está en uso",
-			};
-		}
-
-		// Si todo va bien se crea el usuario
-		const { email, password } = req.body;
-		const newUser = new User(email, password); // TODO: Encriptar contraseña
-
-		await this.userRepository.persistAndFlush(newUser);
-
-		const payload = { email: newUser.email, sub: newUser.id };
-
-		return {
-			code: 200,
-			message: "Usuario creado correctamente",
-		  	access_token: this.jwtService.sign(payload),
-		};
+		return this.authService.login(req.user);
 	}
 
 	@UseGuards(JwtAuthGuard)

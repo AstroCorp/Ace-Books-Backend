@@ -14,4 +14,8 @@ export class UsersService {
 			email,
 		});
 	}
+
+	async create(user: User) {
+		return await this.userRepository.persistAndFlush(user);
+	}
 }

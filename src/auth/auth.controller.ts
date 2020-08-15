@@ -2,9 +2,9 @@ import { Controller, UseGuards, Get, Post, Req, Res, Request } from "@nestjs/com
 import { JwtService } from '@nestjs/jwt';
 import { EntityRepository } from "mikro-orm";
 import { InjectRepository } from "nestjs-mikro-orm";
-import { User } from "../entities";
-import { LocalAuthGuard } from "modules/auth/local-auth.guard";
-import { JwtAuthGuard } from "modules/auth/jwt-auth.guard";
+import { User } from "orm/entities";
+import { LocalAuthGuard } from "./guards/local-auth.guard";
+import { JwtAuthGuard } from "./guards/jwt-auth.guard";
 
 @Controller("auth")
 export class AuthController {
@@ -15,11 +15,7 @@ export class AuthController {
 	@UseGuards(LocalAuthGuard)
 	@Post('login')
 	async login(@Request() req) {
-		const payload = { email: req.user.email, sub: req.user.id };
-
-		return {
-		  	access_token: this.jwtService.sign(payload),
-		};
+		return req.user;
 	}
 
 	@UseGuards(LocalAuthGuard)

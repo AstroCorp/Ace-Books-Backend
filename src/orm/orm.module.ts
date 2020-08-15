@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { MikroOrmModule } from "nestjs-mikro-orm";
 
-import { User, Book, Collection, Bookmark, Lang } from "../entities";
+import { User, Book, Collection, Bookmark, Lang } from "../orm/entities";
 import config from "../mikro-orm.config";
 
 @Module({

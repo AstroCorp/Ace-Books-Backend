@@ -16,7 +16,7 @@ import { OrmModule } from "orm/orm.module";
 		PassportModule,
 		JwtModule.register({
 			secret: jwtConstants.secret,
-			signOptions: { expiresIn: "60s" },
+			signOptions: { expiresIn: jwtConstants.access_expiresIn },
 		}),
 	],
 	controllers: [

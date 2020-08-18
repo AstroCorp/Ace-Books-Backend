@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
 import { MikroOrmModule } from "nestjs-mikro-orm";
 
-import { User, Book, Collection, Bookmark, Lang } from "../orm/entities";
-import config from "../mikro-orm.config";
+import { User, Book, BooksCollection, Bookmark, Lang, RefreshToken } from "../orm/entities";
+import config from "./mikro-orm.config";
 
 @Module({
 	imports: [
@@ -10,8 +10,9 @@ import config from "../mikro-orm.config";
 		MikroOrmModule.forFeature({
 			entities: [
 				User,
+				RefreshToken,
 				Book,
-				Collection,
+				BooksCollection,
 				Bookmark,
 				Lang,
 			],

@@ -5,7 +5,10 @@ import { User } from "orm/entities";
 
 @Injectable()
 export class UsersService {
-	constructor(@InjectRepository(User) private readonly userRepository: EntityRepository<User>) {
+	constructor(
+		@InjectRepository(User) 
+		private readonly userRepository: EntityRepository<User>,
+	) {
 		//
 	}
 

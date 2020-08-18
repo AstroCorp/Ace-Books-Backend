@@ -1,18 +1,30 @@
-import { Entity, Property, ManyToOne, BeforeCreate, BeforeUpdate } from "mikro-orm";
+import { Entity, Property, ManyToOne, BeforeCreate, BeforeUpdate, Collection, OneToMany } from "mikro-orm";
 import { BaseEntity } from "./BaseEntity";
 import { Lang } from "./Lang";
 import * as bcrypt from "bcrypt";
+import { Book } from "./Book";
+import { BooksCollection } from "./BooksCollection";
+import { RefreshToken } from "./RefreshToken";
 
 @Entity()
 export class User extends BaseEntity {
 	@ManyToOne("Lang", { default: 1 })
-	lang!: Lang;
+	lang: Lang;
+
+	@OneToMany('Book', 'user')
+	books = new Collection<Book>(this);
+
+	@OneToMany('BooksCollection', 'user')
+	booksCollections = new Collection<BooksCollection>(this);
+
+	@OneToMany('RefreshToken', 'user')
+	refreshTokens = new Collection<RefreshToken>(this);
 
 	@Property()
 	email: string;
 
-	@Property()
-	password!: string;
+	@Property({ name: 'password' })
+	private _password!: string;
 
 	@Property({ nullable: true })
 	image?: string;
@@ -22,10 +34,20 @@ export class User extends BaseEntity {
 
 	private tempPassword;
 
-	constructor(email: string, password: string) {
+	constructor(email: string, password: string, lang: Lang) {
 		super();
+
 		this.email = email;
-		this.tempPassword = password;		
+		this.tempPassword = password;
+		this.lang = lang;	
+	}
+
+	set password(newPassword: string) {
+		this.tempPassword = newPassword;
+	}
+
+	get password() {
+		return this._password;
 	}
 
 	@BeforeCreate()
@@ -44,7 +66,7 @@ export class User extends BaseEntity {
 				});
 			});
 
-			this.password = hashedPassword;
+			this._password = hashedPassword;
 		}
 	}
 }

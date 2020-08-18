@@ -1,13 +1,14 @@
 import { Logger } from "@nestjs/common";
 import { Options } from "mikro-orm";
-import { User, BaseEntity, Book, Collection, Bookmark, Lang } from "./orm/entities";
+import { User, BaseEntity, Book, BooksCollection, Bookmark, Lang, RefreshToken } from "./entities";
 
 const logger = new Logger("MikroORM");
 const config = {
 	entities: [
 		User,
+		RefreshToken,
 		Book,
-		Collection,
+		BooksCollection,
 		Bookmark,
 		Lang,
 		BaseEntity,

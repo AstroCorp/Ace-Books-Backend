@@ -1,4 +1,5 @@
-import { Entity, Property, PrimaryKey } from "mikro-orm";
+import { Entity, Property, PrimaryKey, Collection, OneToMany } from "mikro-orm";
+import { User } from "./User";
 
 @Entity()
 export class Lang {
@@ -7,6 +8,9 @@ export class Lang {
 
 	@Property()
 	initial: string;
+
+	@OneToMany('User')
+	users = new Collection<User>(this);
 
 	constructor(initial: string) {
 		this.initial = initial;

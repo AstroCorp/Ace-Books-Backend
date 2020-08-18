@@ -85,6 +85,14 @@ export class AuthService {
 			};
 		}
 
+		// Comprobamos que el token no ha caducado
+		if(new Date(dbRefreshToken.expiresIn) < new Date()) {
+			return {
+				code: 400,
+				message: "El token ha caducado.",
+			};
+		}
+
 		// Eliminamos el refresh token de la base de datos
 		await this.refreshTokenRepository.removeAndFlush(dbRefreshToken);
 

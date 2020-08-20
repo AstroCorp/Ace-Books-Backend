@@ -1,4 +1,4 @@
-import { Entity, Property, ManyToOne, PrimaryKey } from "mikro-orm";
+import { Entity, Property, ManyToOne, PrimaryKey, IdentifiedReference, Reference } from "mikro-orm";
 import { User } from "./User";
 
 @Entity()
@@ -7,16 +7,16 @@ export class RefreshToken {
 	id!: number;
 
 	@ManyToOne('User')
-	user: User;
+	user: IdentifiedReference<User>;
 
 	@Property()
 	token: string;
 
 	@Property({ default: "(DATETIME('NOW', '+7 DAYS'))" })
-	expiresIn!: Date;
+	expiresIn!: Date|string;
 
 	constructor(user: User, token: string) {
-		this.user = user;
+		this.user = Reference.create(user);
 		this.token = token;
 	}
 }

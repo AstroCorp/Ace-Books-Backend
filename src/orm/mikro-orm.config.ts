@@ -14,7 +14,7 @@ const config = {
 		BaseEntity,
 	],
 	entitiesDirsTs: ["src/orm/entities"],
-	dbName: "db.sqlite",
+	dbName: "db.sqlite3",
 	type: "sqlite",
 	debug: true,
 	logger: logger.log.bind(logger),

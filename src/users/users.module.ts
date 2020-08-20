@@ -3,7 +3,7 @@ import { UsersService } from "./users.service";
 import { OrmModule } from "../orm/orm.module";
 
 @Module({
-	imports:[OrmModule],
+	imports: [OrmModule],
 	providers: [UsersService],
 	exports: [UsersService],
 })

@@ -16,7 +16,7 @@ export class TasksService {
 		//
 	}
 
-	@Cron('0 0 8 ? * MON *') // 8:00 de cada lunes
+	@Cron('0 8 * * 1') // 8:00 de cada lunes
 	async handleCron() {
 		const oldRefreshTokens = await this.refreshTokenRepository.find({ 
 			$and: [

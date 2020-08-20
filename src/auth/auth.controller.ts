@@ -1,6 +1,6 @@
 import { Controller, UseGuards, Get, Post, Req, Request } from "@nestjs/common";
-import { EntityRepository } from "mikro-orm";
-import { InjectRepository } from "nestjs-mikro-orm";
+import { EntityRepository } from "@mikro-orm/core";
+import { InjectRepository } from "@mikro-orm/nestjs";
 import { User } from "orm/entities";
 import { LocalAuthGuard } from "./guards/local-auth.guard";
 import { JwtAuthGuard } from "./guards/jwt-auth.guard";

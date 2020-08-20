@@ -1,4 +1,4 @@
-import { Entity, Property, ManyToOne, BeforeCreate, BeforeUpdate, Collection, OneToMany } from "mikro-orm";
+import { Entity, Property, ManyToOne, BeforeCreate, BeforeUpdate, Collection, OneToMany } from "@mikro-orm/core";
 import { BaseEntity } from "./BaseEntity";
 import { Lang } from "./Lang";
 import * as bcrypt from "bcrypt";

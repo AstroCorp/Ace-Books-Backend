@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { format } from 'date-fns'
-import { InjectRepository } from 'nestjs-mikro-orm';
+import { InjectRepository } from '@mikro-orm/nestjs';
 import { RefreshToken, User } from 'orm/entities';
-import { EntityRepository } from 'mikro-orm';
+import { EntityRepository } from '@mikro-orm/core';
 
 @Injectable()
 export class TasksService {

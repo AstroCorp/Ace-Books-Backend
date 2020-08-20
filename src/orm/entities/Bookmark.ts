@@ -1,4 +1,4 @@
-import { Entity, Property, ManyToOne } from "mikro-orm";
+import { Entity, Property, ManyToOne } from "@mikro-orm/core";
 import { BaseEntity } from "./BaseEntity";
 import { Book } from "./Book";
 

@@ -3,8 +3,8 @@ import { UsersService } from "../users/users.service";
 import { JwtService } from "@nestjs/jwt";
 import { User, Lang, RefreshToken } from "orm/entities";
 import * as bcrypt from "bcrypt";
-import { InjectRepository } from "nestjs-mikro-orm";
-import { EntityRepository } from "mikro-orm";
+import { InjectRepository } from "@mikro-orm/nestjs";
+import { EntityRepository } from "@mikro-orm/core";
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()

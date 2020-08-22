@@ -1,6 +1,6 @@
-import { Module } from "@nestjs/common";
-import { UsersService } from "./users.service";
-import { OrmModule } from "../orm/orm.module";
+import { Module } from '@nestjs/common';
+import { UsersService } from './users.service';
+import { OrmModule } from '../orm/orm.module';
 
 @Module({
 	imports: [OrmModule],

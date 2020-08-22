@@ -10,7 +10,7 @@ export class TasksService {
 	private readonly logger = new Logger(TasksService.name);
 
 	constructor(
-		@InjectRepository(RefreshToken) 
+		@InjectRepository(RefreshToken)
 		private readonly refreshTokenRepository: EntityRepository<RefreshToken>,
 	) {
 		//
@@ -18,25 +18,26 @@ export class TasksService {
 
 	@Cron('0 8 * * 1') // 8:00 de cada lunes
 	async handleCron() {
-		const oldRefreshTokens = await this.refreshTokenRepository.find({ 
+		const oldRefreshTokens = await this.refreshTokenRepository.find({
 			$and: [
-				{ 
-					expiresIn: { 
+				{
+					expiresIn: {
 						$lte: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
 					},
 				},
 			],
 		});
-		
+
 		oldRefreshTokens.forEach(async (rf: RefreshToken) => {
-			this.logger.log("Borrando token " + rf.token + " de " + rf.user.email 
-				+ " expirado el " + format(new Date(rf.expiresIn), 'dd-MM-yyyy') + ' a las ' + format(new Date(rf.expiresIn), 'HH:mm:ss'));
-			
+			this.logger.log('Borrando token ' + rf.token + ' de ' + rf.user.email 
+				+ ' expirado el ' + format(new Date(rf.expiresIn), 'dd-MM-yyyy') 
+				+ ' a las ' + format(new Date(rf.expiresIn), 'HH:mm:ss'));
+
 			await this.refreshTokenRepository.remove(rf);
 		});
 
 		this.refreshTokenRepository.flush();
-		
+
 		this.logger.debug('Se han eliminado los refresh_tokens antiguos');
 	}
 }

@@ -1,14 +1,14 @@
-import { Entity, Property, ManyToOne, OneToMany, Collection } from "@mikro-orm/core";
-import { BaseEntity } from "./BaseEntity";
-import { User } from "./User";
-import { Book } from "./Book";
+import { Entity, Property, ManyToOne, OneToMany, Collection } from '@mikro-orm/core';
+import { BaseEntity } from './BaseEntity';
+import { User } from './User';
+import { Book } from './Book';
 
 @Entity()
 export class BooksCollection extends BaseEntity {
-	@ManyToOne("User")
+	@ManyToOne('User')
 	user: User;
 
-	@OneToMany(() => Book, book => book.collection)
+	@OneToMany(() => Book, (book) => book.collection)
 	books = new Collection<Book>(this);
 
 	@Property()

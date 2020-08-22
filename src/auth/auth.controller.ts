@@ -1,25 +1,29 @@
-import { Controller, UseGuards, Get, Post, Req, Request } from "@nestjs/common";
-import { EntityRepository } from "@mikro-orm/core";
-import { InjectRepository } from "@mikro-orm/nestjs";
-import { User } from "../orm/entities";
-import { LocalAuthGuard } from "./guards/local-auth.guard";
-import { JwtAuthGuard } from "./guards/jwt-auth.guard";
-import { AuthService } from "./auth.service";
+import { Controller, UseGuards, Get, Post, Req, Request } from '@nestjs/common';
+import { EntityRepository } from '@mikro-orm/core';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { User } from '../orm/entities';
+import { LocalAuthGuard } from './guards/local-auth.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { AuthService } from './auth.service';
 
-@Controller("auth")
+@Controller('auth')
 export class AuthController {
 	constructor(
-		@InjectRepository(User) 
-		private readonly userRepository: EntityRepository<User>, 
-		
+		@InjectRepository(User)
+		private readonly userRepository: EntityRepository<User>,
+
 		private authService: AuthService,
 	) {
 		//
 	}
 
-	@Post("register")
+	@Post('register')
 	async register(@Req() req) {
-		return await this.authService.register(req.body.email, req.body.password, req.body.lang);
+		return await this.authService.register(
+			req.body.email,
+			req.body.password,
+			req.body.lang,
+		);
 	}
 
 	@UseGuards(LocalAuthGuard)
@@ -29,11 +33,11 @@ export class AuthController {
 	}
 
 	@UseGuards(JwtAuthGuard)
-  	@Get('profile')
-  	getProfile(@Request() req) {
+	@Get('profile')
+	getProfile(@Request() req) {
 		return req.userId;
 	}
-	
+
 	@Get('test')
 	async test() {
 		const u = await this.userRepository.findOne(1);
@@ -42,6 +46,9 @@ export class AuthController {
 
 	@Post('refresh')
 	refreshToken(@Request() req) {
-		return this.authService.refreshToken(req.body.email, req.body.refreshToken);
+		return this.authService.refreshToken(
+			req.body.email,
+			req.body.refreshToken,
+		);
 	}
 }

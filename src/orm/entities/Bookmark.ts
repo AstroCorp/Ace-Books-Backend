@@ -1,10 +1,10 @@
-import { Entity, Property, ManyToOne } from "@mikro-orm/core";
-import { BaseEntity } from "./BaseEntity";
-import { Book } from "./Book";
+import { Entity, Property, ManyToOne } from '@mikro-orm/core';
+import { BaseEntity } from './BaseEntity';
+import { Book } from './Book';
 
 @Entity()
 export class Bookmark extends BaseEntity {
-	@ManyToOne("Book")
+	@ManyToOne('Book')
 	book: Book;
 
 	@Property({ default: 'FEEFC3' })

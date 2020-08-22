@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { UsersService } from "../users/users.service";
-import { JwtService } from "@nestjs/jwt";
-import { User, Lang, RefreshToken } from "../orm/entities";
-import * as bcrypt from "bcrypt";
-import { InjectRepository } from "@mikro-orm/nestjs";
-import { EntityRepository } from "@mikro-orm/core";
+import { Injectable } from '@nestjs/common';
+import { UsersService } from '../users/users.service';
+import { JwtService } from '@nestjs/jwt';
+import { User, Lang, RefreshToken } from '../orm/entities';
+import * as bcrypt from 'bcrypt';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { EntityRepository } from '@mikro-orm/core';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -13,10 +13,10 @@ export class AuthService {
 		@InjectRepository(Lang)
 		private readonly langRepository: EntityRepository<Lang>,
 
-		@InjectRepository(RefreshToken) 
+		@InjectRepository(RefreshToken)
 		private readonly refreshTokenRepository: EntityRepository<RefreshToken>,
 
-		@InjectRepository(User) 
+		@InjectRepository(User)
 		private readonly userRepository: EntityRepository<User>,
 
 		private readonly usersService: UsersService,
@@ -28,7 +28,7 @@ export class AuthService {
 	async validateUser(email: string, password: string): Promise<any> {
 		const user = await this.usersService.findOne(email);
 
-		if (user && await bcrypt.compare(password, user.password)) {
+		if (user && (await bcrypt.compare(password, user.password))) {
 			const { password, ...result } = user;
 			return result;
 		}
@@ -50,20 +50,20 @@ export class AuthService {
 	}
 
 	async refreshToken(email: string, refreshToken: string) {
-		if(!email || !refreshToken) {
+		if (!email || !refreshToken) {
 			return {
 				code: 400,
-				message: "No has completado todos los campos.",
+				message: 'No has completado todos los campos.',
 			};
 		}
 
 		// Comprobamos que el correo es de un usuario
 		const user = await this.usersService.findOne(email);
 
-		if(!user) {
+		if (!user) {
 			return {
 				code: 400,
-				message: "Usuario inválido.",
+				message: 'Usuario inválido.',
 			};
 		}
 
@@ -72,26 +72,26 @@ export class AuthService {
 			token: refreshToken,
 		});
 
-		if(!dbRefreshToken) {
+		if (!dbRefreshToken) {
 			return {
 				code: 400,
-				message: "Token inválido.",
+				message: 'Token inválido.',
 			};
 		}
 
 		// Comprobamos si el token es del usuario
-		if(await dbRefreshToken.user.email !== email) {
+		if ((await dbRefreshToken.user.email) !== email) {
 			return {
 				code: 400,
-				message: "El token no pertenece a este usuario.",
+				message: 'El token no pertenece a este usuario.',
 			};
 		}
 
 		// Comprobamos que el token no ha caducado
-		if(new Date(dbRefreshToken.expiresIn) < new Date()) {
+		if (new Date(dbRefreshToken.expiresIn) < new Date()) {
 			return {
 				code: 400,
-				message: "El token ha caducado.",
+				message: 'El token ha caducado.',
 			};
 		}
 
@@ -107,7 +107,7 @@ export class AuthService {
 		return {
 			code: 200,
 			message: 'Token generado',
-			...await this.createToken(user as User),
+			...(await this.createToken(user as User)),
 		};
 	}
 
@@ -116,7 +116,7 @@ export class AuthService {
 		if (!email || !password || !lang) {
 			return {
 				code: 400,
-				message: "No has completado todos los campos",
+				message: 'No has completado todos los campos',
 			};
 		}
 
@@ -126,7 +126,7 @@ export class AuthService {
 		if (user) {
 			return {
 				code: 400,
-				message: "El correo ya está en uso",
+				message: 'El correo ya está en uso',
 			};
 		}
 
@@ -134,10 +134,10 @@ export class AuthService {
 		// TODO: Llevar esto a un service
 		const dbLang = await this.langRepository.findOne(lang);
 
-		if(!dbLang) {
+		if (!dbLang) {
 			return {
 				code: 400,
-				message: "El idioma no es válido",
+				message: 'El idioma no es válido',
 			};
 		}
 
@@ -147,8 +147,8 @@ export class AuthService {
 
 		return {
 			code: 200,
-			message: "Usuario creado correctamente",
-			...await this.createToken(newUser),
+			message: 'Usuario creado correctamente',
+			...(await this.createToken(newUser)),
 		};
 	}
 }

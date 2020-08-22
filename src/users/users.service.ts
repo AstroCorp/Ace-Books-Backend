@@ -1,12 +1,12 @@
-import { Injectable } from "@nestjs/common";
-import { EntityRepository } from "@mikro-orm/core";
-import { InjectRepository } from "@mikro-orm/nestjs";
-import { User } from "../orm/entities";
+import { Injectable } from '@nestjs/common';
+import { EntityRepository } from '@mikro-orm/core';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { User } from '../orm/entities';
 
 @Injectable()
 export class UsersService {
 	constructor(
-		@InjectRepository(User) 
+		@InjectRepository(User)
 		private readonly userRepository: EntityRepository<User>,
 	) {
 		//

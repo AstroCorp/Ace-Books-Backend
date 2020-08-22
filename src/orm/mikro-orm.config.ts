@@ -1,6 +1,5 @@
 import { Logger } from "@nestjs/common";
 import { Options } from "@mikro-orm/core";
-import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { User, BaseEntity, Book, BooksCollection, Bookmark, Lang, RefreshToken } from "./entities";
 
@@ -17,7 +16,6 @@ const config = {
 	],
 	dbName: "db.sqlite3",
 	type: "sqlite",
-	metadataProvider: TsMorphMetadataProvider,
   	highlighter: new SqlHighlighter(),
 	debug: true,
 	logger: logger.log.bind(logger),

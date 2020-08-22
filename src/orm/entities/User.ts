@@ -11,13 +11,13 @@ export class User extends BaseEntity {
 	@ManyToOne("Lang", { default: 1 })
 	lang: Lang;
 
-	@OneToMany('Book', 'user')
+	@OneToMany(() => Book, book => book.user)
 	books = new Collection<Book>(this);
 
-	@OneToMany('BooksCollection', 'user')
+	@OneToMany(() => BooksCollection, booksCollections => booksCollections.user)
 	booksCollections = new Collection<BooksCollection>(this);
 
-	@OneToMany('RefreshToken', 'user')
+	@OneToMany(() => RefreshToken, refreshTokens => refreshTokens.user)
 	refreshTokens = new Collection<RefreshToken>(this);
 
 	@Property()

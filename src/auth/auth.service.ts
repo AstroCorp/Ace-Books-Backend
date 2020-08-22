@@ -80,7 +80,7 @@ export class AuthService {
 		}
 
 		// Comprobamos si el token es del usuario
-		if((await dbRefreshToken.user.load()).email !== email) {
+		if(await dbRefreshToken.user.email !== email) {
 			return {
 				code: 400,
 				message: "El token no pertenece a este usuario.",

@@ -9,7 +9,7 @@ export class Lang {
 	@Property()
 	initial: string;
 
-	@OneToMany('User')
+	@OneToMany(() => User, user => user.lang)
 	users = new Collection<User>(this);
 
 	constructor(initial: string) {

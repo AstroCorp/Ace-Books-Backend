@@ -8,7 +8,7 @@ export class BooksCollection extends BaseEntity {
 	@ManyToOne("User")
 	user: User;
 
-	@OneToMany('Book', 'collection')
+	@OneToMany(() => Book, book => book.collection)
 	books = new Collection<Book>(this);
 
 	@Property()

@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { UsersService } from "../users/users.service";
 import { JwtService } from "@nestjs/jwt";
-import { User, Lang, RefreshToken } from "orm/entities";
+import { User, Lang, RefreshToken } from "../orm/entities";
 import * as bcrypt from "bcrypt";
 import { InjectRepository } from "@mikro-orm/nestjs";
 import { EntityRepository } from "@mikro-orm/core";

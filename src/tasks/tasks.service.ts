@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { format } from 'date-fns'
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { RefreshToken, User } from 'orm/entities';
+import { RefreshToken } from '../orm/entities';
 import { EntityRepository } from '@mikro-orm/core';
 
 @Injectable()

@@ -7,7 +7,7 @@ import { jwtConstants } from "./constants";
 import { JwtStrategy } from "./strategies/jwt.strategy";
 import { LocalStrategy } from "./strategies/local.strategy";
 import { AuthController } from "./auth.controller";
-import { OrmModule } from "orm/orm.module";
+import { OrmModule } from "../orm/orm.module";
 
 @Module({
 	imports: [

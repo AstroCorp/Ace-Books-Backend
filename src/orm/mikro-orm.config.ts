@@ -7,15 +7,14 @@ import { User, BaseEntity, Book, BooksCollection, Bookmark, Lang, RefreshToken }
 const logger = new Logger("MikroORM");
 const config = {
 	entities: [
+		BaseEntity,
+		Lang,
 		User,
 		RefreshToken,
 		Book,
 		BooksCollection,
 		Bookmark,
-		Lang,
-		BaseEntity,
 	],
-	entitiesDirsTs: ["src/orm/entities"],
 	dbName: "db.sqlite3",
 	type: "sqlite",
 	metadataProvider: TsMorphMetadataProvider,

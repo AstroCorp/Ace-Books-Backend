@@ -9,12 +9,12 @@ import config from "./mikro-orm.config";
 		MikroOrmModule.forRoot(config),
 		MikroOrmModule.forFeature({
 			entities: [
+				Lang,
 				User,
 				RefreshToken,
 				Book,
 				BooksCollection,
 				Bookmark,
-				Lang,
 			],
 		}),
 	],

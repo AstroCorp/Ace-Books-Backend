@@ -12,7 +12,7 @@ export class RefreshToken {
 	@Property()
 	token: string;
 
-	@Property({ default: '(DATETIME(NOW, +7 DAYS))' })
+	@Property({ defaultRaw: "(DATETIME('NOW', '+7 DAYS'))" })
 	expiresIn!: Date | string;
 
 	constructor(user: User, token: string) {

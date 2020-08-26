@@ -101,9 +101,7 @@ export class AuthService {
 		return await this.createToken(user);
 	}
 
-	async login(userId: number) {
-		const user = await this.userRepository.findOne(userId);
-
+	async login(user: User) {
 		return {
 			code: 200,
 			message: 'Token generado',

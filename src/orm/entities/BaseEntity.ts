@@ -4,9 +4,9 @@ export abstract class BaseEntity {
 	@PrimaryKey()
 	id!: number;
 
-	@Property({ default: 'CURRENT_TIMESTAMP' })
+	@Property({ defaultRaw: 'CURRENT_TIMESTAMP' })
 	createdAt!: Date;
 
-	@Property({ default: 'CURRENT_TIMESTAMP', onUpdate: () => 'CURRENT_TIMESTAMP' })
+	@Property({ defaultRaw: 'CURRENT_TIMESTAMP', onUpdate: () => 'CURRENT_TIMESTAMP' })
 	updatedAt!: Date;
 }

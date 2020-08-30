@@ -9,6 +9,6 @@ export class AppController {
 
 	@Get()
 	root() {
-		Redirect(this.appService.getRepository());
+		return this.appService.root();
 	}
 }

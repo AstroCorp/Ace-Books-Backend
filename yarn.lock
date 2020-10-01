@@ -551,10 +551,10 @@
     ts-morph "^8.0.0"
     umzug "^2.3.0"
 
-"@mikro-orm/nestjs@^4.0.0-alpha.3":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/nestjs/-/nestjs-4.0.0.tgz#10b4e7d90166dab073258d771ea6cedd0949331f"
-  integrity sha512-A6/RtmfhyP/Chrsurx6lJU4KC75TJCw0MA+FqdrcrvGLMH+Ng/mjAGWnFYCscsNulK+B3stqLPU2krslk5Q0tw==
+"@mikro-orm/nestjs@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/nestjs/-/nestjs-4.2.0.tgz#beeac608ffe6e107835f202939f2fdba667299df"
+  integrity sha512-AlxMIwZiF4C8MABQeTuXGr5MnxaVHuLw+/WD1nUftPD9pqfeb7Wj41BcZBRyzPoMiywaRW+fLiY7MTrOy8UTCg==
 
 "@mikro-orm/sql-highlighter@^1.0.1":
   version "1.0.1"

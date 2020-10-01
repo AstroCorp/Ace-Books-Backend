@@ -508,20 +508,19 @@
     yargonaut "^1.1.4"
     yargs "^15.3.1"
 
-"@mikro-orm/core@^4.0.0", "@mikro-orm/core@^4.0.0-rc.4":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/core/-/core-4.0.0.tgz#b779676257c6c26f5efde9884566fafeb86c91bb"
-  integrity sha512-5O0aY8LjNy0UZ5hEAGCmojLcjL+PkSmum4UIHrLp5o4soSyZ7jhli7NozgX681L2zMbP68lCZsKi920QLTvQgA==
+"@mikro-orm/core@^4.0.0", "@mikro-orm/core@^4.0.7":
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/core/-/core-4.0.7.tgz#70b38bf49aa9751993df3dd7961e420b2ef15f11"
+  integrity sha512-wLf+fpEEyG6aMwMwOw8Ht0Suic7QeozNX8egKX72b43cloqPj2CvDYvx0GrYJEXec1N/Mmb7MW2Br4yyyTPQuQ==
   dependencies:
     ansi-colors "^4.1.1"
     clone "^2.1.2"
-    escaya "^0.0.40"
+    escaya "^0.0.49"
     fast-deep-equal "^3.1.3"
     fs-extra "^9.0.1"
     globby "^11.0.1"
     reflect-metadata "^0.1.13"
     strip-json-comments "^3.1.1"
-    uuid "^8.3.0"
 
 "@mikro-orm/entity-generator@^4.0.0":
   version "4.0.0"
@@ -2855,12 +2854,10 @@ escape-string-regexp@^2.0.0:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz#a30304e99daa32e23b2fd20f51babd07cffca344"
   integrity sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
 
-escaya@^0.0.40:
-  version "0.0.40"
-  resolved "https://registry.yarnpkg.com/escaya/-/escaya-0.0.40.tgz#d0d110af73e6d50b9b22baa4734a70b170ea3162"
-  integrity sha512-na9XXhkdu6PA59eMnK+ib4FgFhbdawbAb9JGAbohLPLspoiOh8wkYgMdqf4HKC39Sjt07ZWLJeAb8mW70E/XRg==
-  dependencies:
-    "@babel/parser" "^7.11.5"
+escaya@^0.0.49:
+  version "0.0.49"
+  resolved "https://registry.yarnpkg.com/escaya/-/escaya-0.0.49.tgz#3295f5c3a1cb2c29cf8cd839fbf4240cc422f278"
+  integrity sha512-Wo5yFmYe+8+YSDztQzJ4LplPttNmQl4rb3TjyAR6zvZUgWiPKjacXLGvdtqprHCK+Z1mVWcAKACRKlYF9JgqDg==
 
 escodegen@^1.14.1:
   version "1.14.3"

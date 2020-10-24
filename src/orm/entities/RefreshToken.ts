@@ -6,7 +6,7 @@ export class RefreshToken {
 	@PrimaryKey()
 	id!: number;
 
-	@ManyToOne('User')
+	@ManyToOne(() => User)
 	user: User;
 
 	@Property()

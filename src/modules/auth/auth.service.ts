@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
-import { JwtService } from '@nestjs/jwt';
-import { User, Lang, RefreshToken } from '../orm/entities';
 import * as bcrypt from 'bcrypt';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/core';
+import { JwtService } from '@nestjs/jwt';
 import { v4 as uuidv4 } from 'uuid';
+import { UsersService } from '../../modules/users/users.service';
+import { User, Lang, RefreshToken } from '../../orm/entities';
 
 @Injectable()
 export class AuthService {
@@ -15,9 +15,6 @@ export class AuthService {
 
 		@InjectRepository(RefreshToken)
 		private readonly refreshTokenRepository: EntityRepository<RefreshToken>,
-
-		@InjectRepository(User)
-		private readonly userRepository: EntityRepository<User>,
 
 		private readonly usersService: UsersService,
 		private readonly jwtService: JwtService,
@@ -104,48 +101,20 @@ export class AuthService {
 	async login(user: User) {
 		return {
 			code: 200,
-			message: 'Token generado',
+			message: 'Generated token',
 			...(await this.createToken(user as User)),
 		};
 	}
 
-	async register(email: string, password: string, lang: number) {
-		// Campos rellenados
-		if (!email || !password || !lang) {
-			return {
-				code: 400,
-				message: 'No has completado todos los campos',
-			};
-		}
-
-		// El correo ya está en uso
-		const user = await this.usersService.findOne(email);
-
-		if (user) {
-			return {
-				code: 400,
-				message: 'El correo ya está en uso',
-			};
-		}
-
-		// Comprobamos el idioma
-		// TODO: Llevar esto a un service
-		const dbLang = await this.langRepository.findOne(lang);
-
-		if (!dbLang) {
-			return {
-				code: 400,
-				message: 'El idioma no es válido',
-			};
-		}
-
+	async register(newUserData: any) {
 		// Si todo va bien se crea el usuario
-		const newUser = new User(email, password, dbLang as Lang);
+		const dbLang = await this.langRepository.findOne({ initial: newUserData.lang });
+		const newUser = new User(newUserData.email, newUserData.password, dbLang as Lang);
 		await this.usersService.create(newUser);
 
 		return {
 			code: 200,
-			message: 'Usuario creado correctamente',
+			message: 'User created successfully',
 			...(await this.createToken(newUser)),
 		};
 	}

@@ -8,7 +8,7 @@ import { RefreshToken } from './RefreshToken';
 
 @Entity()
 export class User extends BaseEntity {
-	@ManyToOne('Lang', { default: 1 })
+	@ManyToOne(() => Lang, { default: 1 })
 	lang: Lang;
 
 	@OneToMany(() => Book, (book) => book.user)

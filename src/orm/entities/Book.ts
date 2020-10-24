@@ -5,10 +5,10 @@ import { BooksCollection } from './BooksCollection';
 
 @Entity()
 export class Book extends BaseEntity {
-	@ManyToOne('User')
+	@ManyToOne(() => User)
 	user: User;
 
-	@ManyToOne('BooksCollection')
+	@ManyToOne(() => BooksCollection)
 	collection!: BooksCollection;
 
 	@Property()

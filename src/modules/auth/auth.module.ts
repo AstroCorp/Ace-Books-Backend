@@ -10,6 +10,7 @@ import { AuthController } from './auth.controller';
 import { OrmModule } from '../../orm/orm.module';
 import { IsEmailAvailableConstraint } from './validation/pipes/isEmailAvailable';
 import { IsLangAvailableConstraint } from './validation/pipes/isLangAvailable';
+import { IsValidTokenConstraint } from './validation/pipes/isValidToken';
 
 @Module({
 	imports: [
@@ -22,7 +23,14 @@ import { IsLangAvailableConstraint } from './validation/pipes/isLangAvailable';
 		}),
 	],
 	controllers: [AuthController],
-	providers: [AuthService, LocalStrategy, JwtStrategy, IsEmailAvailableConstraint, IsLangAvailableConstraint],
+	providers: [
+		AuthService,
+		LocalStrategy,
+		JwtStrategy,
+		IsEmailAvailableConstraint,
+		IsLangAvailableConstraint,
+		IsValidTokenConstraint,
+	],
 	exports: [AuthService],
 })
 export class AuthModule {}

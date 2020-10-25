@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ValidatorConstraint, ValidatorConstraintInterface, ValidationOptions, registerDecorator } from 'class-validator';
+import { ValidatorConstraint, ValidatorConstraintInterface, ValidationOptions, registerDecorator, ValidationArguments } from 'class-validator';
 import { UsersService } from 'modules/users/users.service';
 
 @ValidatorConstraint({ async: true })
@@ -9,28 +9,32 @@ export class IsEmailAvailableConstraint implements ValidatorConstraintInterface 
         //
     }
     
-    validate(email: string) {
+    validate(email: string, args: ValidationArguments) {
+        const [ returnValue ] = args.constraints;
+
 		return this.usersService.findOne(email).then(user => {
             if (user) {
-                return false;
+                return !returnValue;
             }
 
-            return true;
+            return returnValue;
         });
 	}
 
-	defaultMessage() {
-		return 'El email está en uso';
+	defaultMessage(args: ValidationArguments) {
+        const [ returnValue ] = args.constraints;
+
+		return returnValue ? 'email is in use' : 'invalid email';
 	}
 }
 
-export function IsEmailAvailable(validationOptions?: ValidationOptions) {
+export function IsEmailAvailable(returnValue: boolean = true, validationOptions?: ValidationOptions) {
     return (object: Object, propertyName: string) => {
         registerDecorator({
             target: object.constructor,
             propertyName: propertyName,
             options: validationOptions,
-            constraints: [],
+            constraints: [returnValue],
             validator: IsEmailAvailableConstraint,
         });
     };

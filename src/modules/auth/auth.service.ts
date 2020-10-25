@@ -47,53 +47,24 @@ export class AuthService {
 	}
 
 	async refreshToken(email: string, refreshToken: string) {
-		if (!email || !refreshToken) {
-			return {
-				code: 400,
-				message: 'No has completado todos los campos.',
-			};
-		}
-
-		// Comprobamos que el correo es de un usuario
-		const user = await this.usersService.findOne(email);
-
-		if (!user) {
-			return {
-				code: 400,
-				message: 'Usuario inválido.',
-			};
-		}
-
-		// Comprobamos el token
+		// Buscamos el token en la base de datos
 		const dbRefreshToken = await this.refreshTokenRepository.findOne({
 			token: refreshToken,
-		});
-
-		if (!dbRefreshToken) {
-			return {
-				code: 400,
-				message: 'Token inválido.',
-			};
-		}
+		}, ['user']) as RefreshToken;
 
 		// Comprobamos si el token es del usuario
-		if ((await dbRefreshToken.user.email) !== email) {
+		if (dbRefreshToken.user.email !== email) {
 			return {
 				code: 400,
-				message: 'El token no pertenece a este usuario.',
-			};
-		}
-
-		// Comprobamos que el token no ha caducado
-		if (new Date(dbRefreshToken.expiresIn) < new Date()) {
-			return {
-				code: 400,
-				message: 'El token ha caducado.',
+				message: 'invalid token',
 			};
 		}
 
 		// Eliminamos el refresh token de la base de datos
 		await this.refreshTokenRepository.removeAndFlush(dbRefreshToken);
+
+		// Generamos un nuevo token
+		const user = await this.usersService.findOne(email) as User;
 
 		return await this.createToken(user);
 	}
@@ -101,20 +72,20 @@ export class AuthService {
 	async login(user: User) {
 		return {
 			code: 200,
-			message: 'Generated token',
+			message: 'generated token',
 			...(await this.createToken(user as User)),
 		};
 	}
 
-	async register(newUserData: any) {
+	async register(email: string, password: string, lang: string) {
 		// Si todo va bien se crea el usuario
-		const dbLang = await this.langRepository.findOne({ initial: newUserData.lang });
-		const newUser = new User(newUserData.email, newUserData.password, dbLang as Lang);
+		const dbLang = await this.langRepository.findOne({ initial: lang });
+		const newUser = new User(email, password, dbLang as Lang);
 		await this.usersService.create(newUser);
 
 		return {
 			code: 200,
-			message: 'User created successfully',
+			message: 'user created successfully',
 			...(await this.createToken(newUser)),
 		};
 	}

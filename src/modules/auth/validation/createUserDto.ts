@@ -1,18 +1,18 @@
-import { IsEmail, IsNotEmpty, MinLength, MaxLength } from 'class-validator';
+import { IsEmail, MinLength, MaxLength } from 'class-validator';
 import { IsEmailAvailable } from './pipes/isEmailAvailable';
 import { IsLangAvailable } from './pipes/isLangAvailable';
 
 export class CreateUserDto {
-    @IsEmail()
+    @IsEmail({}, {
+        message: 'the email is not valid'
+    })
     @IsEmailAvailable()
     email: string;
 
-    @IsNotEmpty()
     @MinLength(6)
     @MaxLength(25)
     password: string;
 
-    @IsNotEmpty()
     @IsLangAvailable()
     lang: string;
 }

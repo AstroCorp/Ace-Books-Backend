@@ -1,12 +1,12 @@
 import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
-import { ValidatorConstraint, ValidatorConstraintInterface, ValidationOptions, registerDecorator } from 'class-validator';
+import { ValidatorConstraint, ValidatorConstraintInterface, ValidationOptions, registerDecorator, ValidationArguments } from 'class-validator';
 import { RefreshToken } from 'orm/entities';
 
 @ValidatorConstraint({ async: true })
 @Injectable()
-export class IsValidTokenConstraint implements ValidatorConstraintInterface {
+export class IsValidRefreshTokenConstraint implements ValidatorConstraintInterface {
     constructor(
         @InjectRepository(RefreshToken)
         private readonly refreshTokenRepository: EntityRepository<RefreshToken>
@@ -14,9 +14,11 @@ export class IsValidTokenConstraint implements ValidatorConstraintInterface {
         //
     }
     
-    validate(refreshToken: string) {
-		return this.refreshTokenRepository.findOne({ token: refreshToken }).then(token => {
-            if (!token || new Date(token.expiresIn) < new Date()) {
+    validate(refreshToken: string,  args: ValidationArguments) {
+		return this.refreshTokenRepository.findOne({ token: refreshToken }, ['user']).then(token => {
+            const email = args.object['email'];
+
+            if (!token || token.user.email !== email || new Date(token.expiresIn) < new Date()) {
                 return false;
             }
             
@@ -25,18 +27,18 @@ export class IsValidTokenConstraint implements ValidatorConstraintInterface {
 	}
 
 	defaultMessage() {
-		return 'invalid token';
+		return 'invalid refresh token';
 	}
 }
 
-export function IsValidToken(validationOptions?: ValidationOptions) {
+export function IsValidRefreshToken(validationOptions?: ValidationOptions) {
     return (object: Object, propertyName: string) => {
         registerDecorator({
             target: object.constructor,
             propertyName: propertyName,
             options: validationOptions,
             constraints: [],
-            validator: IsValidTokenConstraint,
+            validator: IsValidRefreshTokenConstraint,
         });
     };
 }

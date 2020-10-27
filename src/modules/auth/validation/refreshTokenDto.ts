@@ -1,6 +1,6 @@
 import { IsEmail } from 'class-validator';
 import { IsEmailAvailable } from './pipes/isEmailAvailable';
-import { IsValidToken } from './pipes/isValidToken';
+import { IsValidRefreshToken } from './pipes/isValidRefreshToken';
 
 export class RefreshTokenDto {
     @IsEmail({}, {
@@ -9,6 +9,6 @@ export class RefreshTokenDto {
     @IsEmailAvailable(false)
     email: string;
 
-    @IsValidToken()
+    @IsValidRefreshToken()
     refreshToken: string;
 }

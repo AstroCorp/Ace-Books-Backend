@@ -2,8 +2,9 @@ INSERT INTO 'lang' ('initial')
 VALUES ('en'),
        ('es');
 
-INSERT INTO 'user' ('email', 'password', 'is_admin') 
-VALUES ('test@gmail.com', '$2b$10$X1HuHO4VJ0fA3K16A4ELt.gdZKwbsHAIFWZbgXyQzImLrCa8yOUZ6', 1); /* Password: 1234 */
+/* Password: 123456 */
+INSERT INTO 'user' ('created_at', 'updated_at', 'email', 'password', 'is_admin') 
+VALUES ('2020-10-27 17:50:26', '2020-10-27 17:50:26', 'test@gmail.com', '$2b$10$u1MSFEUd7bm7808kAj2YJeMtaFflTbkD5Bm9s79QPbmT6vLs.wV5O', 1);
 
 INSERT INTO 'books_collection' ('name', 'description', 'user_id') 
 VALUES ('Collection 1', 'Esto es collection 1', 1),

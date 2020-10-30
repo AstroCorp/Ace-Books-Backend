@@ -46,6 +46,8 @@ export class AuthService {
 		const newUser = new User(email, password, dbLang as Lang);
 		await this.usersService.create(newUser);
 
+		this.usersService.sendEmail();
+
 		return {
 			code: 200,
 			message: 'user created successfully',

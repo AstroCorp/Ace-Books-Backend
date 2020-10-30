@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
+import { MailerService } from '@nestjs-modules/mailer';
 import { v4 as uuidv4 } from 'uuid';
 import { RefreshToken, User } from '../../orm/entities';
 
@@ -15,6 +16,8 @@ export class UsersService {
 		private readonly refreshTokenRepository: EntityRepository<RefreshToken>,
 
 		private readonly jwtService: JwtService,
+
+		private readonly mailerService: MailerService,
 	) {
 		//
 	}
@@ -40,5 +43,16 @@ export class UsersService {
 			access_token: this.jwtService.sign(access_payload),
 			refresh_token,
 		};
+	}
+
+	sendEmail()
+	{
+		return this.mailerService.sendMail({
+			to: '',
+			from: '',
+			subject: 'Testing Nest Mailer module with template ✔',
+			template: 'index',
+			context: {},
+		});
 	}
 }

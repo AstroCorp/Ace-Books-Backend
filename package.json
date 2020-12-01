@@ -22,7 +22,7 @@
 		"reset-db": "npx mikro-orm schema:drop -r && npx mikro-orm schema:create -r && npx mikro-orm database:import ./src/orm/seeds/base.sql"
 	},
 	"dependencies": {
-		"@mikro-orm/core": "^4.1.0",
+		"@mikro-orm/core": "^4.3.2",
 		"@mikro-orm/nestjs": "^4.2.0",
 		"@mikro-orm/sql-highlighter": "^1.0.1",
 		"@mikro-orm/sqlite": "^4.1.1",

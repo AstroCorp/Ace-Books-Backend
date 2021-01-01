@@ -529,14 +529,14 @@
     "@mikro-orm/knex" "^4.2.3"
     fs-extra "^9.0.1"
 
-"@mikro-orm/knex@^4.2.3":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-4.2.3.tgz#9cb9144b29bf702c8087feb4a6f39d56c9051e76"
-  integrity sha512-KgK+ZXs08fkE8NqlxgdV0NFZ3dN14lp3RqIMdQ4CNIZRm01918zKa7AE3Ztw5ZQns/JT1SuovFvk9YcSAgs8Ug==
+"@mikro-orm/knex@^4.2.3", "@mikro-orm/knex@^4.3.4":
+  version "4.3.4"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-4.3.4.tgz#a94201af1967e2f921c6b37ac684e3bd89a3e06b"
+  integrity sha512-0YeM110x+2syLsHOQsiE/mK2THKY71jpjwbC7LwBqHvPPV5Y1Q1GA0odcpaGjpdN8ac2ydwzZXgKSjYp4bs0hg==
   dependencies:
-    fs-extra "^9.0.1"
-    knex "^0.21.6"
-    sqlstring "^2.3.2"
+    fs-extra "9.0.1"
+    knex "0.21.12"
+    sqlstring "2.3.2"
 
 "@mikro-orm/migrations@^4.2.3":
   version "4.2.3"
@@ -560,15 +560,15 @@
   dependencies:
     ansi-colors "^4.1.1"
 
-"@mikro-orm/sqlite@^4.1.1":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/sqlite/-/sqlite-4.2.3.tgz#064888435043454745fcc4e227fee728bcbf9d79"
-  integrity sha512-MJMIv8+CkK7PGo8mSRs3pnhArfU2RNxhHNRfuNV25nqUgd9JnY5MAO1+lDJzARdI5M5YmKPpXz49m30r+YsdkA==
+"@mikro-orm/sqlite@^4.3.4":
+  version "4.3.4"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/sqlite/-/sqlite-4.3.4.tgz#f80837bfc5cfd6766c8e823a4b3cd1e805fa13f3"
+  integrity sha512-4iujNoIaqMnPgxNwkQIP4Pthz5asEIPtpNJ3SzG2ZhShz0mqpOiD+syJ+tQ43udUxOV1/a6eLLBr3bHV0k2tPA==
   dependencies:
-    "@mikro-orm/knex" "^4.2.3"
-    fs-extra "^9.0.1"
-    sqlite3 "^5.0.0"
-    sqlstring-sqlite "^0.1.1"
+    "@mikro-orm/knex" "^4.3.4"
+    fs-extra "9.0.1"
+    sqlite3 "5.0.0"
+    sqlstring-sqlite "0.1.1"
 
 "@nestjs-modules/mailer@^1.5.1":
   version "1.5.1"
@@ -3583,6 +3583,16 @@ fresh@0.5.2:
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
 
+fs-extra@9.0.1, fs-extra@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-9.0.1.tgz#910da0062437ba4c39fedd863f1675ccfefcb9fc"
+  integrity sha512-h2iAoN838FqAFJY2/qVpzFXy+EBxfVE220PalAqQLDVsFOHLJrZvut5puAbCdNv6WJk+B8ihI+k0c7JK5erwqQ==
+  dependencies:
+    at-least-node "^1.0.0"
+    graceful-fs "^4.2.0"
+    jsonfile "^6.0.1"
+    universalify "^1.0.0"
+
 fs-extra@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-5.0.0.tgz#414d0110cdd06705734d055652c5411260c31abd"
@@ -3600,16 +3610,6 @@ fs-extra@^8.1.0:
     graceful-fs "^4.2.0"
     jsonfile "^4.0.0"
     universalify "^0.1.0"
-
-fs-extra@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-9.0.1.tgz#910da0062437ba4c39fedd863f1675ccfefcb9fc"
-  integrity sha512-h2iAoN838FqAFJY2/qVpzFXy+EBxfVE220PalAqQLDVsFOHLJrZvut5puAbCdNv6WJk+B8ihI+k0c7JK5erwqQ==
-  dependencies:
-    at-least-node "^1.0.0"
-    graceful-fs "^4.2.0"
-    jsonfile "^6.0.1"
-    universalify "^1.0.0"
 
 fs-minipass@^1.2.5:
   version "1.2.7"
@@ -5151,10 +5151,10 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-knex@^0.21.6:
-  version "0.21.9"
-  resolved "https://registry.yarnpkg.com/knex/-/knex-0.21.9.tgz#f6a140188c902a2df539b7a9429c0ce52e55efa3"
-  integrity sha512-6XhR2IbeB7Hx8uaM2J4W+W85/ZRRuP3zzSsdOVBoJdZMV73/WxZscw/qnB1dEPCYXlIx/fRI9FsrzqGaz/KVpA==
+knex@0.21.12:
+  version "0.21.12"
+  resolved "https://registry.yarnpkg.com/knex/-/knex-0.21.12.tgz#961bdb484311eb853030f6f49bd5bf9eca89dc51"
+  integrity sha512-AEyyiTM9p/x/Pb38TPZkvphKPmn8UWxP7MdIphzjAOielOfFFeU6pjP6y3M7UJ7rxrQsCrAYHwdonLQ3l1JCDw==
   dependencies:
     colorette "1.2.1"
     commander "^5.1.0"
@@ -5167,7 +5167,6 @@ knex@^0.21.6:
     pg-connection-string "2.3.0"
     tarn "^3.0.1"
     tildify "2.0.0"
-    uuid "^7.0.3"
     v8flags "^3.2.0"
 
 latest-version@^5.0.0:
@@ -7483,7 +7482,7 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-sqlite3@^5.0.0:
+sqlite3@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/sqlite3/-/sqlite3-5.0.0.tgz#1bfef2151c6bc48a3ab1a6c126088bb8dd233566"
   integrity sha512-rjvqHFUaSGnzxDy2AHCwhHy6Zp6MNJzCPGYju4kD8yi6bze4d1/zMTg6C7JI49b7/EM7jKMTvyfN/4ylBKdwfw==
@@ -7493,12 +7492,12 @@ sqlite3@^5.0.0:
   optionalDependencies:
     node-gyp "3.x"
 
-sqlstring-sqlite@^0.1.1:
+sqlstring-sqlite@0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/sqlstring-sqlite/-/sqlstring-sqlite-0.1.1.tgz#c8c61810663f2e59a6b0d737b70a8752bda3a078"
   integrity sha1-yMYYEGY/LlmmsNc3twqHUr2joHg=
 
-sqlstring@^2.3.2:
+sqlstring@2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/sqlstring/-/sqlstring-2.3.2.tgz#cdae7169389a1375b18e885f2e60b3e460809514"
   integrity sha512-vF4ZbYdKS8OnoJAWBmMxCQDkiEBkGQYU7UZPtL8flbDRSNkhaXvRJ279ZtI6M+zDaQovVU4tuRgzK5fVhvFAhg==
@@ -8352,11 +8351,6 @@ uuid@^3.3.2, uuid@^3.3.3:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
-
-uuid@^7.0.3:
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
-  integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
 
 uuid@^8.3.0, uuid@^8.3.1:
   version "8.3.1"

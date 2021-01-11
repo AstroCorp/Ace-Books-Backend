@@ -44,9 +44,10 @@ export class AuthService {
 		// Si todo va bien se crea el usuario
 		const dbLang = await this.langRepository.findOne({ initial: lang });
 		const newUser = new User(email, password, dbLang as Lang);
+		
 		await this.usersService.create(newUser);
 
-		this.usersService.sendEmail();
+		this.usersService.sendEmail(email);
 
 		return {
 			code: 200,

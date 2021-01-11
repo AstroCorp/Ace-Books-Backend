@@ -15,7 +15,6 @@ import { IsValidRefreshTokenConstraint } from './validation/pipes/isValidRefresh
 		OrmModule,
 		UsersModule,
 		PassportModule,
-		
 	],
 	controllers: [AuthController],
 	providers: [

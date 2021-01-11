@@ -5,6 +5,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { MailerService } from '@nestjs-modules/mailer';
 import { v4 as uuidv4 } from 'uuid';
 import { RefreshToken, User } from '../../orm/entities';
+import { default as Config } from '../../config';
 
 @Injectable()
 export class UsersService {
@@ -45,12 +46,12 @@ export class UsersService {
 		};
 	}
 
-	sendEmail()
+	sendEmail(email: string)
 	{
 		return this.mailerService.sendMail({
-			to: '',
-			from: '',
-			subject: 'Testing Nest Mailer module with template ✔',
+			to: email,
+			from: Config.mail.username,
+			subject: 'Verify your account',
 			template: 'index',
 			context: {},
 		});

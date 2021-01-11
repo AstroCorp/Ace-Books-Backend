@@ -3,25 +3,25 @@ import { JwtModule } from '@nestjs/jwt';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { UsersService } from './users.service';
 import { OrmModule } from '../../orm/orm.module';
-import { jwtConstants } from './constants';
 import { TwingAdapter } from './mails/adapters/twing.adapter';
+import { default as Config } from '../../config';
 
 @Module({
 	imports: [
 		OrmModule,
 		JwtModule.register({
-			secret: jwtConstants.secret,
-			signOptions: { expiresIn: jwtConstants.access_expiresIn },
+			secret: Config.jwt.secret,
+			signOptions: { expiresIn: Config.jwt.timeout },
 		}),
 		MailerModule.forRoot({
 			transport: {
-			  	host: 'smtp.gmail.com',
-			  	port: 587,
+			  	host: Config.mail.host,
+			  	port: Config.mail.port,
 			  	secure: false,
 			  	ignoreTLS: false,
 			  	auth: {
-					user: '',
-					pass: '',
+					user: Config.mail.username,
+					pass: Config.mail.password,
 			  	},
 			},
 			template: {

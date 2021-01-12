@@ -1,33 +1,43 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { UsersService } from './users.service';
 import { OrmModule } from '../../orm/orm.module';
 import { TwingAdapter } from './mails/adapters/twing.adapter';
-import { default as Config } from '../../config';
 
 @Module({
 	imports: [
 		OrmModule,
-		JwtModule.register({
-			secret: Config.jwt.secret,
-			signOptions: { expiresIn: Config.jwt.timeout },
+		JwtModule.registerAsync({
+			imports: [ConfigModule],
+  			useFactory: async (configService: ConfigService) => ({
+				secret: configService.get<string>('JWT_SECRET'),
+				signOptions: { 
+					expiresIn: configService.get<string>('JWT_TIMEOUT'),
+				},
+			}),
+			inject: [ConfigService],
 		}),
-		MailerModule.forRoot({
-			transport: {
-			  	host: Config.mail.host,
-			  	port: Config.mail.port,
-			  	secure: false,
-			  	ignoreTLS: false,
-			  	auth: {
-					user: Config.mail.username,
-					pass: Config.mail.password,
+		MailerModule.forRootAsync({
+			imports: [ConfigModule],
+			useFactory: async (configService: ConfigService) => ({
+				transport: {
+					host: configService.get<string>('MAIL_HOST'),
+					port: configService.get<number>('MAIL_PORT'),
+					secure: false,
+					ignoreTLS: false,
+					auth: {
+					  user: configService.get<string>('MAIL_USERNAME'),
+					  pass: configService.get<string>('MAIL_PASSWORD'),
+					},
 			  	},
-			},
-			template: {
-			  	dir: './src/modules/users/mails/templates/',
-				adapter: new TwingAdapter(),
-			},
+			  	template: {
+					dir: './src/modules/users/mails/templates/',
+					adapter: new TwingAdapter(),
+			  	},
+			}),
+			inject: [ConfigService],
 		}),
 	],
 	providers: [UsersService],

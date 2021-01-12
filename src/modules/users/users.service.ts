@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { MailerService } from '@nestjs-modules/mailer';
 import { v4 as uuidv4 } from 'uuid';
 import { RefreshToken, User } from '../../orm/entities';
-import { default as Config } from '../../config';
 
 @Injectable()
 export class UsersService {
@@ -19,6 +19,8 @@ export class UsersService {
 		private readonly jwtService: JwtService,
 
 		private readonly mailerService: MailerService,
+
+		private readonly configService: ConfigService,
 	) {
 		//
 	}
@@ -50,7 +52,7 @@ export class UsersService {
 	{
 		return this.mailerService.sendMail({
 			to: email,
-			from: Config.mail.username,
+			from: this.configService.get<string>('MAIL_USERNAME'),
 			subject: 'Verify your account',
 			template: 'index',
 			context: {},

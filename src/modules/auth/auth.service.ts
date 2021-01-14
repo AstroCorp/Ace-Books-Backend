@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/core';
 import { UsersService } from '../../modules/users/users.service';
-import { User, Lang, RefreshToken } from '../../orm/entities';
+import { User, Lang, RefreshToken } from '../orm/entities';
 
 @Injectable()
 export class AuthService {

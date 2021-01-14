@@ -5,7 +5,7 @@ import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { MailerService } from '@nestjs-modules/mailer';
 import { v4 as uuidv4 } from 'uuid';
-import { RefreshToken, User } from '../../orm/entities';
+import { RefreshToken, User } from '../orm/entities';
 
 @Injectable()
 export class UsersService {

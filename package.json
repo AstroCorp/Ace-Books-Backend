@@ -19,7 +19,7 @@
 		"start:debug": "nodemon --config nodemon-debug.json",
 		"start:prod": "node dist/main.js",
 		"start:hmr": "node dist/server",
-		"reset-db": "npx mikro-orm schema:drop -r && npx mikro-orm schema:create -r && npx mikro-orm database:import ./src/orm/seeds/base.sql"
+		"reset-db": "npx mikro-orm schema:drop -r && npx mikro-orm schema:create -r && npx mikro-orm database:import ./src/modules/orm/seeds/base.sql"
 	},
 	"dependencies": {
 		"@mikro-orm/core": "^4.3.4",
@@ -39,6 +39,7 @@
 		"class-validator": "^0.13.0",
 		"compression": "^1.7.4",
 		"date-fns": "^2.16.1",
+		"helmet": "^4.3.1",
 		"nodemailer": "^6.4.17",
 		"passport": "^0.4.1",
 		"passport-jwt": "^4.0.0",
@@ -95,8 +96,8 @@
 	"mikro-orm": {
 		"useTsNode": true,
 		"configPaths": [
-			"./src/orm/mikro-orm.config.ts",
-			"./dist/mikro-orm.config.js"
+			"./src/modules/orm/mikro-orm.config.ts",
+			"./dist/modules/orm/mikro-orm.config.js"
 		]
 	}
 }

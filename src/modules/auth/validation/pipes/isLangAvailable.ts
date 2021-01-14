@@ -2,7 +2,7 @@ import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { ValidatorConstraint, ValidatorConstraintInterface, ValidationOptions, registerDecorator } from 'class-validator';
-import { Lang } from '../../../../orm/entities';
+import { Lang } from '../../../orm/entities';
 
 @ValidatorConstraint({ async: true })
 @Injectable()

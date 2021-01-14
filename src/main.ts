@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { useContainer } from 'class-validator';
 import * as compression from 'compression';
+import * as helmet from 'helmet';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -9,6 +10,9 @@ async function bootstrap() {
 
 	// Para comprimir las respuestas del servidor
 	app.use(compression());
+
+	// Middlewares de seguridad
+	app.use(helmet());
 
 	// Para poder usar services en los validadores
 	useContainer(app.select(AppModule), { 

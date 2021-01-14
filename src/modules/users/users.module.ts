@@ -3,7 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { UsersService } from './users.service';
-import { OrmModule } from '../../orm/orm.module';
+import { OrmModule } from '../orm/orm.module';
 import { TwingAdapter } from './mails/adapters/twing.adapter';
 
 @Module({

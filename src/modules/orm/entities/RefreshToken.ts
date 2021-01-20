@@ -2,7 +2,8 @@ import { Entity, Property, ManyToOne, PrimaryKey } from '@mikro-orm/core';
 import { User } from './User';
 
 @Entity()
-export class RefreshToken {
+export class RefreshToken
+{
 	@PrimaryKey()
 	id!: number;
 

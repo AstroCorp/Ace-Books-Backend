@@ -4,7 +4,7 @@ VALUES ('en'),
 
 /* Password: 123456 */
 INSERT INTO 'user' ('created_at', 'updated_at', 'email', 'password', 'is_admin') 
-VALUES ('2020-10-27 17:50:26', '2020-10-27 17:50:26', 'test@gmail.com', '$2b$10$u1MSFEUd7bm7808kAj2YJeMtaFflTbkD5Bm9s79QPbmT6vLs.wV5O', 1);
+VALUES ('2020-10-27 17:50:26', '2020-10-27 17:50:26', 'test@gmail.com', '$2b$10$6SiGOD64GFLtrhip7hFa8.QbyCJ.7vLYshmunIth/Bfkkoud1Et9C', 1);
 
 INSERT INTO 'books_collection' ('name', 'description', 'user_id') 
 VALUES ('Collection 1', 'Esto es collection 1', 1),

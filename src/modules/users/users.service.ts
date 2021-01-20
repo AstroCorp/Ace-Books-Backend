@@ -8,7 +8,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { RefreshToken, User } from '../orm/entities';
 
 @Injectable()
-export class UsersService {
+export class UsersService
+{
 	constructor(
 		@InjectRepository(User)
 		private readonly userRepository: EntityRepository<User>,

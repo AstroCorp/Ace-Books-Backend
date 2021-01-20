@@ -5,7 +5,8 @@ import { UsersService } from '../../modules/users/users.service';
 import { User, Lang, RefreshToken } from '../orm/entities';
 
 @Injectable()
-export class AuthService {
+export class AuthService 
+{
 	constructor(
 		@InjectRepository(Lang)
 		private readonly langRepository: EntityRepository<Lang>,

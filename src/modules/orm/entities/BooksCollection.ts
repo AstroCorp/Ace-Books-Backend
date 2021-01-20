@@ -4,7 +4,8 @@ import { User } from './User';
 import { Book } from './Book';
 
 @Entity()
-export class BooksCollection extends BaseEntity {
+export class BooksCollection extends BaseEntity 
+{
 	@ManyToOne(() => User)
 	user: User;
 

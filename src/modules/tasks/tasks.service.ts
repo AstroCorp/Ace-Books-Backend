@@ -6,7 +6,8 @@ import { RefreshToken } from '../orm/entities';
 import { EntityRepository } from '@mikro-orm/core';
 
 @Injectable()
-export class TasksService {
+export class TasksService
+{
 	private readonly logger = new Logger(TasksService.name);
 
 	constructor(

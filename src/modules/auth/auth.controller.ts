@@ -1,19 +1,16 @@
 import { Controller, UseGuards, Get, Post, Request, Body } from '@nestjs/common';
-import { EntityRepository } from '@mikro-orm/core';
-import { InjectRepository } from '@mikro-orm/nestjs';
-import { User } from '../orm/entities';
+import { ApiTags, ApiBody } from '@nestjs/swagger';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './validation/createUserDto';
 import { RefreshTokenDto } from './validation/refreshTokenDto';
+import { loginDto } from './validation/loginDto';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
 	constructor(
-		@InjectRepository(User)
-		private readonly userRepository: EntityRepository<User>,
-
 		private authService: AuthService,
 	) {
 		//
@@ -24,6 +21,7 @@ export class AuthController {
 		return await this.authService.register(body.email, body.password, body.lang);
 	}
 
+	@ApiBody({ type: loginDto })
 	@UseGuards(LocalAuthGuard)
 	@Post('login')
 	async login(@Request() req) {
@@ -39,11 +37,5 @@ export class AuthController {
 	@Post('refresh')
 	refreshToken(@Body() body: RefreshTokenDto) {
 		return this.authService.refreshToken(body.email, body.refreshToken);
-	}
-
-	@Get('test')
-	async test() {
-		const u = await this.userRepository.findOne(1);
-		return (await (u as User).books.init()).getItems();
 	}
 }

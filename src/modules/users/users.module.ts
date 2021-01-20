@@ -5,6 +5,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { UsersService } from './users.service';
 import { OrmModule } from '../orm/orm.module';
 import { TwingAdapter } from './mails/adapters/twing.adapter';
+import { UsersController } from './users.controller';
 
 @Module({
 	imports: [
@@ -40,6 +41,7 @@ import { TwingAdapter } from './mails/adapters/twing.adapter';
 			inject: [ConfigService],
 		}),
 	],
+	controllers: [UsersController],
 	providers: [UsersService],
 	exports: [UsersService],
 })

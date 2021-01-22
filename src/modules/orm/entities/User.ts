@@ -30,8 +30,14 @@ export class User extends BaseEntity
 	@Property({ nullable: true })
 	image?: string;
 
-	@Property()
-	isAdmin: boolean = false;
+	@Property({ default: false })
+	isAdmin!: boolean;
+
+	@Property({ default: false })
+	isVerified!: boolean;
+
+	@Property({ nullable: true })
+	verificationCode?: string;
 
 	private tempPassword;
 

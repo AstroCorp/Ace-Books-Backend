@@ -1,0 +1,23 @@
+{% extends "./index.twig" %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block content %}
+    <div class="bg-white my-4 p-10">
+    	<h1 class="font-medium mt-0">Welcome!</h1>
+    	<p class="mt-4 mb-6 md:mb-4 text-gray-500">
+    		Thanks for registering for an account on Ace Books!
+    		Before we get started, we just need to confirm that this
+    		is you. Click below to verify your email address:
+    	</p>
+    	<a
+    		href="{{ url }}"
+    		target="_blank"
+    		class="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded w-28 text-center cursor-pointer mx-auto no-underline block"
+    	>
+    		Verify Email
+    	</a>
+    </div>
+{% endblock %}

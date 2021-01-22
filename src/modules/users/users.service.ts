@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { EntityRepository } from '@mikro-orm/core';
+import { EntityRepository, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { MailerService } from '@nestjs-modules/mailer';
 import { v4 as uuidv4 } from 'uuid';
@@ -49,14 +49,23 @@ export class UsersService
 		};
 	}
 
-	sendEmail(email: string)
+	async sendVerifyEmail(user: User)
 	{
-		return this.mailerService.sendMail({
-			to: email,
+		wrap(user).assign({
+			verificationCode: uuidv4(),
+		});
+		
+		await this.userRepository.persist(user);
+
+		await this.mailerService.sendMail({
+			to: user.email,
 			from: this.configService.get<string>('MAIL_USERNAME'),
-			subject: 'Verify your account',
-			template: 'index',
-			context: {},
+			subject: 'Ace Books - Verify Email',
+			template: 'verify',
+			context: {
+				title: 'Ace Books - Verify Email',
+				url: this.configService.get<string>('URL') + '/auth/verify?verificationCode=' + user.verificationCode,
+			},
 		});
 	}
 }

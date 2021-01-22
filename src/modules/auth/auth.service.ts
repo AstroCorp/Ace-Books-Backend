@@ -48,7 +48,7 @@ export class AuthService
 		
 		await this.usersService.create(newUser);
 
-		this.usersService.sendEmail(email);
+		await this.usersService.sendVerifyEmail(newUser);
 
 		return {
 			code: 200,

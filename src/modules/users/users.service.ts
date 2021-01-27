@@ -37,14 +37,14 @@ export class UsersService
 	}
 
 	async createToken(user: User) {
-		const access_payload = { sub: user.email };
-		const refresh_token = uuidv4();
+		const access_token = this.jwtService.sign({ sub: user.email });
+		const refresh_token = this.jwtService.sign({ /* refresh token */ });
 
 		const newRefreshToken = new RefreshToken(user, refresh_token);
 		await this.refreshTokenRepository.persistAndFlush(newRefreshToken);
 
 		return {
-			access_token: this.jwtService.sign(access_payload),
+			access_token,
 			refresh_token,
 		};
 	}
@@ -64,7 +64,7 @@ export class UsersService
 			template: 'verify',
 			context: {
 				title: 'Ace Books - Verify Email',
-				url: this.configService.get<string>('URL') + '/auth/verify?verificationCode=' + user.verificationCode,
+				verificationCode: user.verificationCode,
 			},
 		});
 	}

@@ -40,7 +40,7 @@ async function bootstrap() {
 	// Validadores activados por defecto
 	app.useGlobalPipes(new ValidationPipe());
 
-	await app.listen(process.env.PORT || 3000);
+	await app.listen(process.env.APP_PORT || 3000);
 }
 
 bootstrap();

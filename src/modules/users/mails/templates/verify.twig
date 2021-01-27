@@ -10,14 +10,10 @@
     	<p class="mt-4 mb-6 md:mb-4 text-gray-500">
     		Thanks for registering for an account on Ace Books!
     		Before we get started, we just need to confirm that this
-    		is you. Click below to verify your email address:
+    		is you. This is your validation code:
     	</p>
-    	<a
-    		href="{{ url }}"
-    		target="_blank"
-    		class="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded w-28 text-center cursor-pointer mx-auto no-underline block"
-    	>
-    		Verify Email
-    	</a>
+    	<div class="p-2 border-blue-500 border-2 border-solid rounded w-1/2 text-center mx-auto">
+    		{{ verificationCode }}
+    	</div>
     </div>
 {% endblock %}

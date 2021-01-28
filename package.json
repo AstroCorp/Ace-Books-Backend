@@ -20,7 +20,7 @@
 		"start:prod": "node dist/main.js",
 		"start:hmr": "node dist/server",
 		"reset-db": "npx mikro-orm schema:drop -r && npx mikro-orm schema:create -r && npx mikro-orm database:import ./src/modules/orm/seeds/base.sql",
-		"copy-db": "rm ./db.sqlite3 & cp ./db.example.sqlite3 ./db.sqlite3"
+		"copy-db": "yes | cp -rf ./db.example.sqlite3 ./db.sqlite3"
 	},
 	"dependencies": {
 		"@mikro-orm/core": "^4.4.0",

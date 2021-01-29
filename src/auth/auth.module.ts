@@ -11,7 +11,7 @@ import { OrmModule } from '../orm/orm.module';
 import { IsEmailAvailableConstraint } from './validation/pipes/isEmailAvailable';
 import { IsLangAvailableConstraint } from './validation/pipes/isLangAvailable';
 import { IsValidRefreshTokenConstraint } from './validation/pipes/isValidRefreshToken';
-import { MailsService } from 'mails/mails.service';
+import { MailsService } from '../mails/mails.service';
 
 @Module({
 	imports: [

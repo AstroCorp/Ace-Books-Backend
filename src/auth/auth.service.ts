@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/core';
-import { UsersService } from '../../modules/users/users.service';
+import { JwtService } from '@nestjs/jwt';
+import { UsersService } from '../users/users.service';
 import { User, Lang, RefreshToken } from '../orm/entities';
+import { MailsService } from '../mails/mails.service';
 
 @Injectable()
 export class AuthService 
@@ -14,9 +16,26 @@ export class AuthService
 		@InjectRepository(RefreshToken)
 		private readonly refreshTokenRepository: EntityRepository<RefreshToken>,
 
+		private readonly jwtService: JwtService,
+
 		private readonly usersService: UsersService,
+
+		private readonly mailsService: MailsService,
 	) {
 		//
+	}
+
+	async createToken(user: User) {
+		const access_token = this.jwtService.sign({ sub: user.email });
+		const refresh_token = this.jwtService.sign({ /* refresh token */ });
+
+		const newRefreshToken = new RefreshToken(user, refresh_token);
+		await this.refreshTokenRepository.persistAndFlush(newRefreshToken);
+
+		return {
+			access_token,
+			refresh_token,
+		};
 	}
 
 	async refreshToken(email: string, refreshToken: string) {
@@ -30,14 +49,14 @@ export class AuthService
 		await this.refreshTokenRepository.removeAndFlush(dbRefreshToken);
 
 		// Generamos un nuevo token
-		return await this.usersService.createToken(user);
+		return await this.createToken(user);
 	}
 
 	async login(user: User) {
 		return {
 			code: 200,
 			message: 'generated token',
-			...(await this.usersService.createToken(user as User)),
+			...(await this.createToken(user)),
 		};
 	}
 
@@ -48,12 +67,12 @@ export class AuthService
 		
 		await this.usersService.create(newUser);
 
-		await this.usersService.sendVerifyEmail(newUser);
+		await this.mailsService.sendVerifyEmail(newUser);
 
 		return {
 			code: 200,
 			message: 'user created successfully',
-			...(await this.usersService.createToken(newUser)),
+			...(await this.createToken(newUser)),
 		};
 	}
 }

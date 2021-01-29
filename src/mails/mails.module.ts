@@ -1,26 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { UsersService } from './users.service';
+import { TwingAdapter } from './adapters/twing.adapter';
+import { MailsService } from './mails.service';
 import { OrmModule } from '../orm/orm.module';
-import { TwingAdapter } from './mails/adapters/twing.adapter';
-import { UsersController } from './users.controller';
 
 @Module({
-	imports: [
+    imports: [
 		OrmModule,
-		JwtModule.registerAsync({
-			imports: [ConfigModule],
-  			useFactory: async (configService: ConfigService) => ({
-				secret: configService.get<string>('JWT_SECRET'),
-				signOptions: { 
-					expiresIn: configService.get<string>('JWT_TIMEOUT'),
-				},
-			}),
-			inject: [ConfigService],
-		}),
-		MailerModule.forRootAsync({
+        MailerModule.forRootAsync({
 			imports: [ConfigModule],
 			useFactory: async (configService: ConfigService) => ({
 				transport: {
@@ -34,15 +22,13 @@ import { UsersController } from './users.controller';
 					},
 			  	},
 			  	template: {
-					dir: './src/modules/users/mails/templates/',
+					dir: './src/mails/templates/',
 					adapter: new TwingAdapter(),
 			  	},
 			}),
 			inject: [ConfigService],
 		}),
-	],
-	controllers: [UsersController],
-	providers: [UsersService],
-	exports: [UsersService],
+    ],
+    providers: [MailsService],
 })
-export class UsersModule {}
+export class MailsModule {}

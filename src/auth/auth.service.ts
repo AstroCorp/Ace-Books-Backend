@@ -54,8 +54,6 @@ export class AuthService
 
 	async login(user: User) {
 		return {
-			code: 200,
-			message: 'generated token',
 			...(await this.createToken(user)),
 		};
 	}
@@ -67,11 +65,11 @@ export class AuthService
 		
 		await this.usersService.create(newUser);
 
+		await this.usersService.generateValidationCode(newUser);
+
 		await this.mailsService.sendVerifyEmail(newUser);
 
 		return {
-			code: 200,
-			message: 'user created successfully',
 			...(await this.createToken(newUser)),
 		};
 	}

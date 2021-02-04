@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { EntityRepository } from '@mikro-orm/core';
+import { EntityRepository, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
+import { v4 as uuidv4 } from 'uuid';
 import { User } from '../orm/entities';
 
 @Injectable()
@@ -21,5 +22,13 @@ export class UsersService
 
 	async create(user: User) {
 		return await this.userRepository.persistAndFlush(user);
+	}
+
+	async generateValidationCode(user: User) {
+		wrap(user).assign({
+			verificationCode: uuidv4(),
+		});
+		
+		await this.userRepository.persist(user);
 	}
 }

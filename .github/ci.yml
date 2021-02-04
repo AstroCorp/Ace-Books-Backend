@@ -21,3 +21,12 @@ jobs:
         uses: actions/setup-node@v2.1.4
         with:
           node-version: 14.15.4
+
+      - name: Install yarn
+      - run: npm install -g yarn
+
+      - name: Install dependences
+      - run: yarn install
+
+      - name: Run tests
+      - run: yarn copy-db && yarn test:e2e

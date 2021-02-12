@@ -4,11 +4,12 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './validation/createUserDto';
 import { RefreshTokenDto } from './validation/refreshTokenDto';
-import { loginDto } from './validation/loginDto';
+import { LoginDto } from './validation/loginDto';
 
 @ApiTags('auth')
 @Controller('auth')
-export class AuthController {
+export class AuthController 
+{
 	constructor(
 		private authService: AuthService,
 	) {
@@ -20,7 +21,7 @@ export class AuthController {
 		return await this.authService.register(body.email, body.password, body.lang);
 	}
 
-	@ApiBody({ type: loginDto })
+	@ApiBody({ type: LoginDto })
 	@UseGuards(LocalAuthGuard)
 	@Post('login')
 	async login(@Request() req) {

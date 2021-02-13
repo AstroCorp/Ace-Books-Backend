@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { User, Lang, RefreshToken } from '../orm/entities';
 import { MailsService } from '../mails/mails.service';
+import Tokens from './types/tokens';
 
 @Injectable()
 export class AuthService 
@@ -25,7 +26,7 @@ export class AuthService
 		//
 	}
 
-	async createToken(user: User) {
+	async createToken(user: User): Promise<Tokens> {
 		const access_token = this.jwtService.sign({ sub: user.email });
 		const refresh_token = this.jwtService.sign({ /* refresh token */ });
 
@@ -38,7 +39,7 @@ export class AuthService
 		};
 	}
 
-	async refreshToken(email: string, refreshToken: string) {
+	async refreshToken(email: string, refreshToken: string): Promise<Tokens> {
 		const dbRefreshToken = await this.refreshTokenRepository.findOne({
 			token: refreshToken,
 		}) as RefreshToken;
@@ -52,13 +53,13 @@ export class AuthService
 		return await this.createToken(user);
 	}
 
-	async login(user: User) {
+	async login(user: User): Promise<Tokens> {
 		return {
 			...(await this.createToken(user)),
 		};
 	}
 
-	async register(email: string, password: string, lang: string) {
+	async register(email: string, password: string, lang: string): Promise<Tokens> {
 		// Si todo va bien se crea el usuario
 		const dbLang = await this.langRepository.findOne({ initial: lang });
 		const newUser = new User(email, password, dbLang as Lang);

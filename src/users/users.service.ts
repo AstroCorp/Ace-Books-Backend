@@ -40,11 +40,6 @@ export class UsersService
 		});
 		
 		await this.userRepository.persistAndFlush(user);
-
-		return {
-			'statusCode': 200,
-			'message': 'OK',
-		};
 	}
 
 	async resendVerificationMail(user: User) {
@@ -56,11 +51,6 @@ export class UsersService
 		
 		await this.generateValidationCode(user);
 		await this.mailsService.sendVerifyEmail(user);
-
-		return {
-			'statusCode': 200,
-			'message': 'OK',
-		};
 	}
 
 	async generateValidationCode(user: User) {

@@ -2,22 +2,26 @@ import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { useContainer } from 'class-validator';
-import { AuthModule } from './auth.module';
+import { UsersModule } from './users.module';
 import { OrmModule } from '../orm/orm.module';
 import { AppModule } from '../app.module';
 import { MailsService } from '../mails/mails.service';
-import Tokens from './types/tokens';
+import { AuthService } from '../auth/auth.service';
+import { UsersService } from './users.service';
+import { User } from '../orm/entities';
+import Tokens from '../auth/types/tokens';
 
-describe('Auth', () => {
+describe('Users', () => {
 	let app: INestApplication;
-	const mailsService = { sendVerifyEmail: () => {} };
 	let tokens: Tokens;
+	let user: User | null;
 
 	beforeAll(async () => {
+		const mailsService = { sendVerifyEmail: () => {} };
 		const module = await Test.createTestingModule({
 			imports: [
                 AppModule,
-				AuthModule,
+				UsersModule,
 				OrmModule,
 			],
 		})
@@ -28,44 +32,26 @@ describe('Auth', () => {
 		app = module.createNestApplication();
 
 		useContainer(app.select(AppModule), { 
-			fallbackOnErrors: true 
+			fallbackOnErrors: true,
 		});
 	
 		app.useGlobalPipes(new ValidationPipe());
 
+		const authService: AuthService = module.get<AuthService>(AuthService);
+		const usersService: UsersService = module.get<UsersService>(UsersService);
+
 		await app.init();
+
+		user = await usersService.findOne('test@test.test');
+		tokens = await authService.createToken(user as User);
 	});
 
-	it('@POST /auth/register', () => {
+	it('@POST /users/verify', () => {
 		return request(app.getHttpServer())
-			.post('/auth/register')
-			.send('email=test@test.es')
-			.send('password=123456')
-			.send('lang=es')
-			.expect(201);
-	});
-
-	it('@POST /auth/login', () => {
-		return request(app.getHttpServer())
-			.post('/auth/login')
-			.send('email=test@test.es')
-			.send('password=123456')
-			.expect(200)
-			.then(response => {
-				tokens = response.body;
-			});
-	});
-
-	it('@POST /auth/refresh', () => {
-		return request(app.getHttpServer())
-			.post('/auth/refresh')
+			.post('/users/verify')
 			.set('Authorization', 'Bearer ' + tokens.access_token)
-			.send('email=test@test.es')
-			.send('refreshToken=' + tokens.refresh_token)
-			.expect(201)
-			.then(response => {
-				tokens = response.body;
-			});
+			.send('code=' + (user as User).verificationCode)
+			.expect(200);
 	});
 
 	afterAll(async () => {

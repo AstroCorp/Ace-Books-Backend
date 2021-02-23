@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class VerifyEmailDto 
 {
     @ApiProperty()
-    @Length(36, 36, {
+    @Length(23, 23, {
         message: 'the code is not valid'
     })
     code: string;

@@ -1,7 +1,7 @@
 import { Entity, Property, ManyToOne, BeforeCreate, BeforeUpdate, Collection, OneToMany } from '@mikro-orm/core';
+import * as bcrypt from 'bcrypt';
 import { BaseEntity } from './BaseEntity';
 import { Lang } from './Lang';
-import * as bcrypt from 'bcrypt';
 import { Book } from './Book';
 import { BooksCollection } from './BooksCollection';
 import { RefreshToken } from './RefreshToken';
@@ -36,8 +36,8 @@ export class User extends BaseEntity
 	@Property({ default: false })
 	isVerified!: boolean;
 
-	@Property({ nullable: true })
-	verificationCode?: string;
+	@Property({ type: 'json', nullable: true })
+	verificationCodes?: { email_code: string | null; password_code: string | null };
 
 	private tempPassword;
 

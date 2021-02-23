@@ -66,7 +66,7 @@ export class AuthService
 		
 		await this.usersService.create(newUser);
 
-		await this.usersService.generateValidationCode(newUser);
+		await this.usersService.generateValidationCode(newUser, 'email_code');
 
 		await this.mailsService.sendVerifyEmail(newUser);
 

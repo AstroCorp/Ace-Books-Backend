@@ -23,7 +23,7 @@ export class MailsService
 			template: 'verify',
 			context: {
 				title: 'Ace Books - Verify Email',
-				verificationCode: user.verificationCode,
+				verificationCode: user.verificationCodes?.email_code,
 			},
 		});
 	}

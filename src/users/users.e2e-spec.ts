@@ -50,7 +50,7 @@ describe('Users', () => {
 		return request(app.getHttpServer())
 			.post('/users/verify')
 			.set('Authorization', 'Bearer ' + tokens.access_token)
-			.send('code=' + (user as User).verificationCode)
+			.send('code=' + (user as User).verificationCodes?.email_code)
 			.expect(200);
 	});
 

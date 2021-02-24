@@ -3,7 +3,7 @@ VALUES ('en'),
        ('es');
 
 /* Password: 123456 */
-INSERT INTO 'user' ('email', 'password', 'verification_codes') 
+INSERT INTO 'user' ('email', 'password', 'codes') 
 VALUES ('test@test.test', '$2b$10$6SiGOD64GFLtrhip7hFa8.QbyCJ.7vLYshmunIth/Bfkkoud1Et9C', '{ "email_code": "AA12S-1FD6H-09KJH-LMNB1", "password_code": "KK88V-LM2HN-SX4WA-ZC45X" }');
 
 INSERT INTO 'books_collection' ('name', 'description', 'user_id') 

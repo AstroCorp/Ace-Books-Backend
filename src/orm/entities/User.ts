@@ -37,7 +37,7 @@ export class User extends BaseEntity
 	isVerified!: boolean;
 
 	@Property({ type: 'json', nullable: true })
-	verificationCodes?: { email_code: string | null; password_code: string | null };
+	codes?: { email_code: string | null; password_code: string | null };
 
 	private tempPassword;
 

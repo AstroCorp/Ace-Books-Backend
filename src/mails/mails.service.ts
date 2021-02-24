@@ -23,7 +23,20 @@ export class MailsService
 			template: 'verify',
 			context: {
 				title: 'Ace Books - Verify Email',
-				verificationCode: user.verificationCodes?.email_code,
+				code: user.codes?.email_code,
+			},
+		});
+	}
+
+	async sendResetEmail(user: User) {
+		await this.mailerService.sendMail({
+			to: user.email,
+			from: this.configService.get<string>('MAIL_USERNAME'),
+			subject: 'Ace Books - Reset Password',
+			template: 'reset',
+			context: {
+				title: 'Ace Books - Reset Password',
+				code: user.codes?.password_code,
 			},
 		});
 	}

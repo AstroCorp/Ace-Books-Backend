@@ -29,13 +29,13 @@ export class UsersService
 	async verifyEmail(user: User, code: string) {
 		user = await this.findOne(user.email) as User;
 
-		if (user.verificationCodes?.email_code !== code) {
+		if (user.codes?.email_code !== code) {
 			throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
 		}
 
 		wrap(user).assign({
-			verificationCodes: {
-				...user.verificationCodes,
+			codes: {
+				...user.codes,
 				email_code: null,
 			},
 			isVerified: true,
@@ -51,11 +51,40 @@ export class UsersService
 			throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
 		}
 		
-		await this.generateValidationCode(user, 'email_code');
+		await this.generateCode(user, 'email_code');
 		await this.mailsService.sendVerifyEmail(user);
 	}
 
-	async generateValidationCode(user: User, codeType: string) {
+	async resetPassword(email: string, passwordCode: string, newPassword: string) {
+		const user = await this.findOne(email) as User;
+		
+		if (user.codes?.password_code !== passwordCode) {
+			throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+		}
+
+		wrap(user).assign({
+			codes: {
+				...user.codes,
+				password_code: null,
+			},
+			password: newPassword,
+		});
+		
+		await this.userRepository.persistAndFlush(user);
+	}
+
+	async resendResetMail(email: string) {
+		const user = await this.findOne(email) as User;
+
+		if (user === null) {
+			throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+		}
+
+		await this.generateCode(user, 'password_code');
+		await this.mailsService.sendResetEmail(user);
+	}
+
+	async generateCode(user: User, codeType: string) {
 		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 		const length = 20;
 		let code = '';
@@ -69,8 +98,8 @@ export class UsersService
    		}
 
 		wrap(user).assign({
-			verificationCodes: {
-				...user.verificationCodes,
+			codes: {
+				...user.codes,
 				[codeType]: code,
 			},
 		});

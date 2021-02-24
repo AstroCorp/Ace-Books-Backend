@@ -50,7 +50,16 @@ describe('Users', () => {
 		return request(app.getHttpServer())
 			.post('/users/verify')
 			.set('Authorization', 'Bearer ' + tokens.access_token)
-			.send('code=' + (user as User).verificationCodes?.email_code)
+			.send('code=' + (user as User).codes?.email_code)
+			.expect(200);
+	});
+
+	it('@POST /users/reset', () => {
+		return request(app.getHttpServer())
+			.post('/users/reset')
+			.send('email=' + (user as User).email)
+			.send('code=' + (user as User).codes?.password_code)
+			.send('newPassword=123456abc')
 			.expect(200);
 	});
 

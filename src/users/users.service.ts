@@ -22,11 +22,11 @@ export class UsersService
 		});
 	}
 
-	async create(user: User) {
+	async create(user: User): Promise<void> {
 		return await this.userRepository.persistAndFlush(user);
 	}
 
-	async verifyEmail(user: User, code: string) {
+	async verifyEmail(user: User, code: string): Promise<void> {
 		user = await this.findOne(user.email) as User;
 
 		if (user.codes?.email_code !== code) {
@@ -44,7 +44,7 @@ export class UsersService
 		await this.userRepository.persistAndFlush(user);
 	}
 
-	async resendVerificationMail(user: User) {
+	async resendVerificationMail(user: User): Promise<void> {
 		user = await this.findOne(user.email) as User;
 
 		if (user.isVerified) {
@@ -55,7 +55,7 @@ export class UsersService
 		await this.mailsService.sendVerifyEmail(user);
 	}
 
-	async resetPassword(email: string, passwordCode: string, newPassword: string) {
+	async resetPassword(email: string, passwordCode: string, newPassword: string): Promise<void> {
 		const user = await this.findOne(email) as User;
 		
 		if (user.codes?.password_code !== passwordCode) {
@@ -73,7 +73,7 @@ export class UsersService
 		await this.userRepository.persistAndFlush(user);
 	}
 
-	async resendResetMail(email: string) {
+	async resendResetMail(email: string): Promise<void> {
 		const user = await this.findOne(email) as User;
 
 		if (user === null) {
@@ -84,7 +84,7 @@ export class UsersService
 		await this.mailsService.sendResetEmail(user);
 	}
 
-	async generateCode(user: User, codeType: string) {
+	async generateCode(user: User, codeType: string): Promise<void> {
 		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 		const length = 20;
 		let code = '';

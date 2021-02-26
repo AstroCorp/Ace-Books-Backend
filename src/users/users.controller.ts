@@ -20,7 +20,7 @@ export class UsersController
 	@UseGuards(JwtAuthGuard)
 	@Post('verify')
 	@HttpCode(200)
-	verifyEmail(@Request() req, @Body() body: VerifyEmailDto) {
+	verifyEmail(@Request() req, @Body() body: VerifyEmailDto): Promise<void> {
 		return this.userService.verifyEmail(req.user, body.code);
 	}
 
@@ -28,28 +28,28 @@ export class UsersController
 	@UseGuards(JwtAuthGuard)
 	@Post('verify-resend')
 	@HttpCode(200)
-	resendVerificationMail(@Request() req) {
+	resendVerificationMail(@Request() req): Promise<void> {
 		return this.userService.resendVerificationMail(req.user);
 	}
 
 	@ApiBearerAuth()
 	@Post('reset')
 	@HttpCode(200)
-	resetPassword(@Body() body: ResetPasswordDto) {
+	resetPassword(@Body() body: ResetPasswordDto): Promise<void> {
 		return this.userService.resetPassword(body.email, body.code, body.newPassword);
 	}
 
 	@ApiBearerAuth()
 	@Post('reset-resend')
 	@HttpCode(200)
-	resendResetMail(@Body() body: ResendResetPasswordDto) {
+	resendResetMail(@Body() body: ResendResetPasswordDto): Promise<void> {
 		return this.userService.resendResetMail(body.email);
 	}
 
 	@ApiBearerAuth()
 	@UseGuards(JwtAuthGuard)
 	@Get('profile')
-	getProfile(@Request() req) {
+	getProfile(@Request() req): Promise<string> {
 		return req.user.email;
 	}
 }

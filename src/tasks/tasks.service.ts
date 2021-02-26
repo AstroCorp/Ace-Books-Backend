@@ -19,7 +19,7 @@ export class TasksService
 
 	@Cron('0 8 * * 1') // 8:00 de cada lunes
 	async handleCron() {
-		const oldRefreshTokens = await this.refreshTokenRepository.find({
+		await this.refreshTokenRepository.nativeDelete({
 			$and: [
 				{
 					expiresIn: {
@@ -29,16 +29,6 @@ export class TasksService
 			],
 		});
 
-		oldRefreshTokens.forEach(async (rf: RefreshToken) => {
-			this.logger.log('Borrando token ' + rf.token + ' de ' + rf.user.email 
-				+ ' expirado el ' + format(new Date(rf.expiresIn), 'dd-MM-yyyy') 
-				+ ' a las ' + format(new Date(rf.expiresIn), 'HH:mm:ss'));
-
-			await this.refreshTokenRepository.remove(rf);
-		});
-
-		this.refreshTokenRepository.flush();
-
-		this.logger.debug('Se han eliminado los refresh_tokens antiguos');
+		this.logger.log('Se han eliminado los refresh_tokens que han expirado');
 	}
 }

@@ -17,6 +17,7 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": { 
-        "no-console": 0 
+        "@typescript-eslint/no-unsafe-member-access": 0,
+        "no-console": 0
     }
 };

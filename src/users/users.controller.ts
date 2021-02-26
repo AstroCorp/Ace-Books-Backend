@@ -45,11 +45,4 @@ export class UsersController
 	resendResetMail(@Body() body: ResendResetPasswordDto): Promise<void> {
 		return this.userService.resendResetMail(body.email);
 	}
-
-	@ApiBearerAuth()
-	@UseGuards(JwtAuthGuard)
-	@Get('profile')
-	getProfile(@Request() req): Promise<string> {
-		return req.user.email;
-	}
 }

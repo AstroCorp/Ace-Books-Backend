@@ -53,7 +53,7 @@ export class User extends BaseEntity
 		this.tempPassword = newPassword;
 	}
 
-	get password() {
+	get password(): string {
 		return this._password;
 	}
 
@@ -61,17 +61,8 @@ export class User extends BaseEntity
 	@BeforeUpdate()
 	private async hashPassword() {
 		if (this.tempPassword) {
-			const hashedPassword: string = await new Promise((resolve, reject) => {
-				const saltRounds = 10;
-
-				bcrypt.hash(this.tempPassword, saltRounds, function (err, hash) {
-					if (err) {
-						reject(err);
-					}
-					
-					resolve(hash);
-				});
-			});
+			const saltRounds = 10;
+			const hashedPassword = await bcrypt.hash(this.tempPassword, saltRounds);
 
 			this._password = hashedPassword;
 		}

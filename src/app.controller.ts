@@ -13,7 +13,7 @@ export class AppController
 
 	@ApiExcludeEndpoint(true)
 	@Get()
-	root() {
+	root(): string {
 		return this.appService.root();
 	}
 }

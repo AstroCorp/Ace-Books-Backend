@@ -2,9 +2,9 @@ import { Controller, UseGuards, Post, Request, Body, HttpCode } from '@nestjs/co
 import { ApiTags, ApiBody } from '@nestjs/swagger';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from './validation/createUserDto';
-import { RefreshTokenDto } from './validation/refreshTokenDto';
-import { LoginDto } from './validation/loginDto';
+import { CreateUserDto } from './validation/dto/createUser.dto';
+import { RefreshTokenDto } from './validation/dto/refreshToken.dto';
+import { LoginDto } from './validation/dto/login.dto';
 import Tokens from './types/tokens';
 
 @ApiTags('auth')

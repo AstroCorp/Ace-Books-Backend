@@ -2,9 +2,9 @@ import { Controller, UseGuards, Request, Post, Body, HttpCode } from '@nestjs/co
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UsersService } from './users.service';
-import { VerifyEmailDto } from './validation/verifyEmailDto';
-import { ResetPasswordDto } from './validation/resetPasswordDto';
-import { ResendResetPasswordDto } from './validation/resendResetPasswordDto';
+import { VerifyEmailDto } from './validation/dto/verifyEmail.dto';
+import { ResetPasswordDto } from './validation/dto/resetPassword.dto';
+import { ResendResetPasswordDto } from './validation/dto/resendResetPassword.dto';
 
 @ApiTags('users')
 @Controller('users')

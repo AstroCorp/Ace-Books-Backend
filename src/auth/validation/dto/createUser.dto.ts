@@ -1,6 +1,6 @@
 import { IsEmail, MinLength, MaxLength } from 'class-validator';
-import { IsEmailAvailable } from './pipes/isEmailAvailable';
-import { IsLangAvailable } from './pipes/isLangAvailable';
+import { IsEmailAvailable } from '../pipes/isEmailAvailable';
+import { IsLangAvailable } from '../pipes/isLangAvailable';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto 

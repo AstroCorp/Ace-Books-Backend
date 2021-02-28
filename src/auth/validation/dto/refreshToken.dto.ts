@@ -1,6 +1,6 @@
 import { IsEmail } from 'class-validator';
-import { IsEmailAvailable } from './pipes/isEmailAvailable';
-import { IsValidRefreshToken } from './pipes/isValidRefreshToken';
+import { IsEmailAvailable } from '../pipes/isEmailAvailable';
+import { IsValidRefreshToken } from '../pipes/isValidRefreshToken';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RefreshTokenDto

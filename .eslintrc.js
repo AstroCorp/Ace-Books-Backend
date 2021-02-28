@@ -16,7 +16,8 @@ module.exports = {
     "plugins": [
         "@typescript-eslint"
     ],
-    "rules": { 
+    "rules": {
+        "@typescript-eslint/no-explicit-any": 0,
         "@typescript-eslint/no-unsafe-member-access": 0,
         "no-console": 0
     }

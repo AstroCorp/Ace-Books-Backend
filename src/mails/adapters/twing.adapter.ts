@@ -1,13 +1,14 @@
 import { MailerOptions, TemplateAdapter } from '@nestjs-modules/mailer';
+import { TwingEnvironment, TwingLoaderFilesystem, TwingTemplate } from 'twing';
 import * as inlineCSS from 'inline-css';
 import * as path from 'path';
-import { TwingEnvironment, TwingLoaderFilesystem, TwingTemplate } from 'twing';
+import Mail from '../types/mail';
 
 export class TwingAdapter implements TemplateAdapter
 {
-	private precompiledTemplates: Map<string, TwingTemplate> = new Map();
+	private precompiledTemplates: Map<string, TwingTemplate> = new Map<string, TwingTemplate>();
 
-	compile(mail: any, callback: (err?: any, body?: string) => any, options: MailerOptions): void
+	compile(mail: Mail, callback: (err?: string, body?: string) => void, options: MailerOptions): void
 	{
 		const templateExt = path.extname(mail.data.template) || '.twig';
 		const templateName = path.basename(mail.data.template, templateExt);
@@ -25,12 +26,11 @@ export class TwingAdapter implements TemplateAdapter
 
 	private async renderTemplate(twing: TwingEnvironment, template: string, context: Record<string, any>): Promise<string>
 	{
-		if (!this.precompiledTemplates.has(template))
-		{
+		if (!this.precompiledTemplates.has(template)) {
 			this.precompiledTemplates.set(template, await twing.load(template));
 		}
 
-		const rendered = await this.precompiledTemplates.get(template)?.render(context);
+		const rendered = await this.precompiledTemplates.get(template)?.render(context) as string;
 
 		return inlineCSS(rendered, {
 			url: ' ',

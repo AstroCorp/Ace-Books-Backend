@@ -14,7 +14,7 @@ export class LocalStrategy extends PassportStrategy(Strategy)
 		});
 	}
 
-	async validate(email: string, password: string): Promise<any> {
+	async validate(email: string, password: string): Promise<string> {
 		const user = await this.usersService.findOne(email);
 		const isValidUser = user && await bcrypt.compare(password, user.password);
 

@@ -14,8 +14,7 @@ export class MailsService
         //
     }
 
-    async sendVerifyEmail(user: User)
-	{
+    async sendVerifyEmail(user: User): Promise<void> {
 		await this.mailerService.sendMail({
 			to: user.email,
 			from: this.configService.get<string>('MAIL_USERNAME'),
@@ -28,7 +27,7 @@ export class MailsService
 		});
 	}
 
-	async sendResetEmail(user: User) {
+	async sendResetEmail(user: User): Promise<void> {
 		await this.mailerService.sendMail({
 			to: user.email,
 			from: this.configService.get<string>('MAIL_USERNAME'),

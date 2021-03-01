@@ -18,7 +18,7 @@ export class TasksService
 	}
 
 	@Cron('0 8 * * 1') // 8:00 de cada lunes
-	async handleCron() {
+	async handleCron(): Promise<void> {
 		await this.refreshTokenRepository.nativeDelete({
 			$and: [
 				{

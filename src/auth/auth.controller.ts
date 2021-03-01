@@ -6,6 +6,7 @@ import { CreateUserDto } from './validation/dto/createUser.dto';
 import { RefreshTokenDto } from './validation/dto/refreshToken.dto';
 import { LoginDto } from './validation/dto/login.dto';
 import Tokens from './types/tokens';
+import Session from './types/session';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -26,7 +27,7 @@ export class AuthController
 	@UseGuards(LocalAuthGuard)
 	@Post('login')
 	@HttpCode(200)
-	async login(@Request() req): Promise<Tokens> {
+	async login(@Request() req: Session): Promise<Tokens> {
 		return this.authService.login(req.user);
 	}
 

@@ -44,8 +44,8 @@ export class UsersService
 		await this.userRepository.persistAndFlush(user);
 	}
 
-	async resendVerificationMail(user: User): Promise<void> {
-		user = await this.findOne(user.email) as User;
+	async resendVerificationMail(email: string): Promise<void> {
+		const user = await this.findOne(email) as User;
 
 		if (user.isVerified) {
 			throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);

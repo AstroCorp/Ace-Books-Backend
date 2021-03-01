@@ -14,23 +14,23 @@ export class IsLangAvailableConstraint implements ValidatorConstraintInterface {
         //
     }
     
-    validate(initial: string) {
-		return this.langRepository.findOne({ initial }).then(lang => {
-            if (!lang) {
-                return false;
-            }
+    async validate(initial: string): Promise<boolean> {
+		const lang = await this.langRepository.findOne({ initial });
 
-            return true;
-        });
+        if (!lang) {
+            return false;
+        }
+
+        return true;
 	}
 
-	defaultMessage() {
+	defaultMessage(): string {
 		return 'the language is not valid';
 	}
 }
 
 export function IsLangAvailable(validationOptions?: ValidationOptions) {
-    return (object: Object, propertyName: string) => {
+    return (object: Record<string, any>, propertyName: string): void => {
         registerDecorator({
             target: object.constructor,
             propertyName: propertyName,

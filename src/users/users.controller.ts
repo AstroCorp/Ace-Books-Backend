@@ -5,6 +5,7 @@ import { UsersService } from './users.service';
 import { VerifyEmailDto } from './validation/dto/verifyEmail.dto';
 import { ResetPasswordDto } from './validation/dto/resetPassword.dto';
 import { ResendResetPasswordDto } from './validation/dto/resendResetPassword.dto';
+import Session from '../auth/types/session';
 
 @ApiTags('users')
 @Controller('users')
@@ -20,7 +21,7 @@ export class UsersController
 	@UseGuards(JwtAuthGuard)
 	@Post('verify')
 	@HttpCode(200)
-	verifyEmail(@Request() req, @Body() body: VerifyEmailDto): Promise<void> {
+	verifyEmail(@Request() req: Session, @Body() body: VerifyEmailDto): Promise<void> {
 		return this.userService.verifyEmail(req.user, body.code);
 	}
 
@@ -28,7 +29,7 @@ export class UsersController
 	@UseGuards(JwtAuthGuard)
 	@Post('verify-resend')
 	@HttpCode(200)
-	resendVerificationMail(@Request() req): Promise<void> {
+	resendVerificationMail(@Request() req: Session): Promise<void> {
 		return this.userService.resendVerificationMail(req.user);
 	}
 

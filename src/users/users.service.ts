@@ -16,7 +16,7 @@ export class UsersService
 		//
 	}
 
-	async findOne(email: string) {
+	async findOne(email: string): Promise<User | null> {
 		return await this.userRepository.findOne({
 			email,
 		});
@@ -74,7 +74,7 @@ export class UsersService
 	}
 
 	async resendResetMail(email: string): Promise<void> {
-		const user = await this.findOne(email) as User;
+		const user = await this.findOne(email);
 
 		if (user === null) {
 			throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);

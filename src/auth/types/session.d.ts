@@ -1,4 +1,4 @@
 export default interface Session
 {
-    user: string;
+	user: string;
 }

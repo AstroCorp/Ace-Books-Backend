@@ -4,6 +4,6 @@ import { Injectable } from '@nestjs/common';
 export class AppService
 {
 	root(): string {
-		return "Ace Books - API";
+		return 'Ace Books - API';
 	}
 }

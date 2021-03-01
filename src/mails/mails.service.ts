@@ -4,17 +4,17 @@ import { ConfigService } from '@nestjs/config';
 import { User } from '../orm/entities';
 
 @Injectable()
-export class MailsService 
+export class MailsService
 {
-    constructor(
-        private readonly mailerService: MailerService,
+	constructor(
+		private readonly mailerService: MailerService,
 
 		private readonly configService: ConfigService,
-    ) {
-        //
-    }
+	) {
+		//
+	}
 
-    async sendVerifyEmail(user: User): Promise<void> {
+	async sendVerifyEmail(user: User): Promise<void> {
 		await this.mailerService.sendMail({
 			to: user.email,
 			from: this.configService.get<string>('MAIL_USERNAME'),

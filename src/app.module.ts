@@ -13,7 +13,7 @@ import { MailsModule } from './mails/mails.module';
 		ConfigModule.forRoot({
 			isGlobal: true,
 		}),
-		OrmModule, 
+		OrmModule,
 		AuthModule,
 		ScheduleModule.forRoot(),
 		TasksModule,

@@ -16,21 +16,21 @@ describe('Auth', () => {
 	beforeAll(async () => {
 		const module = await Test.createTestingModule({
 			imports: [
-                AppModule,
+				AppModule,
 				AuthModule,
 				OrmModule,
 			],
 		})
-		.overrideProvider(MailsService)
-		.useValue(mailsService)
-		.compile();
-		
+			.overrideProvider(MailsService)
+			.useValue(mailsService)
+			.compile();
+
 		app = module.createNestApplication();
 
-		useContainer(app.select(AppModule), { 
-			fallbackOnErrors: true 
+		useContainer(app.select(AppModule), {
+			fallbackOnErrors: true,
 		});
-	
+
 		app.useGlobalPipes(new ValidationPipe());
 
 		await app.init();
@@ -51,7 +51,7 @@ describe('Auth', () => {
 			.send('email=test@test.es')
 			.send('password=123456')
 			.expect(200)
-			.then(response => {
+			.then((response) => {
 				tokens = response.body;
 			});
 	});
@@ -63,7 +63,7 @@ describe('Auth', () => {
 			.send('email=test@test.es')
 			.send('refreshToken=' + tokens.refresh_token)
 			.expect(201)
-			.then(response => {
+			.then((response) => {
 				tokens = response.body;
 			});
 	});

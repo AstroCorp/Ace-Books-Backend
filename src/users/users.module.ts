@@ -5,9 +5,7 @@ import { UsersController } from './users.controller';
 import { MailsService } from '../mails/mails.service';
 
 @Module({
-	imports: [
-		OrmModule,
-	],
+	imports: [OrmModule],
 	controllers: [UsersController],
 	providers: [
 		UsersService,

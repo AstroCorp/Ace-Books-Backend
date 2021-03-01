@@ -27,7 +27,7 @@ export class UsersService
 	}
 
 	async verifyEmail(email: string, code: string): Promise<void> {
-		const user = await this.findOne(email) as User;
+		const user = (await this.findOne(email)) as User;
 
 		if (user.codes?.email_code !== code) {
 			throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
@@ -40,24 +40,24 @@ export class UsersService
 			},
 			isVerified: true,
 		});
-		
+
 		await this.userRepository.persistAndFlush(user);
 	}
 
 	async resendVerificationMail(email: string): Promise<void> {
-		const user = await this.findOne(email) as User;
+		const user = (await this.findOne(email)) as User;
 
 		if (user.isVerified) {
 			throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
 		}
-		
+
 		await this.generateCode(user, 'email_code');
 		await this.mailsService.sendVerifyEmail(user);
 	}
 
 	async resetPassword(email: string, passwordCode: string, newPassword: string): Promise<void> {
-		const user = await this.findOne(email) as User;
-		
+		const user = (await this.findOne(email)) as User;
+
 		if (user.codes?.password_code !== passwordCode) {
 			throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
 		}
@@ -69,7 +69,7 @@ export class UsersService
 			},
 			password: newPassword,
 		});
-		
+
 		await this.userRepository.persistAndFlush(user);
 	}
 
@@ -89,13 +89,13 @@ export class UsersService
 		const length = 20;
 		let code = '';
 
-   		for (let i = 1; i <= length; i++) {
+		for (let i = 1; i <= length; i++) {
 			code += characters.charAt(Math.floor(Math.random() * characters.length));
 
 			if (i < length && i % 5 === 0) {
 				code += '-';
 			}
-   		}
+		}
 
 		wrap(user).assign({
 			codes: {
@@ -103,7 +103,7 @@ export class UsersService
 				[codeType]: code,
 			},
 		});
-		
+
 		await this.userRepository.persistAndFlush(user);
 	}
 }

@@ -8,8 +8,7 @@ export class TwingAdapter implements TemplateAdapter
 {
 	private precompiledTemplates: Map<string, TwingTemplate> = new Map<string, TwingTemplate>();
 
-	compile(mail: Mail, callback: (err?: string, body?: string) => void, options: MailerOptions): void
-	{
+	compile(mail: Mail, callback: (err?: string, body?: string) => void, options: MailerOptions): void {
 		const templateExt = path.extname(mail.data.template) || '.twig';
 		const templateName = path.basename(mail.data.template, templateExt);
 		const templateDir = options.template?.dir ?? path.dirname(mail.data.template);
@@ -21,16 +20,16 @@ export class TwingAdapter implements TemplateAdapter
 				mail.data.html = html;
 
 				return callback();
-			}).catch(callback);
+			})
+			.catch(callback);
 	}
 
-	private async renderTemplate(twing: TwingEnvironment, template: string, context: Record<string, any>): Promise<string>
-	{
+	private async renderTemplate(twing: TwingEnvironment, template: string, context: Record<string, any>): Promise<string> {
 		if (!this.precompiledTemplates.has(template)) {
 			this.precompiledTemplates.set(template, await twing.load(template));
 		}
 
-		const rendered = await this.precompiledTemplates.get(template)?.render(context) as string;
+		const rendered = (await this.precompiledTemplates.get(template)?.render(context)) as string;
 
 		return inlineCSS(rendered, {
 			url: ' ',

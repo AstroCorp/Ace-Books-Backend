@@ -6,9 +6,9 @@ import { MailsService } from './mails.service';
 import { OrmModule } from '../orm/orm.module';
 
 @Module({
-    imports: [
+	imports: [
 		OrmModule,
-        MailerModule.forRootAsync({
+		MailerModule.forRootAsync({
 			imports: [ConfigModule],
 			useFactory: (configService: ConfigService) => ({
 				transport: {
@@ -17,18 +17,18 @@ import { OrmModule } from '../orm/orm.module';
 					secure: false,
 					ignoreTLS: false,
 					auth: {
-					  user: configService.get<string>('MAIL_USERNAME'),
-					  pass: configService.get<string>('MAIL_PASSWORD'),
+						user: configService.get<string>('MAIL_USERNAME'),
+						pass: configService.get<string>('MAIL_PASSWORD'),
 					},
-			  	},
-			  	template: {
+				},
+				template: {
 					dir: './src/mails/templates/',
 					adapter: new TwingAdapter(),
-			  	},
+				},
 			}),
 			inject: [ConfigService],
 		}),
-    ],
-    providers: [MailsService],
+	],
+	providers: [MailsService],
 })
 export class MailsModule {}

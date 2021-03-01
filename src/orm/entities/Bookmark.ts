@@ -3,7 +3,7 @@ import { BaseEntity } from './BaseEntity';
 import { Book } from './Book';
 
 @Entity()
-export class Bookmark extends BaseEntity 
+export class Bookmark extends BaseEntity
 {
 	@ManyToOne(() => Book)
 	book: Book;

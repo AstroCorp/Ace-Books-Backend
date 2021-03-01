@@ -20,21 +20,21 @@ describe('Users', () => {
 		const mailsService = { sendVerifyEmail: () => {} };
 		const module = await Test.createTestingModule({
 			imports: [
-                AppModule,
+				AppModule,
 				UsersModule,
 				OrmModule,
 			],
 		})
-		.overrideProvider(MailsService)
-		.useValue(mailsService)
-		.compile();
-		
+			.overrideProvider(MailsService)
+			.useValue(mailsService)
+			.compile();
+
 		app = module.createNestApplication();
 
-		useContainer(app.select(AppModule), { 
+		useContainer(app.select(AppModule), {
 			fallbackOnErrors: true,
 		});
-	
+
 		app.useGlobalPipes(new ValidationPipe());
 
 		const authService: AuthService = module.get<AuthService>(AuthService);

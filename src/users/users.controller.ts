@@ -9,7 +9,7 @@ import Session from '../auth/types/session';
 
 @ApiTags('users')
 @Controller('users')
-export class UsersController 
+export class UsersController
 {
 	constructor(
 		private userService: UsersService,

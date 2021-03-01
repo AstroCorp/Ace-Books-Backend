@@ -6,22 +6,23 @@ import { Lang } from '../../../orm/entities';
 
 @ValidatorConstraint({ async: true })
 @Injectable()
-export class IsLangAvailableConstraint implements ValidatorConstraintInterface {
-    constructor(
-        @InjectRepository(Lang)
-        private readonly langRepository: EntityRepository<Lang>
-    ) {
-        //
-    }
-    
-    async validate(initial: string): Promise<boolean> {
+export class IsLangAvailableConstraint implements ValidatorConstraintInterface
+{
+	constructor(
+		@InjectRepository(Lang)
+		private readonly langRepository: EntityRepository<Lang>,
+	) {
+		//
+	}
+
+	async validate(initial: string): Promise<boolean> {
 		const lang = await this.langRepository.findOne({ initial });
 
-        if (!lang) {
-            return false;
-        }
+		if (!lang) {
+			return false;
+		}
 
-        return true;
+		return true;
 	}
 
 	defaultMessage(): string {
@@ -30,13 +31,13 @@ export class IsLangAvailableConstraint implements ValidatorConstraintInterface {
 }
 
 export function IsLangAvailable(validationOptions?: ValidationOptions) {
-    return (object: Record<string, any>, propertyName: string): void => {
-        registerDecorator({
-            target: object.constructor,
-            propertyName: propertyName,
-            options: validationOptions,
-            constraints: [],
-            validator: IsLangAvailableConstraint,
-        });
-    };
+	return (object: Record<string, any>, propertyName: string): void => {
+		registerDecorator({
+			target: object.constructor,
+			propertyName: propertyName,
+			options: validationOptions,
+			constraints: [],
+			validator: IsLangAvailableConstraint,
+		});
+	};
 }

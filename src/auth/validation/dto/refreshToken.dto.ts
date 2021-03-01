@@ -5,14 +5,14 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class RefreshTokenDto
 {
-    @IsEmail({}, {
-        message: 'the email is not valid'
-    })
-    @IsEmailAvailable(false)
-    @ApiProperty()
-    email: string;
+	@IsEmail({}, {
+		message: 'the email is not valid',
+	})
+	@IsEmailAvailable(false)
+	@ApiProperty()
+	email: string;
 
-    @IsValidRefreshToken()
-    @ApiProperty()
-    refreshToken: string;
+	@IsValidRefreshToken()
+	@ApiProperty()
+	refreshToken: string;
 }

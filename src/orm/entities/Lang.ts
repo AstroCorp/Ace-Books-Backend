@@ -2,7 +2,7 @@ import { Entity, Property, PrimaryKey, Collection, OneToMany } from '@mikro-orm/
 import { User } from './User';
 
 @Entity()
-export class Lang 
+export class Lang
 {
 	@PrimaryKey()
 	id!: number;

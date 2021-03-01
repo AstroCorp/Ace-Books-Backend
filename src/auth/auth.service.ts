@@ -8,7 +8,7 @@ import { MailsService } from '../mails/mails.service';
 import Tokens from './types/tokens';
 
 @Injectable()
-export class AuthService 
+export class AuthService
 {
 	constructor(
 		@InjectRepository(Lang)
@@ -40,11 +40,11 @@ export class AuthService
 	}
 
 	async refreshToken(email: string, refreshToken: string): Promise<Tokens> {
-		const dbRefreshToken = await this.refreshTokenRepository.findOne({
+		const dbRefreshToken = (await this.refreshTokenRepository.findOne({
 			token: refreshToken,
-		}) as RefreshToken;
+		})) as RefreshToken;
 
-		const user = await this.usersService.findOne(email) as User;
+		const user = (await this.usersService.findOne(email)) as User;
 
 		// Eliminamos el refresh token de la base de datos
 		await this.refreshTokenRepository.removeAndFlush(dbRefreshToken);
@@ -54,8 +54,8 @@ export class AuthService
 	}
 
 	async login(email: string): Promise<Tokens> {
-		const user = await this.usersService.findOne(email) as User;
-		
+		const user = (await this.usersService.findOne(email)) as User;
+
 		return {
 			...(await this.createToken(user)),
 		};
@@ -65,7 +65,7 @@ export class AuthService
 		// Si todo va bien se crea el usuario
 		const dbLang = await this.langRepository.findOne({ initial: lang });
 		const newUser = new User(email, password, dbLang as Lang);
-		
+
 		await this.usersService.create(newUser);
 
 		await this.usersService.generateCode(newUser, 'email_code');

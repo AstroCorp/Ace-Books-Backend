@@ -7,7 +7,7 @@ import { BooksCollection } from './BooksCollection';
 import { RefreshToken } from './RefreshToken';
 
 @Entity()
-export class User extends BaseEntity 
+export class User extends BaseEntity
 {
 	@ManyToOne(() => Lang, { default: 1 })
 	lang: Lang;

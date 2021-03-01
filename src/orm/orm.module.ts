@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-
 import { User, Book, BooksCollection, Bookmark, Lang, RefreshToken } from './entities';
 import config from './mikro-orm.config';
 

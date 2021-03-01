@@ -26,8 +26,8 @@ export class UsersService
 		return await this.userRepository.persistAndFlush(user);
 	}
 
-	async verifyEmail(user: User, code: string): Promise<void> {
-		user = await this.findOne(user.email) as User;
+	async verifyEmail(email: string, code: string): Promise<void> {
+		const user = await this.findOne(email) as User;
 
 		if (user.codes?.email_code !== code) {
 			throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);

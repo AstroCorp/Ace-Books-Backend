@@ -53,7 +53,9 @@ export class AuthService
 		return await this.createToken(user);
 	}
 
-	async login(user: User): Promise<Tokens> {
+	async login(email: string): Promise<Tokens> {
+		const user = await this.usersService.findOne(email) as User;
+		
 		return {
 			...(await this.createToken(user)),
 		};

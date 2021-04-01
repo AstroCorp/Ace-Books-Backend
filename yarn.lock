@@ -577,13 +577,13 @@
     "@mikro-orm/knex" "^4.4.4"
     fs-extra "9.1.0"
 
-"@mikro-orm/knex@^4.4.4":
-  version "4.4.4"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-4.4.4.tgz#942f538965104784f12c39bbec9170c6e07021fa"
-  integrity sha512-dJVL1aURd17qmWsodJgyf9EQ2dyNwV4feAQzAgtwDD+OYapGaMfzKFMn5fomcQpE/IclMPwBxx07l43L275jtg==
+"@mikro-orm/knex@^4.4.4", "@mikro-orm/knex@^4.5.1":
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-4.5.1.tgz#8dc35c3d2a4b6f95f8ddc11e4684ed262c0730f6"
+  integrity sha512-/jVIMmVSkRy9C+8GKd5VZc4pKCJPeG4QceWcvneMejbd0ihOf5HPwrzI+H4db/I030db279/1rtiLdtet8kE2w==
   dependencies:
     fs-extra "9.1.0"
-    knex "0.21.17"
+    knex "0.21.19"
     sqlstring "2.3.2"
 
 "@mikro-orm/migrations@^4.4.4":
@@ -609,12 +609,12 @@
   dependencies:
     ansi-colors "^4.1.1"
 
-"@mikro-orm/sqlite@^4.4.4":
-  version "4.4.4"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/sqlite/-/sqlite-4.4.4.tgz#7a6c8bfb59e666efb832fe6a3b57a4c59090a844"
-  integrity sha512-cGvsdDsegGp95y3MzRcOyWhOW9w8Rcm3Xzj58M6jXdIFnDRVmrtvlplU90s6nqp0Ct2EspMiC/YOmP3bmygbUg==
+"@mikro-orm/sqlite@^4.5.1":
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/sqlite/-/sqlite-4.5.1.tgz#8b415b4733b5ad88f87b09ca5cf17ce423416633"
+  integrity sha512-tWrB99Bi+OU2a6uEV4NPmp6nAoY8hNeeFNTcwz3fdwGmbvTaNbs5ffbfbQpWOBJFT0+ytob14sz6JZ/67wb+Fw==
   dependencies:
-    "@mikro-orm/knex" "^4.4.4"
+    "@mikro-orm/knex" "^4.5.1"
     fs-extra "9.1.0"
     sqlite3 "5.0.2"
     sqlstring-sqlite "0.1.1"
@@ -5252,6 +5252,24 @@ knex@0.21.17:
   version "0.21.17"
   resolved "https://registry.yarnpkg.com/knex/-/knex-0.21.17.tgz#f99f5b90132b9bb9c6eb5c81f0a035e0232c870f"
   integrity sha512-kAt58lRwjzqwedApKF7luYPa7HsLb0oDiczwKrkZcekIzTmSow5YGK149S2C8HjH63R3NcOBo9+1rjvWnC1Paw==
+  dependencies:
+    colorette "1.2.1"
+    commander "^6.2.0"
+    debug "4.3.1"
+    esm "^3.2.25"
+    getopts "2.2.5"
+    interpret "^2.2.0"
+    liftoff "3.1.0"
+    lodash "^4.17.20"
+    pg-connection-string "2.4.0"
+    tarn "^3.0.1"
+    tildify "2.0.0"
+    v8flags "^3.2.0"
+
+knex@0.21.19:
+  version "0.21.19"
+  resolved "https://registry.yarnpkg.com/knex/-/knex-0.21.19.tgz#df504a184eb29e286245839db0867e3ca161af00"
+  integrity sha512-6etvrq9XI1Ck6mEc/XiXFGVpD1Lmj6v9XWojqZgEbOvyMbW7XRvgZ99yIhN/kaBH+43FEy3xv/AcbRaH+1pJtw==
   dependencies:
     colorette "1.2.1"
     commander "^6.2.0"

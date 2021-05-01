@@ -40,7 +40,7 @@
 		"class-transformer": "^0.4.0",
 		"class-validator": "^0.13.1",
 		"compression": "^1.7.4",
-		"date-fns": "^2.20.1",
+		"date-fns": "^2.21.1",
 		"express-rate-limit": "^5.2.6",
 		"helmet": "^4.4.1",
 		"nodemailer": "^6.5.0",

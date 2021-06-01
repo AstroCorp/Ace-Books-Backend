@@ -575,10 +575,10 @@
     "@mikro-orm/knex" "^4.5.3"
     fs-extra "9.1.0"
 
-"@mikro-orm/knex@^4.5.3":
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-4.5.3.tgz#3a2b36541c671974e00a8c16fff64f1988773423"
-  integrity sha512-q6tPFMUZIHuRSpOSvOIeffEkRiYX8zY3of4Ptl/SzdNd8D6KBoPtd5fvLn5zFbqtEzIIOkEPIP+ZMTReHtSmWQ==
+"@mikro-orm/knex@^4.5.3", "@mikro-orm/knex@^4.5.5":
+  version "4.5.5"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-4.5.5.tgz#67023fe428aa96af6d3ca75c26bf346c03a836fd"
+  integrity sha512-Su+yWrBhYoiDhbrqsTckNFTxvgukzO7EoJTRCcmAO1fWqIGCtHB+NS7Be83kTPmOwq20Re9qXpgXC7adhsllSQ==
   dependencies:
     fs-extra "9.1.0"
     knex "0.21.19"
@@ -607,12 +607,12 @@
   dependencies:
     ansi-colors "^4.1.1"
 
-"@mikro-orm/sqlite@^4.5.3":
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/sqlite/-/sqlite-4.5.3.tgz#ce3a6d1d6b3309c347a8238cc3d6cb46444ce0bd"
-  integrity sha512-QBqGRJmq1cKdAxGX53wK3oX4n6NLKcirPC40AH8SKDIHHl7nEjN04ADOfjk4amHrOB1Q0VwZtz2wdyiJnqONxQ==
+"@mikro-orm/sqlite@^4.5.5":
+  version "4.5.5"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/sqlite/-/sqlite-4.5.5.tgz#a3ba949c67efcc212624d566acbc9cf6c7a63262"
+  integrity sha512-w1yHxp9TEMJo6kQljX0Clt28UqENKrHkJLWBbZVjX5jytJYQNDtm0yHJNrod1n9TNXEf+RViX5oR55pNjqXb5A==
   dependencies:
-    "@mikro-orm/knex" "^4.5.3"
+    "@mikro-orm/knex" "^4.5.5"
     fs-extra "9.1.0"
     sqlite3 "5.0.2"
     sqlstring-sqlite "0.1.1"

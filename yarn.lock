@@ -553,10 +553,10 @@
     yargonaut "1.1.4"
     yargs "15.4.1"
 
-"@mikro-orm/core@^4.5.3":
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/core/-/core-4.5.3.tgz#3cf28497247bce785af80280d710db8d2feb2487"
-  integrity sha512-R95d/lxd9deHvFd+va8aF5E30Lj4n2aBLqIGTfsz7zVpw2kCErCbL0JU1e3c6yFYuuVj4NN/RT+cKwnEHPdHxQ==
+"@mikro-orm/core@^4.5.3", "@mikro-orm/core@^4.5.5":
+  version "4.5.5"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/core/-/core-4.5.5.tgz#84c4258465079213d256f76fb577715ce6741d2a"
+  integrity sha512-mGg/P7HQXU20zYljSy4JKLQ+TMcuAAXLnG0792TKdHnF/SWe4lwrqLCkx/LpZ10fryLTWMkSXtBryTOOheNz1A==
   dependencies:
     ansi-colors "4.1.1"
     clone "2.1.2"

@@ -537,15 +537,15 @@
     semver "^7.3.4"
     tar "^6.1.0"
 
-"@mikro-orm/cli@^4.5.3":
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/cli/-/cli-4.5.3.tgz#6bf56ce5f90cadfe2ab70d6ff50feb83c5024fe8"
-  integrity sha512-I3qSy/VmWj9upAmlUs/CLKwh28lIIUVwPWLNsBk64bnZ3sbG3d5gzIMDdejXVtr+98qypxXJXgDEtNKAzR6OZw==
+"@mikro-orm/cli@^4.5.5":
+  version "4.5.5"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/cli/-/cli-4.5.5.tgz#3b41c0c47b3d27ca798107ffb10b727cc934ad44"
+  integrity sha512-tnufpVhGae5ZN1EWTTkEUD9K3CAAyFPPKFi3n0FY0jfWsGeY+sMvRqnRHrpEGPi3ZAA6u+D18kxagtGGB5FpLw==
   dependencies:
-    "@mikro-orm/core" "^4.5.3"
-    "@mikro-orm/entity-generator" "^4.5.3"
-    "@mikro-orm/knex" "^4.5.3"
-    "@mikro-orm/migrations" "^4.5.3"
+    "@mikro-orm/core" "^4.5.5"
+    "@mikro-orm/entity-generator" "^4.5.5"
+    "@mikro-orm/knex" "^4.5.5"
+    "@mikro-orm/migrations" "^4.5.5"
     ansi-colors "4.1.1"
     cli-table3 "0.6.0"
     fs-extra "9.1.0"
@@ -553,10 +553,10 @@
     yargonaut "1.1.4"
     yargs "15.4.1"
 
-"@mikro-orm/core@^4.5.3":
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/core/-/core-4.5.3.tgz#3cf28497247bce785af80280d710db8d2feb2487"
-  integrity sha512-R95d/lxd9deHvFd+va8aF5E30Lj4n2aBLqIGTfsz7zVpw2kCErCbL0JU1e3c6yFYuuVj4NN/RT+cKwnEHPdHxQ==
+"@mikro-orm/core@^4.5.3", "@mikro-orm/core@^4.5.5":
+  version "4.5.5"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/core/-/core-4.5.5.tgz#84c4258465079213d256f76fb577715ce6741d2a"
+  integrity sha512-mGg/P7HQXU20zYljSy4JKLQ+TMcuAAXLnG0792TKdHnF/SWe4lwrqLCkx/LpZ10fryLTWMkSXtBryTOOheNz1A==
   dependencies:
     ansi-colors "4.1.1"
     clone "2.1.2"
@@ -567,29 +567,29 @@
     reflect-metadata "0.1.13"
     strip-json-comments "3.1.1"
 
-"@mikro-orm/entity-generator@^4.5.3":
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/entity-generator/-/entity-generator-4.5.3.tgz#0054476ac92c3e32d224b756155c6f14bef9d38c"
-  integrity sha512-bRqXMS3U3z8C26POuWZzAZApSE3LY1FTuHiENMN2ZYYrKNBzZgYntV7CumDVYCdJKaBvLb6G27Cb06JQxLdw2g==
+"@mikro-orm/entity-generator@^4.5.5":
+  version "4.5.5"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/entity-generator/-/entity-generator-4.5.5.tgz#757508b6fa9084b8aea1f1a05c39c011f7713c68"
+  integrity sha512-EUgj6E3vvonXq+WHZlBMyJ8O7EXquXaddVcOT2d8zjluPCu5V5OrwPjrqcky0uftSSi9xBxrkw7DYtgQqpbtYw==
   dependencies:
-    "@mikro-orm/knex" "^4.5.3"
+    "@mikro-orm/knex" "^4.5.5"
     fs-extra "9.1.0"
 
-"@mikro-orm/knex@^4.5.3":
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-4.5.3.tgz#3a2b36541c671974e00a8c16fff64f1988773423"
-  integrity sha512-q6tPFMUZIHuRSpOSvOIeffEkRiYX8zY3of4Ptl/SzdNd8D6KBoPtd5fvLn5zFbqtEzIIOkEPIP+ZMTReHtSmWQ==
+"@mikro-orm/knex@^4.5.3", "@mikro-orm/knex@^4.5.5":
+  version "4.5.5"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-4.5.5.tgz#67023fe428aa96af6d3ca75c26bf346c03a836fd"
+  integrity sha512-Su+yWrBhYoiDhbrqsTckNFTxvgukzO7EoJTRCcmAO1fWqIGCtHB+NS7Be83kTPmOwq20Re9qXpgXC7adhsllSQ==
   dependencies:
     fs-extra "9.1.0"
     knex "0.21.19"
     sqlstring "2.3.2"
 
-"@mikro-orm/migrations@^4.5.3":
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/migrations/-/migrations-4.5.3.tgz#d68dc399368129c674cee5b6f5897ad150206447"
-  integrity sha512-ydF5z9wiJGJR+j0+3t54VflYC50ZCgCBJgDGbg/XTJJKunVcxTDH8Akd29922L6mF4bXLlAuGh+CFESqbrSqqg==
+"@mikro-orm/migrations@^4.5.5":
+  version "4.5.5"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/migrations/-/migrations-4.5.5.tgz#9827baf3fed7daf9ae45757f9deb0e0530057a2a"
+  integrity sha512-AGswURB3sroqiHn2rT5Li7cIOJkab1vMmMnOvdJuFakT0YDVSUhT07apFlMWForsYPHb/5ilvzC3Oloejgjgkw==
   dependencies:
-    "@mikro-orm/knex" "^4.5.3"
+    "@mikro-orm/knex" "^4.5.5"
     "@types/umzug" "2.3.0"
     fs-extra "9.1.0"
     knex "0.21.19"

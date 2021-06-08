@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Request, Post, Body, HttpCode } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request, Post, Body, HttpCode } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UsersService } from './users.service';
@@ -45,5 +45,11 @@ export class UsersController
 	@HttpCode(200)
 	resendResetMail(@Body() body: ResendResetPasswordDto): Promise<void> {
 		return this.userService.resendResetMail(body.email);
+	}
+
+	@UseGuards(JwtAuthGuard)
+  	@Get('profile')
+  	getProfile(@Request() req) {
+    	return req.user;
 	}
 }

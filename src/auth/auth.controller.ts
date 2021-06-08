@@ -1,11 +1,10 @@
-import { Controller, UseGuards, Post, Request, Body, HttpCode } from '@nestjs/common';
-import { ApiTags, ApiBody } from '@nestjs/swagger';
+import { Controller, UseGuards, Post, Body, HttpCode, Res, Req, UnauthorizedException } from '@nestjs/common';
+import { ApiTags, ApiBody, ApiResponse } from '@nestjs/swagger';
+import { Request, Response } from 'express';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './validation/dto/createUser.dto';
-import { RefreshTokenDto } from './validation/dto/refreshToken.dto';
 import { LoginDto } from './validation/dto/login.dto';
-import Tokens from './types/tokens';
 import Session from './types/session';
 
 @ApiTags('auth')
@@ -19,20 +18,72 @@ export class AuthController
 	}
 
 	@Post('register')
-	async register(@Body() body: CreateUserDto): Promise<Tokens> {
-		return await this.authService.register(body.email, body.password, body.lang);
+	async register(@Body() body: CreateUserDto, @Res() response: Response) {
+		const { refresh_token, access_token } = await this.authService.register(body.email, body.password, body.lang);
+
+		response.cookie('refresh_token', refresh_token.token, { 
+			httpOnly: true, 
+			expires: new Date(refresh_token.expiresIn),
+		});
+
+		return response.send({
+			access_token,
+		});
 	}
 
 	@ApiBody({ type: LoginDto })
 	@UseGuards(LocalAuthGuard)
 	@Post('login')
 	@HttpCode(200)
-	async login(@Request() req: Session): Promise<Tokens> {
-		return this.authService.login(req.user);
+	async login(@Req() req: Session, @Res() response: Response) {
+		const { refresh_token, access_token } = await this.authService.login(req.user);
+
+		response.cookie('refresh_token', refresh_token.token, { 
+			httpOnly: true, 
+			expires: new Date(refresh_token.expiresIn),
+		});
+
+		return response.send({
+			access_token,
+		});
 	}
 
 	@Post('refresh')
-	refreshToken(@Body() body: RefreshTokenDto): Promise<Tokens> {
-		return this.authService.refreshToken(body.email, body.refreshToken);
+	async refreshToken(@Req() request: Request, @Res() response: Response) {
+		const refreshToken = request.cookies ? request.cookies.refresh_token : null;
+
+		if (!refreshToken) {
+			throw new UnauthorizedException();
+		}
+
+		const { refresh_token, access_token } = await this.authService.refreshToken(refreshToken);
+
+		response.cookie('refresh_token', refresh_token.token, { 
+			httpOnly: true, 
+			expires: new Date(refresh_token.expiresIn),
+		});
+
+		return response.send({
+			access_token,
+		});
+	}
+
+	@Post('logout')
+	@HttpCode(200)
+	async logout(@Req() request: Request, @Res() response: Response) {
+		const { refresh_token: refreshToken } = request.cookies;
+
+		if (!refreshToken) {
+			throw new UnauthorizedException();
+		}
+
+		await this.authService.logout(refreshToken);
+
+		response.cookie('refresh_token', refreshToken, { 
+			httpOnly: true, 
+			expires: new Date(0),
+		});
+
+		return response.send();
 	}
 }

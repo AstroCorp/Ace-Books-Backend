@@ -1,4 +1,4 @@
-export default interface Payload
-{
+export default interface Payload {
 	sub: string;
+	type: string;
 }

@@ -5,6 +5,7 @@ import { useContainer } from 'class-validator';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
+import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
@@ -34,11 +35,14 @@ async function bootstrap() {
 	// Middlewares de seguridad
 	app.use(helmet());
 
+	// Middleware para trabajar con cookies
+	app.use(cookieParser());
+
 	// Para evitar ataques de fuerza bruta
 	app.use(
 		rateLimit({
 			windowMs: 15 * 60 * 1000, // 15 minutos
-			max: 100, // limitar peticiones por IP a 100 según el tiempo en windowMs
+			max: 100, // Limitar peticiones por IP a 100 según el tiempo en windowMs
 		}),
 	);
 

@@ -13,11 +13,15 @@ export class RefreshToken
 	@Property()
 	token: string;
 
-	@Property({ defaultRaw: "(DATETIME('NOW', '+7 DAYS'))" })
-	expiresIn!: Date | string;
+	@Property()
+	expiresIn!: Date;
 
 	constructor(user: User, token: string) {
+		const expiresIn = new Date();
+		expiresIn.setDate(expiresIn.getDate() + 7);
+
 		this.user = user;
 		this.token = token;
+		this.expiresIn = expiresIn;
 	}
 }

@@ -1,4 +1,5 @@
 import * as request from 'supertest';
+import * as cookieParser from 'cookie-parser';
 import { Test } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { useContainer } from 'class-validator';
@@ -6,12 +7,12 @@ import { AuthModule } from './auth.module';
 import { OrmModule } from '../orm/orm.module';
 import { AppModule } from '../app.module';
 import { MailsService } from '../mails/mails.service';
-import Tokens from './types/tokens';
 
 describe('Auth', () => {
 	let app: INestApplication;
 	const mailsService = { sendVerifyEmail: () => {} };
-	let tokens: Tokens;
+	let token: string;
+	let cookies: string[];
 
 	beforeAll(async () => {
 		const module = await Test.createTestingModule({
@@ -30,6 +31,8 @@ describe('Auth', () => {
 		useContainer(app.select(AppModule), {
 			fallbackOnErrors: true,
 		});
+
+		app.use(cookieParser());
 
 		app.useGlobalPipes(new ValidationPipe());
 
@@ -51,20 +54,19 @@ describe('Auth', () => {
 			.send('email=test@test.es')
 			.send('password=123456')
 			.expect(200)
-			.then((response) => {
-				tokens = response.body;
+			.then((response: request.Response) => {
+				token = response.body.access_token;
+				cookies = response.header['set-cookie'];
 			});
 	});
 
 	it('@POST /auth/refresh', () => {
 		return request(app.getHttpServer())
 			.post('/auth/refresh')
-			.set('Authorization', 'Bearer ' + tokens.access_token)
-			.send('email=test@test.es')
-			.send('refreshToken=' + tokens.refresh_token)
-			.expect(201)
+			.set('Authorization', 'Bearer ' + token)
+			.set('Cookie', cookies)
 			.then((response) => {
-				tokens = response.body;
+				token = response.body.access_token;
 			});
 	});
 

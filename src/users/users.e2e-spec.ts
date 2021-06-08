@@ -9,11 +9,10 @@ import { MailsService } from '../mails/mails.service';
 import { AuthService } from '../auth/auth.service';
 import { UsersService } from './users.service';
 import { User } from '../orm/entities';
-import Tokens from '../auth/types/tokens';
 
 describe('Users', () => {
 	let app: INestApplication;
-	let tokens: Tokens;
+	let token: string;
 	let user: User | null;
 
 	beforeAll(async () => {
@@ -43,13 +42,13 @@ describe('Users', () => {
 		await app.init();
 
 		user = await usersService.findOne('test@test.test');
-		tokens = await authService.createToken(user as User);
+		token = (await authService.createToken(user as User)).access_token;
 	});
 
 	it('@POST /users/verify', () => {
 		return request(app.getHttpServer())
 			.post('/users/verify')
-			.set('Authorization', 'Bearer ' + tokens.access_token)
+			.set('Authorization', 'Bearer ' + token)
 			.send('code=' + (user as User).codes?.email_code)
 			.expect(200);
 	});

@@ -81,7 +81,7 @@
 		"ts-loader": "^8.3.0",
 		"ts-node": "^9.1.1",
 		"tsconfig-paths": "^3.9.0",
-		"webpack": "^5.38.1",
+		"webpack": "^5.41.1",
 		"webpack-cli": "^4.7.2",
 		"webpack-node-externals": "^2.5.2"
 	},

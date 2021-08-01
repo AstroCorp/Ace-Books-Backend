@@ -41,7 +41,7 @@
 		"class-validator": "^0.13.1",
 		"compression": "^1.7.4",
 		"cookie-parser": "^1.4.5",
-		"date-fns": "^2.22.1",
+		"date-fns": "^2.23.0",
 		"express-rate-limit": "^5.2.6",
 		"helmet": "^4.6.0",
 		"nodemailer": "^6.6.1",

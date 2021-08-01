@@ -832,6 +832,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/cheerio@*":
+  version "0.22.30"
+  resolved "https://registry.yarnpkg.com/@types/cheerio/-/cheerio-0.22.30.tgz#6c1ded70d20d890337f0f5144be2c5e9ce0936e6"
+  integrity sha512-t7ZVArWZlq3dFa9Yt33qFBQIK4CQd1Q3UJp0V+UhP6vgLWLM6Qug7vZuRSGXg45zXeB1Fm5X2vmBkEX58LV2Tw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/connect@*":
   version "3.4.34"
   resolved "https://registry.yarnpkg.com/@types/connect/-/connect-3.4.34.tgz#170a40223a6d666006d93ca128af2beb1d9b1901"
@@ -915,12 +922,12 @@
   dependencies:
     "@types/node" "*"
 
-"@types/inline-css@^0.0.33":
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/@types/inline-css/-/inline-css-0.0.33.tgz#a287ce24cb05ec7f68910439b45ec839990db07d"
-  integrity sha512-fgSqMPn3D7xx73c2/xZpc6PlKSawXXtyjuBmZQphAIT543w5FUpLoRMWOCJoJUcvHCvCgCQjGx3zbF8RFSAtcQ==
+"@types/inline-css@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/inline-css/-/inline-css-3.0.1.tgz#b98708cfc8c13c247ce11f3c82a509ce468d181b"
+  integrity sha512-1bs+MjVvZIuF71D8P+FZf79LcqccqVBNF6txnabXT1vGnRMqZO0agtdyC585fcjuSs7Nj9qal8CF9rfWVQxnTQ==
   dependencies:
-    "@types/bluebird" "*"
+    "@types/cheerio" "*"
 
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
   version "2.0.3"

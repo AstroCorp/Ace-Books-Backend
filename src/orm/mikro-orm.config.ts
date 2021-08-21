@@ -14,10 +14,7 @@ const config = {
 		BooksCollection,
 		Bookmark,
 	],
-	dbName: 'db.sqlite3',
-	type: 'sqlite',
 	highlighter: new SqlHighlighter(),
-	debug: true,
 	logger: logger.log.bind(logger),
 } as Options;
 

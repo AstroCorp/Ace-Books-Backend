@@ -1,1 +1,1 @@
-web: npm run copy-db ; npm run start:prod
+web: npm run start:prod

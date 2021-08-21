@@ -9,14 +9,14 @@ export class Book extends BaseEntity
 	@ManyToOne(() => User)
 	user: User;
 
-	@ManyToOne(() => BooksCollection)
+	@ManyToOne({ entity: () => BooksCollection, nullable: true })
 	collection!: BooksCollection;
 
 	@Property()
 	name: string;
 
 	@Property({ nullable: true })
-	image: string;
+	image!: string;
 
 	@Property()
 	description: string;

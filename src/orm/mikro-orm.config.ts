@@ -16,6 +16,7 @@ const config = {
 	],
 	highlighter: new SqlHighlighter(),
 	logger: logger.log.bind(logger),
+	multipleStatements: process.env.MIKRO_ORM_MULTIPLE_STATEMENTS || false,
 } as Options;
 
 export default config;

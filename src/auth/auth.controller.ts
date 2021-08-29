@@ -1,13 +1,10 @@
 import { Controller, UseGuards, Post, Body, HttpCode, Res, Req, UnauthorizedException } from '@nestjs/common';
-import { ApiTags, ApiBody, ApiResponse } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './validation/dto/createUser.dto';
-import { LoginDto } from './validation/dto/login.dto';
 import Session from './types/session';
 
-@ApiTags('auth')
 @Controller('auth')
 export class AuthController
 {
@@ -18,7 +15,7 @@ export class AuthController
 	}
 
 	@Post('register')
-	async register(@Body() body: CreateUserDto, @Res() response: Response) {
+	async register(@Body() body: CreateUserDto, @Res() response: Response): Response {
 		const { refresh_token, access_token } = await this.authService.register(body.email, body.password, body.lang);
 
 		response.cookie('refresh_token', refresh_token.token, { 
@@ -31,11 +28,10 @@ export class AuthController
 		});
 	}
 
-	@ApiBody({ type: LoginDto })
 	@UseGuards(LocalAuthGuard)
 	@Post('login')
 	@HttpCode(200)
-	async login(@Req() req: Session, @Res() response: Response) {
+	async login(@Req() req: Session, @Res() response: Response): Response {
 		const { refresh_token, access_token } = await this.authService.login(req.user);
 
 		response.cookie('refresh_token', refresh_token.token, { 
@@ -49,7 +45,7 @@ export class AuthController
 	}
 
 	@Post('refresh')
-	async refreshToken(@Req() request: Request, @Res() response: Response) {
+	async refreshToken(@Req() request: Request, @Res() response: Response): Response {
 		const refreshToken = request.cookies ? request.cookies.refresh_token : null;
 
 		if (!refreshToken) {
@@ -70,7 +66,7 @@ export class AuthController
 
 	@Post('logout')
 	@HttpCode(200)
-	async logout(@Req() request: Request, @Res() response: Response) {
+	async logout(@Req() request: Request, @Res() response: Response): Response {
 		const { refresh_token: refreshToken } = request.cookies;
 
 		if (!refreshToken) {

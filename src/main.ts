@@ -1,6 +1,5 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { useContainer } from 'class-validator';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
@@ -11,23 +10,6 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(AppModule);
-
-	// Documentación de la API con Swagger
-	const config = new DocumentBuilder()
-		.setTitle('Ace Books')
-		.setDescription('Ace Books - API')
-		.setVersion('1.0')
-		.addTag('auth')
-		.addTag('users')
-		.addBearerAuth()
-		.build();
-	const document = SwaggerModule.createDocument(app, config);
-	SwaggerModule.setup('api', app, document, {
-		swaggerOptions: {
-			filter: true,
-			showRequestDuration: true,
-		},
-	});
 
 	// Para comprimir las respuestas del servidor
 	app.use(compression());

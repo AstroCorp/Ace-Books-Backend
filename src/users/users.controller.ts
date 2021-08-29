@@ -1,5 +1,4 @@
 import { Controller, Get, UseGuards, Request, Post, Body, HttpCode } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UsersService } from './users.service';
 import { VerifyEmailDto } from './validation/dto/verifyEmail.dto';
@@ -7,7 +6,6 @@ import { ResetPasswordDto } from './validation/dto/resetPassword.dto';
 import { ResendResetPasswordDto } from './validation/dto/resendResetPassword.dto';
 import Session from '../auth/types/session';
 
-@ApiTags('users')
 @Controller('users')
 export class UsersController
 {
@@ -17,7 +15,6 @@ export class UsersController
 		//
 	}
 
-	@ApiBearerAuth()
 	@UseGuards(JwtAuthGuard)
 	@Post('verify')
 	@HttpCode(200)
@@ -25,7 +22,6 @@ export class UsersController
 		return this.userService.verifyEmail(req.user, body.code);
 	}
 
-	@ApiBearerAuth()
 	@UseGuards(JwtAuthGuard)
 	@Post('verify-resend')
 	@HttpCode(200)
@@ -33,14 +29,12 @@ export class UsersController
 		return this.userService.resendVerificationMail(req.user);
 	}
 
-	@ApiBearerAuth()
 	@Post('reset')
 	@HttpCode(200)
 	resetPassword(@Body() body: ResetPasswordDto): Promise<void> {
 		return this.userService.resetPassword(body.email, body.code, body.newPassword);
 	}
 
-	@ApiBearerAuth()
 	@Post('reset-resend')
 	@HttpCode(200)
 	resendResetMail(@Body() body: ResendResetPasswordDto): Promise<void> {
@@ -49,7 +43,7 @@ export class UsersController
 
 	@UseGuards(JwtAuthGuard)
   	@Get('profile')
-  	getProfile(@Request() req) {
+  	getProfile(@Request() req: any): Promise<any> {
     	return req.user;
 	}
 }

@@ -22,9 +22,9 @@ describe('Auth', () => {
 				OrmModule,
 			],
 		})
-			.overrideProvider(MailsService)
-			.useValue(mailsService)
-			.compile();
+		.overrideProvider(MailsService)
+		.useValue(mailsService)
+		.compile();
 
 		app = module.createNestApplication();
 

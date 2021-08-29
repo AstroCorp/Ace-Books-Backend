@@ -15,7 +15,7 @@ export class AuthController
 	}
 
 	@Post('register')
-	async register(@Body() body: CreateUserDto, @Res() response: Response): Response {
+	async register(@Body() body: CreateUserDto, @Res() response: Response): Promise<Response<any, Record<string, any>>> {
 		const { refresh_token, access_token } = await this.authService.register(body.email, body.password, body.lang);
 
 		response.cookie('refresh_token', refresh_token.token, { 
@@ -31,7 +31,7 @@ export class AuthController
 	@UseGuards(LocalAuthGuard)
 	@Post('login')
 	@HttpCode(200)
-	async login(@Req() req: Session, @Res() response: Response): Response {
+	async login(@Req() req: Session, @Res() response: Response): Promise<Response<any, Record<string, any>>> {
 		const { refresh_token, access_token } = await this.authService.login(req.user);
 
 		response.cookie('refresh_token', refresh_token.token, { 
@@ -45,7 +45,7 @@ export class AuthController
 	}
 
 	@Post('refresh')
-	async refreshToken(@Req() request: Request, @Res() response: Response): Response {
+	async refreshToken(@Req() request: Request, @Res() response: Response): Promise<Response<any, Record<string, any>>> {
 		const refreshToken = request.cookies ? request.cookies.refresh_token : null;
 
 		if (!refreshToken) {
@@ -66,7 +66,7 @@ export class AuthController
 
 	@Post('logout')
 	@HttpCode(200)
-	async logout(@Req() request: Request, @Res() response: Response): Response {
+	async logout(@Req() request: Request, @Res() response: Response): Promise<Response<any, Record<string, any>>> {
 		const { refresh_token: refreshToken } = request.cookies;
 
 		if (!refreshToken) {

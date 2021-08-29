@@ -11,6 +11,11 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+	// Prejido para todas las URLs excepto para la raíz
+	app.setGlobalPrefix('api', { exclude: [
+		'/',
+	]});
+
 	// Para comprimir las respuestas del servidor
 	app.use(compression());
 

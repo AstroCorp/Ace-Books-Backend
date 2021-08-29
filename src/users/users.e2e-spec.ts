@@ -24,9 +24,9 @@ describe('Users', () => {
 				OrmModule,
 			],
 		})
-			.overrideProvider(MailsService)
-			.useValue(mailsService)
-			.compile();
+		.overrideProvider(MailsService)
+		.useValue(mailsService)
+		.compile();
 
 		app = module.createNestApplication();
 

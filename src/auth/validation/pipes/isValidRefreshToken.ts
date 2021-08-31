@@ -27,7 +27,7 @@ export class IsValidRefreshTokenConstraint implements ValidatorConstraintInterfa
 	}
 
 	defaultMessage(): string {
-		return 'invalid refresh token';
+		return 'isValidRefreshToken';
 	}
 }
 

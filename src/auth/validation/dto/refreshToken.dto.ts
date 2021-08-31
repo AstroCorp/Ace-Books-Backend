@@ -5,7 +5,7 @@ import { IsValidRefreshToken } from '../pipes/isValidRefreshToken';
 export class RefreshTokenDto
 {
 	@IsEmail({}, {
-		message: 'the email is not valid',
+		message: 'isEmail',
 	})
 	@IsEmailAvailable(false)
 	email: string;

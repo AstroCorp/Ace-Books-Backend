@@ -26,7 +26,7 @@ export class IsEmailAvailableConstraint implements ValidatorConstraintInterface
 	defaultMessage(args: ValidationArguments): string {
 		const returnValue = args.constraints[0] as boolean;
 
-		return returnValue ? 'email is in use' : 'invalid email';
+		return returnValue ? 'isEmailAvailable' : 'isEmail';
 	}
 }
 

@@ -4,12 +4,16 @@ import { IsEmailAvailable } from '../pipes/isEmailAvailable';
 export class CreateUserDto
 {
 	@IsEmail({}, {
-		message: 'the email is not valid',
+		message: 'isEmail',
 	})
 	@IsEmailAvailable()
 	email: string;
 
-	@MinLength(6)
-	@MaxLength(25)
+	@MinLength(6, {
+		message: 'minLength',
+	})
+	@MaxLength(25, {
+		message: 'maxLength',
+	})
 	password: string;
 }

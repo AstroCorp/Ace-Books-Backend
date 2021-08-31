@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { User, Book, BooksCollection, Bookmark, Lang, RefreshToken } from './entities';
+import { User, Book, BooksCollection, Bookmark, RefreshToken } from './entities';
 import config from './mikro-orm.config';
 
 @Module({
@@ -8,7 +8,6 @@ import config from './mikro-orm.config';
 		MikroOrmModule.forRoot(config),
 		MikroOrmModule.forFeature({
 			entities: [
-				Lang,
 				User,
 				RefreshToken,
 				Book,

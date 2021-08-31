@@ -3,16 +3,13 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/core';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
-import { User, Lang, RefreshToken } from '../orm/entities';
+import { User, RefreshToken } from '../orm/entities';
 import { MailsService } from '../mails/mails.service';
 
 @Injectable()
 export class AuthService
 {
 	constructor(
-		@InjectRepository(Lang)
-		private readonly langRepository: EntityRepository<Lang>,
-
 		@InjectRepository(RefreshToken)
 		private readonly refreshTokenRepository: EntityRepository<RefreshToken>,
 
@@ -56,10 +53,9 @@ export class AuthService
 		return await this.createToken(user);
 	}
 
-	async register(email: string, password: string, lang: string) {
+	async register(email: string, password: string) {
 		// Si todo va bien se crea el usuario
-		const dbLang = await this.langRepository.findOne({ initial: lang });
-		const newUser = new User(email, password, dbLang as Lang);
+		const newUser = new User(email, password);
 
 		await this.usersService.create(newUser);
 

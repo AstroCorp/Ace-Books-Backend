@@ -1,7 +1,6 @@
-import { Entity, Property, ManyToOne, BeforeCreate, BeforeUpdate, Collection, OneToMany } from '@mikro-orm/core';
+import { Entity, Property, BeforeCreate, BeforeUpdate, Collection, OneToMany } from '@mikro-orm/core';
 import * as bcrypt from 'bcrypt';
 import { BaseEntity } from './BaseEntity';
-import { Lang } from './Lang';
 import { Book } from './Book';
 import { BooksCollection } from './BooksCollection';
 import { RefreshToken } from './RefreshToken';
@@ -9,9 +8,6 @@ import { RefreshToken } from './RefreshToken';
 @Entity()
 export class User extends BaseEntity
 {
-	@ManyToOne(() => Lang, { default: 1 })
-	lang: Lang;
-
 	@OneToMany(() => Book, (book) => book.user)
 	books = new Collection<Book>(this);
 
@@ -41,12 +37,11 @@ export class User extends BaseEntity
 
 	private tempPassword;
 
-	constructor(email: string, password: string, lang: Lang) {
+	constructor(email: string, password: string) {
 		super();
 
 		this.email = email;
 		this.tempPassword = password;
-		this.lang = lang;
 	}
 
 	set password(newPassword: string) {

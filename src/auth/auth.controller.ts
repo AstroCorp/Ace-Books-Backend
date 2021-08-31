@@ -16,7 +16,7 @@ export class AuthController
 
 	@Post('register')
 	async register(@Body() body: CreateUserDto, @Res() response: Response): Promise<Response<any, Record<string, any>>> {
-		const { refresh_token, access_token } = await this.authService.register(body.email, body.password, body.lang);
+		const { refresh_token, access_token } = await this.authService.register(body.email, body.password);
 
 		response.cookie('refresh_token', refresh_token.token, { 
 			httpOnly: true, 

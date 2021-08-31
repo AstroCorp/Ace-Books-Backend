@@ -9,7 +9,6 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { AuthController } from './auth.controller';
 import { OrmModule } from '../orm/orm.module';
 import { IsEmailAvailableConstraint } from './validation/pipes/isEmailAvailable';
-import { IsLangAvailableConstraint } from './validation/pipes/isLangAvailable';
 import { IsValidRefreshTokenConstraint } from './validation/pipes/isValidRefreshToken';
 import { MailsService } from '../mails/mails.service';
 
@@ -36,7 +35,6 @@ import { MailsService } from '../mails/mails.service';
 		LocalStrategy,
 		JwtStrategy,
 		IsEmailAvailableConstraint,
-		IsLangAvailableConstraint,
 		IsValidRefreshTokenConstraint,
 	],
 	exports: [AuthService],

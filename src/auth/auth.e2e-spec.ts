@@ -44,7 +44,6 @@ describe('Auth', () => {
 			.post('/auth/register')
 			.send('email=test@test.es')
 			.send('password=123456')
-			.send('lang=es')
 			.expect(201);
 	});
 

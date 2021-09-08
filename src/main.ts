@@ -12,12 +12,11 @@ async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
 	// Habilitamos CORS
-	const whitelist = ['http://localhost:3000', 'https://astrocorp.github.io', 'https://ace-books-backend.herokuapp.com'];
+	const whitelist = ['http://localhost:3000', 'https://astrocorp.github.io'];
 	app.enableCors({
 		credentials: true,
 		origin: (origin, callback) => {
-			console.log('> ', origin);
-			if (whitelist.includes(origin)) {
+			if (!origin || whitelist.includes(origin)) {
 				return callback(null, true);
 			}
 	  

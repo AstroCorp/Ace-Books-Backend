@@ -11,6 +11,9 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+	// Habilitamos CORS
+	app.enableCors();
+
 	// Prejido para todas las URLs excepto para la raíz
 	app.setGlobalPrefix('api', { exclude: [
 		'/',

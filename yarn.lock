@@ -607,6 +607,15 @@
     "@mikro-orm/knex" "^4.5.9"
     fs-extra "9.1.0"
 
+"@mikro-orm/knex@^4.5.10":
+  version "4.5.10"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-4.5.10.tgz#1771a0f9fee1b6e30dc34936af5c10b1c1a5e041"
+  integrity sha512-iYSsAlHVNC7m+yz7dDA3JwjBHxyNuGNwQijUpJ6n2Vt55PyorcW4I3wTnHHALUS30Fvjm4TnfZRdio+aQhynsA==
+  dependencies:
+    fs-extra "9.1.0"
+    knex "0.21.19"
+    sqlstring "2.3.2"
+
 "@mikro-orm/knex@^4.5.9":
   version "4.5.9"
   resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-4.5.9.tgz#d43a74dbf81d2e06382a475cf267562151ac0b0e"
@@ -627,20 +636,20 @@
     knex "0.21.19"
     umzug "2.3.0"
 
-"@mikro-orm/mysql-base@^4.5.9":
-  version "4.5.9"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/mysql-base/-/mysql-base-4.5.9.tgz#1ba7b06ec01afca87edec29dd40c37dad6286fff"
-  integrity sha512-I43iqs6LF1NhpPDNlmPiUvHkRjR64FjWl8CqAWyykDDlhB2EcNNBjP7/Xms8waCyFe3DWW3A8WAsI+g1mJoAOw==
+"@mikro-orm/mysql-base@^4.5.10":
+  version "4.5.10"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/mysql-base/-/mysql-base-4.5.10.tgz#98d6247ae5c0c20be356c65489c5c4128f8f636c"
+  integrity sha512-E6JLFtI4QQxrr9cB31uHRyhO7KKwwnA61aIdB1V6S+1tXVi/tYYqt2msRzSD8tR7z/aRxhdHY4YgRLCDimh8pw==
   dependencies:
-    "@mikro-orm/knex" "^4.5.9"
+    "@mikro-orm/knex" "^4.5.10"
 
-"@mikro-orm/mysql@^4.5.9":
-  version "4.5.9"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/mysql/-/mysql-4.5.9.tgz#95812487195a8a4433266b2f937e414cd5616576"
-  integrity sha512-z+0UjIKkvGP/YLYn7Q0y2rZlrEgpil9soWkPCMFrVTnA7nG8sGCLkmnuQk4k+b8p61vRrj6WUn2Ev3pB3R/i+w==
+"@mikro-orm/mysql@^4.5.10":
+  version "4.5.10"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/mysql/-/mysql-4.5.10.tgz#6c4aad2407fe97d18eb7a507e1a2b76a82aca574"
+  integrity sha512-UQkg3XlwJFXj4P5AnDiH/14b5wsJPVxALPtCX+Yi+qqyG6o3A/QtpO7ZJLXYhyZaBMAz1N8mKUyAvQBprMCVtg==
   dependencies:
-    "@mikro-orm/mysql-base" "^4.5.9"
-    mysql2 "2.2.5"
+    "@mikro-orm/mysql-base" "^4.5.10"
+    mysql2 "2.3.2"
 
 "@mikro-orm/nestjs@^4.3.0":
   version "4.3.0"
@@ -2733,10 +2742,15 @@ delegates@^1.0.0:
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
   integrity sha1-hMbhWbgZBP3KWaDvRM2HDTElD5o=
 
-denque@^1.4.1, denque@^1.5.0:
+denque@^1.5.0:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/denque/-/denque-1.5.1.tgz#07f670e29c9a78f8faecb2566a1e2c11929c5cbf"
   integrity sha512-XwE+iZ4D6ZUB7mfYRMb5wByE8L74HCn30FBN7sWnXksWc1LO1bPDl67pBR9o/kC4z/xSNAwkMYcGgqDV3BE3Hw==
+
+denque@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/denque/-/denque-2.0.1.tgz#bcef4c1b80dc32efe97515744f21a4229ab8934a"
+  integrity sha512-tfiWc6BQLXNLpNiR5iGd0Ocu3P3VpxfzFiqubLgMfhfOw9WyvgJBd46CClNn9k3qfbjvT//0cf7AlYRX/OslMQ==
 
 depd@~1.1.2:
   version "1.1.2"
@@ -4240,7 +4254,7 @@ iconv-lite@0.6.2:
   dependencies:
     safer-buffer ">= 2.1.2 < 3.0.0"
 
-iconv-lite@0.6.3, iconv-lite@^0.6.2:
+iconv-lite@0.6.3, iconv-lite@^0.6.3:
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.6.3.tgz#a52f80bf38da1952eb5c681790719871a1a72501"
   integrity sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==
@@ -6016,14 +6030,14 @@ multer@1.4.2:
     type-is "^1.6.4"
     xtend "^4.0.0"
 
-mysql2@2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/mysql2/-/mysql2-2.2.5.tgz#72624ffb4816f80f96b9c97fedd8c00935f9f340"
-  integrity sha512-XRqPNxcZTpmFdXbJqb+/CtYVLCx14x1RTeNMD4954L331APu75IC74GDqnZMEt1kwaXy6TySo55rF2F3YJS78g==
+mysql2@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/mysql2/-/mysql2-2.3.2.tgz#3efe9814dbf1c2a3d7c2a1fc4666235939943ff9"
+  integrity sha512-JUSA50rt/nSew8aq8xe3pRk5Q4y/M5QdSJn7Ey3ndOlPp2KXuialQ0sS35DNhPT5Z5PnOiIwSSQvKkl1WorqRA==
   dependencies:
-    denque "^1.4.1"
+    denque "^2.0.1"
     generate-function "^2.3.1"
-    iconv-lite "^0.6.2"
+    iconv-lite "^0.6.3"
     long "^4.0.0"
     lru-cache "^6.0.0"
     named-placeholders "^1.1.2"

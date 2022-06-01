@@ -28,7 +28,7 @@
 		"@mikro-orm/sql-highlighter": "^1.0.1",
 		"@mikro-orm/sqlite": "^4.5.9",
 		"@nestjs-modules/mailer": "^1.6.0",
-		"@nestjs/common": "^8.0.6",
+		"@nestjs/common": "^8.4.6",
 		"@nestjs/config": "^1.0.1",
 		"@nestjs/core": "^8.0.6",
 		"@nestjs/jwt": "^8.0.0",

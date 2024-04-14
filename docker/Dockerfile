@@ -1,18 +1,18 @@
-FROM node:alpine
+FROM node:20-alpine3.18
 
-# Instalar Yarn
 RUN apk add --no-cache curl && \
-    curl -o- -L https://yarnpkg.com/install.sh | sh
+	apk add --no-cache nano && \
+    curl -o- -L https://yarnpkg.com/install.sh | sh && \
+	npm install -g @nestjs/cli
 
-# Añadir el directorio de binarios de Yarn al PATH
 ENV PATH /root/.yarn/bin:$PATH
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY . .
 
 RUN yarn install
 
-COPY . .
+EXPOSE 3000
 
 CMD ["yarn", "start:dev"]

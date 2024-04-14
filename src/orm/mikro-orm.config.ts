@@ -18,11 +18,7 @@ const config = defineConfig({
 	],
 	highlighter: new SqlHighlighter(),
 	logger: logger.log.bind(logger),
-	host: process.env.DATABASE_HOST,
-	user: process.env.DATABASE_USER,
-	password: process.env.DATABASE_PASSWORD,
-	dbName: process.env.DATABASE_NAME,
-	port: 5432,
+	clientUrl: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}`,
 });
 
 export default config;

@@ -2,10 +2,9 @@ services:
   backend:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile
+      dockerfile: ./docker/backend/Dockerfile
     ports:
       - "3000:3000"
-    restart: always
     env_file:
       - .env
     depends_on:
@@ -27,13 +26,14 @@ services:
   postgres:
     image: postgres:alpine
     ports:
-      - "5432:5432"
+      - "${DATABASE_PORT}:${DATABASE_PORT}"
     environment:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_PORT: ${DATABASE_PORT}
     volumes:
-      - ./docker/postgres:/var/lib/postgresql/data
+      - ./docker/postgres/data:/var/lib/postgresql/data
 
   redis:
     image: redis:alpine

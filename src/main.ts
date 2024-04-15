@@ -35,7 +35,7 @@ async function bootstrap() {
 	await app.register(helmet);
 	await app.register(fastifyCsrf);
 
-	await app.listen(3000);
+	await app.listen(3000, '0.0.0.0');
 }
 
 bootstrap();

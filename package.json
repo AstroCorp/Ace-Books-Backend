@@ -5,6 +5,7 @@
 	"author": "Astro_Corp",
 	"private": true,
 	"license": "MIT",
+	"os": ["linux"],
 	"scripts": {
 		"build": "nest build",
 		"start": "nest start",

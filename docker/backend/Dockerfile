@@ -9,9 +9,12 @@ ENV PATH /root/.yarn/bin:$PATH
 
 WORKDIR /app
 
-COPY . .
+COPY ./package*.json .
+COPY ./yarn.lock .
 
 RUN yarn install
+
+COPY . .
 
 EXPOSE 3000
 

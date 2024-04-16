@@ -6,6 +6,10 @@
 	"private": true,
 	"license": "MIT",
 	"scripts": {
+		"docker": "docker exec -it ace-books-backend-backend-1",
+		"docker:install": "yarn install && docker exec -it ace-books-backend-backend-1 yarn install",
+		"docker:add": "yarn add",
+		"postdocker:add": "docker exec -it ace-books-backend-backend-1 yarn install",
 		"build": "nest build",
 		"start": "nest start",
 		"start:dev": "nest start --watch",
@@ -13,13 +17,16 @@
 		"start:prod": "node dist/main"
 	},
 	"dependencies": {
+		"@faker-js/faker": "^8.4.1",
 		"@fastify/compress": "^7.0.3",
 		"@fastify/cookie": "^9.3.1",
 		"@fastify/csrf-protection": "^6.4.1",
 		"@fastify/helmet": "^11.1.1",
 		"@mikro-orm/core": "^6.2.1",
+		"@mikro-orm/migrations": "^6.2.1",
 		"@mikro-orm/nestjs": "^5.2.3",
 		"@mikro-orm/postgresql": "^6.2.1",
+		"@mikro-orm/seeder": "^6.2.1",
 		"@mikro-orm/sql-highlighter": "^1.0.1",
 		"@nestjs/common": "^10.3.7",
 		"@nestjs/config": "^3.2.2",
@@ -36,6 +43,7 @@
 		"rxjs": "^7.8.1"
 	},
 	"devDependencies": {
+		"@mikro-orm/cli": "^6.2.1",
 		"@nestjs/cli": "^10.3.2",
 		"@nestjs/schematics": "^10.1.1",
 		"@nestjs/testing": "^10.3.7",
@@ -47,5 +55,12 @@
 		"ts-node": "^10.9.2",
 		"tsconfig-paths": "^4.2.0",
 		"typescript": "^5.4.5"
+	},
+	"mikro-orm": {
+		"useTsNode": true,
+		"configPaths": [
+			"./src/orm/mikro-orm.config.ts",
+			"./dist/orm/mikro-orm.config.js"
+		]
 	}
 }

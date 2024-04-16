@@ -7,6 +7,8 @@ import { BooksCollection } from '@/orm/entities/BooksCollection';
 @Entity()
 export class User extends BaseEntity
 {
+	private static readonly SALT_ROUNDS = 10;
+
 	@OneToMany(() => Book, (book) => book.user)
 	books = new Collection<Book>(this);
 
@@ -16,11 +18,11 @@ export class User extends BaseEntity
 	@Property()
 	email: string;
 
-	@Property({ name: 'password' })
-	private _password!: string;
+	@Property()
+	password!: string;
 
 	@Property({ nullable: true })
-	image?: string;
+	avatar?: string;
 
 	@Property({ default: false })
 	isAdmin!: boolean;
@@ -28,31 +30,10 @@ export class User extends BaseEntity
 	@Property({ default: false })
 	isVerified!: boolean;
 
-	private tempPassword;
-
 	constructor(email: string, password: string) {
 		super();
 
 		this.email = email;
-		this.tempPassword = password;
-	}
-
-	set password(newPassword: string) {
-		this.tempPassword = newPassword;
-	}
-
-	get password(): string {
-		return this._password;
-	}
-
-	@BeforeCreate()
-	@BeforeUpdate()
-	private async hashPassword() {
-		if (this.tempPassword) {
-			const saltRounds = 10;
-			const hashedPassword = await bcrypt.hash(this.tempPassword, saltRounds);
-
-			this._password = hashedPassword;
-		}
+		this.password = bcrypt.hashSync(password, User.SALT_ROUNDS);
 	}
 }

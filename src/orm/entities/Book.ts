@@ -11,27 +11,31 @@ export class Book extends BaseEntity
 	user: User;
 
 	@ManyToOne({ entity: () => BooksCollection, nullable: true })
-	collection!: BooksCollection;
+	booksCollection: BooksCollection | null;
 
 	@Property()
-	name: string;
+	title: string;
 
 	@Property({ nullable: true })
-	image!: string;
+	image: string | null;
 
 	@Property()
 	description: string;
 
 	@Property()
+	pages: number;
+
+	@Property()
 	filename: string;
 
-	constructor(user: User, name: string, image: string, description: string, filename: string) {
+	constructor(user: User, title: string, image: string | null, description: string, pages: number, filename: string) {
 		super();
 
 		this.user = user;
-		this.name = name;
+		this.title = title;
 		this.image = image;
 		this.description = description;
+		this.pages = pages;
 		this.filename = filename;
 	}
 }

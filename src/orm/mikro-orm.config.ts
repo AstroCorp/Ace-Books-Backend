@@ -21,6 +21,7 @@ const config = defineConfig({
 	migrations: {
 		path: 'dist/orm/migrations',
 		pathTs: 'src/orm/migrations',
+		tableName: 'migrations',
 		transactional: true,
 		allOrNothing: true,
 		snapshot: false,

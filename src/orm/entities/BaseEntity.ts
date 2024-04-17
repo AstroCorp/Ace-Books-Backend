@@ -2,7 +2,7 @@ import { Opt, PrimaryKey, Property } from "@mikro-orm/core";
 
 export abstract class BaseEntity {
 	@PrimaryKey()
-	id!: number;
+	id: number;
 
 	@Property()
 	createdAt: Date & Opt = new Date();

@@ -9,23 +9,23 @@ export class BooksCollection extends BaseEntity
 	@ManyToOne(() => User)
 	user: User;
 
-	@OneToMany(() => Book, (book) => book.collection)
+	@OneToMany(() => Book, (book) => book.booksCollection)
 	books = new Collection<Book>(this);
 
 	@Property()
-	name: string;
+	title: string;
 
 	@Property({ nullable: true })
-	image: string;
+	image: string | null;
 
 	@Property()
 	description: string;
 
-	constructor(user: User, name: string, image: string, description: string) {
+	constructor(user: User, title: string, image: string | null, description: string) {
 		super();
 
 		this.user = user;
-		this.name = name;
+		this.title = title;
 		this.image = image;
 		this.description = description;
 	}

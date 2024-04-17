@@ -1,4 +1,4 @@
-import { Entity, Property, BeforeCreate, BeforeUpdate, Collection, OneToMany } from '@mikro-orm/core';
+import { Entity, Property, Collection, OneToMany } from '@mikro-orm/core';
 import * as bcrypt from 'bcrypt';
 import { BaseEntity } from '@/orm/entities/BaseEntity';
 import { Book } from '@/orm/entities/Book';
@@ -19,21 +19,24 @@ export class User extends BaseEntity
 	email: string;
 
 	@Property()
-	password!: string;
+	password: string;
 
-	@Property({ nullable: true })
-	avatar?: string;
+	@Property()
+	avatar: string | null;
 
-	@Property({ default: false })
-	isAdmin!: boolean;
+	@Property()
+	isAdmin: boolean;
 
-	@Property({ default: false })
-	isVerified!: boolean;
+	@Property()
+	isVerified: boolean;
 
 	constructor(email: string, password: string) {
 		super();
 
 		this.email = email;
 		this.password = bcrypt.hashSync(password, User.SALT_ROUNDS);
+		this.avatar = null;
+		this.isAdmin = false;
+		this.isVerified = false;
 	}
 }

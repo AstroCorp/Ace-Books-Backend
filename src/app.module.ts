@@ -12,8 +12,8 @@ import { OrmModule } from "@/orm/orm.module";
 		}),
 		ThrottlerModule.forRoot([
 			{
-				ttl: 15 * 60 * 1000, // 15 minutos
-				limit: 100, // X peticiones por tiempo según ttl
+				ttl: process.env.RATE_LIMIT_TTL,
+				limit: process.env.RATE_LIMIT_MAX,
 			},
 		]),
 		OrmModule,

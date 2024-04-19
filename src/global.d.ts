@@ -19,7 +19,7 @@ declare global {
 			DATABASE_PASSWORD: string;
 		}
 
-		enum Environment {
+		const enum Environment {
 			Development = 'development',
 			Production = 'production',
 		}

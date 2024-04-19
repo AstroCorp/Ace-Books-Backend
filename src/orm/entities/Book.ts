@@ -2,6 +2,7 @@ import { Entity, Property, ManyToOne } from '@mikro-orm/core';
 import { BaseEntity } from '@/orm/entities/BaseEntity';
 import { BooksCollection } from '@/orm/entities/BooksCollection';
 import { User } from '@/orm/entities/User';
+import { BookDTO } from '@/orm/types/entities';
 
 
 @Entity()
@@ -28,14 +29,14 @@ export class Book extends BaseEntity
 	@Property()
 	filename: string;
 
-	constructor(user: User, title: string, image: string | null, description: string, pages: number, filename: string) {
+	constructor(bookDTO: BookDTO) {
 		super();
 
-		this.user = user;
-		this.title = title;
-		this.image = image;
-		this.description = description;
-		this.pages = pages;
-		this.filename = filename;
+		this.user = bookDTO.user;
+		this.title = bookDTO.title;
+		this.image = bookDTO.image;
+		this.description = bookDTO.description;
+		this.pages = bookDTO.pages;
+		this.filename = bookDTO.filename;
 	}
 }

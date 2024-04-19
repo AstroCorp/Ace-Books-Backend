@@ -2,6 +2,7 @@ import { Entity, Property, ManyToOne } from '@mikro-orm/core';
 import { BaseEntity } from '@/orm/entities/BaseEntity';
 import { User } from '@/orm/entities/User';
 import { Book } from '@/orm/entities/Book';
+import { BookmarkDTO } from '@/orm/types/entities';
 
 @Entity()
 export class Bookmark extends BaseEntity
@@ -21,13 +22,13 @@ export class Bookmark extends BaseEntity
 	@Property()
 	comment: string;
 
-	constructor(user: User, book: Book, color: string, page: number, comment: string) {
+	constructor(bookmarkDTO: BookmarkDTO) {
 		super();
 
-		this.user = user;
-		this.book = book;
-		this.color = color;
-		this.page = page;
-		this.comment = comment;
+		this.user = bookmarkDTO.user;
+		this.book = bookmarkDTO.book;
+		this.color = bookmarkDTO.color;
+		this.page = bookmarkDTO.page;
+		this.comment = bookmarkDTO.comment;
 	}
 }

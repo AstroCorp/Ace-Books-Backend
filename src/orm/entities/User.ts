@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt';
 import { BaseEntity } from '@/orm/entities/BaseEntity';
 import { Book } from '@/orm/entities/Book';
 import { BooksCollection } from '@/orm/entities/BooksCollection';
+import { UserDTO } from '@/orm/types/entities';
 
 @Entity()
 export class User extends BaseEntity
@@ -30,11 +31,11 @@ export class User extends BaseEntity
 	@Property()
 	isVerified: boolean;
 
-	constructor(email: string, password: string) {
+	constructor(userDTO: UserDTO) {
 		super();
 
-		this.email = email;
-		this.password = bcrypt.hashSync(password, User.SALT_ROUNDS);
+		this.email = userDTO.email;
+		this.password = bcrypt.hashSync(userDTO.password, User.SALT_ROUNDS);
 		this.avatar = null;
 		this.isAdmin = false;
 		this.isVerified = false;

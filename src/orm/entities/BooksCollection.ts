@@ -2,6 +2,7 @@ import { Entity, Property, ManyToOne, OneToMany, Collection } from '@mikro-orm/c
 import { BaseEntity } from '@/orm/entities/BaseEntity';
 import { User } from '@/orm/entities/User';
 import { Book } from '@/orm/entities/Book';
+import { BooksCollectionDTO } from '@/orm/types/entities';
 
 @Entity()
 export class BooksCollection extends BaseEntity
@@ -21,12 +22,12 @@ export class BooksCollection extends BaseEntity
 	@Property()
 	description: string;
 
-	constructor(user: User, title: string, image: string | null, description: string) {
+	constructor(booksCollectionDTO: BooksCollectionDTO) {
 		super();
 
-		this.user = user;
-		this.title = title;
-		this.image = image;
-		this.description = description;
+		this.user = booksCollectionDTO.user;
+		this.title = booksCollectionDTO.title;
+		this.image = booksCollectionDTO.image;
+		this.description = booksCollectionDTO.description;
 	}
 }

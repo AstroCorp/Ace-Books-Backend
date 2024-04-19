@@ -18,8 +18,14 @@
 		"forceConsistentCasingInFileNames": false,
 		"noFallthroughCasesInSwitch": false,
 		"paths": {
-			"@/*": ["src/*"]
-		}
+			"@/*": [
+				"src/*"
+			]
+		},
+		"typeRoots": [
+			"./node_modules/@types",
+			"./src/global.d.ts"
+		],
 	},
 	"watchOptions": {
 		"watchFile": "fixedPollingInterval"

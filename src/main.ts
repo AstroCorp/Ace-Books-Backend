@@ -10,7 +10,9 @@ async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
 
 	// CORS
-	const whitelist = ['http://localhost:*', 'https://astrocorp.github.io'];
+	const whitelist = process.env.NODE_ENV === NodeJS.Environment.Development
+		? ['http://localhost:*']
+		: ['https://astrocorp.github.io'];
 
 	app.enableCors({
 		credentials: true,

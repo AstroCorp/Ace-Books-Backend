@@ -1,15 +1,14 @@
-import { Entity, Property, ManyToOne } from '@mikro-orm/core';
+import { Entity, Property, ManyToOne, Rel, rel } from '@mikro-orm/core';
 import { BaseEntity } from '@/orm/entities/BaseEntity';
 import { BooksCollection } from '@/orm/entities/BooksCollection';
 import { User } from '@/orm/entities/User';
-import { BookDTO } from '@/orm/types/entities';
-
+import type { BookDTO } from '@/orm/types/entities';
 
 @Entity()
 export class Book extends BaseEntity
 {
 	@ManyToOne(() => User)
-	user: User;
+	user: Rel<User>;
 
 	@ManyToOne({ entity: () => BooksCollection, nullable: true })
 	booksCollection: BooksCollection | null;
@@ -32,7 +31,7 @@ export class Book extends BaseEntity
 	constructor(bookDTO: BookDTO) {
 		super();
 
-		this.user = bookDTO.user;
+		this.user = rel(User, bookDTO.user);
 		this.title = bookDTO.title;
 		this.image = bookDTO.image;
 		this.description = bookDTO.description;

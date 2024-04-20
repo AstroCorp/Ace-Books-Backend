@@ -1,0 +1,33 @@
+import { Injectable } from '@nestjs/common';
+import { EntityRepository } from '@mikro-orm/core';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { EntityManager } from '@mikro-orm/postgresql';
+import { User } from '@/orm/entities/User';
+
+@Injectable()
+export class UsersService {
+	constructor(
+		@InjectRepository(User)
+		private readonly userRepository: EntityRepository<User>,
+		private readonly em: EntityManager,
+	) {
+		//
+	}
+
+	async findOneByEmail(email: string) {
+		return this.userRepository.findOne({
+			email,
+		});
+	}
+
+	async findOneById(id: number) {
+		return this.userRepository.findOne({
+			id,
+		});
+	}
+
+	async create(user: User): Promise<void> {
+		this.userRepository.create(user);
+		return this.em.flush();
+	}
+}

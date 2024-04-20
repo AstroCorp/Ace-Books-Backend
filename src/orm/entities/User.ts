@@ -1,15 +1,13 @@
 import { Entity, Property, Collection, OneToMany } from '@mikro-orm/core';
-import * as bcrypt from 'bcrypt';
 import { BaseEntity } from '@/orm/entities/BaseEntity';
 import { Book } from '@/orm/entities/Book';
 import { BooksCollection } from '@/orm/entities/BooksCollection';
-import { UserDTO } from '@/orm/types/entities';
+import type { UserDTO } from '@/orm/types/entities';
+import { passwordEncrypt } from '@/auth/utils/bcrypt';
 
 @Entity()
 export class User extends BaseEntity
 {
-	private static readonly SALT_ROUNDS = 10;
-
 	@OneToMany(() => Book, (book) => book.user)
 	books = new Collection<Book>(this);
 
@@ -35,9 +33,18 @@ export class User extends BaseEntity
 		super();
 
 		this.email = userDTO.email;
-		this.password = bcrypt.hashSync(userDTO.password, User.SALT_ROUNDS);
+		this.password = passwordEncrypt(userDTO.password);
 		this.avatar = null;
 		this.isAdmin = false;
 		this.isVerified = false;
+	}
+
+	public getData() {
+		return {
+			email: this.email,
+			avatar: this.avatar,
+			isAdmin: this.isAdmin,
+			isVerified: this.isVerified,
+		};
 	}
 }

@@ -1,8 +1,5 @@
-import { Book } from "@/orm/entities/Book";
-import { User } from "@/orm/entities/User";
-
 export interface BookDTO {
-	user: User;
+	user: number;
 	title: string;
 	image: string | null;
 	description: string;
@@ -11,15 +8,15 @@ export interface BookDTO {
 }
 
 export interface BookmarkDTO {
-	user: User;
-	book: Book;
+	user: number;
+	book: number;
 	color: string;
 	page: number;
 	comment: string;
 }
 
 export interface BooksCollectionDTO {
-	user: User;
+	user: number;
 	title: string;
 	image: string | null;
 	description: string;

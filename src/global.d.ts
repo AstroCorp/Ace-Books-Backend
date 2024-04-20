@@ -10,7 +10,9 @@ declare global {
 			COOKIE_SECRET: string;
 
 			JWT_SECRET: string;
+			JWT_SECRET_EXPIRES: string;
 			JWT_REFRESH_SECRET: string;
+			JWT_REFRESH_SECRET_EXPIRES: string;
 
 			DATABASE_HOST: string;
 			DATABASE_PORT: number;

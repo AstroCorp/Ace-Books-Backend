@@ -1,4 +1,5 @@
 import { NestFactory } from "@nestjs/core";
+import { ValidationPipe } from "@nestjs/common";
 import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
 import fastifyCookie from '@fastify/cookie';
 import compression from '@fastify/compress';
@@ -36,6 +37,8 @@ async function bootstrap() {
 	// Seguridad
 	await app.register(helmet);
 	await app.register(fastifyCsrf);
+
+	app.useGlobalPipes(new ValidationPipe());
 
 	await app.listen(process.env.NODE_PORT, '0.0.0.0');
 }

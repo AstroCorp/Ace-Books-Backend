@@ -26,3 +26,8 @@ export interface UserDTO {
 	email: string;
 	password: string;
 }
+
+export interface TokenDTO {
+	user: number;
+	token: string;
+}

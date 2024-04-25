@@ -4,7 +4,7 @@ import { BooksCollection } from '@/orm/entities/BooksCollection';
 import { User } from '@/orm/entities/User';
 import type { BookDTO } from '@/orm/types/entities';
 
-@Entity()
+@Entity({ tableName: 'books' })
 export class Book extends BaseEntity
 {
 	@ManyToOne(() => User)

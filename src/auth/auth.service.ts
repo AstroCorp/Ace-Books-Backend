@@ -5,14 +5,14 @@ import { passwordCompare } from '@/auth/utils/bcrypt';
 import { User } from '@/orm/entities/User';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
-import { Token } from '@/orm/entities/Token';
+import { RefreshToken } from '@/orm/entities/RefreshToken';
 import { extractTokenData } from '@/auth/utils/jwt';
 
 @Injectable()
 export class AuthService {
 	constructor(
-		@InjectRepository(Token)
-		private readonly tokenRepository: EntityRepository<Token>,
+		@InjectRepository(RefreshToken)
+		private readonly refreshTokenRepository: EntityRepository<RefreshToken>,
 		private readonly em: EntityManager,
 		private usersService: UsersService,
 		private jwtService: JwtService,
@@ -21,7 +21,7 @@ export class AuthService {
 	}
 
 	async checkIfRefreshTokenIsValid(token: string) {
-		const tokenEntity = await this.tokenRepository.findOne({ token });
+		const tokenEntity = await this.refreshTokenRepository.findOne({ token });
 
 		if (!tokenEntity) {
 			return false;
@@ -69,7 +69,7 @@ export class AuthService {
 		// Buscamos el token en la base de datos y lo marcamos como revocado
 		// no hacemos flush ya que este se hará en generateRefreshToken
 		if (generateNewRefreshToken) {
-			const currentRefreshTokenEntity = await this.tokenRepository.findOne({ token: currentRefreshToken });
+			const currentRefreshTokenEntity = await this.refreshTokenRepository.findOne({ token: currentRefreshToken });
 			currentRefreshTokenEntity?.revoke();
 		}
 
@@ -103,7 +103,7 @@ export class AuthService {
 			expiresIn: process.env.JWT_REFRESH_SECRET_EXPIRES,
 		});
 
-		const newRefreshToken = new Token({
+		const newRefreshToken = new RefreshToken({
 			token: refresh_token,
 			user: user.id,
 		});

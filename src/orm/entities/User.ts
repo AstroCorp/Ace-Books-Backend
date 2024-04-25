@@ -5,7 +5,7 @@ import { BooksCollection } from '@/orm/entities/BooksCollection';
 import type { UserDTO } from '@/orm/types/entities';
 import { passwordEncrypt } from '@/auth/utils/bcrypt';
 
-@Entity()
+@Entity({ tableName: 'users' })
 export class User extends BaseEntity
 {
 	@OneToMany(() => Book, (book) => book.user)

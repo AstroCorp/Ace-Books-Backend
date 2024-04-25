@@ -4,7 +4,7 @@ import { User } from '@/orm/entities/User';
 import { Book } from '@/orm/entities/Book';
 import type { BookmarkDTO } from '@/orm/types/entities';
 
-@Entity()
+@Entity({ tableName: 'bookmarks' })
 export class Bookmark extends BaseEntity
 {
 	@ManyToOne(() => User)

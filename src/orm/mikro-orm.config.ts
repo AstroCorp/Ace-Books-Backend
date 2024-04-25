@@ -5,7 +5,7 @@ import { SeedManager } from '@mikro-orm/seeder';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { BaseEntity } from '@/orm/entities/BaseEntity';
 import { User } from '@/orm/entities/User';
-import { Token } from '@/orm/entities/Token';
+import { RefreshToken } from '@/orm/entities/RefreshToken';
 import { Book } from '@/orm/entities/Book';
 import { BooksCollection } from '@/orm/entities/BooksCollection';
 import { Bookmark } from '@/orm/entities/Bookmark';
@@ -15,7 +15,7 @@ const config = defineConfig({
 	entities: [
 		BaseEntity,
 		User,
-		Token,
+		RefreshToken,
 		Book,
 		BooksCollection,
 		Bookmark,
@@ -44,6 +44,7 @@ const config = defineConfig({
 		pathTs: 'src/orm/seeders',
 		fileName: (className: string) => className,
 	},
+	debug: process.env.NODE_ENV === NodeJS.Environment.Development,
 	highlighter: new SqlHighlighter(),
 	logger: logger.log.bind(logger),
 	clientUrl: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}`,

@@ -27,7 +27,7 @@ export interface UserDTO {
 	password: string;
 }
 
-export interface TokenDTO {
+export interface RefreshTokenDTO {
 	user: number;
 	token: string;
 }

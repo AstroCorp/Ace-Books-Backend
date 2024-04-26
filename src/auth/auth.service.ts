@@ -7,6 +7,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 import { RefreshToken } from '@/orm/entities/RefreshToken';
 import { extractTokenData } from '@/auth/utils/jwt';
+import { CreateUserDTO } from '@/auth/validation/dto/createUser.dto';
 
 @Injectable()
 export class AuthService {
@@ -46,6 +47,17 @@ export class AuthService {
 		return {
 			...tokens,
 			user: user.getData(),
+		};
+	}
+
+	async register(body: CreateUserDTO) {
+		const newUser = new User(body);
+		const newUserEntity = await this.usersService.create(newUser);
+		const tokens = await this.generateTokens(newUserEntity);
+
+		return {
+			...tokens,
+			user: newUserEntity.getData(),
 		};
 	}
 

@@ -20,7 +20,7 @@ export class User extends BaseEntity
 	@Property()
 	password: string;
 
-	@Property()
+	@Property({ nullable: true })
 	avatar: string | null;
 
 	@Property()

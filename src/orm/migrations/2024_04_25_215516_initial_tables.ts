@@ -2,7 +2,7 @@ import { Migration } from '@mikro-orm/migrations';
 
 export class Migration20240425215516_initial_tables extends Migration {
 	async up(): Promise<void> {
-		this.addSql('create table "users" ("id" serial primary key, "created_at" timestamptz not null, "updated_at" timestamptz not null, "email" varchar(255) not null, "password" varchar(255) not null, "avatar" varchar(255) not null, "is_admin" boolean not null, "is_verified" boolean not null);');
+		this.addSql('create table "users" ("id" serial primary key, "created_at" timestamptz not null, "updated_at" timestamptz not null, "email" varchar(255) not null, "password" varchar(255) not null, "avatar" varchar(255) null, "is_admin" boolean not null, "is_verified" boolean not null);');
 
 		this.addSql('create table "refresh_tokens" ("token" varchar(255) not null, "user_id" int not null, "is_revoked" boolean not null, "created_at" varchar(255) not null, "updated_at" varchar(255) not null, constraint "refresh_tokens_pkey" primary key ("token"));');
 

@@ -8,6 +8,7 @@ import { UsersModule } from '@/users/users.module';
 import { LocalStrategy } from '@/auth/strategies/local.strategy';
 import { JwtStrategy } from '@/auth/strategies/jwt.strategy';
 import { JwtRefreshStrategy } from '@/auth/strategies/jwt-refresh.strategy';
+import { IsEmailAvailableConstraint } from '@/auth/validation/pipes/isEmailAvalible.pipe';
 
 @Module({
 	imports: [
@@ -23,6 +24,7 @@ import { JwtRefreshStrategy } from '@/auth/strategies/jwt-refresh.strategy';
 		LocalStrategy,
 		JwtStrategy,
 		JwtRefreshStrategy,
+		IsEmailAvailableConstraint,
 	],
 	controllers: [AuthController],
 })

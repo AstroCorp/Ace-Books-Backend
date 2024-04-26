@@ -26,8 +26,11 @@ export class UsersService {
 		});
 	}
 
-	async create(user: User): Promise<void> {
-		this.userRepository.create(user);
-		return this.em.flush();
+	async create(user: User) {
+		const userEntity = this.userRepository.create(user);
+
+		await this.em.flush();
+
+		return userEntity;
 	}
 }

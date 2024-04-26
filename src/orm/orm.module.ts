@@ -9,7 +9,10 @@ import { Bookmark } from '@/orm/entities/Bookmark';
 
 @Module({
 	imports: [
-		MikroOrmModule.forRoot(config),
+		MikroOrmModule.forRoot({
+			...config,
+			debug: process.env.NODE_ENV === NodeJS.Environment.Development,
+		}),
 		MikroOrmModule.forFeature({
 			entities: [
 				User,

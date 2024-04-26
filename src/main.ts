@@ -5,6 +5,7 @@ import fastifyCookie from '@fastify/cookie';
 import compression from '@fastify/compress';
 import helmet from '@fastify/helmet';
 import fastifyCsrf from '@fastify/csrf-protection';
+import { useContainer } from "class-validator";
 import { AppModule } from "@/app.module";
 
 async function bootstrap() {
@@ -38,7 +39,13 @@ async function bootstrap() {
 	await app.register(helmet);
 	await app.register(fastifyCsrf);
 
+	// Validación con class-validator de forma global
 	app.useGlobalPipes(new ValidationPipe());
+
+	// Para poder usar services en los validadores
+	useContainer(app.select(AppModule), {
+		fallbackOnErrors: true,
+	});
 
 	await app.listen(process.env.NODE_PORT, '0.0.0.0');
 }

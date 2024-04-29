@@ -14,13 +14,13 @@ export class UsersService {
 		//
 	}
 
-	async findOneByEmail(email: string) {
+	findOneByEmail(email: string) {
 		return this.userRepository.findOne({
 			email,
 		});
 	}
 
-	async findOneById(id: number) {
+	findOneById(id: number) {
 		return this.userRepository.findOne({
 			id,
 		});

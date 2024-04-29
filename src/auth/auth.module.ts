@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { AuthService } from '@/auth/auth.service';
+import { MailsService } from '@/mails/mails.service';
 import { AuthController } from '@/auth/auth.controller';
 import { OrmModule } from '@/orm/orm.module';
 import { UsersModule } from '@/users/users.module';
@@ -21,6 +22,7 @@ import { IsEmailAvailableConstraint } from '@/auth/validation/pipes/isEmailAvali
 	],
 	providers: [
 		AuthService,
+		MailsService,
 		LocalStrategy,
 		JwtStrategy,
 		JwtRefreshStrategy,

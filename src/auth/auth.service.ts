@@ -8,6 +8,7 @@ import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 import { RefreshToken } from '@/orm/entities/RefreshToken';
 import { extractTokenData } from '@/auth/utils/jwt';
 import { CreateUserDTO } from '@/auth/validation/dto/createUser.dto';
+import { MailsService } from '@/mails/mails.service';
 
 @Injectable()
 export class AuthService {
@@ -15,8 +16,9 @@ export class AuthService {
 		@InjectRepository(RefreshToken)
 		private readonly refreshTokenRepository: EntityRepository<RefreshToken>,
 		private readonly em: EntityManager,
-		private usersService: UsersService,
-		private jwtService: JwtService,
+		private readonly usersService: UsersService,
+		private readonly jwtService: JwtService,
+		private readonly mailsService: MailsService,
 	) {
 		//
 	}
@@ -44,6 +46,8 @@ export class AuthService {
 	async login(user: User) {
 		const tokens = await this.generateTokens(user);
 
+		await this.em.flush();
+
 		return {
 			...tokens,
 			user: user.getData(),
@@ -55,6 +59,10 @@ export class AuthService {
 		const newUserEntity = await this.usersService.create(newUser);
 		const tokens = await this.generateTokens(newUserEntity);
 
+		await this.em.flush();
+
+		await this.mailsService.sendVerifyEmail(newUserEntity);
+
 		return {
 			...tokens,
 			user: newUserEntity.getData(),
@@ -64,6 +72,8 @@ export class AuthService {
 	async refresh(user: User, bearerToken: string) {
 		const currentRefreshToken = bearerToken.split(' ')[1];
 		const tokens = await this.generateTokens(user, currentRefreshToken);
+
+		await this.em.flush();
 
 		return {
 			...tokens,
@@ -97,7 +107,9 @@ export class AuthService {
 	}
 
 	private async generateToken(user: User) {
-		const payload = { user_id: user.id };
+		const payload = {
+			user_id: user.id,
+		};
 
 		const token = await this.jwtService.signAsync(payload, {
 			secret: process.env.JWT_SECRET,
@@ -108,7 +120,9 @@ export class AuthService {
 	}
 
 	private async generateRefreshToken(user: User) {
-		const payload = { user_id: user.id };
+		const payload = {
+			user_id: user.id,
+		};
 
 		const refresh_token = await this.jwtService.signAsync(payload, {
 			secret: process.env.JWT_REFRESH_SECRET,
@@ -122,8 +136,6 @@ export class AuthService {
 
 		// Solo almacenamos los refresh tokens, ya que son de larga duración
 		this.em.persist(newRefreshToken);
-
-		await this.em.flush();
 
 		return refresh_token;
 	}

@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@/orm/entities/User';
+import { SignType } from '@/auth/types/signPayload';
 
 @Injectable()
 export class MailsService {
@@ -16,7 +17,7 @@ export class MailsService {
 	async sendVerifyEmail(user: User) {
 		const payload = {
 			user_id: user.id,
-			type: 'verify_email',
+			type: SignType.VerifyEmail,
 		};
 
 		const token = await this.jwtService.signAsync(payload, {
@@ -46,7 +47,7 @@ export class MailsService {
 	async sendResetEmail(user: User) {
 		const payload = {
 			user_id: user.id,
-			type: 'reset_password',
+			type: SignType.ResetPassword,
 		};
 
 		const token = await this.jwtService.signAsync(payload, {

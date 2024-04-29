@@ -1,4 +1,4 @@
-import { IsEmail, MinLength, MaxLength, IsStrongPassword } from 'class-validator';
+import { IsEmail, IsStrongPassword } from 'class-validator';
 import { IsEmailAvailable } from '@/auth/validation/pipes/isEmailAvalible.pipe';
 
 export class CreateUserDTO {

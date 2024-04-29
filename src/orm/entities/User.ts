@@ -17,8 +17,8 @@ export class User extends BaseEntity
 	@Property()
 	email: string;
 
-	@Property()
-	password: string;
+	@Property({ name: 'password' })
+	_password: string;
 
 	@Property({ nullable: true })
 	avatar: string | null;
@@ -33,7 +33,7 @@ export class User extends BaseEntity
 		super();
 
 		this.email = userDTO.email;
-		this.password = passwordEncrypt(userDTO.password);
+		this.password = userDTO.password;
 		this.avatar = null;
 		this.isAdmin = false;
 		this.isVerified = false;
@@ -46,5 +46,13 @@ export class User extends BaseEntity
 			isAdmin: this.isAdmin,
 			isVerified: this.isVerified,
 		};
+	}
+
+	public get password() {
+		return this._password;
+	}
+
+	public set password(newPassword: string) {
+		this._password = passwordEncrypt(newPassword);
 	}
 }

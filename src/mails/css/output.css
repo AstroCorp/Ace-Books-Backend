@@ -559,15 +559,3 @@ video {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-@media (min-width: 640px) {
-  .sm\:w-1\/3 {
-    width: 33.333333%;
-  }
-}
-
-@media (min-width: 768px) {
-  .md\:mb-4 {
-    margin-bottom: 1rem;
-  }
-}

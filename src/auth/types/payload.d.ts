@@ -1,4 +1,5 @@
-export default interface Payload {
-	sub: string;
-	type: string;
+export interface Payload {
+	user_id: number;
+	iat: number;
+	exp: number;
 }

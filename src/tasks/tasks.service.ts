@@ -1,34 +1,32 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { Cron } from '@nestjs/schedule';
-import { format } from 'date-fns';
-import { InjectRepository } from '@mikro-orm/nestjs';
-import { RefreshToken } from '../orm/entities';
-import { EntityRepository } from '@mikro-orm/core';
+import { RefreshToken } from "@/orm/entities/RefreshToken";
+import { EntityManager } from "@mikro-orm/postgresql";
+import { Injectable, Logger } from "@nestjs/common";
+import { Cron } from "@nestjs/schedule";
 
 @Injectable()
-export class TasksService
-{
+export class TasksService {
 	private readonly logger = new Logger(TasksService.name);
 
 	constructor(
-		@InjectRepository(RefreshToken)
-		private readonly refreshTokenRepository: EntityRepository<RefreshToken>,
+		private readonly em: EntityManager,
 	) {
 		//
 	}
 
 	@Cron('0 8 * * 1') // 8:00 de cada lunes
-	async handleCron(): Promise<void> {
-		await this.refreshTokenRepository.nativeDelete({
-			$and: [
-				{
-					expiresIn: {
-						$lte: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-					},
-				},
-			],
+	async removeExpiredRefreshTokens() {
+		const emFork = this.em.fork();
+
+		// Eliminamos los refresh_tokens que han expirado, es decir,
+		// los que han sido creados hace más de 7 días
+		const refreshTokens = await emFork.find(RefreshToken, {
+			createdAt: {
+				$lte: new Date(Date.now() - 604800000),
+			},
 		});
 
-		this.logger.log('Se han eliminado los refresh_tokens que han expirado');
+		await emFork.remove(refreshTokens).flush();
+
+		this.logger.log('Expired refresh tokens removed');
 	}
 }

@@ -2,25 +2,27 @@
 	"compilerOptions": {
 		"module": "commonjs",
 		"declaration": true,
-		"noImplicitAny": false,
 		"removeComments": true,
-		"noLib": false,
-		"strict": true,
-		"allowSyntheticDefaultImports": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
-		"strictPropertyInitialization": false,
-		"target": "es6",
+		"allowSyntheticDefaultImports": true,
+		"target": "ES2021",
 		"sourceMap": true,
 		"outDir": "./dist",
-		"baseUrl": "./src"
+		"baseUrl": "./",
+		"incremental": true,
+		"skipLibCheck": true,
+		"strictNullChecks": false,
+		"noImplicitAny": false,
+		"strictBindCallApply": false,
+		"forceConsistentCasingInFileNames": false,
+		"noFallthroughCasesInSwitch": false,
+		"paths": {
+			"@/*": ["src/*"]
+		}
+
 	},
-	"include": [
-		"src/**/*"
-	],
-	"exclude": [
-		"node_modules",
-		"**/*.spec.ts",
-		"**/*.e2e-spec.ts"
-	]
+	"watchOptions": {
+		"watchFile": "fixedPollingInterval"
+	}
 }

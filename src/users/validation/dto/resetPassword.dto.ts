@@ -1,22 +1,15 @@
-import { IsEmail, Length, MinLength, MaxLength } from 'class-validator';
+import { IsStrongPassword, IsJWT } from 'class-validator';
 
-export class ResetPasswordDto
-{
-	@IsEmail({}, {
-		message: 'isEmail',
-	})
-	email: string;
+export class ResetPasswordDTO {
+	@IsJWT()
+	token: string;
 
-	@Length(23, 23, {
-		message: 'length',
+	@IsStrongPassword({
+		minLength: 8,
+		minLowercase: 1,
+		minUppercase: 1,
+		minNumbers: 1,
+		minSymbols: 1,
 	})
-	code: string;
-
-	@MinLength(6, {
-		message: 'minLength',
-	})
-	@MaxLength(25, {
-		message: 'maxLength',
-	})
-	newPassword: string;
+	password: string;
 }

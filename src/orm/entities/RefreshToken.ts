@@ -1,27 +1,43 @@
-import { Entity, Property, ManyToOne, PrimaryKey } from '@mikro-orm/core';
-import { User } from './User';
+import { Entity, Property, ManyToOne, Rel, rel, PrimaryKey, Opt } from '@mikro-orm/core';
+import { User } from '@/orm/entities/User';
+import type { RefreshTokenDTO } from '@/orm/types/entities';
+import { extractTokenData } from '@/auth/utils/jwt';
 
-@Entity()
+@Entity({ tableName: 'refresh_tokens' })
 export class RefreshToken
 {
-	@PrimaryKey()
-	id!: number;
-
 	@ManyToOne(() => User)
-	user: User;
+	user: Rel<User>;
 
-	@Property()
+	@PrimaryKey()
 	token: string;
 
 	@Property()
-	expiresIn!: Date;
+	isRevoked: boolean;
 
-	constructor(user: User, token: string) {
-		const expiresIn = new Date();
-		expiresIn.setDate(expiresIn.getDate() + 7);
+	@Property()
+	createdAt: Date & Opt = new Date();
 
-		this.user = user;
-		this.token = token;
-		this.expiresIn = expiresIn;
+	@Property({ onUpdate: () => new Date() })
+	updatedAt: Date & Opt = new Date();
+
+	constructor(refreshTokenDTO: RefreshTokenDTO) {
+		this.user = rel(User, refreshTokenDTO.user);
+		this.token = refreshTokenDTO.token;
+		this.isRevoked = false;
+	}
+
+	public isValid() {
+		const { exp } = extractTokenData(this.token);
+
+		// Date.now() es en milisegundos y exp en segundos,
+		// por eso se multiplica por 1000
+		const isExpired = Date.now() >= exp * 1000;
+
+		return !this.isRevoked && !isExpired;
+	}
+
+	public revoke() {
+		this.isRevoked = true;
 	}
 }

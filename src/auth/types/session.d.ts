@@ -1,3 +1,5 @@
-export default interface Session {
-	user: string;
+import { User } from "@/orm/entities/User";
+
+export interface Session {
+	user: User;
 }

@@ -1,42 +1,33 @@
 import { Module } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { UsersModule } from '../users/users.module';
-import { AuthService } from './auth.service';
-import { JwtStrategy } from './strategies/jwt.strategy';
-import { LocalStrategy } from './strategies/local.strategy';
-import { AuthController } from './auth.controller';
-import { OrmModule } from '../orm/orm.module';
-import { IsEmailAvailableConstraint } from './validation/pipes/isEmailAvailable';
-import { IsValidRefreshTokenConstraint } from './validation/pipes/isValidRefreshToken';
-import { MailsService } from '../mails/mails.service';
+import { PassportModule } from '@nestjs/passport';
+import { AuthService } from '@/auth/auth.service';
+import { EmailsService } from '@/emails/emails.service';
+import { AuthController } from '@/auth/auth.controller';
+import { OrmModule } from '@/orm/orm.module';
+import { UsersModule } from '@/users/users.module';
+import { LocalStrategy } from '@/auth/strategies/local.strategy';
+import { JwtStrategy } from '@/auth/strategies/jwt.strategy';
+import { JwtRefreshStrategy } from '@/auth/strategies/jwt-refresh.strategy';
+import { IsEmailAvailableConstraint } from '@/auth/validation/pipes/isEmailAvalible.pipe';
 
 @Module({
 	imports: [
+		JwtModule.register({
+			global: true,
+		}),
+		PassportModule,
 		OrmModule,
 		UsersModule,
-		PassportModule,
-		JwtModule.registerAsync({
-			imports: [ConfigModule],
-			useFactory: (configService: ConfigService) => ({
-				secret: configService.get<string>('JWT_SECRET') || 'secret',
-				signOptions: {
-					expiresIn: configService.get<string>('JWT_TIMEOUT') || '900s',
-				},
-			}),
-			inject: [ConfigService],
-		}),
 	],
-	controllers: [AuthController],
 	providers: [
 		AuthService,
-		MailsService,
+		EmailsService,
 		LocalStrategy,
 		JwtStrategy,
+		JwtRefreshStrategy,
 		IsEmailAvailableConstraint,
-		IsValidRefreshTokenConstraint,
 	],
-	exports: [AuthService],
+	controllers: [AuthController],
 })
-export class AuthModule {}
+export class AuthModule { }

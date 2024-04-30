@@ -1,6 +1,0 @@
-node_modules
-dist
-**/*.spec.ts
-**/*.e2e-spec.ts
-main.hmr.ts
-main.ts

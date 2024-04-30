@@ -1,11 +1,11 @@
-import { Entity, Property, BeforeCreate, BeforeUpdate, Collection, OneToMany } from '@mikro-orm/core';
-import * as bcrypt from 'bcrypt';
-import { BaseEntity } from './BaseEntity';
-import { Book } from './Book';
-import { BooksCollection } from './BooksCollection';
-import { RefreshToken } from './RefreshToken';
+import { Entity, Property, Collection, OneToMany } from '@mikro-orm/core';
+import { BaseEntity } from '@/orm/entities/BaseEntity';
+import { Book } from '@/orm/entities/Book';
+import { BooksCollection } from '@/orm/entities/BooksCollection';
+import type { UserDTO } from '@/orm/types/entities';
+import { passwordEncrypt } from '@/auth/utils/bcrypt';
 
-@Entity()
+@Entity({ tableName: 'users' })
 export class User extends BaseEntity
 {
 	@OneToMany(() => Book, (book) => book.user)
@@ -14,52 +14,45 @@ export class User extends BaseEntity
 	@OneToMany(() => BooksCollection, (booksCollections) => booksCollections.user)
 	booksCollections = new Collection<BooksCollection>(this);
 
-	@OneToMany(() => RefreshToken, (refreshTokens) => refreshTokens.user)
-	refreshTokens = new Collection<RefreshToken>(this);
-
 	@Property()
 	email: string;
 
 	@Property({ name: 'password' })
-	private _password!: string;
+	_password: string;
 
 	@Property({ nullable: true })
-	image?: string;
+	avatar: string | null;
 
-	@Property({ default: false })
-	isAdmin!: boolean;
+	@Property()
+	isAdmin: boolean;
 
-	@Property({ default: false })
-	isVerified!: boolean;
+	@Property()
+	isVerified: boolean;
 
-	@Property({ type: 'json', nullable: true })
-	codes?: { email_code: string | null; password_code: string | null };
-
-	private tempPassword;
-
-	constructor(email: string, password: string) {
+	constructor(userDTO: UserDTO) {
 		super();
 
-		this.email = email;
-		this.tempPassword = password;
+		this.email = userDTO.email;
+		this.password = userDTO.password;
+		this.avatar = null;
+		this.isAdmin = false;
+		this.isVerified = false;
 	}
 
-	set password(newPassword: string) {
-		this.tempPassword = newPassword;
+	public getData() {
+		return {
+			email: this.email,
+			avatar: this.avatar,
+			isAdmin: this.isAdmin,
+			isVerified: this.isVerified,
+		};
 	}
 
-	get password(): string {
+	public get password() {
 		return this._password;
 	}
 
-	@BeforeCreate()
-	@BeforeUpdate()
-	private async hashPassword() {
-		if (this.tempPassword) {
-			const saltRounds = 10;
-			const hashedPassword = await bcrypt.hash(this.tempPassword, saltRounds);
-
-			this._password = hashedPassword;
-		}
+	public set password(newPassword: string) {
+		this._password = passwordEncrypt(newPassword);
 	}
 }

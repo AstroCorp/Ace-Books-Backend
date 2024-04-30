@@ -1,16 +1,12 @@
-import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { OrmModule } from '../orm/orm.module';
-import { UsersController } from './users.controller';
-import { MailsService } from '../mails/mails.service';
+import { Module } from "@nestjs/common";
+import { UsersService } from "@/users/users.service";
+import { OrmModule } from "@/orm/orm.module";
+import { UsersController } from "@/users/users.controller";
 
 @Module({
 	imports: [OrmModule],
 	controllers: [UsersController],
-	providers: [
-		UsersService,
-		MailsService,
-	],
+	providers: [UsersService],
 	exports: [UsersService],
 })
 export class UsersModule {}

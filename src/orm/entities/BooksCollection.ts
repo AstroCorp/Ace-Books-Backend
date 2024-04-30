@@ -1,32 +1,33 @@
-import { Entity, Property, ManyToOne, OneToMany, Collection } from '@mikro-orm/core';
-import { BaseEntity } from './BaseEntity';
-import { User } from './User';
-import { Book } from './Book';
+import { Entity, Property, ManyToOne, OneToMany, Collection, Rel, rel } from '@mikro-orm/core';
+import { BaseEntity } from '@/orm/entities/BaseEntity';
+import { User } from '@/orm/entities/User';
+import { Book } from '@/orm/entities/Book';
+import type { BooksCollectionDTO } from '@/orm/types/entities';
 
-@Entity()
+@Entity({ tableName: 'books_collections'})
 export class BooksCollection extends BaseEntity
 {
 	@ManyToOne(() => User)
-	user: User;
+	user: Rel<User>;
 
-	@OneToMany(() => Book, (book) => book.collection)
+	@OneToMany(() => Book, (book) => book.booksCollection)
 	books = new Collection<Book>(this);
 
 	@Property()
-	name: string;
+	title: string;
 
 	@Property({ nullable: true })
-	image: string;
+	image: string | null;
 
 	@Property()
 	description: string;
 
-	constructor(user: User, name: string, image: string, description: string) {
+	constructor(booksCollectionDTO: BooksCollectionDTO) {
 		super();
 
-		this.user = user;
-		this.name = name;
-		this.image = image;
-		this.description = description;
+		this.user = rel(User, booksCollectionDTO.user);
+		this.title = booksCollectionDTO.title;
+		this.image = booksCollectionDTO.image;
+		this.description = booksCollectionDTO.description;
 	}
 }

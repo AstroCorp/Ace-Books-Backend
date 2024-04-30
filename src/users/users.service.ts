@@ -1,109 +1,85 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { EntityRepository, wrap } from '@mikro-orm/core';
+import { JwtService } from '@nestjs/jwt';
+import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { User } from '../orm/entities';
-import { MailsService } from '../mails/mails.service';
+import { EntityManager } from '@mikro-orm/postgresql';
+import { User } from '@/orm/entities/User';
+import { extractSignData } from '@/auth/utils/jwt';
+import { SignType } from '@/auth/types/signPayload';
 
 @Injectable()
-export class UsersService
-{
+export class UsersService {
 	constructor(
 		@InjectRepository(User)
 		private readonly userRepository: EntityRepository<User>,
-
-		private readonly mailsService: MailsService,
+		private readonly em: EntityManager,
+		private readonly jwtService: JwtService,
 	) {
 		//
 	}
 
-	async findOne(email: string): Promise<User | null> {
-		return await this.userRepository.findOne({
+	findOneByEmail(email: string) {
+		return this.userRepository.findOne({
 			email,
 		});
 	}
 
-	async create(user: User): Promise<void> {
-		return await this.userRepository.persistAndFlush(user);
+	findOneById(id: number) {
+		return this.userRepository.findOne({
+			id,
+		});
 	}
 
-	async verifyEmail(email: string, code: string): Promise<void> {
-		const user = (await this.findOne(email)) as User;
+	async create(user: User) {
+		const userEntity = this.userRepository.create(user);
 
-		if (user.codes?.email_code !== code) {
-			throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
-		}
+		await this.em.flush();
 
-		wrap(user).assign({
-			codes: {
-				...user.codes,
-				email_code: null,
-			},
-			isVerified: true,
+		return userEntity;
+	}
+
+	async verifyEmail(user: User, token: string) {
+		const isValidSign = this.jwtService.verify(token, {
+			secret: process.env.URL_SIGNED_SECRET,
 		});
 
-		await this.userRepository.persistAndFlush(user);
-	}
-
-	async resendVerificationMail(email: string): Promise<void> {
-		const user = (await this.findOne(email)) as User;
+		if (!isValidSign) {
+			throw new HttpException('Invalid verification token', HttpStatus.BAD_REQUEST);
+		}
 
 		if (user.isVerified) {
-			throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+			return;
 		}
 
-		await this.generateCode(user, 'email_code');
-		await this.mailsService.sendVerifyEmail(user);
+		const payload = extractSignData(token);
+
+		if (user.id !== payload.user_id || payload.type !== SignType.VerifyEmail) {
+			throw new HttpException('Invalid verification token', HttpStatus.BAD_REQUEST);
+		}
+
+		user.isVerified = true;
+
+		await this.em.flush();
 	}
 
-	async resetPassword(email: string, passwordCode: string, newPassword: string): Promise<void> {
-		const user = (await this.findOne(email)) as User;
-
-		if (user.codes?.password_code !== passwordCode) {
-			throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
-		}
-
-		wrap(user).assign({
-			codes: {
-				...user.codes,
-				password_code: null,
-			},
-			password: newPassword,
+	async resetPassword(token: string, password: string) {
+		const isValidSign = this.jwtService.verify(token, {
+			secret: process.env.URL_SIGNED_SECRET,
 		});
 
-		await this.userRepository.persistAndFlush(user);
-	}
-
-	async resendResetMail(email: string): Promise<void> {
-		const user = await this.findOne(email);
-
-		if (user === null) {
-			throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+		if (!isValidSign) {
+			throw new HttpException('Invalid reset password token', HttpStatus.BAD_REQUEST);
 		}
 
-		await this.generateCode(user, 'password_code');
-		await this.mailsService.sendResetEmail(user);
-	}
+		const payload = extractSignData(token);
+		const user = await this.findOneById(payload.user_id);
 
-	async generateCode(user: User, codeType: string): Promise<void> {
-		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-		const length = 20;
-		let code = '';
-
-		for (let i = 1; i <= length; i++) {
-			code += characters.charAt(Math.floor(Math.random() * characters.length));
-
-			if (i < length && i % 5 === 0) {
-				code += '-';
-			}
+		if (!user || payload.type !== SignType.ResetPassword) {
+			throw new HttpException('Invalid reset password token', HttpStatus.BAD_REQUEST);
 		}
 
-		wrap(user).assign({
-			codes: {
-				...user.codes,
-				[codeType]: code,
-			},
-		});
+		user.password = password;
 
-		await this.userRepository.persistAndFlush(user);
+		await this.em.flush();
 	}
 }

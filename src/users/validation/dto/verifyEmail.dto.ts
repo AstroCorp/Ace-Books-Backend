@@ -1,9 +1,6 @@
-import { Length } from 'class-validator';
+import { IsJWT } from 'class-validator';
 
-export class VerifyEmailDto
-{
-	@Length(23, 23, {
-		message: 'length',
-	})
-	code: string;
+export class VerifyEmailDTO {
+	@IsJWT()
+	token: string;
 }

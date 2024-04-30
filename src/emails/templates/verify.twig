@@ -1,0 +1,15 @@
+{% extends "./layout.twig" %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block content %}
+	<h1 class="font-medium">Hello!</h1>
+	<p class="mt-4 mb-6 text-gray-500">
+		Thanks for registering for an account on Ace Books! Before we get started, we just need to confirm that this is you.
+	</p>
+	<a href="{{ url }}" class="p-2 border-blue-500 text-blue-500 font-semibold border-2 rounded-md w-full text-center block mx-auto">
+		Verify Email
+	</a>
+{% endblock %}

@@ -1,36 +1,41 @@
-import { Entity, Property, ManyToOne } from '@mikro-orm/core';
-import { BaseEntity } from './BaseEntity';
-import { User } from './User';
-import { BooksCollection } from './BooksCollection';
+import { Entity, Property, ManyToOne, Rel, rel } from '@mikro-orm/core';
+import { BaseEntity } from '@/orm/entities/BaseEntity';
+import { BooksCollection } from '@/orm/entities/BooksCollection';
+import { User } from '@/orm/entities/User';
+import type { BookDTO } from '@/orm/types/entities';
 
-@Entity()
+@Entity({ tableName: 'books' })
 export class Book extends BaseEntity
 {
 	@ManyToOne(() => User)
-	user: User;
+	user: Rel<User>;
 
 	@ManyToOne({ entity: () => BooksCollection, nullable: true })
-	collection!: BooksCollection;
+	booksCollection: BooksCollection | null;
 
 	@Property()
-	name: string;
+	title: string;
 
 	@Property({ nullable: true })
-	image!: string;
+	image: string | null;
 
 	@Property()
 	description: string;
 
 	@Property()
+	pages: number;
+
+	@Property()
 	filename: string;
 
-	constructor(user: User, name: string, image: string, description: string, filename: string) {
+	constructor(bookDTO: BookDTO) {
 		super();
 
-		this.user = user;
-		this.name = name;
-		this.image = image;
-		this.description = description;
-		this.filename = filename;
+		this.user = rel(User, bookDTO.user);
+		this.title = bookDTO.title;
+		this.image = bookDTO.image;
+		this.description = bookDTO.description;
+		this.pages = bookDTO.pages;
+		this.filename = bookDTO.filename;
 	}
 }

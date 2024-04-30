@@ -4,17 +4,19 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@/orm/entities/User';
 import { SignType } from '@/auth/types/signPayload';
+import { UsersService } from '@/users/users.service';
 
 @Injectable()
 export class MailsService {
 	constructor(
 		private readonly mailerService: MailerService,
 		private readonly jwtService: JwtService,
+		private readonly userService: UsersService,
 	) {
 		//
 	}
 
-	async sendVerifyEmail(user: User) {
+	async sendVerifyAccountEmail(user: User) {
 		const payload = {
 			user_id: user.id,
 			type: SignType.VerifyEmail,
@@ -72,5 +74,23 @@ export class MailsService {
 				},
 			],
 		});
+	}
+
+	async resendVerifyAccountEmail(user: User) {
+		if (user.isVerified) {
+			return;
+		}
+
+		await this.sendVerifyAccountEmail(user);
+	}
+
+	async resendResetPasswordEmail(email: string) {
+		const user = await this.userService.findOneByEmail(email);
+
+		if (!user) {
+			return;
+		}
+
+		await this.sendResetEmail(user);
 	}
 }

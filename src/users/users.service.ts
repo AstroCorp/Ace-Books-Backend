@@ -4,7 +4,6 @@ import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { User } from '@/orm/entities/User';
-import { MailsService } from '@/mails/mails.service';
 import { extractSignData } from '@/auth/utils/jwt';
 import { SignType } from '@/auth/types/signPayload';
 
@@ -14,7 +13,6 @@ export class UsersService {
 		@InjectRepository(User)
 		private readonly userRepository: EntityRepository<User>,
 		private readonly em: EntityManager,
-		private readonly mailsService: MailsService,
 		private readonly jwtService: JwtService,
 	) {
 		//
@@ -38,24 +36,6 @@ export class UsersService {
 		await this.em.flush();
 
 		return userEntity;
-	}
-
-	async resendVerificationEmail(user: User) {
-		if (user.isVerified) {
-			return;
-		}
-
-		await this.mailsService.sendVerifyEmail(user);
-	}
-
-	async resendResetPasswordEmail(email: string) {
-		const user = await this.findOneByEmail(email);
-
-		if (!user) {
-			return;
-		}
-
-		await this.mailsService.sendResetEmail(user);
 	}
 
 	async verifyEmail(user: User, token: string) {

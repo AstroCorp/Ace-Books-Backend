@@ -61,7 +61,7 @@ export class AuthService {
 
 		await this.em.flush();
 
-		await this.mailsService.sendVerifyEmail(newUserEntity);
+		await this.mailsService.sendVerifyAccountEmail(newUserEntity);
 
 		return {
 			...tokens,

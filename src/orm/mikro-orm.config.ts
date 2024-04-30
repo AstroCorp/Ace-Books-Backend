@@ -46,7 +46,7 @@ const config = defineConfig({
 	},
 	highlighter: new SqlHighlighter(),
 	logger: logger.log.bind(logger),
-	clientUrl: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}`,
+	clientUrl: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}?sslmode=require`,
 	extensions: [
 		Migrator,
 		SeedManager,

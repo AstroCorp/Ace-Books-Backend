@@ -38,6 +38,7 @@
 		"@nestjs/jwt": "^10.2.0",
 		"@nestjs/passport": "^10.0.3",
 		"@nestjs/platform-fastify": "^10.3.8",
+		"@nestjs/schedule": "^4.0.2",
 		"@nestjs/throttler": "^5.1.2",
 		"bcrypt": "^5.1.1",
 		"class-transformer": "^0.5.1",

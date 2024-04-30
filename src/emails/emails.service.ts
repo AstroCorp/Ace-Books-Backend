@@ -7,7 +7,7 @@ import { SignType } from '@/auth/types/signPayload';
 import { UsersService } from '@/users/users.service';
 
 @Injectable()
-export class MailsService {
+export class EmailsService {
 	constructor(
 		private readonly mailerService: MailerService,
 		private readonly jwtService: JwtService,
@@ -39,7 +39,7 @@ export class MailsService {
 			attachments: [
 				{
 					filename: 'logo.png',
-					content: fs.createReadStream(process.cwd() + '/src/mails/icons/ace_logo.png'),
+					content: fs.createReadStream(process.cwd() + '/src/emails/icons/ace_logo.png'),
 					cid: 'logo',
 				},
 			],
@@ -69,7 +69,7 @@ export class MailsService {
 			attachments: [
 				{
 					filename: 'logo.png',
-					content: fs.createReadStream(process.cwd() + '/src/mails/icons/ace_logo.png'),
+					content: fs.createReadStream(process.cwd() + '/src/emails/icons/ace_logo.png'),
 					cid: 'logo',
 				},
 			],

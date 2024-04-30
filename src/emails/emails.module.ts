@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { MailsController } from '@/mails/mails.controller';
+import { EmailsController } from '@/emails/emails.controller';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { MailsService } from '@/mails/mails.service';
+import { EmailsService } from '@/emails/emails.service';
 import { OrmModule } from '@/orm/orm.module';
-import { TwingAdapter } from '@/mails/adapters/twing.adapter';
+import { TwingAdapter } from '@/emails/adapters/twing.adapter';
 import { UsersService } from '@/users/users.service';
 
 @Module({
@@ -22,18 +22,18 @@ import { UsersService } from '@/users/users.service';
 					},
 				},
 				template: {
-					dir: process.cwd() + '/src/mails/templates/',
+					dir: process.cwd() + '/src/emails/templates/',
 					adapter: new TwingAdapter({
-						baseUrl: 'file://' + process.cwd() + '/src/mails/css/',
+						baseUrl: 'file://' + process.cwd() + '/src/emails/css/',
 					}),
 				},
 			}),
 		}),
 	],
-	controllers: [MailsController],
+	controllers: [EmailsController],
 	providers: [
-		MailsService,
+		EmailsService,
 		UsersService,
 	],
 })
-export class MailsModule {}
+export class EmailsModule {}

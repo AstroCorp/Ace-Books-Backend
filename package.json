@@ -17,7 +17,7 @@
 		"start:dev": "nest start --watch",
 		"start:debug": "nest start --debug --watch",
 		"start:prod": "node dist/main",
-		"tailwind": "npx tailwindcss -i ./src/mails/css/input.css -o ./src/mails/css/output.css --watch"
+		"tailwind": "npx tailwindcss -i ./src/emails/css/input.css -o ./src/emails/css/output.css --watch"
 	},
 	"dependencies": {
 		"@faker-js/faker": "^8.4.1",

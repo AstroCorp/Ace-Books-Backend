@@ -6,8 +6,10 @@ declare global {
 
 			FRONTEND_URL: string;
 
-			RATE_LIMIT_TTL: number;
-			RATE_LIMIT_MAX: number;
+			DEFAULT_RATE_LIMIT_TTL: number;
+			DEFAULT_RATE_LIMIT_MAX: number;
+			EMAILS_RATE_LIMIT_TTL: number;
+			EMAILS_RATE_LIMIT_MAX: number;
 
 			COOKIE_SECRET: string;
 

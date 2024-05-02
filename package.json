@@ -13,7 +13,7 @@
 		"docker:remove": "yarn remove",
 		"postdocker:remove": "docker exec -it ace-books-backend-backend-1 yarn install",
 		"build": "nest build",
-		"postbuild": "node -r ./tsconfig-paths-bootstrap.js dist/main.js",
+		"postbuild": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/main.js",
 		"start": "nest start",
 		"start:dev": "nest start --watch",
 		"start:debug": "nest start --debug --watch",

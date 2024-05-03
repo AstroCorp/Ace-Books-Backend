@@ -1,18 +1,17 @@
 {
 	"installCommand": "yarn install",
-	"buildCommand": "npm build",
-	"outputDirectory": "dist",
+	"buildCommand": "npm fix-paths",
 	"version": 2,
 	"builds": [
 		{
-			"src": "dist/main.js",
+			"src": "src/main.ts",
 			"use": "@vercel/node"
 		}
 	],
 	"routes": [
 		{
 			"src": "/(.*)",
-			"dest": "dist/main.js",
+			"dest": "src/main.ts",
 			"methods": [
 				"GET",
 				"POST",

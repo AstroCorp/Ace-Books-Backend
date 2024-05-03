@@ -1,5 +1,7 @@
 {
+	"installCommand": "yarn install",
 	"buildCommand": "npm build",
+	"outputDirectory": "dist",
 	"version": 2,
 	"builds": [
 		{

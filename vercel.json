@@ -1,6 +1,6 @@
 {
 	"installCommand": "yarn install",
-	"buildCommand": "npm fix-paths",
+	"buildCommand": "npm run fix-paths",
 	"version": 2,
 	"builds": [
 		{

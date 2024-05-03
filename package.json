@@ -13,7 +13,7 @@
 		"docker:remove": "yarn remove",
 		"postdocker:remove": "docker exec -it ace-books-backend-backend-1 yarn install",
 		"build": "nest build",
-		"postbuild": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/main.js",
+		"postbuild": "npx tsconfig-replace-paths --project tsconfig.json",
 		"start": "nest start",
 		"start:dev": "nest start --watch",
 		"start:debug": "nest start --debug --watch",
@@ -68,6 +68,7 @@
 		"ts-loader": "^9.5.1",
 		"ts-node": "^10.9.2",
 		"tsconfig-paths": "^4.2.0",
+		"tsconfig-replace-paths": "^0.0.14",
 		"typescript": "^5.4.5"
 	},
 	"mikro-orm": {

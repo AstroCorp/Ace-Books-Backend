@@ -7,7 +7,7 @@ import { Book } from '@/orm/entities/Book';
 import { BooksCollection } from '@/orm/entities/BooksCollection';
 import { Bookmark } from '@/orm/entities/Bookmark';
 
-console.log('>>>', process.cwd());
+console.log('process cwd', process.cwd());
 @Module({
 	imports: [
 		MikroOrmModule.forRoot({

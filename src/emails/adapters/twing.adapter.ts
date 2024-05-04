@@ -18,8 +18,6 @@ export class TwingAdapter implements TemplateAdapter {
 		const templateDir = options.template?.dir ?? path.dirname(mail.data.template);
 		const loader = createFilesystemLoader(fs);
 
-		console.log('>> debug templateDir', templateDir, templateName, templateExt);
-
 		loader.addPath(templateDir);
 
 		const twing = createEnvironment(loader);
@@ -30,7 +28,10 @@ export class TwingAdapter implements TemplateAdapter {
 
 				return callback();
 			})
-			.catch(callback);
+			.catch((err) => {
+				console.log('> debug mail error', err);
+				return callback(err);
+			});
 	}
 
 	private async renderTemplate(twing: TwingEnvironment, template: string, context: Record<string, any>): Promise<string> {

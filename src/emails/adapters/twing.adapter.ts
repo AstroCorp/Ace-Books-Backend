@@ -28,10 +28,7 @@ export class TwingAdapter implements TemplateAdapter {
 
 				return callback();
 			})
-			.catch((err) => {
-				console.log('> debug mail error', err);
-				return callback(err);
-			});
+			.catch(callback);
 	}
 
 	private async renderTemplate(twing: TwingEnvironment, template: string, context: Record<string, any>): Promise<string> {

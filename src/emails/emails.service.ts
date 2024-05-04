@@ -39,7 +39,7 @@ export class EmailsService {
 			attachments: [
 				{
 					filename: 'logo.png',
-					content: fs.createReadStream(process.cwd() + '/src/emails/icons/ace_logo.png'),
+					content: fs.createReadStream(__dirname + '/icons/ace_logo.png'),
 					cid: 'logo',
 				},
 			],
@@ -69,7 +69,7 @@ export class EmailsService {
 			attachments: [
 				{
 					filename: 'logo.png',
-					content: fs.createReadStream(process.cwd() + '/src/emails/icons/ace_logo.png'),
+					content: fs.createReadStream(__dirname + '/icons/ace_logo.png'),
 					cid: 'logo',
 				},
 			],

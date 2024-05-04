@@ -22,9 +22,9 @@ import { UsersService } from '@/users/users.service';
 					},
 				},
 				template: {
-					dir: process.cwd() + '/src/emails/templates/',
+					dir: __dirname + '/templates/',
 					adapter: new TwingAdapter({
-						baseUrl: 'file://' + process.cwd() + '/src/emails/css/',
+						baseUrl: 'file://' + __dirname + '/css/',
 					}),
 				},
 			}),

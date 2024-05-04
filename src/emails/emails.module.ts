@@ -6,6 +6,8 @@ import { OrmModule } from '@/orm/orm.module';
 import { TwingAdapter } from '@/emails/adapters/twing.adapter';
 import { UsersService } from '@/users/users.service';
 
+console.log('>>_dirname', __dirname);
+
 @Module({
 	imports: [
 		OrmModule,
@@ -22,9 +24,9 @@ import { UsersService } from '@/users/users.service';
 					},
 				},
 				template: {
-					dir: __dirname + '/src/emails/templates/',
+					dir: __dirname + '/templates/',
 					adapter: new TwingAdapter({
-						baseUrl: 'file://' + __dirname + '/src/emails/css/',
+						baseUrl: 'file://' + __dirname + '/css/',
 					}),
 				},
 			}),

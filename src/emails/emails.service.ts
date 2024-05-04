@@ -85,6 +85,7 @@ export class EmailsService {
 	}
 
 	async resendResetPasswordEmail(email: string) {
+		console.log('process cwd', process.cwd());
 		const user = await this.userService.findOneByEmail(email);
 
 		if (!user) {

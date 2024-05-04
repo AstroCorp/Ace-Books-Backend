@@ -13,7 +13,6 @@
 		"docker:remove": "yarn remove",
 		"postdocker:remove": "docker exec -it ace-books-backend-backend-1 yarn install",
 		"build": "nest build",
-		"fix-paths": "node fix-paths.js",
 		"start": "nest start",
 		"start:dev": "nest start --watch",
 		"start:debug": "nest start --debug --watch",

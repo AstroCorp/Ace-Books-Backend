@@ -7,6 +7,7 @@ import { Book } from '@/orm/entities/Book';
 import { BooksCollection } from '@/orm/entities/BooksCollection';
 import { Bookmark } from '@/orm/entities/Bookmark';
 
+console.log(process.env.DATABASE_HOST);
 @Module({
 	imports: [
 		MikroOrmModule.forRoot({

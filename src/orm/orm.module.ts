@@ -7,7 +7,7 @@ import { Book } from '@/orm/entities/Book';
 import { BooksCollection } from '@/orm/entities/BooksCollection';
 import { Bookmark } from '@/orm/entities/Bookmark';
 
-console.log('>>>', process.env.DATABASE_HOST, process.env.DATABASE_PORT, process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD);
+console.log('>>>', process.cwd());
 @Module({
 	imports: [
 		MikroOrmModule.forRoot({

@@ -6,8 +6,6 @@ import { OrmModule } from '@/orm/orm.module';
 import { TwingAdapter } from '@/emails/adapters/twing.adapter';
 import { UsersService } from '@/users/users.service';
 
-console.log('>>_dirname', __dirname);
-
 @Module({
 	imports: [
 		OrmModule,

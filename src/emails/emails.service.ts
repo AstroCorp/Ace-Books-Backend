@@ -91,6 +91,8 @@ export class EmailsService {
 			return;
 		}
 
+		console.log('__dirname', __dirname)
+
 		await this.sendResetEmail(user);
 	}
 }

@@ -18,6 +18,8 @@ export class TwingAdapter implements TemplateAdapter {
 		const templateDir = options.template?.dir ?? path.dirname(mail.data.template);
 		const loader = createFilesystemLoader(fs);
 
+		console.log('>> debug templateDir', templateDir, templateName, templateExt);
+
 		loader.addPath(templateDir);
 
 		const twing = createEnvironment(loader);

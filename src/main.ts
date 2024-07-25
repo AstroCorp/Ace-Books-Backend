@@ -13,7 +13,7 @@ async function bootstrap() {
 
 	// CORS
 	const whitelist = process.env.NODE_ENV === NodeJS.Environment.Development
-		? ['http://localhost:*']
+		? ['http://localhost:3000']
 		: ['https://ace-books-frontend.vercel.app'];
 
 	app.enableCors({

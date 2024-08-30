@@ -3,7 +3,7 @@ import { BaseEntity } from '@/orm/entities/BaseEntity';
 import { Book } from '@/orm/entities/Book';
 import { BooksCollection } from '@/orm/entities/BooksCollection';
 import type { UserDTO } from '@/orm/types/entities';
-import { passwordEncrypt } from '@/auth/utils/bcrypt';
+import { passwordEncrypt } from '@/auth/utils/argon2';
 
 @Entity({ tableName: 'users' })
 export class User extends BaseEntity

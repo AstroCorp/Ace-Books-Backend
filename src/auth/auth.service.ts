@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '@/users/users.service';
-import { passwordCompare } from '@/auth/utils/bcrypt';
+import { passwordCompare } from '@/auth/utils/argon2';
 import { User } from '@/orm/entities/User';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';

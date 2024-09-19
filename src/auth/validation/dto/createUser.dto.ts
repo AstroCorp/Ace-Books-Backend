@@ -1,9 +1,10 @@
-import { IsEmail, IsStrongPassword } from 'class-validator';
+import { IsEmail, IsStrongPassword, MaxLength } from 'class-validator';
 import { IsEmailAvailable } from '@/auth/validation/pipes/isEmailAvalible.pipe';
 
 export class CreateUserDTO {
 	@IsEmail(undefined, { message: 'invalid email' })
 	@IsEmailAvailable()
+	@MaxLength(255)
 	email: string;
 
 	@IsStrongPassword({
@@ -13,5 +14,6 @@ export class CreateUserDTO {
 		minNumbers: 1,
 		minSymbols: 1,
 	})
+	@MaxLength(32)
 	password: string;
 }

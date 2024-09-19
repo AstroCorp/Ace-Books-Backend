@@ -2,7 +2,7 @@ import { IsEmail, IsStrongPassword } from 'class-validator';
 import { IsEmailAvailable } from '@/auth/validation/pipes/isEmailAvalible.pipe';
 
 export class CreateUserDTO {
-	@IsEmail()
+	@IsEmail(undefined, { message: 'invalid email' })
 	@IsEmailAvailable()
 	email: string;
 

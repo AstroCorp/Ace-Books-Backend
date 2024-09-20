@@ -3,7 +3,7 @@
 	"collection": "@nestjs/schematics",
 	"sourceRoot": "src",
 	"compilerOptions": {
-		"assets": ["**/*.svg", "**/*.png"],
+		"assets": ["**/*.svg", "**/*.png", "**/*.twig", "**/*.css"],
 		"deleteOutDir": true,
 		"typeCheck": true,
 		"watchAssets": true

@@ -1,25 +1,47 @@
 import * as fs from 'node:fs';
+import { randomUUID } from 'node:crypto';
 import { DateTime } from 'luxon';
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { MailerService } from '@nestjs-modules/mailer';
+import { EntityManager } from '@mikro-orm/postgresql';
 import { User } from '@/orm/entities/User';
 import { UsersService } from '@/users/users.service';
 import { generateUrlSigned } from '@/utils/sign';
+import { Token } from '@/orm/entities/Token';
+import { TokenType } from '@/orm/types/entities';
 
 @Injectable()
 export class EmailsService {
 	constructor(
+		private readonly em: EntityManager,
 		private readonly mailerService: MailerService,
 		private readonly userService: UsersService,
+		private readonly jwtService: JwtService,
 	) {
 		//
 	}
 
 	async sendVerifyAccountEmail(user: User) {
+		const tokenString = await this.jwtService.signAsync({}, {
+			secret: process.env.GENERIC_JWT_SECRET,
+			expiresIn: process.env.GENERIC_JWT_SECRET_EXPIRES,
+		});
+		const newVerifyToken = new Token({
+			token: tokenString,
+			user: user.id,
+			type: TokenType.VERIFY,
+		});
+
+		this.em.persist(newVerifyToken);
+
+		await this.em.flush();
+
 		const verifyUrl = new URL(process.env.FRONTEND_URL + '/verify');
 		verifyUrl.searchParams.append('userId', user.id.toString());
+		verifyUrl.searchParams.append('token', tokenString);
 
-		const expiration = DateTime.now().plus({ days: 2 }).toJSDate();
+		const expiration = DateTime.now().plus({ minutes: parseInt(process.env.GENERIC_JWT_SECRET_EXPIRES) }).toJSDate();
 		const urlSigned = generateUrlSigned(verifyUrl.toString(), expiration);
 
 		return this.mailerService.sendMail({
@@ -42,10 +64,25 @@ export class EmailsService {
 	}
 
 	async sendResetEmail(user: User) {
+		const tokenString = await this.jwtService.signAsync({}, {
+			secret: process.env.GENERIC_JWT_SECRET,
+			expiresIn: process.env.GENERIC_JWT_SECRET_EXPIRES,
+		});
+		const newResetToken = new Token({
+			token: tokenString,
+			user: user.id,
+			type: TokenType.RESET,
+		});
+
+		this.em.persist(newResetToken);
+
+		await this.em.flush();
+
 		const verifyUrl = new URL(process.env.FRONTEND_URL + '/reset');
 		verifyUrl.searchParams.append('userId', user.id.toString());
+		verifyUrl.searchParams.append('token', tokenString);
 
-		const expiration = DateTime.now().plus({ minutes: 15 }).toJSDate();
+		const expiration = DateTime.now().plus({ minutes: parseInt(process.env.GENERIC_JWT_SECRET_EXPIRES) }).toJSDate();
 		const urlSigned = generateUrlSigned(verifyUrl.toString(), expiration);
 
 		return this.mailerService.sendMail({

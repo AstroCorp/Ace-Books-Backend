@@ -18,6 +18,9 @@ declare global {
 			JWT_REFRESH_SECRET: string;
 			JWT_REFRESH_SECRET_EXPIRES: string;
 
+			GENERIC_JWT_SECRET: string;
+			GENERIC_JWT_SECRET_EXPIRES: string;
+
 			URL_SIGNED_SECRET: string;
 
 			DATABASE_HOST: string;

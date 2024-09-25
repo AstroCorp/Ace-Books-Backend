@@ -3,7 +3,7 @@ import { BaseEntity } from '@/orm/entities/BaseEntity';
 import { Book } from '@/orm/entities/Book';
 import { BooksCollection } from '@/orm/entities/BooksCollection';
 import type { UserDTO } from '@/orm/types/entities';
-import { passwordEncrypt } from '@/auth/utils/argon2';
+import { encryptPassword } from '@/auth/utils/password';
 
 @Entity({ tableName: 'users' })
 export class User extends BaseEntity
@@ -39,12 +39,18 @@ export class User extends BaseEntity
 		this.isVerified = false;
 	}
 
-	public getData() {
+	public getDataForToken() {
+		return {
+			userId: this.id,
+			isAdmin: this.isAdmin,
+			isVerified: this.isVerified,
+		};
+	}
+
+	public getDataForProfile() {
 		return {
 			email: this.email,
 			avatar: this.avatar,
-			isAdmin: this.isAdmin,
-			isVerified: this.isVerified,
 		};
 	}
 
@@ -53,6 +59,6 @@ export class User extends BaseEntity
 	}
 
 	public set password(newPassword: string) {
-		this._password = passwordEncrypt(newPassword);
+		this._password = encryptPassword(newPassword);
 	}
 }

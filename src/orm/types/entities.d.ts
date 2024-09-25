@@ -27,7 +27,14 @@ export interface UserDTO {
 	password: string;
 }
 
-export interface RefreshTokenDTO {
+export const enum TokenType {
+	REFRESH = 'refresh',
+	RESET = 'reset',
+	VERIFY = 'verify',
+}
+
+export interface TokenDTO {
 	user: number;
 	token: string;
+	type: TokenType;
 }

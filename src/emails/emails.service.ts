@@ -1,31 +1,26 @@
 import * as fs from 'node:fs';
+import { DateTime } from 'luxon';
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
-import { JwtService } from '@nestjs/jwt';
 import { User } from '@/orm/entities/User';
-import { SignType } from '@/auth/types/signPayload';
 import { UsersService } from '@/users/users.service';
+import { generateUrlSigned } from '@/utils/sign';
 
 @Injectable()
 export class EmailsService {
 	constructor(
 		private readonly mailerService: MailerService,
-		private readonly jwtService: JwtService,
 		private readonly userService: UsersService,
 	) {
 		//
 	}
 
 	async sendVerifyAccountEmail(user: User) {
-		const payload = {
-			user_id: user.id,
-			type: SignType.VerifyEmail,
-		};
+		const verifyUrl = new URL(process.env.FRONTEND_URL + '/verify');
+		verifyUrl.searchParams.append('userId', user.id.toString());
 
-		const token = await this.jwtService.signAsync(payload, {
-			secret: process.env.URL_SIGNED_SECRET,
-			expiresIn: process.env.URL_SIGNED_EXPIRES,
-		});
+		const expiration = DateTime.now().plus({ days: 2 }).toJSDate();
+		const urlSigned = generateUrlSigned(verifyUrl.toString(), expiration);
 
 		return this.mailerService.sendMail({
 			to: user.email,
@@ -34,7 +29,7 @@ export class EmailsService {
 			template: 'verify',
 			context: {
 				title: 'Ace Books - Verify Email',
-				url: process.env.FRONTEND_URL + '/verify?token=' + token,
+				url: urlSigned,
 			},
 			attachments: [
 				{
@@ -47,15 +42,11 @@ export class EmailsService {
 	}
 
 	async sendResetEmail(user: User) {
-		const payload = {
-			user_id: user.id,
-			type: SignType.ResetPassword,
-		};
+		const verifyUrl = new URL(process.env.FRONTEND_URL + '/reset');
+		verifyUrl.searchParams.append('userId', user.id.toString());
 
-		const token = await this.jwtService.signAsync(payload, {
-			secret: process.env.URL_SIGNED_SECRET,
-			expiresIn: process.env.URL_SIGNED_EXPIRES,
-		});
+		const expiration = DateTime.now().plus({ minutes: 15 }).toJSDate();
+		const urlSigned = generateUrlSigned(verifyUrl.toString(), expiration);
 
 		return this.mailerService.sendMail({
 			to: user.email,
@@ -64,7 +55,7 @@ export class EmailsService {
 			template: 'reset',
 			context: {
 				title: 'Ace Books - Reset Password',
-				url: process.env.FRONTEND_URL + '/reset?token=' + token,
+				url: urlSigned,
 			},
 			attachments: [
 				{
@@ -77,9 +68,7 @@ export class EmailsService {
 	}
 
 	async resendVerifyAccountEmail(user: User) {
-		if (user.isVerified) {
-			return;
-		}
+		if (user.isVerified) return;
 
 		await this.sendVerifyAccountEmail(user);
 	}
@@ -87,9 +76,7 @@ export class EmailsService {
 	async resendResetPasswordEmail(email: string) {
 		const user = await this.userService.findOneByEmail(email);
 
-		if (!user) {
-			return;
-		}
+		if (!user) return;
 
 		await this.sendResetEmail(user);
 	}

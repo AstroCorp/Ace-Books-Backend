@@ -5,7 +5,7 @@ import { SeedManager } from '@mikro-orm/seeder';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { BaseEntity } from '@/orm/entities/BaseEntity';
 import { User } from '@/orm/entities/User';
-import { RefreshToken } from '@/orm/entities/RefreshToken';
+import { Token } from '@/orm/entities/Token';
 import { Book } from '@/orm/entities/Book';
 import { BooksCollection } from '@/orm/entities/BooksCollection';
 import { Bookmark } from '@/orm/entities/Bookmark';
@@ -15,7 +15,7 @@ const config = defineConfig({
 	entities: [
 		BaseEntity,
 		User,
-		RefreshToken,
+		Token,
 		Book,
 		BooksCollection,
 		Bookmark,

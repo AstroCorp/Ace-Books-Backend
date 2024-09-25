@@ -1,16 +1,19 @@
 import { Entity, Property, ManyToOne, Rel, rel, PrimaryKey, Opt } from '@mikro-orm/core';
 import { User } from '@/orm/entities/User';
-import type { RefreshTokenDTO } from '@/orm/types/entities';
+import type { TokenDTO, TokenType } from '@/orm/types/entities';
 import { extractTokenData } from '@/auth/utils/jwt';
 
-@Entity({ tableName: 'refresh_tokens' })
-export class RefreshToken
+@Entity({ tableName: 'tokens' })
+export class Token
 {
 	@ManyToOne(() => User)
 	user: Rel<User>;
 
 	@PrimaryKey()
 	token: string;
+
+	@Property()
+	type: TokenType;
 
 	@Property()
 	isRevoked: boolean;
@@ -21,9 +24,10 @@ export class RefreshToken
 	@Property({ onUpdate: () => new Date() })
 	updatedAt: Date & Opt = new Date();
 
-	constructor(refreshTokenDTO: RefreshTokenDTO) {
-		this.user = rel(User, refreshTokenDTO.user);
-		this.token = refreshTokenDTO.token;
+	constructor(tokenDTO: TokenDTO) {
+		this.user = rel(User, tokenDTO.user);
+		this.token = tokenDTO.token;
+		this.type = tokenDTO.type;
 		this.isRevoked = false;
 	}
 

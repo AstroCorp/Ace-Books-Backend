@@ -1,20 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '@/users/users.service';
-import { passwordCompare } from '@/auth/utils/argon2';
+import { checkPassword } from '@/auth/utils/password';
 import { User } from '@/orm/entities/User';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
-import { RefreshToken } from '@/orm/entities/RefreshToken';
+import { Token } from '@/orm/entities/Token';
 import { extractTokenData } from '@/auth/utils/jwt';
 import { CreateUserDTO } from '@/auth/validation/dto/createUser.dto';
 import { EmailsService } from '@/emails/emails.service';
+import { TokenType } from '@/orm/types/entities';
 
 @Injectable()
 export class AuthService {
 	constructor(
-		@InjectRepository(RefreshToken)
-		private readonly refreshTokenRepository: EntityRepository<RefreshToken>,
+		@InjectRepository(Token)
+		private readonly tokenRepository: EntityRepository<Token>,
 		private readonly em: EntityManager,
 		private readonly usersService: UsersService,
 		private readonly jwtService: JwtService,
@@ -24,7 +25,10 @@ export class AuthService {
 	}
 
 	async checkIfRefreshTokenIsValid(token: string) {
-		const tokenEntity = await this.refreshTokenRepository.findOne({ token });
+		const tokenEntity = await this.tokenRepository.findOne({
+			token,
+			type: TokenType.REFRESH,
+		});
 
 		if (!tokenEntity) {
 			return false;
@@ -36,7 +40,7 @@ export class AuthService {
 	async validateUser(email: string, password: string) {
 		const user = await this.usersService.findOneByEmail(email);
 
-		if (user && passwordCompare(password, user.password)) {
+		if (user && checkPassword(password, user.password)) {
 			return user;
 		}
 
@@ -48,10 +52,7 @@ export class AuthService {
 
 		await this.em.flush();
 
-		return {
-			...tokens,
-			user: user.getData(),
-		};
+		return tokens;
 	}
 
 	async register(body: CreateUserDTO) {
@@ -63,10 +64,7 @@ export class AuthService {
 
 		await this.emailsService.sendVerifyAccountEmail(newUserEntity);
 
-		return {
-			...tokens,
-			user: newUserEntity.getData(),
-		};
+		return tokens;
 	}
 
 	async refresh(user: User, bearerToken: string) {
@@ -75,10 +73,7 @@ export class AuthService {
 
 		await this.em.flush();
 
-		return {
-			...tokens,
-			user: user.getData(),
-		};
+		return tokens;
 	}
 
 	private async generateTokens(user: User, currentRefreshToken?: string) {
@@ -91,7 +86,10 @@ export class AuthService {
 		// Buscamos el token en la base de datos y lo marcamos como revocado
 		// no hacemos flush ya que este se hará en generateRefreshToken
 		if (generateNewRefreshToken) {
-			const currentRefreshTokenEntity = await this.refreshTokenRepository.findOne({ token: currentRefreshToken });
+			const currentRefreshTokenEntity = await this.tokenRepository.findOne({
+				token: currentRefreshToken,
+				type: TokenType.REFRESH,
+			});
 			currentRefreshTokenEntity?.revoke();
 		}
 
@@ -107,9 +105,7 @@ export class AuthService {
 	}
 
 	private async generateToken(user: User) {
-		const payload = {
-			user_id: user.id,
-		};
+		const payload = user.getDataForToken();
 
 		const token = await this.jwtService.signAsync(payload, {
 			secret: process.env.JWT_SECRET,
@@ -120,18 +116,17 @@ export class AuthService {
 	}
 
 	private async generateRefreshToken(user: User) {
-		const payload = {
-			user_id: user.id,
-		};
+		const payload = user.getDataForToken();
 
 		const refresh_token = await this.jwtService.signAsync(payload, {
 			secret: process.env.JWT_REFRESH_SECRET,
 			expiresIn: process.env.JWT_REFRESH_SECRET_EXPIRES,
 		});
 
-		const newRefreshToken = new RefreshToken({
+		const newRefreshToken = new Token({
 			token: refresh_token,
 			user: user.id,
+			type: TokenType.REFRESH,
 		});
 
 		// Solo almacenamos los refresh tokens, ya que son de larga duración

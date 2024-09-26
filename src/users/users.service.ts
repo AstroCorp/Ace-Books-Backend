@@ -1,19 +1,19 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { User } from '@/orm/entities/User';
-import { extractSignData } from '@/auth/utils/jwt';
-import { SignType } from '@/auth/types/signPayload';
+import { Token } from '@/orm/entities/Token';
+import { TokenType } from '@/orm/types/entities';
 
 @Injectable()
 export class UsersService {
 	constructor(
 		@InjectRepository(User)
 		private readonly userRepository: EntityRepository<User>,
+		@InjectRepository(Token)
+		private readonly tokenRepository: EntityRepository<Token>,
 		private readonly em: EntityManager,
-		private readonly jwtService: JwtService,
 	) {
 		//
 	}
@@ -38,45 +38,48 @@ export class UsersService {
 		return userEntity;
 	}
 
-	async verifyEmail(user: User, token: string) {
-		const isValidSign = this.jwtService.verify(token, {
-			secret: process.env.URL_SIGNED_SECRET,
-		});
-
-		if (!isValidSign) {
-			throw new HttpException('Invalid verification token', HttpStatus.BAD_REQUEST);
+	async verifyEmail(userId: number, user: User, token: string) {
+		if (user.id !== userId) {
+			throw new HttpException('Invalid user', HttpStatus.BAD_REQUEST);
 		}
 
 		if (user.isVerified) {
 			return;
 		}
 
-		const payload = extractSignData(token);
+		const tokenEntity = await this.tokenRepository.findOne({
+			token,
+			user: user.id,
+		});
 
-		if (user.id !== payload.user_id || payload.type !== SignType.VerifyEmail) {
-			throw new HttpException('Invalid verification token', HttpStatus.BAD_REQUEST);
+		if (!tokenEntity || tokenEntity.type !== TokenType.VERIFY || !tokenEntity.isValid()) {
+			throw new HttpException('Invalid token', HttpStatus.BAD_REQUEST);
 		}
+
+		tokenEntity.revoke();
 
 		user.isVerified = true;
 
 		await this.em.flush();
 	}
 
-	async resetPassword(token: string, password: string) {
-		const isValidSign = this.jwtService.verify(token, {
-			secret: process.env.URL_SIGNED_SECRET,
+	async resetPassword(userId: number, token: string, password: string) {
+		const user = await this.findOneById(userId);
+
+		if (!user) {
+			throw new HttpException('Invalid user', HttpStatus.BAD_REQUEST);
+		}
+
+		const tokenEntity = await this.tokenRepository.findOne({
+			token,
+			user: user.id,
 		});
 
-		if (!isValidSign) {
-			throw new HttpException('Invalid reset password token', HttpStatus.BAD_REQUEST);
+		if (!tokenEntity || tokenEntity.type !== TokenType.RESET || !tokenEntity.isValid()) {
+			throw new HttpException('Invalid token', HttpStatus.BAD_REQUEST);
 		}
 
-		const payload = extractSignData(token);
-		const user = await this.findOneById(payload.user_id);
-
-		if (!user || payload.type !== SignType.ResetPassword) {
-			throw new HttpException('Invalid reset password token', HttpStatus.BAD_REQUEST);
-		}
+		tokenEntity.revoke();
 
 		user.password = password;
 

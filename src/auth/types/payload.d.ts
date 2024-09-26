@@ -1,5 +1,7 @@
 export interface Payload {
-	user_id: number;
+	userId: number;
+	isAdmin: boolean;
+	isVerified: boolean;
 	iat: number;
 	exp: number;
 }

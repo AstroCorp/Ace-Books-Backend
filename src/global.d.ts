@@ -4,6 +4,7 @@ declare global {
 			NODE_ENV: Environment;
 			NODE_PORT: number;
 
+			BACKEND_URL: string;
 			FRONTEND_URL: string;
 
 			DEFAULT_RATE_LIMIT_TTL: number;
@@ -18,8 +19,10 @@ declare global {
 			JWT_REFRESH_SECRET: string;
 			JWT_REFRESH_SECRET_EXPIRES: string;
 
+			GENERIC_JWT_SECRET: string;
+			GENERIC_JWT_SECRET_EXPIRES: string;
+
 			URL_SIGNED_SECRET: string;
-			URL_SIGNED_EXPIRES: string;
 
 			DATABASE_HOST: string;
 			DATABASE_PORT: number;

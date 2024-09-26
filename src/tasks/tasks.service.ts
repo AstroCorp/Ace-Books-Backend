@@ -1,4 +1,4 @@
-import { RefreshToken } from "@/orm/entities/RefreshToken";
+import { Token } from "@/orm/entities/Token";
 import { EntityManager } from "@mikro-orm/postgresql";
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
@@ -14,19 +14,19 @@ export class TasksService {
 	}
 
 	@Cron('0 8 * * 1') // 8:00 de cada lunes
-	async removeExpiredRefreshTokens() {
+	async removeExpiredTokens() {
 		const emFork = this.em.fork();
 
-		// Eliminamos los refresh_tokens que han expirado, es decir,
+		// Eliminamos los tokens que han expirado, es decir,
 		// los que han sido creados hace más de 7 días
-		const refreshTokens = await emFork.find(RefreshToken, {
+		const tokens = await emFork.find(Token, {
 			createdAt: {
 				$lte: new Date(Date.now() - 604800000),
 			},
 		});
 
-		await emFork.remove(refreshTokens).flush();
+		await emFork.remove(tokens).flush();
 
-		this.logger.log('Expired refresh tokens removed');
+		this.logger.log('Expired tokens removed');
 	}
 }

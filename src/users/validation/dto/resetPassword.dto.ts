@@ -1,6 +1,9 @@
-import { IsStrongPassword, IsJWT } from 'class-validator';
+import { IsStrongPassword, IsJWT, IsInt } from 'class-validator';
 
 export class ResetPasswordDTO {
+	@IsInt()
+	userId: number;
+
 	@IsJWT()
 	token: string;
 

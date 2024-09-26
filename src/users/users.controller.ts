@@ -25,13 +25,13 @@ export class UsersController
 	@Post('verify-email')
 	@HttpCode(200)
 	verifyEmail(@Request() req: Session, @Body() body: VerifyEmailDTO) {
-		return this.userService.verifyEmail(req.user, body.token);
+		return this.userService.verifyEmail(body.userId, req.user, body.token);
 	}
 
 	@UseGuards(SignGuard)
 	@Post('reset-password')
 	@HttpCode(200)
 	resetPassword(@Body() body: ResetPasswordDTO) {
-		return this.userService.resetPassword(body.token, body.password);
+		return this.userService.resetPassword(body.userId, body.token, body.password);
 	}
 }

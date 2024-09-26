@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body, UseGuards, Request, HttpCode } from '@nestjs/common';
 import { JwtAuthGuard } from '@/auth/guards/jwt.guard';
+import { SignGuard } from '@/auth/guards/sign.guard';
 import { Session } from '@/auth/types/session';
 import { UsersService } from '@/users/users.service';
 import { VerifyEmailDTO } from '@/users/validation/dto/verifyEmail.dto';
@@ -20,13 +21,14 @@ export class UsersController
     	return req.user.getDataForProfile();
 	}
 
-	@UseGuards(JwtAuthGuard)
+	@UseGuards(JwtAuthGuard, SignGuard)
 	@Post('verify-email')
 	@HttpCode(200)
 	verifyEmail(@Request() req: Session, @Body() body: VerifyEmailDTO) {
 		return this.userService.verifyEmail(req.user, body.token);
 	}
 
+	@UseGuards(SignGuard)
 	@Post('reset-password')
 	@HttpCode(200)
 	resetPassword(@Body() body: ResetPasswordDTO) {

@@ -1,5 +1,4 @@
 import * as fs from 'node:fs';
-import { randomUUID } from 'node:crypto';
 import { DateTime } from 'luxon';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -7,7 +6,7 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { User } from '@/orm/entities/User';
 import { UsersService } from '@/users/users.service';
-import { generateUrlSigned } from '@/utils/sign';
+import { generateUrlSigned } from '@/auth/utils/sign';
 import { Token } from '@/orm/entities/Token';
 import { TokenType } from '@/orm/types/entities';
 
@@ -37,7 +36,7 @@ export class EmailsService {
 
 		await this.em.flush();
 
-		const verifyUrl = new URL(process.env.FRONTEND_URL + '/verify');
+		const verifyUrl = new URL(process.env.BACKEND_URL + '/users/verify-email');
 		verifyUrl.searchParams.append('userId', user.id.toString());
 		verifyUrl.searchParams.append('token', tokenString);
 
@@ -78,7 +77,7 @@ export class EmailsService {
 
 		await this.em.flush();
 
-		const verifyUrl = new URL(process.env.FRONTEND_URL + '/reset');
+		const verifyUrl = new URL(process.env.BACKEND_URL + '/users/reset-password');
 		verifyUrl.searchParams.append('userId', user.id.toString());
 		verifyUrl.searchParams.append('token', tokenString);
 

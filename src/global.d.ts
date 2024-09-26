@@ -4,6 +4,7 @@ declare global {
 			NODE_ENV: Environment;
 			NODE_PORT: number;
 
+			BACKEND_URL: string;
 			FRONTEND_URL: string;
 
 			DEFAULT_RATE_LIMIT_TTL: number;

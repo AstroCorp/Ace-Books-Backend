@@ -1,4 +1,4 @@
-import { hashSync, verifySync } from '@node-rs/argon2';
+import { createHmac } from "node:crypto";
 
 export const generateUrlSigned = (url: string, expiration?: Date) => {
 	const urlObj = new URL(url);
@@ -20,26 +20,32 @@ export const generateUrlSigned = (url: string, expiration?: Date) => {
 	const origin = urlObj.origin;
 	const pathname = urlObj.pathname === '/' ? '' : urlObj.pathname;
 	const search = urlObj.searchParams.toString();
-	const fullUrl = origin + pathname + '?' + search;
-	const hash = hashSync(fullUrl, {
-		secret: Buffer.from(process.env.URL_SIGNED_SECRET),
-	});
 
-	return fullUrl + '&signature=' + hash;
+	const fullUrlObj = new URL(origin + pathname + '?' + search);
+	const hash = createHmac('sha256', process.env.URL_SIGNED_SECRET)
+		.update(fullUrlObj.toString())
+		.digest('hex');
+
+	fullUrlObj.searchParams.append('signature', hash);
+
+	return fullUrlObj.toString();
 }
 
 export const checkUrlSigned = (url: string) => {
 	const urlObj = new URL(url);
 	const signatureParam = urlObj.searchParams.get('signature');
-	const expirationParam = urlObj.searchParams.get('expires');
-	const urlWithoutSignature = url.replace(`&signature=${signatureParam}`, '');
-	const urlWithoutExpiration = urlWithoutSignature.replace(`&expires=${expirationParam}`, '');
+	const expiresParam = parseInt(urlObj.searchParams.get('expires'));
 
-	const urlSigned = generateUrlSigned(urlWithoutExpiration, new Date(parseInt(expirationParam)));
+	if (!isNaN(expiresParam) && expiresParam < Date.now()) {
+		return false;
+	}
+
+	urlObj.searchParams.delete('signature');
+	urlObj.searchParams.delete('expires');
+
+	const urlSigned = generateUrlSigned(urlObj.toString(), new Date(expiresParam));
 	const urlSignedObj = new URL(urlSigned);
 	const signature = urlSignedObj.searchParams.get('signature');
 
-	return verifySync(signatureParam, signature, {
-		secret: Buffer.from(process.env.URL_SIGNED_SECRET),
-	});
+	return signatureParam === signature;
 }

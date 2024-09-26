@@ -43,6 +43,12 @@ export class EmailsService {
 		const expiration = DateTime.now().plus({ minutes: parseInt(process.env.GENERIC_JWT_SECRET_EXPIRES) }).toJSDate();
 		const urlSigned = generateUrlSigned(verifyUrl.toString(), expiration);
 
+		const frontUrl = new URL(process.env.FRONTEND_URL + '/auth/verify-email');
+
+		// Esto ya encodea la URL, no es necesario hacerlo manualmente, para
+		// desencodearla se puede usar decodeURIComponent
+		frontUrl.searchParams.append('url', urlSigned);
+
 		return this.mailerService.sendMail({
 			to: user.email,
 			from: process.env.MAIL_USERNAME,
@@ -50,7 +56,7 @@ export class EmailsService {
 			template: 'verify',
 			context: {
 				title: 'Ace Books - Verify Email',
-				url: urlSigned,
+				url: frontUrl.toString(),
 			},
 			attachments: [
 				{
@@ -84,6 +90,12 @@ export class EmailsService {
 		const expiration = DateTime.now().plus({ minutes: parseInt(process.env.GENERIC_JWT_SECRET_EXPIRES) }).toJSDate();
 		const urlSigned = generateUrlSigned(verifyUrl.toString(), expiration);
 
+		const frontUrl = new URL(process.env.FRONTEND_URL + '/auth/reset-password');
+
+		// Esto ya encodea la URL, no es necesario hacerlo manualmente, para
+		// desencodearla se puede usar decodeURIComponent
+		frontUrl.searchParams.append('url', urlSigned);
+
 		return this.mailerService.sendMail({
 			to: user.email,
 			from: process.env.MAIL_USERNAME,
@@ -91,7 +103,7 @@ export class EmailsService {
 			template: 'reset',
 			context: {
 				title: 'Ace Books - Reset Password',
-				url: urlSigned,
+				url: frontUrl.toString(),
 			},
 			attachments: [
 				{

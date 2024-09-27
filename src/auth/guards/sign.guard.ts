@@ -14,9 +14,11 @@ export class SignGuard implements CanActivate
 		const bodyParams = Object.keys(request.body);
 
 		// Comprobamos que el body coincida con los parámetros firmados
+		// si la petición no es GET o DELETE
+		const checkMethod = ['GET', 'DELETE'].includes(request.method);
 		const checkBodyParams = queryParams.every((key) => bodyParams.includes(key) && request.body[key].toString() === request.query[key].toString());
 
-		if (!checkBodyParams) {
+		if (!checkMethod && !checkBodyParams) {
 			return false;
 		}
 

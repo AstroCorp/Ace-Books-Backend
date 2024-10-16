@@ -9,6 +9,7 @@ export class SignGuard implements CanActivate
 	canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
 		const request = context.switchToHttp().getRequest<FastifyRequest>();
 		const fullUrl = request.protocol + '://' + request.hostname + request.raw.url;
+		const fullUrlObj = new URL(fullUrl);
 
 		const queryParams = Object.keys(request.query).filter((key) => key !== 'signature' && key !== 'expires');
 		const bodyParams = Object.keys(request.body);
@@ -22,6 +23,6 @@ export class SignGuard implements CanActivate
 			return false;
 		}
 
-		return checkUrlSigned(fullUrl);
+		return checkUrlSigned(fullUrlObj);
 	}
 }

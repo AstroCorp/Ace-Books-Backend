@@ -41,13 +41,15 @@ export class EmailsService {
 		verifyUrl.searchParams.append('token', tokenString);
 
 		const expiration = DateTime.now().plus({ minutes: parseInt(process.env.GENERIC_JWT_SECRET_EXPIRES) }).toJSDate();
-		const urlSigned = generateUrlSigned(verifyUrl.toString(), expiration);
+		const urlSigned = generateUrlSigned(verifyUrl, expiration);
 
-		const frontUrl = new URL(process.env.FRONTEND_URL + '/auth/verify-email');
+		// Añadimos los parámetros de la URL firmada a la URL del frontend para que
+		// sean usados al hacer la petición de reseteo de contraseña
+		const frontUrl = new URL(process.env.FRONTEND_URL + '/verify-email');
 
-		// Esto ya encodea la URL, no es necesario hacerlo manualmente, para
-		// desencodearla se puede usar decodeURIComponent
-		frontUrl.searchParams.append('url', urlSigned);
+		Array.from(urlSigned.searchParams.entries()).forEach(([key, value]) => {
+			frontUrl.searchParams.append(key, value);
+		});
 
 		return this.mailerService.sendMail({
 			to: user.email,
@@ -88,13 +90,15 @@ export class EmailsService {
 		verifyUrl.searchParams.append('token', tokenString);
 
 		const expiration = DateTime.now().plus({ minutes: parseInt(process.env.GENERIC_JWT_SECRET_EXPIRES) }).toJSDate();
-		const urlSigned = generateUrlSigned(verifyUrl.toString(), expiration);
+		const urlSigned = generateUrlSigned(verifyUrl, expiration);
 
-		const frontUrl = new URL(process.env.FRONTEND_URL + '/auth/reset-password');
+		// Añadimos los parámetros de la URL firmada a la URL del frontend para que
+		// sean usados al hacer la petición de reseteo de contraseña
+		const frontUrl = new URL(process.env.FRONTEND_URL + '/reset-password');
 
-		// Esto ya encodea la URL, no es necesario hacerlo manualmente, para
-		// desencodearla se puede usar decodeURIComponent
-		frontUrl.searchParams.append('url', urlSigned);
+		Array.from(urlSigned.searchParams.entries()).forEach(([key, value]) => {
+			frontUrl.searchParams.append(key, value);
+		});
 
 		return this.mailerService.sendMail({
 			to: user.email,

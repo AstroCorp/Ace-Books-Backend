@@ -1,6 +1,6 @@
 import { createHmac } from "node:crypto";
 
-export const generateUrlSigned = (url: string, expiration?: Date) => {
+export const generateUrlSigned = (url: URL, expiration?: Date): URL => {
 	const urlObj = new URL(url);
 
 	if (urlObj.searchParams.has('signature')) {
@@ -28,10 +28,10 @@ export const generateUrlSigned = (url: string, expiration?: Date) => {
 
 	fullUrlObj.searchParams.append('signature', hash);
 
-	return fullUrlObj.toString();
+	return fullUrlObj;
 }
 
-export const checkUrlSigned = (url: string) => {
+export const checkUrlSigned = (url: URL) => {
 	const urlObj = new URL(url);
 	const signatureParam = urlObj.searchParams.get('signature');
 	const expiresParam = parseInt(urlObj.searchParams.get('expires'));
@@ -43,8 +43,7 @@ export const checkUrlSigned = (url: string) => {
 	urlObj.searchParams.delete('signature');
 	urlObj.searchParams.delete('expires');
 
-	const urlSigned = generateUrlSigned(urlObj.toString(), new Date(expiresParam));
-	const urlSignedObj = new URL(urlSigned);
+	const urlSignedObj = generateUrlSigned(urlObj, new Date(expiresParam));
 	const signature = urlSignedObj.searchParams.get('signature');
 
 	return signatureParam === signature;

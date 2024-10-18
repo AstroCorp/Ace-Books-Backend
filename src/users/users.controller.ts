@@ -3,7 +3,6 @@ import { JwtAuthGuard } from '@/auth/guards/jwt.guard';
 import { SignGuard } from '@/auth/guards/sign.guard';
 import { Session } from '@/auth/types/session';
 import { UsersService } from '@/users/users.service';
-import { VerifyEmailDTO } from '@/users/validation/dto/verifyEmail.dto';
 import { ResetPasswordDTO } from '@/users/validation/dto/resetPassword.dto';
 
 @Controller('users')
@@ -22,16 +21,15 @@ export class UsersController
 	}
 
 	@UseGuards(JwtAuthGuard, SignGuard)
-	@Post('verify-email')
+	@Get('verify-email')
 	@HttpCode(200)
-	verifyEmail(@Request() req: Session, @Body() body: VerifyEmailDTO) {
-		return this.userService.verifyEmail(body.userId, req.user, body.token);
+	verifyEmail(@Request() req: Session) {
+		return this.userService.verifyEmail(req.user);
 	}
 
-	@UseGuards(SignGuard)
 	@Post('reset-password')
 	@HttpCode(200)
 	resetPassword(@Body() body: ResetPasswordDTO) {
-		return this.userService.resetPassword(body.userId, body.token, body.password);
+		return this.userService.resetPassword(body.token, body.email, body.password);
 	}
 }

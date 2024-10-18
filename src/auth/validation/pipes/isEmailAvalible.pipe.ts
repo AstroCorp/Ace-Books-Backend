@@ -20,7 +20,7 @@ export class IsEmailAvailableConstraint implements ValidatorConstraintInterface
 	}
 
 	defaultMessage(args: ValidationArguments) {
-		return 'email is already in use';
+		return 'invalid email';
 	}
 }
 

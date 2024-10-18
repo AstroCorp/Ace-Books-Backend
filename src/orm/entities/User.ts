@@ -3,7 +3,7 @@ import { BaseEntity } from '@/orm/entities/BaseEntity';
 import { Book } from '@/orm/entities/Book';
 import { BooksCollection } from '@/orm/entities/BooksCollection';
 import type { UserDTO } from '@/orm/types/entities';
-import { encryptPassword } from '@/auth/utils/password';
+import { generateHash } from '@/auth/utils/hash';
 
 @Entity({ tableName: 'users' })
 export class User extends BaseEntity
@@ -59,6 +59,6 @@ export class User extends BaseEntity
 	}
 
 	public set password(newPassword: string) {
-		this._password = encryptPassword(newPassword);
+		this._password = generateHash(newPassword);
 	}
 }

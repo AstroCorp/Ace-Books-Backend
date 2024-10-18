@@ -30,7 +30,6 @@ export interface UserDTO {
 export const enum TokenType {
 	REFRESH = 'refresh',
 	RESET = 'reset',
-	VERIFY = 'verify',
 }
 
 export interface TokenDTO {

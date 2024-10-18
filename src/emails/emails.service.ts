@@ -9,6 +9,7 @@ import { UsersService } from '@/users/users.service';
 import { generateUrlSigned } from '@/auth/utils/sign';
 import { Token } from '@/orm/entities/Token';
 import { TokenType } from '@/orm/types/entities';
+import { generateHash } from '@/auth/utils/hash';
 
 @Injectable()
 export class EmailsService {
@@ -22,23 +23,12 @@ export class EmailsService {
 	}
 
 	async sendVerifyAccountEmail(user: User) {
-		const tokenString = await this.jwtService.signAsync({}, {
-			secret: process.env.GENERIC_JWT_SECRET,
-			expiresIn: process.env.GENERIC_JWT_SECRET_EXPIRES,
-		});
-		const newVerifyToken = new Token({
-			token: tokenString,
-			user: user.id,
-			type: TokenType.VERIFY,
-		});
-
-		this.em.persist(newVerifyToken);
-
-		await this.em.flush();
+		const userId = user.id.toString();
+		const hash = generateHash(user.email);
 
 		const verifyUrl = new URL(process.env.BACKEND_URL + '/users/verify-email');
-		verifyUrl.searchParams.append('userId', user.id.toString());
-		verifyUrl.searchParams.append('token', tokenString);
+		verifyUrl.searchParams.append('userId', userId);
+		verifyUrl.searchParams.append('hash', hash);
 
 		const expiration = DateTime.now().plus({ minutes: parseInt(process.env.GENERIC_JWT_SECRET_EXPIRES) }).toJSDate();
 		const urlSigned = generateUrlSigned(verifyUrl, expiration);
@@ -85,20 +75,9 @@ export class EmailsService {
 
 		await this.em.flush();
 
-		const verifyUrl = new URL(process.env.BACKEND_URL + '/users/reset-password');
-		verifyUrl.searchParams.append('userId', user.id.toString());
-		verifyUrl.searchParams.append('token', tokenString);
-
-		const expiration = DateTime.now().plus({ minutes: parseInt(process.env.GENERIC_JWT_SECRET_EXPIRES) }).toJSDate();
-		const urlSigned = generateUrlSigned(verifyUrl, expiration);
-
-		// Añadimos los parámetros de la URL firmada a la URL del frontend para que
-		// sean usados al hacer la petición de reseteo de contraseña
+		// Solo se envía el token, el email lo tiene que poner el usuario
 		const frontUrl = new URL(process.env.FRONTEND_URL + '/reset-password');
-
-		Array.from(urlSigned.searchParams.entries()).forEach(([key, value]) => {
-			frontUrl.searchParams.append(key, value);
-		});
+		frontUrl.searchParams.append('token', tokenString);
 
 		return this.mailerService.sendMail({
 			to: user.email,

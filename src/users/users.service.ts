@@ -38,38 +38,18 @@ export class UsersService {
 		return userEntity;
 	}
 
-	async verifyEmail(userId: number, user: User, token: string) {
-		if (user.id !== userId) {
-			throw new HttpException('Invalid user', HttpStatus.BAD_REQUEST);
-		}
-
+	async verifyEmail(user: User) {
 		if (user.isVerified) {
 			return;
 		}
-
-		const tokenEntity = await this.tokenRepository.findOne({
-			token,
-			user: user.id,
-		});
-
-		if (!tokenEntity || tokenEntity.type !== TokenType.VERIFY || !tokenEntity.isValid()) {
-			throw new HttpException('Invalid token', HttpStatus.BAD_REQUEST);
-		}
-
-		tokenEntity.revoke();
 
 		user.isVerified = true;
 
 		await this.em.flush();
 	}
 
-	async resetPassword(userId: number, token: string, password: string) {
-		const user = await this.findOneById(userId);
-
-		if (!user) {
-			throw new HttpException('Invalid user', HttpStatus.BAD_REQUEST);
-		}
-
+	async resetPassword(token: string, email: string, password: string) {
+		const user = await this.findOneByEmail(email);
 		const tokenEntity = await this.tokenRepository.findOne({
 			token,
 			user: user.id,

@@ -2,7 +2,6 @@ import * as fs from 'node:fs';
 import { DateTime } from 'luxon';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { MailerService } from '@nestjs-modules/mailer';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { User } from '@/orm/entities/User';
 import { UsersService } from '@/users/users.service';
@@ -10,12 +9,13 @@ import { generateUrlSigned } from '@/auth/utils/sign';
 import { Token } from '@/orm/entities/Token';
 import { TokenType } from '@/orm/types/entities';
 import { generateHash } from '@/auth/utils/hash';
+import { NodemailerService } from '@/emails/nodemailerService.service';
 
 @Injectable()
 export class EmailsService {
 	constructor(
 		private readonly em: EntityManager,
-		private readonly mailerService: MailerService,
+		private readonly nodemailerService: NodemailerService,
 		private readonly userService: UsersService,
 		private readonly jwtService: JwtService,
 	) {
@@ -41,7 +41,7 @@ export class EmailsService {
 			frontUrl.searchParams.append(key, value);
 		});
 
-		return this.mailerService.sendMail({
+		return this.nodemailerService.sendMail({
 			to: user.email,
 			from: process.env.MAIL_USERNAME,
 			subject: 'Ace Books - Verify Email',
@@ -79,7 +79,7 @@ export class EmailsService {
 		const frontUrl = new URL(process.env.FRONTEND_URL + '/reset-password');
 		frontUrl.searchParams.append('token', tokenString);
 
-		return this.mailerService.sendMail({
+		return this.nodemailerService.sendMail({
 			to: user.email,
 			from: process.env.MAIL_USERNAME,
 			subject: 'Ace Books - Reset Password',

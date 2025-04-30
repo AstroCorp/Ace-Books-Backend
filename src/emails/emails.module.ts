@@ -1,39 +1,25 @@
 import { Module } from '@nestjs/common';
 import { EmailsController } from '@/emails/emails.controller';
-import { MailerModule } from '@nestjs-modules/mailer';
 import { EmailsService } from '@/emails/emails.service';
 import { OrmModule } from '@/orm/orm.module';
-import { TwingAdapter } from '@/emails/adapters/twing.adapter';
 import { UsersService } from '@/users/users.service';
+import { NodemailerService } from '@/emails/nodemailerService.service';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
 	imports: [
 		OrmModule,
-		MailerModule.forRootAsync({
-			useFactory: () => ({
-				transport: {
-					host: process.env.MAIL_HOST,
-					port: process.env.MAIL_PORT,
-					secure: false,
-					ignoreTLS: false,
-					auth: {
-						user: process.env.MAIL_USERNAME,
-						pass: process.env.MAIL_PASSWORD,
-					},
-				},
-				template: {
-					dir: __dirname + '/templates/',
-					adapter: new TwingAdapter({
-						baseUrl: 'file://' + __dirname + '/css/',
-					}),
-				},
-			}),
-		}),
+		JwtModule
 	],
 	controllers: [EmailsController],
 	providers: [
 		EmailsService,
 		UsersService,
+		NodemailerService,
+	],
+	exports: [
+		EmailsService,
+		NodemailerService,
 	],
 })
 export class EmailsModule {}

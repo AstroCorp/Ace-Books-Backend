@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '@/users/users.service';
-import { checkPassword } from '@/auth/utils/password';
+import { checkHash } from '@/auth/utils/hash';
 import { User } from '@/orm/entities/User';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
@@ -40,7 +40,7 @@ export class AuthService {
 	async validateUser(email: string, password: string) {
 		const user = await this.usersService.findOneByEmail(email);
 
-		if (user && checkPassword(password, user.password)) {
+		if (user && checkHash(password, user.password)) {
 			return user;
 		}
 

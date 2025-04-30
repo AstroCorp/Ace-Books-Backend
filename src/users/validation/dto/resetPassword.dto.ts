@@ -1,11 +1,14 @@
-import { IsStrongPassword, IsJWT, IsInt } from 'class-validator';
+import { IsEmailAvailable } from '@/auth/validation/pipes/isEmailAvalible.pipe';
+import { IsEmail, MaxLength, IsStrongPassword, IsJWT } from 'class-validator';
 
 export class ResetPasswordDTO {
-	@IsInt()
-	userId: number;
-
 	@IsJWT()
 	token: string;
+
+	@IsEmail(undefined, { message: 'invalid email' })
+	@IsEmailAvailable()
+	@MaxLength(255)
+	email: string;
 
 	@IsStrongPassword({
 		minLength: 8,

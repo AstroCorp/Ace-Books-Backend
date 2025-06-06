@@ -3,17 +3,19 @@ import { DateTime } from 'luxon';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { EntityManager } from '@mikro-orm/postgresql';
-import { User } from '@/orm/entities/User';
-import { UsersService } from '@/users/users.service';
-import { generateUrlSigned } from '@/auth/utils/sign';
-import { Token } from '@/orm/entities/Token';
-import { TokenType } from '@/orm/types/entities';
-import { generateHash } from '@/auth/utils/hash';
+import { User } from '@/infrastructure/orm/entities/User';
+import { UsersService } from '@/application/users/users.service';
+import Sign from '@/infrastructure/auth/utils/sign';
+import { Token } from '@/infrastructure/orm/entities/Token';
+import { TokenType } from '@/infrastructure/orm/types/entities';
+import Hash from '@/infrastructure/auth/utils/hash';
 import { NodemailerService } from '@/emails/nodemailerService.service';
 
 @Injectable()
 export class EmailsService {
 	constructor(
+		private readonly sign: Sign,
+		private readonly hash: Hash,
 		private readonly em: EntityManager,
 		private readonly nodemailerService: NodemailerService,
 		private readonly userService: UsersService,
@@ -24,14 +26,14 @@ export class EmailsService {
 
 	async sendVerifyAccountEmail(user: User) {
 		const userId = user.id.toString();
-		const hash = generateHash(user.email);
+		const hash = this.hash.generate(user.email);
 
 		const verifyUrl = new URL(process.env.BACKEND_URL + '/users/verify-email');
 		verifyUrl.searchParams.append('userId', userId);
 		verifyUrl.searchParams.append('hash', hash);
 
 		const expiration = DateTime.now().plus({ minutes: parseInt(process.env.GENERIC_JWT_SECRET_EXPIRES) }).toJSDate();
-		const urlSigned = generateUrlSigned(verifyUrl, expiration);
+		const urlSigned = this.sign.generate(verifyUrl, expiration);
 
 		// Añadimos los parámetros de la URL firmada a la URL del frontend para que
 		// sean usados al hacer la petición de reseteo de contraseña

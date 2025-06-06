@@ -4,11 +4,11 @@ import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { ScheduleModule } from "@nestjs/schedule";
 import { AppController } from "@/app.controller";
 import { AppService } from "@/app.service";
-import { OrmModule } from "@/orm/orm.module";
-import { AuthModule } from "@/auth/auth.module";
-import { UsersModule } from "@/users/users.module";
+import { OrmModule } from "@/infrastructure/orm/orm.module";
+import { AuthModule } from "@/infrastructure/auth/auth.module";
+import { UsersModule } from "@/infrastructure/users/users.module";
 import { EmailsModule } from "@/emails/emails.module";
-import { TasksModule } from "@/tasks/tasks.module";
+import { TasksModule } from "@/infrastructure/tasks/tasks.module";
 import { APP_GUARD } from "@nestjs/core";
 
 @Module({

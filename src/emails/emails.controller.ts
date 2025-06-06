@@ -1,7 +1,7 @@
 import { Body, Controller, HttpCode, Post, Request, UseGuards } from '@nestjs/common';
-import { Session } from '@/auth/types/session';
+import { Session } from '@/infrastructure/auth/types/session';
 import { EmailsService } from '@/emails/emails.service';
-import { JwtAuthGuard } from '@/auth/guards/jwt.guard';
+import { JwtAuthGuard } from '@/infrastructure/auth/guards/jwt.guard';
 import { ResendResetPasswordDTO } from '@/emails/validation/dto/resendResetPassword.dto';
 import { Throttle } from '@nestjs/throttler';
 

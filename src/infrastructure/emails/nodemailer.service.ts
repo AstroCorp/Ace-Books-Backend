@@ -1,8 +1,8 @@
 import * as path from 'path';
 import * as nodemailer from 'nodemailer';
 import { Injectable } from '@nestjs/common';
-import { TwingAdapter } from '@/emails/adapters/twing.adapter';
-import { MailOptions } from '@/emails/types/nodemailerService';
+import { TwingAdapter } from '@/infrastructure/emails/adapters/twing.adapter';
+import { MailOptions } from '@/infrastructure/emails/types/nodemailerService';
 
 @Injectable()
 export class NodemailerService {

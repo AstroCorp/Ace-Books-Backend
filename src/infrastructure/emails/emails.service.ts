@@ -9,7 +9,7 @@ import Sign from '@/infrastructure/auth/utils/sign';
 import { Token } from '@/infrastructure/orm/entities/Token';
 import { TokenType } from '@/infrastructure/orm/types/entities';
 import Hash from '@/infrastructure/auth/utils/hash';
-import { NodemailerService } from '@/emails/nodemailerService.service';
+import { NodemailerService } from '@/infrastructure/emails/nodemailer.service';
 
 @Injectable()
 export class EmailsService {
@@ -24,7 +24,11 @@ export class EmailsService {
 		//
 	}
 
-	async sendVerifyAccountEmail(user: User) {
+	async sendVerifyAccountEmail(email: string) {
+		const user = await this.userService.findOneByEmail(email);
+
+		if (user.isVerified) return;
+
 		const userId = user.id.toString();
 		const hash = this.hash.generate(user.email);
 
@@ -62,7 +66,11 @@ export class EmailsService {
 		});
 	}
 
-	async sendResetEmail(user: User) {
+	async sendResetPasswordEmail(email: string) {
+		const user = await this.userService.findOneByEmail(email);
+
+		if (!user) return;
+
 		const tokenString = await this.jwtService.signAsync({}, {
 			secret: process.env.GENERIC_JWT_SECRET,
 			expiresIn: process.env.GENERIC_JWT_SECRET_EXPIRES,
@@ -98,19 +106,5 @@ export class EmailsService {
 				},
 			],
 		});
-	}
-
-	async resendVerifyAccountEmail(user: User) {
-		if (user.isVerified) return;
-
-		await this.sendVerifyAccountEmail(user);
-	}
-
-	async resendResetPasswordEmail(email: string) {
-		const user = await this.userService.findOneByEmail(email);
-
-		if (!user) return;
-
-		await this.sendResetEmail(user);
 	}
 }

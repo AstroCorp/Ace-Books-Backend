@@ -5,15 +5,17 @@ import { AuthService } from '@/application/auth/auth.service';
 import { AuthController } from '@/infrastructure/auth/auth.controller';
 import { OrmModule } from '@/infrastructure/orm/orm.module';
 import { UsersModule } from '@/infrastructure/users/users.module';
-import { EmailsModule } from '@/emails/emails.module';
+import { EmailsModule } from '@/infrastructure/emails/emails.module';
 import { LocalStrategy } from '@/infrastructure/auth/strategies/local.strategy';
 import { JwtStrategy } from '@/infrastructure/auth/strategies/jwt.strategy';
 import { JwtRefreshStrategy } from '@/infrastructure/auth/strategies/jwt-refresh.strategy';
 import { IsEmailAvailableConstraint } from '@/infrastructure/auth/validation/pipes/isEmailAvalible.pipe';
+import { EMAILS_PORT, HASH_PORT, JWT_PORT, SIGN_PORT } from '@/application/auth/ports/tokens';
 import Hash from '@/infrastructure/auth/utils/hash';
 import Jwt from '@/infrastructure/auth/utils/jwt';
 import Sign from '@/infrastructure/auth/utils/sign';
-import { HASH_PORT, JWT_PORT, SIGN_PORT } from '@/application/auth/ports/tokens';
+import { EmailsService } from '@/infrastructure/emails/emails.service';
+import { NodemailerService } from '@/infrastructure/emails/nodemailer.service';
 
 @Module({
 	imports: [
@@ -31,6 +33,9 @@ import { HASH_PORT, JWT_PORT, SIGN_PORT } from '@/application/auth/ports/tokens'
 		JwtStrategy,
 		JwtRefreshStrategy,
 		IsEmailAvailableConstraint,
+		Hash,
+		Sign,
+		NodemailerService,
 		{
 			provide: HASH_PORT,
 			useClass: Hash,
@@ -42,6 +47,10 @@ import { HASH_PORT, JWT_PORT, SIGN_PORT } from '@/application/auth/ports/tokens'
 		{
 			provide: SIGN_PORT,
 			useClass: Sign,
+		},
+		{
+			provide: EMAILS_PORT,
+			useClass: EmailsService,
 		},
 	],
 	controllers: [AuthController],

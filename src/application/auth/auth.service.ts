@@ -8,9 +8,9 @@ import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 import { Token } from '@/infrastructure/orm/entities/Token';
 import JwtPort from '@/application/auth/ports/jwt.port';
 import { CreateUserDTO } from '@/infrastructure/auth/validation/dto/createUser.dto';
-import { EmailsService } from '@/emails/emails.service';
 import { TokenType } from '@/infrastructure/orm/types/entities';
-import { HASH_PORT, JWT_PORT } from './ports/tokens';
+import { EMAILS_PORT, HASH_PORT, JWT_PORT } from '@/application/auth/ports/tokens';
+import { EmailsPort } from '@/application/auth/ports/emails.port';
 
 @Injectable()
 export class AuthService {
@@ -24,7 +24,8 @@ export class AuthService {
 		private readonly em: EntityManager,
 		private readonly usersService: UsersService,
 		private readonly jwtService: JwtService,
-		private readonly emailsService: EmailsService,
+		@Inject(EMAILS_PORT)
+		private readonly emailsService: EmailsPort,
 	) {
 		//
 	}
@@ -67,7 +68,7 @@ export class AuthService {
 
 		await this.em.flush();
 
-		await this.emailsService.sendVerifyAccountEmail(newUserEntity);
+		await this.emailsService.sendVerifyAccountEmail(newUserEntity.email);
 
 		return tokens;
 	}

@@ -7,7 +7,7 @@ import { AppService } from "@/app.service";
 import { OrmModule } from "@/infrastructure/orm/orm.module";
 import { AuthModule } from "@/infrastructure/auth/auth.module";
 import { UsersModule } from "@/infrastructure/users/users.module";
-import { EmailsModule } from "@/emails/emails.module";
+import { EmailsModule } from "@/infrastructure/emails/emails.module";
 import { TasksModule } from "@/infrastructure/tasks/tasks.module";
 import { APP_GUARD } from "@nestjs/core";
 

@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'node:fs';
 import { inline, Options } from '@css-inline/css-inline';
 import { createEnvironment, createFilesystemLoader, TwingTemplate, TwingEnvironment } from 'twing';
-import { MailData, MailerOptions, CompileCallback } from '@/emails/types/twingAdapter';
+import { MailData, MailerOptions, CompileCallback } from '@/infrastructure/emails/types/twingAdapter';
 
 export class TwingAdapter {
 	private precompiledTemplates: Map<string, TwingTemplate> = new Map();

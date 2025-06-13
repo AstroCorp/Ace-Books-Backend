@@ -8,6 +8,8 @@ import { CreateUserDTO } from '@/infrastructure/auth/validation/dto/createUser.d
 import { EmailsService } from '@/infrastructure/emails/emails.service';
 import { SendResetPasswordDTO } from '@/infrastructure/auth/validation/dto/sendResetPassword.dto';
 import { JwtAuthGuard } from '@/infrastructure/auth/guards/jwt.guard';
+import { SignGuard } from '@/infrastructure/auth/guards/sign.guard';
+import { ResetPasswordDTO } from '@/infrastructure/users/validation/dto/resetPassword.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -42,7 +44,7 @@ export class AuthController {
 		},
 	})
 	@UseGuards(JwtAuthGuard)
-	@Post('verify-email')
+	@Post('send-verify-account-email')
 	@HttpCode(200)
 	sendVerifyAccountEmail(@Request() req: Session) {
 		return this.emailsService.sendVerifyAccountEmail(req.user.email);
@@ -54,9 +56,22 @@ export class AuthController {
 			limit: process.env.EMAILS_RATE_LIMIT_MAX,
 		},
 	})
-	@Post('reset-password')
+	@Post('send-reset-password-email')
 	@HttpCode(200)
 	sendResetPasswordEmail(@Body() body: SendResetPasswordDTO) {
 		return this.emailsService.sendResetPasswordEmail(body.email);
+	}
+
+	@UseGuards(JwtAuthGuard, SignGuard)
+	@Get('verify-email')
+	@HttpCode(200)
+	verifyEmail(@Request() req: Session) {
+		return this.authService.verifyEmail(req.user);
+	}
+
+	@Post('reset-password')
+	@HttpCode(200)
+	resetPassword(@Body() body: ResetPasswordDTO) {
+		return this.authService.resetPassword(body.token, body.email, body.password);
 	}
 }

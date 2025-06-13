@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, HttpStatus, HttpException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '@/application/users/users.service';
 import HashPort from '@/application/auth/ports/hash.port';
@@ -139,5 +139,33 @@ export class AuthService {
 		this.em.persist(newRefreshToken);
 
 		return refresh_token;
+	}
+
+	async verifyEmail(user: User) {
+		if (user.isVerified) {
+			return;
+		}
+
+		user.isVerified = true;
+
+		await this.em.flush();
+	}
+
+	async resetPassword(token: string, email: string, password: string) {
+		const user = await this.usersService.findOneByEmail(email);
+		const tokenEntity = await this.tokenRepository.findOne({
+			token,
+			user: user.id,
+		});
+
+		if (!tokenEntity || tokenEntity.type !== TokenType.RESET || !tokenEntity.isValid()) {
+			throw new HttpException('Invalid token', HttpStatus.BAD_REQUEST);
+		}
+
+		tokenEntity.revoke();
+
+		user.password = password;
+
+		await this.em.flush();
 	}
 }

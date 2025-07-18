@@ -17,3 +17,6 @@ backend-tailwind:
 
 backend-reset-db:
 	@docker exec -it $(BACKEND_CONTAINER_NAME) yarn reset-db
+
+backend-test-e2e:
+	@docker exec -it $(BACKEND_CONTAINER_NAME) yarn test:e2e

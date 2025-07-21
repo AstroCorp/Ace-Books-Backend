@@ -5,6 +5,9 @@
 		"ts"
 	],
 	"rootDir": "..",
+	"setupFiles": [
+		"<rootDir>/test/jest-e2e.setup.ts"
+	],
 	"testEnvironment": "node",
 	"testRegex": ".e2e-spec.ts$",
 	"transform": {

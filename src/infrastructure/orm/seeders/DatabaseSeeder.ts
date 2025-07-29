@@ -7,8 +7,11 @@ import { BookmarkFactory } from "@/infrastructure/orm/factories/BookmarkFactory"
 
 export class DatabaseSeeder extends Seeder {
 	async run(em: EntityManager): Promise<void> {
-		const user_unverified = new UserFactory(em).makeOne();
+		const user_unverified = new UserFactory(em).makeOne({
+			email: 'unverified@example.com',
+		});
 		const user_verified = new UserFactory(em).makeOne({
+			email: 'verified@example.com',
 			isVerified: true,
 		});
 
@@ -20,7 +23,6 @@ export class DatabaseSeeder extends Seeder {
 			book.user = user_verified;
 			book.booksCollection = books_collection;
 		}).make(5);
-
 		const books_not_in_collection = new BookFactory(em).each(book => {
 			book.user = user_verified;
 		}).make(3);

@@ -3,17 +3,9 @@ import * as request from 'supertest';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { MikroORM } from '@mikro-orm/core';
 import { AppModule } from '../../../app.module';
-import { EMAILS_PORT } from '@/application/auth/ports/tokens';
-import { EmailsPort } from '@/application/auth/ports/emails.port';
 import { executeMigrations } from '../helpers/executeMigrations';
 
-// Mock del servicio de emails
-const mockEmailsService: EmailsPort = {
-	sendVerifyAccountEmail: jest.fn().mockResolvedValue(Promise.resolve()),
-	sendResetPasswordEmail: jest.fn().mockResolvedValue(Promise.resolve()),
-};
-
-describe('AuthController - Register (e2e)', () => {
+describe('AuthController - Login (e2e)', () => {
 	let orm: MikroORM;
 	let app: NestFastifyApplication;
 
@@ -23,8 +15,6 @@ describe('AuthController - Register (e2e)', () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
 			imports: [AppModule],
 		})
-		.overrideProvider(EMAILS_PORT)
-		.useValue(mockEmailsService)
 		.compile();
 
 		app = moduleFixture.createNestApplication<NestFastifyApplication>(
@@ -35,15 +25,15 @@ describe('AuthController - Register (e2e)', () => {
 		await app.getHttpAdapter().getInstance().ready();
 	});
 
-	it('/register (POST) - Successfully registered', async () => {
-		const registerData = {
-			email: 'test@example.com',
-			password: 'Test123!@#',
+	it('/login (POST) - Successfully logged in', async () => {
+		const loginData = {
+			email: 'unverified@example.com',
+			password: 'password',
 		};
 
 		const response = await request(app.getHttpServer())
-			.post('/auth/register')
-			.send(registerData)
+			.post('/auth/login')
+			.send(loginData)
 			.expect(201);
 
 		expect(response.body).toHaveProperty('access_token');
@@ -52,9 +42,6 @@ describe('AuthController - Register (e2e)', () => {
 		expect(typeof response.body.refresh_token).toBe('string');
 		expect(response.body.access_token.length).toBeGreaterThan(0);
 		expect(response.body.refresh_token.length).toBeGreaterThan(0);
-
-		expect(mockEmailsService.sendVerifyAccountEmail).toHaveBeenCalledWith('test@example.com');
-		expect(mockEmailsService.sendVerifyAccountEmail).toHaveBeenCalledTimes(1);
 	});
 
 	afterAll(async () => {

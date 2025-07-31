@@ -53,7 +53,7 @@ describe('AuthController - Register (e2e)', () => {
 		expect(response.body.access_token.length).toBeGreaterThan(0);
 		expect(response.body.refresh_token.length).toBeGreaterThan(0);
 
-		expect(mockEmailsService.sendVerifyAccountEmail).toHaveBeenCalledWith('test@example.com');
+		expect(mockEmailsService.sendVerifyAccountEmail).toHaveBeenCalledWith(registerData.email);
 		expect(mockEmailsService.sendVerifyAccountEmail).toHaveBeenCalledTimes(1);
 	});
 

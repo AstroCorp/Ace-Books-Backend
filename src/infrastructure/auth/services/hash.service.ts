@@ -1,9 +1,9 @@
-import { hashSync, verifySync } from '@node-rs/argon2';
-import HashPort from '@/application/auth/ports/hash.port';
 import { Injectable } from '@nestjs/common';
+import { hashSync, verifySync } from '@node-rs/argon2';
+import { HashPort } from '@/domain/auth/ports/hash.port';
 
 @Injectable()
-class Hash implements HashPort {
+class HashService implements HashPort {
 	generate(value: string): string {
 		return hashSync(value);
 	}
@@ -13,4 +13,4 @@ class Hash implements HashPort {
 	}
 }
 
-export default Hash;
+export default HashService;

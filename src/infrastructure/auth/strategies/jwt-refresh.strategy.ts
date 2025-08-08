@@ -1,9 +1,6 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from '@/application/users/users.service';
-import { Payload } from '@/infrastructure/auth/types/payload';
-import { AuthService } from '@/application/auth/auth.service';
 import { FastifyRequest } from 'fastify';
 
 @Injectable()

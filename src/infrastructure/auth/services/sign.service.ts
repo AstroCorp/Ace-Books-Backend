@@ -1,9 +1,9 @@
-import SignPort from "@/application/auth/ports/sign.ports";
 import { Injectable } from "@nestjs/common";
 import { createHmac } from "node:crypto";
+import { SignPort } from "@/domain/auth/ports/sign.ports";
 
 @Injectable()
-class Sign implements SignPort {
+class SignService implements SignPort {
 	generate(url: URL, expiration?: Date): URL {
 		const urlObj = new URL(url);
 
@@ -54,4 +54,4 @@ class Sign implements SignPort {
 	}
 }
 
-export default Sign;
+export default SignService;

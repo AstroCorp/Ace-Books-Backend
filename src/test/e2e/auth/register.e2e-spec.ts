@@ -3,8 +3,7 @@ import * as request from 'supertest';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { MikroORM } from '@mikro-orm/core';
 import { AppModule } from '../../../app.module';
-import { EMAILS_PORT } from '@/application/auth/ports/tokens';
-import { EmailsPort } from '@/application/auth/ports/emails.port';
+import { EmailsPort, EMAILS_PORT } from '@/domain/auth/ports/emails.port';
 import { executeMigrations } from '../helpers/executeMigrations';
 
 // Mock del servicio de emails

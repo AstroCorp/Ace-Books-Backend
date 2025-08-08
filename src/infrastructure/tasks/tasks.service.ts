@@ -1,7 +1,7 @@
-import { Token } from "@/infrastructure/orm/entities/Token";
 import { EntityManager } from "@mikro-orm/postgresql";
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
+import { Token } from "@/infrastructure/orm/entities/Token";
 
 @Injectable()
 export class TasksService {

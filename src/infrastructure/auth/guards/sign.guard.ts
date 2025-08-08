@@ -1,13 +1,13 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { FastifyRequest } from 'fastify';
 import { Observable } from 'rxjs';
-import Sign from '@/infrastructure/auth/utils/sign';
+import SignService from '@/infrastructure/auth/services/sign.service';
 
 @Injectable()
 export class SignGuard implements CanActivate
 {
 	constructor(
-		private readonly sign: Sign,
+		private readonly sign: SignService,
 	) {
 		//
 	}

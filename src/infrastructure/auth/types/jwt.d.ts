@@ -1,3 +1,8 @@
+export interface JwtSignOptions {
+	secret: string;
+	expiresIn: string;
+}
+
 export interface Payload {
 	userId: number;
 	isAdmin: boolean;

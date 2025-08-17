@@ -1,3 +1,5 @@
+import type { TokenType } from '@/domain/models/Token';
+
 export interface BookDTO {
 	user: number;
 	title: string;
@@ -25,11 +27,6 @@ export interface BooksCollectionDTO {
 export interface UserDTO {
 	email: string;
 	password: string;
-}
-
-export const enum TokenType {
-	REFRESH = 'refresh',
-	RESET = 'reset',
 }
 
 export interface TokenDTO {

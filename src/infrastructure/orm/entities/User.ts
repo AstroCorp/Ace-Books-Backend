@@ -3,7 +3,7 @@ import { BaseEntity } from '@/infrastructure/orm/entities/BaseEntity';
 import { Book } from '@/infrastructure/orm/entities/Book';
 import { BooksCollection } from '@/infrastructure/orm/entities/BooksCollection';
 import type { UserDTO } from '@/infrastructure/orm/types/entities';
-import Hash from '@/infrastructure/auth/utils/hash';
+import { User as UserModel } from '@/domain/models/User';
 
 @Entity({ tableName: 'users' })
 export class User extends BaseEntity
@@ -17,8 +17,8 @@ export class User extends BaseEntity
 	@Property()
 	email: string;
 
-	@Property({ name: 'password' })
-	_password: string;
+	@Property()
+	password: string;
 
 	@Property({ nullable: true })
 	avatar: string | null;
@@ -39,26 +39,16 @@ export class User extends BaseEntity
 		this.isVerified = false;
 	}
 
-	public getDataForToken() {
-		return {
-			userId: this.id,
+	public toDomainModel(): UserModel {
+		return new UserModel({
+			id: this.id,
+			createdAt: this.createdAt,
+			updatedAt: this.updatedAt,
+			email: this.email,
+			password: this.password,
+			avatar: this.avatar,
 			isAdmin: this.isAdmin,
 			isVerified: this.isVerified,
-		};
-	}
-
-	public getDataForProfile() {
-		return {
-			email: this.email,
-			avatar: this.avatar,
-		};
-	}
-
-	public get password() {
-		return this._password;
-	}
-
-	public set password(newPassword: string) {
-		this._password = new Hash().generate(newPassword);
+		});
 	}
 }

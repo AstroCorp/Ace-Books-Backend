@@ -5,22 +5,34 @@ interface BaseModelDTO {
 }
 
 class BaseModel {
-	private id: number;
-	private createdAt: Date;
-	private updatedAt: Date;
+	private _id: number;
+	private _createdAt: Date;
+	private _updatedAt: Date;
 
 	constructor(baseModelDTO: BaseModelDTO) {
-		this.id = baseModelDTO.id;
-		this.createdAt = baseModelDTO.createdAt;
-		this.updatedAt = baseModelDTO.updatedAt;
+		this._id = baseModelDTO.id;
+		this._createdAt = baseModelDTO.createdAt;
+		this._updatedAt = baseModelDTO.updatedAt;
 	}
 
 	public toObject(): BaseModelDTO {
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
+			id: this._id,
+			createdAt: this._createdAt,
+			updatedAt: this._updatedAt,
 		};
+	}
+
+	public get id(): number {
+		return this._id;
+	}
+
+	public get createdAt(): Date {
+		return this._createdAt;
+	}
+
+	public get updatedAt(): Date {
+		return this._updatedAt;
 	}
 }
 

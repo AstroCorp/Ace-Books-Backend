@@ -10,22 +10,46 @@ interface BookDTO extends BaseModelDTO {
 }
 
 class Book extends BaseModel {
-	private user: number;
-	private title: string;
-	private image: string | null;
-	private description: string;
-	private pages: number;
-	private filename: string;
+	private _user: number;
+	private _title: string;
+	private _image: string | null;
+	private _description: string;
+	private _pages: number;
+	private _filename: string;
 
 	constructor(bookDTO: BookDTO) {
 		super(bookDTO);
 
-		this.user = bookDTO.user;
-		this.title = bookDTO.title;
-		this.image = bookDTO.image;
-		this.description = bookDTO.description;
-		this.pages = bookDTO.pages;
-		this.filename = bookDTO.filename;
+		this._user = bookDTO.user;
+		this._title = bookDTO.title;
+		this._image = bookDTO.image;
+		this._description = bookDTO.description;
+		this._pages = bookDTO.pages;
+		this._filename = bookDTO.filename;
+	}
+
+	public get user(): number {
+		return this._user;
+	}
+
+	public get title(): string {
+		return this._title;
+	}
+
+	public get image(): string | null {
+		return this._image;
+	}
+
+	public get description(): string {
+		return this._description;
+	}
+
+	public get pages(): number {
+		return this._pages;
+	}
+
+	public get filename(): string {
+		return this._filename;
 	}
 
 	public toObject(): BookDTO {

@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { EntityManager } from "@mikro-orm/postgresql";
 import { TokenWriterRepositoryInterface } from "@/domain/auth/repositories/tokenWriterRepositoryInterface";
 import { Token } from "@/infrastructure/orm/entities/Token";
-import { TokenType } from "@/infrastructure/orm/types/entities";
+import type { TokenType } from '@/domain/models/Token';
 
 @Injectable()
 export class PostgresTokenWriterRepository implements TokenWriterRepositoryInterface {

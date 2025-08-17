@@ -8,18 +8,34 @@ interface BooksCollectionDTO extends BaseModelDTO {
 }
 
 class BooksCollection extends BaseModel {
-	private user: number;
-	private title: string;
-	private image: string | null;
-	private description: string;
+	private _user: number;
+	private _title: string;
+	private _image: string | null;
+	private _description: string;
 
 	constructor(booksCollectionDTO: BooksCollectionDTO) {
 		super(booksCollectionDTO);
 
-		this.user = booksCollectionDTO.user;
-		this.title = booksCollectionDTO.title;
-		this.image = booksCollectionDTO.image;
-		this.description = booksCollectionDTO.description;
+		this._user = booksCollectionDTO.user;
+		this._title = booksCollectionDTO.title;
+		this._image = booksCollectionDTO.image;
+		this._description = booksCollectionDTO.description;
+	}
+
+	public get user(): number {
+		return this._user;
+	}
+
+	public get title(): string {
+		return this._title;
+	}
+
+	public get image(): string | null {
+		return this._image;
+	}
+
+	public get description(): string {
+		return this._description;
 	}
 
 	public toObject(): BooksCollectionDTO {

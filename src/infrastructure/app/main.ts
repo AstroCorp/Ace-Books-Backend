@@ -6,7 +6,7 @@ import compression from '@fastify/compress';
 import helmet from '@fastify/helmet';
 import fastifyCsrf from '@fastify/csrf-protection';
 import { useContainer } from "class-validator";
-import { AppModule } from "@/app.module";
+import { AppModule } from "@/infrastructure/app/app.module";
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());

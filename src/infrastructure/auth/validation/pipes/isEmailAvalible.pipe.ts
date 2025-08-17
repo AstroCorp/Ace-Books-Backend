@@ -1,3 +1,4 @@
+import { PostgresUserReaderRepository } from '@/infrastructure/users/repositories/postgresUserReaderRepository';
 import { Injectable } from '@nestjs/common';
 import { ValidatorConstraint, ValidatorConstraintInterface, ValidationOptions, registerDecorator, ValidationArguments } from 'class-validator';
 
@@ -6,15 +7,14 @@ import { ValidatorConstraint, ValidatorConstraintInterface, ValidationOptions, r
 export class IsEmailAvailableConstraint implements ValidatorConstraintInterface
 {
 	constructor(
-		protected readonly usersService: UsersService,
+		protected readonly postgresUserReaderRepository: PostgresUserReaderRepository,
 	) {
 		//
 	}
 
 	validate(email: string, args: ValidationArguments) {
-		return this.usersService.findOneByEmail(email).then(user => {
-			if (user) return false;
-      		return true;
+		return this.postgresUserReaderRepository.findOneByEmail(email).then(user => {
+			return user === null;
 		});
 	}
 

@@ -2,14 +2,12 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { ScheduleModule } from "@nestjs/schedule";
-import { AppController } from "@/app.controller";
-import { AppService } from "@/app.service";
+import { APP_GUARD } from "@nestjs/core";
 import { OrmModule } from "@/infrastructure/orm/orm.module";
 import { AuthModule } from "@/infrastructure/auth/auth.module";
 import { UsersModule } from "@/infrastructure/users/users.module";
-import { EmailsModule } from "@/infrastructure/emails/emails.module";
 import { TasksModule } from "@/infrastructure/tasks/tasks.module";
-import { APP_GUARD } from "@nestjs/core";
+import { AppController } from "@/infrastructure/app/controllers/app.controller";
 
 @Module({
 	imports: [
@@ -30,15 +28,15 @@ import { APP_GUARD } from "@nestjs/core";
 		OrmModule,
 		AuthModule,
 		UsersModule,
-		EmailsModule,
 	],
-	controllers: [AppController],
 	providers: [
-		AppService,
 		{
 			provide: APP_GUARD,
 			useClass: ThrottlerGuard,
 		},
+	],
+	controllers: [
+		AppController,
 	],
 })
 export class AppModule {}

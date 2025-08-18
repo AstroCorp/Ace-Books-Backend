@@ -14,7 +14,7 @@ import { CreateUserUseCase } from '@/application/auth/useCases/createUserUseCase
 import { GenerateUserAccessTokensUseCase } from '@/application/auth/useCases/generateUserAccessTokensUseCase';
 import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/generateUserRefreshTokenUseCase';
 import { ValidateUserPasswordUseCase } from '@/application/auth/useCases/validateUserPasswordUseCase';
-
+import { SendVerificationEmailUseCase } from '@/application/auth/useCases/sendVerificationEmailUseCase';
 
 @Module({
 	imports: [
@@ -36,6 +36,7 @@ import { ValidateUserPasswordUseCase } from '@/application/auth/useCases/validat
 		GenerateUserAccessTokensUseCase,
 		GenerateUserRefreshTokenUseCase,
 		ValidateUserPasswordUseCase,
+		SendVerificationEmailUseCase,
 	],
 	controllers: [RegisterController],
 })

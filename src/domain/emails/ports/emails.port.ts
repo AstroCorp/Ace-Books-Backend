@@ -1,3 +1,5 @@
+import { InjectionToken } from "@nestjs/common";
+
 interface MailAttachment {
     filename: string;
     content: any;
@@ -13,3 +15,8 @@ export interface MailOptions {
     attachments?: Array<MailAttachment>;
 }
 
+export const EMAILS_PORT: InjectionToken = 'EMAILS_PORT';
+
+export interface EmailsPort {
+	sendMail(options: MailOptions): Promise<void>;
+}

@@ -1,8 +1,9 @@
 import { Body, Controller, Post } from '@nestjs/common';
+import { CreateUserDTO } from '@/infrastructure/auth/validation/dto/createUser.dto';
 import { CreateUserUseCase } from '@/application/auth/useCases/createUserUseCase';
 import { GenerateUserAccessTokensUseCase } from '@/application/auth/useCases/generateUserAccessTokensUseCase';
 import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/generateUserRefreshTokenUseCase';
-import { CreateUserDTO } from '@/infrastructure/auth/validation/dto/createUser.dto';
+import { SendVerificationEmailUseCase } from '@/application/auth/useCases/sendVerificationEmailUseCase';
 
 @Controller('auth')
 export class RegisterController {
@@ -10,6 +11,7 @@ export class RegisterController {
 		private readonly createUserUseCase: CreateUserUseCase,
 		private readonly generateUserAccessTokensUseCase: GenerateUserAccessTokensUseCase,
 		private readonly generateUserRefreshTokenUseCase: GenerateUserRefreshTokenUseCase,
+		private readonly sendVerificationEmailUseCase: SendVerificationEmailUseCase,
 	) {
 		//
 	}
@@ -19,6 +21,8 @@ export class RegisterController {
 		const user = await this.createUserUseCase.execute(body.email, body.password);
 		const accessToken = this.generateUserAccessTokensUseCase.execute(user);
 		const refreshToken = await this.generateUserRefreshTokenUseCase.execute(user);
+
+		await this.sendVerificationEmailUseCase.execute(user);
 
 		return {
 			access_token: accessToken,

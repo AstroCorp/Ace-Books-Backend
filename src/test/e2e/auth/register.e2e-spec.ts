@@ -1,16 +1,15 @@
 import * as request from 'supertest';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { MikroORM } from '@mikro-orm/core';
-import { EmailsPort, EMAILS_PORT } from '@/domain/auth/ports/emails.port';
 import { executeMigrations } from '@/test/e2e/helpers/executeMigrations';
 import { setupApp } from '@/test/e2e/helpers/setupApp';
 import type { OverrideProvider } from '@/test/e2e/helpers/setupApp';
+import { SendVerificationEmailUseCase } from '@/application/auth/useCases/sendVerificationEmailUseCase';
 
-// Mock del servicio de emails
-const mockEmailsService: EmailsPort = {
-	sendVerifyAccountEmail: jest.fn().mockResolvedValue(Promise.resolve()),
-	sendResetPasswordEmail: jest.fn().mockResolvedValue(Promise.resolve()),
-};
+// Mock de SendVerificationEmailUseCase
+const mockSendVerificationEmailUseCase = {
+	execute: jest.fn().mockResolvedValue(Promise.resolve()),
+}
 
 describe('AuthController - Register (e2e)', () => {
 	let orm: MikroORM;
@@ -21,8 +20,8 @@ describe('AuthController - Register (e2e)', () => {
 
 		const overrideProviders: OverrideProvider[] = [
 			{
-				provider: EMAILS_PORT,
-				value: mockEmailsService,
+				provider: SendVerificationEmailUseCase,
+				value: mockSendVerificationEmailUseCase,
 			},
 		];
 
@@ -47,8 +46,12 @@ describe('AuthController - Register (e2e)', () => {
 		expect(response.body.access_token.length).toBeGreaterThan(0);
 		expect(response.body.refresh_token.length).toBeGreaterThan(0);
 
-		expect(mockEmailsService.sendVerifyAccountEmail).toHaveBeenCalledWith(registerData.email);
-		expect(mockEmailsService.sendVerifyAccountEmail).toHaveBeenCalledTimes(1);
+		expect(mockSendVerificationEmailUseCase.execute).toHaveBeenCalledWith(
+			expect.objectContaining({
+			  email: registerData.email,
+			})
+		  );
+		expect(mockSendVerificationEmailUseCase.execute).toHaveBeenCalledTimes(1);
 	});
 
 	it('/register (POST) - Email already exists', async () => {

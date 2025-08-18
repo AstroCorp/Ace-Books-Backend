@@ -1,11 +1,13 @@
+import * as fs from 'node:fs';
 import * as path from 'path';
 import * as nodemailer from 'nodemailer';
 import { Injectable } from '@nestjs/common';
 import { TwingAdapter } from '@/infrastructure/emails/adapters/twing.adapter';
-import { MailOptions } from '@/infrastructure/emails/types/nodemailerService';
+import { EmailsPort } from '@/domain/emails/ports/emails.port';
+import type { MailOptions } from '@/domain/emails/ports/emails.port';
 
 @Injectable()
-export class NodemailerService {
+export class EmailsService implements EmailsPort {
     private transporter: nodemailer.Transporter;
     private templateAdapter: TwingAdapter;
 
@@ -22,12 +24,12 @@ export class NodemailerService {
         });
 
         this.templateAdapter = new TwingAdapter({
-            baseUrl: 'file://' + __dirname + '/css/',
+            baseUrl: 'file://' + path.join(__dirname, '../') + '/css/',
         });
     }
 
     async sendMail(options: MailOptions): Promise<void> {
-        const templatePath = path.join(__dirname, 'templates', options.template + '.twig');
+        const templatePath = path.join(__dirname, '../templates', options.template + '.twig');
 
         return new Promise((resolve, reject) => {
 			const mailData = {
@@ -38,7 +40,7 @@ export class NodemailerService {
 			};
 			const mailerOptions = {
 				template: {
-					dir: path.join(__dirname, 'templates'),
+					dir: path.join(__dirname, '../templates'),
 				}
 			};
 			const callback = async (err: Error | null, html?: string) => {
@@ -53,7 +55,11 @@ export class NodemailerService {
 						to: options.to,
 						subject: options.subject,
 						html: html || '',
-						attachments: options.attachments,
+						attachments: options.attachments.map((attachment) => ({
+							filename: attachment.filename,
+							content: fs.createReadStream(path.join(__dirname, '../') + attachment.content),
+							cid: attachment.cid,
+						})),
 					});
 
 					resolve();

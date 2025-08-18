@@ -4,6 +4,8 @@ import { JWT_PORT } from '@/domain/auth/ports/jwt.port';
 import JwtService from '@/infrastructure/auth/services/jwt.service';
 import { SIGN_PORT } from '@/domain/auth/ports/sign.ports';
 import SignService from '@/infrastructure/auth/services/sign.service';
+import { EMAILS_PORT } from '@/domain/emails/ports/emails.port';
+import { EmailsService } from '@/infrastructure/emails/services/emails.service';
 import { USER_WRITER_REPOSITORY } from '@/domain/user/repositories/userWriterRepositoryInterface';
 import { PostgresUserWriterRepository } from '@/infrastructure/users/repositories/postgresUserWriterRepository';
 import { TOKEN_WRITER_REPOSITORY } from '@/domain/auth/repositories/tokenWriterRepositoryInterface';
@@ -23,6 +25,10 @@ export const PROVIDERS = [
 	{
 		provide: SIGN_PORT,
 		useClass: SignService,
+	},
+	{
+		provide: EMAILS_PORT,
+		useClass: EmailsService,
 	},
 	{
 		provide: USER_WRITER_REPOSITORY,

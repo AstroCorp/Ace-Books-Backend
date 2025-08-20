@@ -1,10 +1,14 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import type { Payload } from '@/infrastructure/auth/types/jwt';
+import { PostgresUserReaderRepository } from '@/infrastructure/users/repositories/postgresUserReaderRepository';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
-	constructor() {
+	constructor(
+		private readonly userReaderRepository: PostgresUserReaderRepository,
+	) {
 		super({
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 			ignoreExpiration: false,
@@ -12,8 +16,8 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 		});
 	}
 
-	async validate(payload: any) {
-		const user = true;
+	async validate(payload: Payload) {
+		const user = await this.userReaderRepository.findOneById(payload.userId);
 
 		if (!user) {
 			throw new UnauthorizedException();

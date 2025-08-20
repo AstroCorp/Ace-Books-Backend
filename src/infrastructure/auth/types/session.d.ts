@@ -1,4 +1,4 @@
-import { User } from "@/infrastructure/orm/entities/User";
+import { User } from '@/domain/models/User';
 
 export interface Session {
 	user: User;

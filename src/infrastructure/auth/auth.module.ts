@@ -10,11 +10,13 @@ import { IsEmailAvailableConstraint } from '@/infrastructure/auth/validation/pip
 import { PROVIDERS } from '@/infrastructure/auth/auth.providers';
 import { PostgresUserReaderRepository } from '@/infrastructure/users/repositories/postgresUserReaderRepository';
 import { RegisterController } from '@/infrastructure/auth/controllers/register.controller';
+import { LoginController } from '@/infrastructure/auth/controllers/login.controller';
 import { CreateUserUseCase } from '@/application/auth/useCases/createUserUseCase';
 import { GenerateUserAccessTokensUseCase } from '@/application/auth/useCases/generateUserAccessTokensUseCase';
 import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/generateUserRefreshTokenUseCase';
 import { ValidateUserPasswordUseCase } from '@/application/auth/useCases/validateUserPasswordUseCase';
 import { SendVerificationEmailUseCase } from '@/application/auth/useCases/sendVerificationEmailUseCase';
+import { ValidateUserRefreshTokenUseCase } from '@/application/auth/useCases/validateUserRefreshTokenUseCase';
 
 @Module({
 	imports: [
@@ -37,7 +39,11 @@ import { SendVerificationEmailUseCase } from '@/application/auth/useCases/sendVe
 		GenerateUserRefreshTokenUseCase,
 		ValidateUserPasswordUseCase,
 		SendVerificationEmailUseCase,
+		ValidateUserRefreshTokenUseCase,
 	],
-	controllers: [RegisterController],
+	controllers: [
+		RegisterController,
+		LoginController,
+	],
 })
 export class AuthModule { }

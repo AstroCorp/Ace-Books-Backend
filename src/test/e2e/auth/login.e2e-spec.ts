@@ -13,7 +13,7 @@ describe('AuthController - Login (e2e)', () => {
 		app = await setupApp([]);
 	});
 
-	it.skip('/login (POST) - Successfully logged in', async () => {
+	it('/login (POST) - Successfully logged in', async () => {
 		const loginData = {
 			email: 'unverified@example.com',
 			password: 'password',

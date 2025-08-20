@@ -17,4 +17,14 @@ export class PostgresUserReaderRepository implements UserReaderRepositoryInterfa
 
 		return user.toDomainModel();
 	}
+
+	async findOneById(id: number): Promise<User | null> {
+		const user = await this.em.findOne(UserEntity, { id });
+
+		if (!user) {
+			return null;
+		}
+
+		return user.toDomainModel();
+	}
 }

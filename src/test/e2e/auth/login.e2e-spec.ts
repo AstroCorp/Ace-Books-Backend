@@ -32,6 +32,22 @@ describe('AuthController - Login (e2e)', () => {
 		expect(response.body.refresh_token.length).toBeGreaterThan(0);
 	});
 
+	it('/login (POST) - Unauthorized', async () => {
+		const loginData = {
+			email: 'unverified@example.com',
+			password: 'wrong_password',
+		};
+
+		const response = await request(app.getHttpServer())
+			.post('/auth/login')
+			.send(loginData)
+			.expect(401);
+
+		expect(response.body).toHaveProperty('message');
+		expect(response.body.message).toBe('Unauthorized');
+		expect(response.body.statusCode).toBe(401);
+	});
+
 	afterAll(async () => {
 		jest.clearAllMocks();
 		if (orm) await orm.close();

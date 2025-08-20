@@ -69,6 +69,51 @@ describe('AuthController - Register (e2e)', () => {
 		expect(response.body.message).toContain('invalid email');
 	});
 
+	it('/register (POST) - Invalid email', async () => {
+		const registerData = {
+			email: 'invalid_email',
+			password: 'Test123!@#',
+		};
+
+		const response = await request(app.getHttpServer())
+			.post('/auth/register')
+			.send(registerData)
+			.expect(400);
+
+		expect(response.body).toHaveProperty('message');
+		expect(response.body.message).toContain('invalid email');
+	});
+
+	it('/register (POST) - Password is not strong enough', async () => {
+		const registerData = {
+			email: 'test@example.com',
+			password: '1234567890',
+		};
+
+		const response = await request(app.getHttpServer())
+			.post('/auth/register')
+			.send(registerData)
+			.expect(400);
+
+		expect(response.body).toHaveProperty('message');
+		expect(response.body.message).toContain('password is not strong enough');
+	});
+
+	it('/register (POST) - Password is too long', async () => {
+		const registerData = {
+			email: 'test@example.com',
+			password: '1234567890123456789012345678901234567890',
+		};
+
+		const response = await request(app.getHttpServer())
+			.post('/auth/register')
+			.send(registerData)
+			.expect(400);
+
+		expect(response.body).toHaveProperty('message');
+		expect(response.body.message).toContain('password must be shorter than or equal to 32 characters');
+	});
+
 	afterAll(async () => {
 		jest.clearAllMocks();
 		if (orm) await orm.close();

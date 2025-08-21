@@ -33,7 +33,7 @@ export class SendVerificationEmailUseCase {
 		const urlSigned = this.signService.generate(verifyUrl, expiration);
 
 		// Añadimos los parámetros de la URL firmada a la URL del frontend para que
-		// sean usados al hacer la petición de reseteo de contraseña
+		// sean usados al hacer la petición de verificación de email
 		const frontUrl = new URL(process.env.FRONTEND_URL + '/verify-email');
 
 		Array.from(urlSigned.searchParams.entries()).forEach(([key, value]) => {

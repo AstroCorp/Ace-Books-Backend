@@ -17,6 +17,9 @@ import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/gen
 import { ValidateUserPasswordUseCase } from '@/application/auth/useCases/validateUserPasswordUseCase';
 import { SendVerificationEmailUseCase } from '@/application/auth/useCases/sendVerificationEmailUseCase';
 import { ValidateUserRefreshTokenUseCase } from '@/application/auth/useCases/validateUserRefreshTokenUseCase';
+import { ResendVerifyAccountEmailController } from '@/infrastructure/auth/controllers/resendVerifyAccountEmail.controller';
+import { SendResetPasswordEmailUseCase } from '@/application/auth/useCases/sendResetPasswordEmailUseCase';
+import { ResendResetPasswordEmailController } from '@/infrastructure/auth/controllers/resendResetPasswordEmail.controller';
 
 @Module({
 	imports: [
@@ -39,11 +42,14 @@ import { ValidateUserRefreshTokenUseCase } from '@/application/auth/useCases/val
 		GenerateUserRefreshTokenUseCase,
 		ValidateUserPasswordUseCase,
 		SendVerificationEmailUseCase,
+		SendResetPasswordEmailUseCase,
 		ValidateUserRefreshTokenUseCase,
 	],
 	controllers: [
 		RegisterController,
 		LoginController,
+		ResendVerifyAccountEmailController,
+		ResendResetPasswordEmailController,
 	],
 })
 export class AuthModule { }

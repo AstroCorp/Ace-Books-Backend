@@ -15,11 +15,10 @@ import { CreateUserUseCase } from '@/application/auth/useCases/createUserUseCase
 import { GenerateUserAccessTokensUseCase } from '@/application/auth/useCases/generateUserAccessTokensUseCase';
 import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/generateUserRefreshTokenUseCase';
 import { ValidateUserPasswordUseCase } from '@/application/auth/useCases/validateUserPasswordUseCase';
-import { SendVerificationEmailUseCase } from '@/application/auth/useCases/sendVerificationEmailUseCase';
+import { SendVerificationEmailUseCase } from '@/application/emails/useCases/sendVerificationEmailUseCase';
 import { ValidateUserRefreshTokenUseCase } from '@/application/auth/useCases/validateUserRefreshTokenUseCase';
-import { ResendVerifyAccountEmailController } from '@/infrastructure/auth/controllers/resendVerifyAccountEmail.controller';
-import { SendResetPasswordEmailUseCase } from '@/application/auth/useCases/sendResetPasswordEmailUseCase';
-import { ResendResetPasswordEmailController } from '@/infrastructure/auth/controllers/resendResetPasswordEmail.controller';
+import { SendResetPasswordEmailUseCase } from '@/application/emails/useCases/sendResetPasswordEmailUseCase';
+import { SendResetPasswordEmailController } from '@/infrastructure/auth/controllers/sendResetPasswordEmail.controller';
 
 @Module({
 	imports: [
@@ -48,8 +47,7 @@ import { ResendResetPasswordEmailController } from '@/infrastructure/auth/contro
 	controllers: [
 		RegisterController,
 		LoginController,
-		ResendVerifyAccountEmailController,
-		ResendResetPasswordEmailController,
+		SendResetPasswordEmailController,
 	],
 })
 export class AuthModule { }

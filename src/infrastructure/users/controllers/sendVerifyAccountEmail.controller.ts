@@ -1,7 +1,7 @@
 import { Controller, HttpCode, Post, Request, UseGuards } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import { JwtAuthGuard } from '@/infrastructure/auth/guards/jwt.guard';
-import { SendVerificationEmailUseCase } from '@/application/auth/useCases/sendVerificationEmailUseCase';
+import { SendVerificationEmailUseCase } from '@/application/emails/useCases/sendVerificationEmailUseCase';
 import { Session } from '@/infrastructure/auth/types/session';
 
 @Throttle({
@@ -10,8 +10,8 @@ import { Session } from '@/infrastructure/auth/types/session';
 		limit: process.env.EMAILS_RATE_LIMIT_MAX,
 	},
 })
-@Controller('auth')
-export class ResendVerifyAccountEmailController {
+@Controller('users')
+export class SendVerifyAccountEmailController {
 	constructor(
 		private readonly sendVerificationEmailUseCase: SendVerificationEmailUseCase,
 	) {
@@ -19,7 +19,7 @@ export class ResendVerifyAccountEmailController {
 	}
 
 	@UseGuards(JwtAuthGuard)
-	@Post('resend-verify-account-email')
+	@Post('send-verify-account-email')
 	@HttpCode(200)
 	async __invoke(@Request() req: Session) {
 		await this.sendVerificationEmailUseCase.execute(req.user);

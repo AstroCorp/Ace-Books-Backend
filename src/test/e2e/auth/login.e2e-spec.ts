@@ -4,7 +4,7 @@ import { MikroORM } from '@mikro-orm/core';
 import { executeMigrations } from '@/test/e2e/helpers/executeMigrations';
 import { setupApp } from '@/test/e2e/helpers/setupApp';
 
-describe('AuthController - Login (e2e)', () => {
+describe('Auth - LoginController (e2e)', () => {
 	let orm: MikroORM;
 	let app: NestFastifyApplication;
 
@@ -13,7 +13,7 @@ describe('AuthController - Login (e2e)', () => {
 		app = await setupApp([]);
 	});
 
-	it('/login (POST) - Successfully logged in', async () => {
+	it('/auth/login (POST) - Successfully logged in', async () => {
 		const loginData = {
 			email: 'unverified@example.com',
 			password: 'password',
@@ -32,7 +32,7 @@ describe('AuthController - Login (e2e)', () => {
 		expect(response.body.refresh_token.length).toBeGreaterThan(0);
 	});
 
-	it('/login (POST) - Unauthorized', async () => {
+	it('/auth/login (POST) - Unauthorized', async () => {
 		const loginData = {
 			email: 'unverified@example.com',
 			password: 'wrong_password',

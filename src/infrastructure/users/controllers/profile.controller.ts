@@ -3,15 +3,11 @@ import { JwtAuthGuard } from '@/infrastructure/auth/guards/jwt.guard';
 import { Session } from '@/infrastructure/auth/types/session';
 
 @Controller('users')
-export class UsersController
+export class ProfileController
 {
-	constructor() {
-		//
-	}
-
 	@UseGuards(JwtAuthGuard)
   	@Get('profile')
-  	getProfile(@Request() req: Session) {
+  	__invoke(@Request() req: Session) {
     	return "User profile";
 	}
 }

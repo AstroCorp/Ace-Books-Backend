@@ -1,18 +1,19 @@
 import { Module } from "@nestjs/common";
 import { OrmModule } from "@/infrastructure/orm/orm.module";
-import { UsersController } from "@/infrastructure/users/users.controller";
-import { PostgresUserReaderRepository } from "@/infrastructure/users/repositories/postgresUserReaderRepository";
-import { USER_READER_REPOSITORY } from "@/domain/user/repositories/userReaderRepositoryInterface";
+import { PROVIDERS } from "@/infrastructure/users/user.providers";
+import { ProfileController } from "@/infrastructure/users/controllers/profile.controller";
+import { SendVerifyAccountEmailController } from "@/infrastructure/users/controllers/sendVerifyAccountEmail.controller";
+import { SendVerificationEmailUseCase } from "@/application/emails/useCases/sendVerificationEmailUseCase";
 
 @Module({
 	imports: [OrmModule],
-	controllers: [UsersController],
 	providers: [
-		{
-			provide: USER_READER_REPOSITORY,
-			useClass: PostgresUserReaderRepository,
-		},
+		...PROVIDERS,
+		SendVerificationEmailUseCase,
 	],
-	exports: [USER_READER_REPOSITORY],
+	controllers: [
+		ProfileController,
+		SendVerifyAccountEmailController,
+	],
 })
 export class UsersModule {}

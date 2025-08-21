@@ -4,14 +4,14 @@ import { MikroORM } from '@mikro-orm/core';
 import { executeMigrations } from '@/test/e2e/helpers/executeMigrations';
 import { setupApp } from '@/test/e2e/helpers/setupApp';
 import type { OverrideProvider } from '@/test/e2e/helpers/setupApp';
-import { SendVerificationEmailUseCase } from '@/application/auth/useCases/sendVerificationEmailUseCase';
+import { SendVerificationEmailUseCase } from '@/application/emails/useCases/sendVerificationEmailUseCase';
 
 // Mock de SendVerificationEmailUseCase
 const mockSendVerificationEmailUseCase = {
 	execute: jest.fn().mockResolvedValue(Promise.resolve()),
 }
 
-describe('AuthController - Register (e2e)', () => {
+describe('Auth - RegisterController (e2e)', () => {
 	let orm: MikroORM;
 	let app: NestFastifyApplication;
 
@@ -28,7 +28,7 @@ describe('AuthController - Register (e2e)', () => {
 		app = await setupApp(overrideProviders);
 	});
 
-	it('/register (POST) - Successfully registered', async () => {
+	it('/auth/register (POST) - Successfully registered', async () => {
 		const registerData = {
 			email: 'test@example.com',
 			password: 'Test123!@#',
@@ -54,7 +54,7 @@ describe('AuthController - Register (e2e)', () => {
 		expect(mockSendVerificationEmailUseCase.execute).toHaveBeenCalledTimes(1);
 	});
 
-	it('/register (POST) - Email already exists', async () => {
+	it('/auth/register (POST) - Email already exists', async () => {
 		const registerData = {
 			email: 'test@example.com',
 			password: 'Test123!@#',
@@ -69,7 +69,7 @@ describe('AuthController - Register (e2e)', () => {
 		expect(response.body.message).toContain('invalid email');
 	});
 
-	it('/register (POST) - Invalid email', async () => {
+	it('/auth/register (POST) - Invalid email', async () => {
 		const registerData = {
 			email: 'invalid_email',
 			password: 'Test123!@#',
@@ -84,7 +84,7 @@ describe('AuthController - Register (e2e)', () => {
 		expect(response.body.message).toContain('invalid email');
 	});
 
-	it('/register (POST) - Password is not strong enough', async () => {
+	it('/auth/register (POST) - Password is not strong enough', async () => {
 		const registerData = {
 			email: 'test@example.com',
 			password: '1234567890',
@@ -99,7 +99,7 @@ describe('AuthController - Register (e2e)', () => {
 		expect(response.body.message).toContain('password is not strong enough');
 	});
 
-	it('/register (POST) - Password is too long', async () => {
+	it('/auth/register (POST) - Password is too long', async () => {
 		const registerData = {
 			email: 'test@example.com',
 			password: '1234567890123456789012345678901234567890',

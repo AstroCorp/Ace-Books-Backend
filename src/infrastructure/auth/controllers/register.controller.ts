@@ -3,7 +3,7 @@ import { CreateUserDTO } from '@/infrastructure/auth/validation/dto/createUser.d
 import { CreateUserUseCase } from '@/application/auth/useCases/createUserUseCase';
 import { GenerateUserAccessTokensUseCase } from '@/application/auth/useCases/generateUserAccessTokensUseCase';
 import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/generateUserRefreshTokenUseCase';
-import { SendVerificationEmailUseCase } from '@/application/auth/useCases/sendVerificationEmailUseCase';
+import { SendVerificationEmailUseCase } from '@/application/emails/useCases/sendVerificationEmailUseCase';
 
 @Controller('auth')
 export class RegisterController {

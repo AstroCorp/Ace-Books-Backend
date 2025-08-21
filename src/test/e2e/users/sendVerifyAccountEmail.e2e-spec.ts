@@ -3,14 +3,14 @@ import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { MikroORM } from '@mikro-orm/core';
 import { executeMigrations } from '@/test/e2e/helpers/executeMigrations';
 import { OverrideProvider, setupApp } from '@/test/e2e/helpers/setupApp';
-import { SendVerificationEmailUseCase } from '@/application/auth/useCases/sendVerificationEmailUseCase';
+import { SendVerificationEmailUseCase } from '@/application/emails/useCases/sendVerificationEmailUseCase';
 
 // Mock de SendVerificationEmailUseCase
 const mockSendVerificationEmailUseCase = {
 	execute: jest.fn().mockResolvedValue(Promise.resolve()),
 }
 
-describe('AuthController - Resend verify account email (e2e)', () => {
+describe('Users - SendVerifyAccountEmailController (e2e)', () => {
 	let orm: MikroORM;
 	let app: NestFastifyApplication;
 
@@ -27,7 +27,7 @@ describe('AuthController - Resend verify account email (e2e)', () => {
 		app = await setupApp(overrideProviders);
 	});
 
-	it('/resend-verify-account-email (POST) - Successfully resend verify account email', async () => {
+	it('/send-verify-account-email (POST) - Successfully resend verify account email', async () => {
 		const loginData = {
 			email: 'unverified@example.com',
 			password: 'password',
@@ -40,14 +40,14 @@ describe('AuthController - Resend verify account email (e2e)', () => {
 		const { access_token } = response.body;
 
 		await request(app.getHttpServer())
-			.post('/auth/resend-verify-account-email')
+			.post('/users/send-verify-account-email')
 			.set('Authorization', `Bearer ${access_token}`)
 			.expect(200);
 	});
 
-	it('/resend-verify-account-email (POST) - Unauthorized', async () => {
+	it('/send-verify-account-email (POST) - Unauthorized', async () => {
 		await request(app.getHttpServer())
-			.post('/auth/resend-verify-account-email')
+			.post('/users/send-verify-account-email')
 			.expect(401);
 	});
 

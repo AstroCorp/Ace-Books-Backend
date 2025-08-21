@@ -3,14 +3,14 @@ import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { MikroORM } from '@mikro-orm/core';
 import { executeMigrations } from '@/test/e2e/helpers/executeMigrations';
 import { OverrideProvider, setupApp } from '@/test/e2e/helpers/setupApp';
-import { SendResetPasswordEmailUseCase } from '@/application/auth/useCases/sendResetPasswordEmailUseCase';
+import { SendResetPasswordEmailUseCase } from '@/application/emails/useCases/sendResetPasswordEmailUseCase';
 
 // Mock de SendResetPasswordEmailUseCase
 const mockSendResetPasswordEmailUseCase = {
 	execute: jest.fn().mockResolvedValue(Promise.resolve()),
 }
 
-describe('AuthController - Resend reset password email (e2e)', () => {
+describe('Auth - SendResetPasswordEmailController (e2e)', () => {
 	let orm: MikroORM;
 	let app: NestFastifyApplication;
 
@@ -27,20 +27,20 @@ describe('AuthController - Resend reset password email (e2e)', () => {
 		app = await setupApp(overrideProviders);
 	});
 
-	it('/resend-reset-password-email (POST) - Successfully resend reset password email', async () => {
+	it('/users/send-reset-password-email (POST) - Successfully send reset password email', async () => {
 		const userEmail = 'unverified@example.com';
 
 		await request(app.getHttpServer())
-			.post('/auth/resend-reset-password-email')
+			.post('/auth/send-reset-password-email')
 			.send({ email: userEmail })
 			.expect(200);
 	});
 
-	it('/resend-reset-password-email (POST) - User not found', async () => {
+	it('/users/send-reset-password-email (POST) - User not found', async () => {
 		const userEmail = 'not-found@example.com';
 
 		await request(app.getHttpServer())
-			.post('/auth/resend-reset-password-email')
+			.post('/auth/send-reset-password-email')
 			.send({ email: userEmail })
 			.expect(200);
 	});

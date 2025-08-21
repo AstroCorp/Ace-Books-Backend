@@ -27,7 +27,7 @@ describe('Users - SendVerifyAccountEmailController (e2e)', () => {
 		app = await setupApp(overrideProviders);
 	});
 
-	it('/send-verify-account-email (POST) - Successfully resend verify account email', async () => {
+	it('/users/send-verify-account-email (POST) - Successfully resend verify account email', async () => {
 		const loginData = {
 			email: 'unverified@example.com',
 			password: 'password',
@@ -45,7 +45,7 @@ describe('Users - SendVerifyAccountEmailController (e2e)', () => {
 			.expect(200);
 	});
 
-	it('/send-verify-account-email (POST) - Unauthorized', async () => {
+	it('/users/send-verify-account-email (POST) - Unauthorized', async () => {
 		await request(app.getHttpServer())
 			.post('/users/send-verify-account-email')
 			.expect(401);

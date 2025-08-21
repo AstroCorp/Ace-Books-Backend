@@ -27,7 +27,7 @@ describe('Auth - SendResetPasswordEmailController (e2e)', () => {
 		app = await setupApp(overrideProviders);
 	});
 
-	it('/users/send-reset-password-email (POST) - Successfully send reset password email', async () => {
+	it('/auth/send-reset-password-email (POST) - Successfully send reset password email', async () => {
 		const userEmail = 'unverified@example.com';
 
 		await request(app.getHttpServer())
@@ -36,7 +36,7 @@ describe('Auth - SendResetPasswordEmailController (e2e)', () => {
 			.expect(200);
 	});
 
-	it('/users/send-reset-password-email (POST) - User not found', async () => {
+	it('/auth/send-reset-password-email (POST) - User not found', async () => {
 		const userEmail = 'not-found@example.com';
 
 		await request(app.getHttpServer())

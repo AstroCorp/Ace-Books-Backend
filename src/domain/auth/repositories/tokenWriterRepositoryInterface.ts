@@ -1,6 +1,6 @@
 import { InjectionToken } from "@nestjs/common";
-import type { TokenType } from '@/domain/models/Token';
-import { Token } from '@/domain/models/Token';
+import type { TokenType } from '@/domain/common/models/Token';
+import { Token } from '@/domain/common/models/Token';
 
 export const TOKEN_WRITER_REPOSITORY: InjectionToken = 'TOKEN_WRITER_REPOSITORY';
 

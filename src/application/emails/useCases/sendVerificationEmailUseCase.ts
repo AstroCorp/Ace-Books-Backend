@@ -3,7 +3,9 @@ import { Inject, Injectable } from '@nestjs/common';
 import { EMAILS_PORT, EmailsPort } from '@/domain/emails/ports/emails.port';
 import { HASH_PORT, HashPort } from '@/domain/auth/ports/hash.port';
 import { SIGN_PORT, SignPort } from '@/domain/auth/ports/sign.ports';
-import { User } from '@/domain/models/User';
+import { User } from '@/domain/common/models/User';
+import UserAlreadyVerifiedException from '@/domain/emails/exceptions/userAlreadyVerified.exception';
+import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
 
 @Injectable()
 export class SendVerificationEmailUseCase {
@@ -20,8 +22,12 @@ export class SendVerificationEmailUseCase {
 		//
 	}
 
-	public execute(user: User): Promise<void>
+	public async execute(user: User): Promise<void>
 	{
+		if (user.isVerified) {
+			throw new UserAlreadyVerifiedException(user.id);
+		}
+
 		const userId = user.id.toString();
 		const hash = this.hashService.generate(user.email);
 
@@ -40,22 +46,26 @@ export class SendVerificationEmailUseCase {
 			frontUrl.searchParams.append(key, value);
 		});
 
-		return this.emailsService.sendMail({
-			to: user.email,
-			from: process.env.MAIL_USERNAME,
-			subject: 'Ace Books - Verify Email',
-			template: 'verify',
-			context: {
-				title: 'Ace Books - Verify Email',
-				url: frontUrl.toString(),
-			},
-			attachments: [
-				{
-					filename: 'logo.png',
-					content: '/icons/ace_logo.png',
-					cid: 'logo',
+		try {
+			await this.emailsService.sendMail({
+				to: user.email,
+				from: process.env.MAIL_USERNAME,
+				subject: 'Ace Books - Verify Email',
+				template: 'verify',
+				context: {
+					title: 'Ace Books - Verify Email',
+					url: frontUrl.toString(),
 				},
-			],
-		});
+				attachments: [
+					{
+						filename: 'logo.png',
+						content: '/icons/ace_logo.png',
+						cid: 'logo',
+					},
+				],
+			});
+		} catch (error) {
+			throw new EmailSendFailedException(user.id, error.message);
+		}
 	}
 }

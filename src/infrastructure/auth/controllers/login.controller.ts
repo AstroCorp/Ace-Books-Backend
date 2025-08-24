@@ -1,4 +1,4 @@
-import { Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { Controller, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
 import { GenerateUserAccessTokensUseCase } from '@/application/auth/useCases/generateUserAccessTokensUseCase';
 import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/generateUserRefreshTokenUseCase';
 import { LocalAuthGuard } from '@/infrastructure/auth/guards/local.guard';
@@ -15,6 +15,7 @@ export class LoginController {
 
 	@UseGuards(LocalAuthGuard)
 	@Post('login')
+	@HttpCode(HttpStatus.OK)
 	async __invoke(@Request() req: Session) {
 		const user = req.user;
 

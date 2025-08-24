@@ -2,8 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { EntityManager } from "@mikro-orm/postgresql";
 import { TokenReaderRepositoryInterface } from "@/domain/auth/repositories/tokenReaderRepositoryInterface";
 import { Token as TokenEntity } from "@/infrastructure/orm/entities/Token";
-import type { TokenType } from '@/domain/models/Token';
-import { Token } from "@/domain/models/Token";
+import type { TokenType } from '@/domain/common/models/Token';
+import { Token } from "@/domain/common/models/Token";
 
 @Injectable()
 export class PostgresTokenReaderRepository implements TokenReaderRepositoryInterface {

@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { EntityManager } from "@mikro-orm/postgresql";
-import { User } from "@/domain/models/User";
+import { User } from "@/domain/common/models/User";
 import { User as UserEntity } from "@/infrastructure/orm/entities/User";
 import { UserWriterRepositoryInterface } from "@/domain/user/repositories/userWriterRepositoryInterface";
 

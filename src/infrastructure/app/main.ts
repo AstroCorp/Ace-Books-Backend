@@ -1,18 +1,18 @@
-import { NestFactory } from "@nestjs/core";
-import { ValidationPipe } from "@nestjs/common";
-import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
+import { NestFactory, Reflector } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import fastifyCookie from '@fastify/cookie';
 import compression from '@fastify/compress';
 import helmet from '@fastify/helmet';
 import fastifyCsrf from '@fastify/csrf-protection';
-import { useContainer } from "class-validator";
-import { AppModule } from "@/infrastructure/app/app.module";
+import { useContainer } from 'class-validator';
+import { AppModule } from '@/infrastructure/app/app.module';
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
 
 	// CORS
-	const whitelist = process.env.NODE_ENV === NodeJS.Environment.Development
+	const whitelist = [NodeJS.Environment.Development, NodeJS.Environment.Testing].includes(process.env.NODE_ENV)
 		? ['http://localhost:3000']
 		: ['https://ace-books-frontend.vercel.app'];
 

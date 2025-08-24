@@ -11,7 +11,7 @@ import { Bookmark } from '@/infrastructure/orm/entities/Bookmark';
 	imports: [
 		MikroOrmModule.forRoot({
 			...config,
-			debug: process.env.NODE_ENV === NodeJS.Environment.Development,
+			debug: [NodeJS.Environment.Development, NodeJS.Environment.Testing].includes(process.env.NODE_ENV),
 			driverOptions: {
 				connection: {
 					ssl: process.env.NODE_ENV === NodeJS.Environment.Production,

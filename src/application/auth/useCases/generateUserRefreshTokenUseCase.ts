@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { JwtPort, JWT_PORT } from '@/domain/auth/ports/jwt.port';
-import { User } from '@/domain/models/User';
+import { User } from '@/domain/common/models/User';
 import { TOKEN_WRITER_REPOSITORY, TokenWriterRepositoryInterface } from '@/domain/auth/repositories/tokenWriterRepositoryInterface';
-import { TokenType } from '@/domain/models/Token';
+import { TokenType } from '@/domain/common/models/Token';
 
 @Injectable()
 export class GenerateUserRefreshTokenUseCase {

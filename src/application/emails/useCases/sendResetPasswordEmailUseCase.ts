@@ -1,9 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { EMAILS_PORT, EmailsPort } from '@/domain/emails/ports/emails.port';
-import { User } from '@/domain/models/User';
-import { TokenType } from '@/domain/models/Token';
+import { User } from '@/domain/common/models/User';
+import { TokenType } from '@/domain/common/models/Token';
 import { JWT_PORT, JwtPort } from '@/domain/auth/ports/jwt.port';
 import { TOKEN_WRITER_REPOSITORY, TokenWriterRepositoryInterface } from '@/domain/auth/repositories/tokenWriterRepositoryInterface';
+import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
 
 @Injectable()
 export class SendResetPasswordEmailUseCase {
@@ -33,22 +34,26 @@ export class SendResetPasswordEmailUseCase {
 		frontUrl.searchParams.append('token', tokenString);
 		frontUrl.searchParams.append('email', user.email);
 
-		return this.emailsService.sendMail({
-			to: user.email,
-			from: process.env.MAIL_USERNAME,
-			subject: 'Ace Books - Reset Password',
-			template: 'reset',
-			context: {
-				title: 'Ace Books - Reset Password',
-				url: frontUrl.toString(),
-			},
-			attachments: [
-				{
-					filename: 'logo.png',
-					content: '/icons/ace_logo.png',
-					cid: 'logo',
+		try {
+			await this.emailsService.sendMail({
+				to: user.email,
+				from: process.env.MAIL_USERNAME,
+				subject: 'Ace Books - Reset Password',
+				template: 'reset',
+				context: {
+					title: 'Ace Books - Reset Password',
+					url: frontUrl.toString(),
 				},
-			],
-		});
+				attachments: [
+					{
+						filename: 'logo.png',
+						content: '/icons/ace_logo.png',
+						cid: 'logo',
+					},
+				],
+			});
+		} catch (error) {
+			throw new EmailSendFailedException(user.id, error.message);
+		}
 	}
 }

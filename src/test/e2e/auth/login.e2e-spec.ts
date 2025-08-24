@@ -1,5 +1,6 @@
 import * as request from 'supertest';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
+import { HttpStatus } from '@nestjs/common';
 import { MikroORM } from '@mikro-orm/core';
 import { executeMigrations } from '@/test/e2e/helpers/executeMigrations';
 import { setupApp } from '@/test/e2e/helpers/setupApp';
@@ -15,14 +16,14 @@ describe('Auth - LoginController (e2e)', () => {
 
 	it('/auth/login (POST) - Successfully logged in', async () => {
 		const loginData = {
-			email: 'unverified@example.com',
+			email: 'unverified1@example.com',
 			password: 'password',
 		};
 
 		const response = await request(app.getHttpServer())
 			.post('/auth/login')
 			.send(loginData)
-			.expect(201);
+			.expect(HttpStatus.OK);
 
 		expect(response.body).toHaveProperty('access_token');
 		expect(response.body).toHaveProperty('refresh_token');
@@ -34,18 +35,18 @@ describe('Auth - LoginController (e2e)', () => {
 
 	it('/auth/login (POST) - Unauthorized', async () => {
 		const loginData = {
-			email: 'unverified@example.com',
+			email: 'unverified1@example.com',
 			password: 'wrong_password',
 		};
 
 		const response = await request(app.getHttpServer())
 			.post('/auth/login')
 			.send(loginData)
-			.expect(401);
+			.expect(HttpStatus.UNAUTHORIZED);
 
 		expect(response.body).toHaveProperty('message');
 		expect(response.body.message).toBe('Unauthorized');
-		expect(response.body.statusCode).toBe(401);
+		expect(response.body.statusCode).toBe(HttpStatus.UNAUTHORIZED);
 	});
 
 	afterAll(async () => {

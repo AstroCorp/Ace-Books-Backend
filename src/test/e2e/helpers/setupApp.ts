@@ -22,6 +22,9 @@ export const setupApp = async (overrideProviders: OverrideProvider[]) => {
 
 	const app = testingModuleCompiled.createNestApplication<NestFastifyApplication>(
 		new FastifyAdapter(),
+		{
+			logger: false,
+		},
 	);
 
 	// Validación con class-validator de forma global

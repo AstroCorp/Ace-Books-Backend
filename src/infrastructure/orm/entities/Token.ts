@@ -1,8 +1,8 @@
 import { Entity, Property, ManyToOne, Rel, rel, PrimaryKey, Opt } from '@mikro-orm/core';
 import { User } from '@/infrastructure/orm/entities/User';
 import type { TokenDTO } from '@/infrastructure/orm/types/entities';
-import type { TokenType } from '@/domain/models/Token';
-import { Token as TokenModel } from '@/domain/models/Token';
+import type { TokenType } from '@/domain/common/models/Token';
+import { Token as TokenModel } from '@/domain/common/models/Token';
 
 @Entity({ tableName: 'tokens' })
 export class Token

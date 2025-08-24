@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { JwtPort, JWT_PORT } from '@/domain/auth/ports/jwt.port';
-import { User } from '@/domain/models/User';
+import { User } from '@/domain/common/models/User';
 
 @Injectable()
 export class GenerateUserAccessTokensUseCase {

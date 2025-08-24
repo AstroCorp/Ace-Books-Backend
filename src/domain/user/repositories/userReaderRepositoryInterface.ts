@@ -1,5 +1,5 @@
 import { InjectionToken } from "@nestjs/common";
-import { User } from "@/domain/models/User";
+import { User } from "@/domain/common/models/User";
 
 export const USER_READER_REPOSITORY: InjectionToken = 'USER_READER_REPOSITORY';
 

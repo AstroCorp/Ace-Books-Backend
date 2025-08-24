@@ -1,14 +1,23 @@
 import * as request from 'supertest';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
+import { HttpStatus } from '@nestjs/common';
 import { MikroORM } from '@mikro-orm/core';
 import { executeMigrations } from '@/test/e2e/helpers/executeMigrations';
 import { OverrideProvider, setupApp } from '@/test/e2e/helpers/setupApp';
 import { SendResetPasswordEmailUseCase } from '@/application/emails/useCases/sendResetPasswordEmailUseCase';
+import { User } from '@/domain/common/models/User';
+import EmailSendFailedException, { EMAIL_SEND_FAILED_EXCEPTION } from '@/domain/emails/exceptions/emailSendFailed.exception';
 
 // Mock de SendResetPasswordEmailUseCase
 const mockSendResetPasswordEmailUseCase = {
-	execute: jest.fn().mockResolvedValue(Promise.resolve()),
-}
+	execute: jest.fn().mockImplementation((user: User) => {
+		if (user.email === 'verified1@example.com') {
+			throw new EmailSendFailedException(user.id, 'Mock error');
+		}
+
+		return Promise.resolve();
+	}),
+};
 
 describe('Auth - SendResetPasswordEmailController (e2e)', () => {
 	let orm: MikroORM;
@@ -27,13 +36,17 @@ describe('Auth - SendResetPasswordEmailController (e2e)', () => {
 		app = await setupApp(overrideProviders);
 	});
 
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
+
 	it('/auth/send-reset-password-email (POST) - Successfully send reset password email', async () => {
-		const userEmail = 'unverified@example.com';
+		const userEmail = 'unverified1@example.com';
 
 		await request(app.getHttpServer())
 			.post('/auth/send-reset-password-email')
 			.send({ email: userEmail })
-			.expect(200);
+			.expect(HttpStatus.OK);
 	});
 
 	it('/auth/send-reset-password-email (POST) - User not found', async () => {
@@ -42,7 +55,19 @@ describe('Auth - SendResetPasswordEmailController (e2e)', () => {
 		await request(app.getHttpServer())
 			.post('/auth/send-reset-password-email')
 			.send({ email: userEmail })
-			.expect(200);
+			.expect(HttpStatus.OK);
+	});
+
+	it('/auth/send-reset-password-email (POST) - Email send failed', async () => {
+		const userEmail = 'verified1@example.com';
+
+		const response = await request(app.getHttpServer())
+			.post('/auth/send-reset-password-email')
+			.send({ email: userEmail })
+			.expect(HttpStatus.INTERNAL_SERVER_ERROR);
+
+		expect(response.body).toHaveProperty('code');
+		expect(response.body.code).toBe(EMAIL_SEND_FAILED_EXCEPTION);
 	});
 
 	afterAll(async () => {

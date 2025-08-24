@@ -22,6 +22,7 @@ import { AppController } from "@/infrastructure/app/controllers/app.controller";
 					limit: process.env.DEFAULT_RATE_LIMIT_MAX,
 				},
 			],
+			skipIf: () => process.env.NODE_ENV === NodeJS.Environment.Testing,
 		}),
 		ScheduleModule.forRoot(),
 		TasksModule,

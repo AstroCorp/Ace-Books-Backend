@@ -1,8 +1,10 @@
-import { Body, Controller, HttpCode, Inject, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Inject, Post, UseFilters } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import { SendResetPasswordEmailUseCase } from '@/application/emails/useCases/sendResetPasswordEmailUseCase';
 import { SendResetPasswordDTO } from '../validation/dto/sendResetPassword.dto';
 import { USER_READER_REPOSITORY, UserReaderRepositoryInterface } from '@/domain/user/repositories/userReaderRepositoryInterface';
+import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
+import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filter';
 
 @Throttle({
 	default: {
@@ -23,6 +25,12 @@ export class SendResetPasswordEmailController {
 
 	@Post('send-reset-password-email')
 	@HttpCode(200)
+	@UseFilters(new ExceptionFilter([
+		{
+			exception: EmailSendFailedException,
+			status: HttpStatus.INTERNAL_SERVER_ERROR,
+		}
+	]))
 	async __invoke(@Body() body: SendResetPasswordDTO) {
 		const user = await this.userRepository.findOneByEmail(body.email);
 

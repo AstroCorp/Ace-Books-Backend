@@ -1,4 +1,4 @@
-import type { TokenType } from '@/domain/models/Token';
+import type { TokenType } from '@/domain/common/models/Token';
 
 export interface BookDTO {
 	user: number;

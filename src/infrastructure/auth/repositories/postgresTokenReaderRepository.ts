@@ -4,10 +4,16 @@ import { TokenReaderRepositoryInterface } from "@/domain/auth/repositories/token
 import { Token as TokenEntity } from "@/infrastructure/orm/entities/Token";
 import type { TokenType } from '@/domain/common/models/Token';
 import { Token } from "@/domain/common/models/Token";
+import JwtService from '@/infrastructure/auth/services/jwt.service';
 
 @Injectable()
 export class PostgresTokenReaderRepository implements TokenReaderRepositoryInterface {
-	constructor(private readonly em: EntityManager) {}
+	constructor(
+		private readonly em: EntityManager,
+		private readonly jwtService: JwtService,
+	) {
+		//
+	}
 
 	async findOneByToken(token: string, type: TokenType): Promise<Token | null> {
 		const tokenEntity = await this.em.findOne(TokenEntity, { token, type });
@@ -16,6 +22,8 @@ export class PostgresTokenReaderRepository implements TokenReaderRepositoryInter
 			return null;
 		}
 
-		return tokenEntity.toDomainModel();
+		const tokenPayload = this.jwtService.getPayload(token);
+
+		return tokenEntity.toDomainModel(tokenPayload);
 	}
 }

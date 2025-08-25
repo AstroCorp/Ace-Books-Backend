@@ -9,6 +9,7 @@ import { JwtRefreshStrategy } from '@/infrastructure/auth/strategies/jwt-refresh
 import { IsEmailAvailableConstraint } from '@/infrastructure/auth/validation/pipes/isEmailAvalible.pipe';
 import { PROVIDERS } from '@/infrastructure/auth/auth.providers';
 import { PostgresUserReaderRepository } from '@/infrastructure/users/repositories/postgresUserReaderRepository';
+import { PostgresTokenReaderRepository } from '@/infrastructure/auth/repositories/postgresTokenReaderRepository';
 import { RegisterController } from '@/infrastructure/auth/controllers/register.controller';
 import { LoginController } from '@/infrastructure/auth/controllers/login.controller';
 import { CreateUserUseCase } from '@/application/auth/useCases/createUserUseCase';
@@ -19,6 +20,10 @@ import { SendVerificationEmailUseCase } from '@/application/emails/useCases/send
 import { ValidateUserRefreshTokenUseCase } from '@/application/auth/useCases/validateUserRefreshTokenUseCase';
 import { SendResetPasswordEmailUseCase } from '@/application/emails/useCases/sendResetPasswordEmailUseCase';
 import { SendResetPasswordEmailController } from '@/infrastructure/auth/controllers/sendResetPasswordEmail.controller';
+import { GetUserRefreshTokenUseCase } from '@/application/auth/useCases/getUserRefreshTokenUseCase';
+import { GetUserByEmailUseCase } from '@/application/auth/useCases/getUserByEmailUseCase';
+import JwtService from '@/infrastructure/auth/services/jwt.service';
+import { RefreshController } from '@/infrastructure/auth/controllers/refresh.controller';
 
 @Module({
 	imports: [
@@ -34,7 +39,9 @@ import { SendResetPasswordEmailController } from '@/infrastructure/auth/controll
 		LocalStrategy,
 		JwtStrategy,
 		JwtRefreshStrategy,
+		JwtService,
 		PostgresUserReaderRepository,
+		PostgresTokenReaderRepository,
 		IsEmailAvailableConstraint,
 		CreateUserUseCase,
 		GenerateUserAccessTokensUseCase,
@@ -43,11 +50,14 @@ import { SendResetPasswordEmailController } from '@/infrastructure/auth/controll
 		SendVerificationEmailUseCase,
 		SendResetPasswordEmailUseCase,
 		ValidateUserRefreshTokenUseCase,
+		GetUserByEmailUseCase,
+		GetUserRefreshTokenUseCase,
 	],
 	controllers: [
 		RegisterController,
 		LoginController,
 		SendResetPasswordEmailController,
+		RefreshController,
 	],
 })
 export class AuthModule { }

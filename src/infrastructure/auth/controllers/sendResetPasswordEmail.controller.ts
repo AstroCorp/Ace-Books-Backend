@@ -1,8 +1,8 @@
-import { Body, Controller, HttpCode, HttpStatus, Inject, Post, UseFilters } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post, UseFilters } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
+import { GetUserByEmailUseCase } from '@/application/auth/useCases/getUserByEmailUseCase';
 import { SendResetPasswordEmailUseCase } from '@/application/emails/useCases/sendResetPasswordEmailUseCase';
 import { SendResetPasswordDTO } from '../validation/dto/sendResetPassword.dto';
-import { USER_READER_REPOSITORY, UserReaderRepositoryInterface } from '@/domain/user/repositories/userReaderRepositoryInterface';
 import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
 import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filter';
 
@@ -15,9 +15,7 @@ import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filte
 @Controller('auth')
 export class SendResetPasswordEmailController {
 	constructor(
-		@Inject(USER_READER_REPOSITORY)
-		private readonly userRepository: UserReaderRepositoryInterface,
-
+		private readonly getUserByEmailUseCase: GetUserByEmailUseCase,
 		private readonly sendResetPasswordEmailUseCase: SendResetPasswordEmailUseCase,
 	) {
 		//
@@ -32,7 +30,7 @@ export class SendResetPasswordEmailController {
 		}
 	]))
 	async __invoke(@Body() body: SendResetPasswordDTO) {
-		const user = await this.userRepository.findOneByEmail(body.email);
+		const user = await this.getUserByEmailUseCase.execute(body.email);
 
 		// Si el usuario no existe, no se envía el email, no devolvemos
 		// error para no revelar si hay una cuenta con ese email

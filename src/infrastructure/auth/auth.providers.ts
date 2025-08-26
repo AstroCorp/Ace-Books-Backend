@@ -7,6 +7,9 @@ import JwtService from '@/infrastructure/auth/services/jwt.service';
 import { SIGN_PORT } from '@/domain/auth/ports/sign.ports';
 import SignService from '@/infrastructure/auth/services/sign.service';
 
+import { UUID_PORT } from '@/domain/auth/ports/uuid.port';
+import UuidService from '@/infrastructure/auth/services/uuid.service';
+
 import { EMAILS_PORT } from '@/domain/emails/ports/emails.port';
 import { EmailsService } from '@/infrastructure/emails/services/emails.service';
 
@@ -34,6 +37,10 @@ export const PROVIDERS = [
 	{
 		provide: SIGN_PORT,
 		useClass: SignService,
+	},
+	{
+		provide: UUID_PORT,
+		useClass: UuidService,
 	},
 	{
 		provide: EMAILS_PORT,

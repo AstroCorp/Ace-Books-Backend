@@ -56,11 +56,12 @@ class User extends BaseModel {
 		};
 	}
 
-	public getDataForToken() {
+	public getDataForToken(jti: string) {
 		return {
 			userId: this.id,
 			isAdmin: this.isAdmin,
 			isVerified: this.isVerified,
+			jti,
 		};
 	}
 

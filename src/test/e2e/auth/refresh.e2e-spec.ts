@@ -70,7 +70,6 @@ describe('Auth - RefreshController (e2e)', () => {
 	});
 
 	afterAll(async () => {
-		jest.clearAllMocks();
 		if (orm) await orm.close();
 		if (app) await app.close();
 	});

@@ -8,6 +8,6 @@ export class ProfileController
 	@UseGuards(JwtAuthGuard)
   	@Get('profile')
   	__invoke(@Request() req: Session) {
-    	return "User profile";
+    	return req.user.getDataForProfile();
 	}
 }

@@ -15,4 +15,12 @@ export class PostgresUserWriterRepository implements UserWriterRepositoryInterfa
 
 		return newUser.toDomainModel();
 	}
+
+	async verifyEmail(email: string): Promise<void> {
+		const user = await this.em.findOne(UserEntity, { email });
+
+		user.isVerified = true;
+
+		await this.em.flush();
+	}
 }

@@ -47,7 +47,8 @@ class SignService implements SignPort {
 		urlObj.searchParams.delete('signature');
 		urlObj.searchParams.delete('expires');
 
-		const urlSignedObj = this.generate(urlObj, new Date(expiresParam));
+		const expires = !isNaN(expiresParam) ? new Date(expiresParam) : undefined;
+		const urlSignedObj = this.generate(urlObj, expires);
 		const signature = urlSignedObj.searchParams.get('signature');
 
 		return signatureParam === signature;

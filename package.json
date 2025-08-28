@@ -17,7 +17,9 @@
 		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-		"test:e2e": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest --config ./src/test/jest-e2e.json"
+		"test:e2e": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest --config ./src/test/e2e/jest-e2e.json",
+		"test:integration": "jest --config ./src/test/integration/jest-integration.json",
+		"test:unit": "jest --config ./src/test/unit/jest-unit.json"
 	},
 	"dependencies": {
 		"@css-inline/css-inline": "^0.14.3",

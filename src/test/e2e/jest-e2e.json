@@ -1,0 +1,20 @@
+{
+	"moduleFileExtensions": [
+		"js",
+		"json",
+		"ts"
+	],
+	"rootDir": "../..",
+	"setupFiles": [
+		"<rootDir>/test/e2e/jest-e2e.setup.ts"
+	],
+	"testEnvironment": "node",
+	"testRegex": "e2e/.*\\.e2e-spec\\.ts$",
+	"transform": {
+		"^.+\\.(t|j)s$": "ts-jest"
+	},
+	"moduleNameMapper": {
+		"^@/(.*)$": "<rootDir>/$1"
+	},
+	"maxWorkers": 1
+}

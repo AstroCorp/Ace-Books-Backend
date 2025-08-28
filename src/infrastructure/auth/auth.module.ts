@@ -24,6 +24,7 @@ import { GetUserRefreshTokenUseCase } from '@/application/auth/useCases/getUserR
 import { GetUserByEmailUseCase } from '@/application/auth/useCases/getUserByEmailUseCase';
 import JwtService from '@/infrastructure/auth/services/jwt.service';
 import { RefreshController } from '@/infrastructure/auth/controllers/refresh.controller';
+import SignService from '@/infrastructure/auth/services/sign.service';
 
 @Module({
 	imports: [
@@ -40,6 +41,7 @@ import { RefreshController } from '@/infrastructure/auth/controllers/refresh.con
 		JwtStrategy,
 		JwtRefreshStrategy,
 		JwtService,
+		SignService,
 		PostgresUserReaderRepository,
 		PostgresTokenReaderRepository,
 		IsEmailAvailableConstraint,

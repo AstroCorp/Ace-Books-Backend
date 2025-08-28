@@ -32,8 +32,12 @@ export class SendVerificationEmailUseCase {
 		const hash = this.hashService.generate(user.email);
 
 		const verifyUrl = new URL(process.env.BACKEND_URL + '/users/verify-email');
-		verifyUrl.searchParams.append('userId', userId);
-		verifyUrl.searchParams.append('hash', hash);
+		const body = JSON.stringify({
+			userId,
+			hash
+		});
+
+		verifyUrl.searchParams.set('body', body);
 
 		const expiration = DateTime.now().plus({ minutes: parseInt(process.env.GENERIC_JWT_SECRET_EXPIRES) }).toJSDate();
 		const urlSigned = this.signService.generate(verifyUrl, expiration);

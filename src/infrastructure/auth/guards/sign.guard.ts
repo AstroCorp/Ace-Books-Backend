@@ -17,13 +17,10 @@ export class SignGuard implements CanActivate
 		const fullUrl = request.protocol + '://' + request.headers.host + request.raw.url;
 		const fullUrlObj = new URL(fullUrl);
 
-		const checkMethod = ['GET', 'DELETE'].includes(request.method);
-
-		if (!checkMethod) {
-			return false;
+		if (Object.keys(request.body || {}).length > 0) {
+			const bodyString = JSON.stringify(request.body);
+			fullUrlObj.searchParams.set('body', bodyString);
 		}
-
-		console.log('SignGuard:', fullUrl);
 
 		return this.sign.check(fullUrlObj);
 	}

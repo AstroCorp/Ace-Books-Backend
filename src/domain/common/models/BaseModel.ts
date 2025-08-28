@@ -4,7 +4,7 @@ interface BaseModelDTO {
 	updatedAt: Date;
 }
 
-class BaseModel {
+abstract class BaseModel {
 	private _id: number;
 	private _createdAt: Date;
 	private _updatedAt: Date;

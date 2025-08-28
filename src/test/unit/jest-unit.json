@@ -4,17 +4,13 @@
 		"json",
 		"ts"
 	],
-	"rootDir": "..",
-	"setupFiles": [
-		"<rootDir>/test/jest-e2e.setup.ts"
-	],
+	"rootDir": "../..",
 	"testEnvironment": "node",
-	"testRegex": ".e2e-spec.ts$",
+	"testRegex": "unit/.*\\.test\\.ts$",
 	"transform": {
 		"^.+\\.(t|j)s$": "ts-jest"
 	},
 	"moduleNameMapper": {
 		"^@/(.*)$": "<rootDir>/$1"
-	},
-	"maxWorkers": 1
+	}
 }

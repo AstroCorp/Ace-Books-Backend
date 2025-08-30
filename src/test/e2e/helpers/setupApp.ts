@@ -4,18 +4,9 @@ import { Test } from '@nestjs/testing';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { AppModule } from '@/infrastructure/app/app.module';
 
-export interface OverrideProvider {
-	provider: any;
-	value: any;
-}
-
-export const setupApp = async (overrideProviders: OverrideProvider[]) => {
+export const setupApp = async () => {
 	const testingModule = Test.createTestingModule({
 		imports: [AppModule],
-	});
-
-	overrideProviders.forEach(({ provider, value }) => {
-		testingModule.overrideProvider(provider).useValue(value);
 	});
 
 	const testingModuleCompiled = await testingModule.compile();

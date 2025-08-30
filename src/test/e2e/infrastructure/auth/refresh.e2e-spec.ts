@@ -12,8 +12,7 @@ describe('Auth - RefreshController (e2e)', () => {
 
 	beforeAll(async () => {
 		orm = await executeMigrations();
-
-		app = await setupApp([]);
+		app = await setupApp();
 	});
 
 	it('/auth/refresh (POST) - No need refresh token', async () => {

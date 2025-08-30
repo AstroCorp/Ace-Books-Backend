@@ -6,7 +6,7 @@ describe('AppController (e2e)', () => {
 	let app: NestFastifyApplication;
 
 	beforeAll(async () => {
-		app = await setupApp([]);
+		app = await setupApp();
 	});
 
 	it('/ (GET)', () => {

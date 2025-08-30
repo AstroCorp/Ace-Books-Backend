@@ -11,8 +11,7 @@ describe('User - ProfileController (e2e)', () => {
 
 	beforeAll(async () => {
 		orm = await executeMigrations();
-
-		app = await setupApp([]);
+		app = await setupApp();
 	});
 
 	it('/users/profile (GET) - Success', async () => {

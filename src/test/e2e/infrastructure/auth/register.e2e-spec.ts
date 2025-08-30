@@ -4,21 +4,9 @@ import { MikroORM } from '@mikro-orm/core';
 import { HttpStatus } from '@nestjs/common';
 import { executeMigrations } from '@/test/e2e/helpers/executeMigrations';
 import { setupApp } from '@/test/e2e/helpers/setupApp';
-import type { OverrideProvider } from '@/test/e2e/helpers/setupApp';
 import { SendVerificationEmailUseCase } from '@/application/emails/useCases/sendVerificationEmailUseCase';
 import { User } from '@/domain/common/models/User';
 import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
-
-// Mock de SendVerificationEmailUseCase
-const mockSendVerificationEmailUseCase = {
-	execute: jest.fn().mockImplementation((user: User) => {
-		if (user.email === 'send_failed@example.com') {
-			throw new EmailSendFailedException(user.id, 'Mock error');
-		}
-
-		return Promise.resolve();
-	}),
-};
 
 describe('Auth - RegisterController (e2e)', () => {
 	let orm: MikroORM;
@@ -26,15 +14,7 @@ describe('Auth - RegisterController (e2e)', () => {
 
 	beforeAll(async () => {
 		orm = await executeMigrations();
-
-		const overrideProviders: OverrideProvider[] = [
-			{
-				provider: SendVerificationEmailUseCase,
-				value: mockSendVerificationEmailUseCase,
-			},
-		];
-
-		app = await setupApp(overrideProviders);
+		app = await setupApp();
 	});
 
 	beforeEach(() => {
@@ -58,13 +38,6 @@ describe('Auth - RegisterController (e2e)', () => {
 		expect(typeof response.body.refresh_token).toBe('string');
 		expect(response.body.access_token.length).toBeGreaterThan(0);
 		expect(response.body.refresh_token.length).toBeGreaterThan(0);
-
-		expect(mockSendVerificationEmailUseCase.execute).toHaveBeenCalledWith(
-			expect.objectContaining({
-			  email: registerData.email,
-			})
-		  );
-		expect(mockSendVerificationEmailUseCase.execute).toHaveBeenCalledTimes(1);
 	});
 
 	it('/auth/register (POST) - Email already exists', async () => {
@@ -133,24 +106,34 @@ describe('Auth - RegisterController (e2e)', () => {
 			password: 'Test123!@#',
 		};
 
+		const executeMock = jest
+			.spyOn(SendVerificationEmailUseCase.prototype, 'execute')
+			.mockImplementation((user: User) => {
+				if (user.email === registerData.email) {
+					throw new EmailSendFailedException(user.id, 'Mock error');
+				}
+
+				return Promise.resolve();
+			});
+
 		const response = await request(app.getHttpServer())
 			.post('/auth/register')
 			.send(registerData)
 			.expect(HttpStatus.CREATED);
 
-			expect(response.body).toHaveProperty('access_token');
-			expect(response.body).toHaveProperty('refresh_token');
-			expect(typeof response.body.access_token).toBe('string');
-			expect(typeof response.body.refresh_token).toBe('string');
-			expect(response.body.access_token.length).toBeGreaterThan(0);
-			expect(response.body.refresh_token.length).toBeGreaterThan(0);
+		expect(response.body).toHaveProperty('access_token');
+		expect(response.body).toHaveProperty('refresh_token');
+		expect(typeof response.body.access_token).toBe('string');
+		expect(typeof response.body.refresh_token).toBe('string');
+		expect(response.body.access_token.length).toBeGreaterThan(0);
+		expect(response.body.refresh_token.length).toBeGreaterThan(0);
 
-			expect(mockSendVerificationEmailUseCase.execute).toHaveBeenCalledWith(
-				expect.objectContaining({
-				  email: registerData.email,
-				})
-			  );
-			expect(mockSendVerificationEmailUseCase.execute).toHaveBeenCalledTimes(1);
+		expect(executeMock).toHaveBeenCalledWith(
+			expect.objectContaining({
+				email: registerData.email,
+			})
+		);
+		expect(executeMock).toHaveBeenCalledTimes(1);
 	});
 
 	afterAll(async () => {

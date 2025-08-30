@@ -3,21 +3,10 @@ import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { HttpStatus } from '@nestjs/common';
 import { MikroORM } from '@mikro-orm/core';
 import { executeMigrations } from '@/test/e2e/helpers/executeMigrations';
-import { OverrideProvider, setupApp } from '@/test/e2e/helpers/setupApp';
+import { setupApp } from '@/test/e2e/helpers/setupApp';
 import { SendResetPasswordEmailUseCase } from '@/application/emails/useCases/sendResetPasswordEmailUseCase';
 import { User } from '@/domain/common/models/User';
 import EmailSendFailedException, { EMAIL_SEND_FAILED_EXCEPTION } from '@/domain/emails/exceptions/emailSendFailed.exception';
-
-// Mock de SendResetPasswordEmailUseCase
-const mockSendResetPasswordEmailUseCase = {
-	execute: jest.fn().mockImplementation((user: User) => {
-		if (user.email === 'verified1@example.com') {
-			throw new EmailSendFailedException(user.id, 'Mock error');
-		}
-
-		return Promise.resolve();
-	}),
-};
 
 describe('Auth - SendResetPasswordEmailController (e2e)', () => {
 	let orm: MikroORM;
@@ -25,15 +14,7 @@ describe('Auth - SendResetPasswordEmailController (e2e)', () => {
 
 	beforeAll(async () => {
 		orm = await executeMigrations();
-
-		const overrideProviders: OverrideProvider[] = [
-			{
-				provider: SendResetPasswordEmailUseCase,
-				value: mockSendResetPasswordEmailUseCase,
-			},
-		];
-
-		app = await setupApp(overrideProviders);
+		app = await setupApp();
 	});
 
 	beforeEach(() => {
@@ -61,6 +42,16 @@ describe('Auth - SendResetPasswordEmailController (e2e)', () => {
 	it('/auth/send-reset-password-email (POST) - Email send failed', async () => {
 		const userEmail = 'verified1@example.com';
 
+		const executeMock = jest
+			.spyOn(SendResetPasswordEmailUseCase.prototype, 'execute')
+			.mockImplementation((user: User) => {
+				if (user.email === userEmail) {
+					throw new EmailSendFailedException(user.id, 'Mock error');
+				}
+
+				return Promise.resolve();
+			});
+
 		const response = await request(app.getHttpServer())
 			.post('/auth/send-reset-password-email')
 			.send({ email: userEmail })
@@ -68,6 +59,13 @@ describe('Auth - SendResetPasswordEmailController (e2e)', () => {
 
 		expect(response.body).toHaveProperty('code');
 		expect(response.body.code).toBe(EMAIL_SEND_FAILED_EXCEPTION);
+
+		expect(executeMock).toHaveBeenCalledWith(
+			expect.objectContaining({
+				email: userEmail,
+			})
+		);
+		expect(executeMock).toHaveBeenCalledTimes(1);
 	});
 
 	afterAll(async () => {

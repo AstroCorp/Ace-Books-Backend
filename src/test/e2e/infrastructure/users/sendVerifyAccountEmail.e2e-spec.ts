@@ -3,26 +3,11 @@ import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { HttpStatus } from '@nestjs/common';
 import { MikroORM } from '@mikro-orm/core';
 import { executeMigrations } from '@/test/e2e/helpers/executeMigrations';
-import { OverrideProvider, setupApp } from '@/test/e2e/helpers/setupApp';
+import { setupApp } from '@/test/e2e/helpers/setupApp';
 import { SendVerificationEmailUseCase } from '@/application/emails/useCases/sendVerificationEmailUseCase';
 import { User } from '@/domain/common/models/User';
 import EmailSendFailedException, { EMAIL_SEND_FAILED_EXCEPTION } from '@/domain/emails/exceptions/emailSendFailed.exception';
 import UserAlreadyVerifiedException, { USER_ALREADY_VERIFIED_EXCEPTION } from '@/domain/emails/exceptions/userAlreadyVerified.exception';
-
-// Mock de SendVerificationEmailUseCase
-const mockSendVerificationEmailUseCase = {
-	execute: jest.fn().mockImplementation((user: User) => {
-		if (user.email === 'verified1@example.com') {
-			throw new UserAlreadyVerifiedException(user.id);
-		}
-
-		if (user.email === 'unverified2@example.com') {
-			throw new EmailSendFailedException(user.id, 'Mock error');
-		}
-
-		return Promise.resolve();
-	}),
-};
 
 describe('Users - SendVerifyAccountEmailController (e2e)', () => {
 	let orm: MikroORM;
@@ -30,15 +15,7 @@ describe('Users - SendVerifyAccountEmailController (e2e)', () => {
 
 	beforeAll(async () => {
 		orm = await executeMigrations();
-
-		const overrideProviders: OverrideProvider[] = [
-			{
-				provider: SendVerificationEmailUseCase,
-				value: mockSendVerificationEmailUseCase,
-			},
-		];
-
-		app = await setupApp(overrideProviders);
+		app = await setupApp();
 	});
 
 	beforeEach(() => {
@@ -75,6 +52,16 @@ describe('Users - SendVerifyAccountEmailController (e2e)', () => {
 			password: 'password',
 		};
 
+		const executeMock = jest
+			.spyOn(SendVerificationEmailUseCase.prototype, 'execute')
+			.mockImplementation((user: User) => {
+				if (user.email === loginData.email) {
+					throw new UserAlreadyVerifiedException(user.id);
+				}
+
+				return Promise.resolve();
+			});
+
 		const loginResponse = await request(app.getHttpServer())
 			.post('/auth/login')
 			.send(loginData)
@@ -88,6 +75,13 @@ describe('Users - SendVerifyAccountEmailController (e2e)', () => {
 
 		expect(response.body).toHaveProperty('code');
 		expect(response.body.code).toBe(USER_ALREADY_VERIFIED_EXCEPTION);
+
+		expect(executeMock).toHaveBeenCalledWith(
+			expect.objectContaining({
+				email: loginData.email,
+			})
+		);
+		expect(executeMock).toHaveBeenCalledTimes(1);
 	});
 
 	it('/users/send-verify-account-email (POST) - Email send failed', async () => {
@@ -95,6 +89,16 @@ describe('Users - SendVerifyAccountEmailController (e2e)', () => {
 			email: 'unverified2@example.com',
 			password: 'password',
 		};
+
+		const executeMock = jest
+			.spyOn(SendVerificationEmailUseCase.prototype, 'execute')
+			.mockImplementation((user: User) => {
+				if (user.email === loginData.email) {
+					throw new EmailSendFailedException(user.id, 'Mock error');
+				}
+
+				return Promise.resolve();
+			});
 
 		const loginResponse = await request(app.getHttpServer())
 			.post('/auth/login')
@@ -109,6 +113,13 @@ describe('Users - SendVerifyAccountEmailController (e2e)', () => {
 
 		expect(response.body).toHaveProperty('code');
 		expect(response.body.code).toBe(EMAIL_SEND_FAILED_EXCEPTION);
+
+		expect(executeMock).toHaveBeenCalledWith(
+			expect.objectContaining({
+				email: loginData.email,
+			})
+		);
+		expect(executeMock).toHaveBeenCalledTimes(1);
 	});
 
 	afterAll(async () => {

@@ -11,7 +11,7 @@ describe('Auth - LoginController (e2e)', () => {
 
 	beforeAll(async () => {
 		orm = await executeMigrations();
-		app = await setupApp([]);
+		app = await setupApp();
 	});
 
 	it('/auth/login (POST) - Successfully logged in', async () => {

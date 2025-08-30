@@ -16,6 +16,7 @@ import { CreateUserUseCase } from '@/application/auth/useCases/createUserUseCase
 import { GenerateUserAccessTokensUseCase } from '@/application/auth/useCases/generateUserAccessTokensUseCase';
 import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/generateUserRefreshTokenUseCase';
 import { ValidateUserPasswordUseCase } from '@/application/auth/useCases/validateUserPasswordUseCase';
+import { GenerateVerificationAccountUrlUseCase } from '@/application/users/useCases/generateVerificationAccountUrlUseCase';
 import { SendVerificationEmailUseCase } from '@/application/emails/useCases/sendVerificationEmailUseCase';
 import { ValidateUserRefreshTokenUseCase } from '@/application/auth/useCases/validateUserRefreshTokenUseCase';
 import { SendResetPasswordEmailUseCase } from '@/application/emails/useCases/sendResetPasswordEmailUseCase';
@@ -49,6 +50,7 @@ import SignService from '@/infrastructure/auth/services/sign.service';
 		GenerateUserAccessTokensUseCase,
 		GenerateUserRefreshTokenUseCase,
 		ValidateUserPasswordUseCase,
+		GenerateVerificationAccountUrlUseCase,
 		SendVerificationEmailUseCase,
 		SendResetPasswordEmailUseCase,
 		ValidateUserRefreshTokenUseCase,

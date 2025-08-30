@@ -5,6 +5,7 @@ import { CreateUserUseCase } from '@/application/auth/useCases/createUserUseCase
 import { GenerateUserAccessTokensUseCase } from '@/application/auth/useCases/generateUserAccessTokensUseCase';
 import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/generateUserRefreshTokenUseCase';
 import { SendVerificationEmailUseCase } from '@/application/emails/useCases/sendVerificationEmailUseCase';
+import { GenerateVerificationAccountUrlUseCase } from '@/application/users/useCases/generateVerificationAccountUrlUseCase';
 import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
 
 @Controller('auth')
@@ -16,6 +17,7 @@ export class RegisterController {
 		private readonly generateUserAccessTokensUseCase: GenerateUserAccessTokensUseCase,
 		private readonly generateUserRefreshTokenUseCase: GenerateUserRefreshTokenUseCase,
 		private readonly sendVerificationEmailUseCase: SendVerificationEmailUseCase,
+		private readonly generateVerificationAccountUrlUseCase: GenerateVerificationAccountUrlUseCase,
 	) {
 		//
 	}
@@ -25,9 +27,10 @@ export class RegisterController {
 		const user = await this.createUserUseCase.execute(body.email, body.password);
 		const accessToken = this.generateUserAccessTokensUseCase.execute(user);
 		const refreshToken = await this.generateUserRefreshTokenUseCase.execute(user);
+		const verifyAccountUrl = this.generateVerificationAccountUrlUseCase.execute(user);
 
 		try {
-			await this.sendVerificationEmailUseCase.execute(user);
+			await this.sendVerificationEmailUseCase.execute(user, verifyAccountUrl);
 		} catch (error) {
 			// Seguir con la ejecución aunque falle el envío de email,
 			// simplemente logueamos el error

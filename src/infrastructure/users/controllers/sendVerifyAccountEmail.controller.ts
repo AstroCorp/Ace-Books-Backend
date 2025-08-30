@@ -6,6 +6,7 @@ import { Session } from '@/infrastructure/auth/types/session';
 import UserAlreadyVerifiedException from '@/domain/emails/exceptions/userAlreadyVerified.exception';
 import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
 import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filter';
+import { GenerateVerificationAccountUrlUseCase } from '@/application/users/useCases/generateVerificationAccountUrlUseCase';
 
 @Throttle({
 	default: {
@@ -16,6 +17,7 @@ import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filte
 @Controller('users')
 export class SendVerifyAccountEmailController {
 	constructor(
+		private readonly generateVerificationAccountUrlUseCase: GenerateVerificationAccountUrlUseCase,
 		private readonly sendVerificationEmailUseCase: SendVerificationEmailUseCase,
 	) {
 		//
@@ -35,6 +37,8 @@ export class SendVerifyAccountEmailController {
 		},
 	]))
 	async __invoke(@Request() req: Session) {
-		await this.sendVerificationEmailUseCase.execute(req.user);
+		const verifyAccountUrl = this.generateVerificationAccountUrlUseCase.execute(req.user);
+
+		await this.sendVerificationEmailUseCase.execute(req.user, verifyAccountUrl);
 	}
 }

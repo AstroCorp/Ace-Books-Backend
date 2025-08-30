@@ -79,7 +79,8 @@ describe('Users - SendVerifyAccountEmailController (e2e)', () => {
 		expect(executeMock).toHaveBeenCalledWith(
 			expect.objectContaining({
 				email: loginData.email,
-			})
+			}),
+			expect.any(URL),
 		);
 		expect(executeMock).toHaveBeenCalledTimes(1);
 	});
@@ -117,7 +118,8 @@ describe('Users - SendVerifyAccountEmailController (e2e)', () => {
 		expect(executeMock).toHaveBeenCalledWith(
 			expect.objectContaining({
 				email: loginData.email,
-			})
+			}),
+			expect.any(URL),
 		);
 		expect(executeMock).toHaveBeenCalledTimes(1);
 	});

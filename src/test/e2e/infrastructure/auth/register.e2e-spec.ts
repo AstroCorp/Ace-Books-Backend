@@ -131,7 +131,8 @@ describe('Auth - RegisterController (e2e)', () => {
 		expect(executeMock).toHaveBeenCalledWith(
 			expect.objectContaining({
 				email: registerData.email,
-			})
+			}),
+			expect.any(URL),
 		);
 		expect(executeMock).toHaveBeenCalledTimes(1);
 	});

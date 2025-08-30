@@ -16,6 +16,6 @@ export class VerifyAccountController
 	@UseGuards(JwtAuthGuard, SignGuard)
 	@Post('verify-account')
 	async __invoke(@Request() req: Session) {
-		await this.verifyUserAccountUseCase.execute(req.user.email);
+		await this.verifyUserAccountUseCase.execute(req.user);
 	}
 }

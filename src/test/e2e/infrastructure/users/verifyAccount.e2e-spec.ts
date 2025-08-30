@@ -16,7 +16,28 @@ describe('User - ProfileController (e2e)', () => {
 
 	it.todo('/users/verify-account (POST) - Success');
 
-	it.todo('/users/verify-account (POST) - Invalid signature');
+	it('/users/verify-account (POST) - Invalid signature', async () => {
+		const loginData = {
+			email: 'unverified1@example.com',
+			password: 'password',
+		};
+		const body = {
+			userId: 1,
+			hash: 'hash_random',
+		};
+
+		const response = await request(app.getHttpServer())
+			.post('/auth/login')
+			.send(loginData)
+			.expect(HttpStatus.OK);
+		const { access_token } = response.body;
+
+		await request(app.getHttpServer())
+			.post('/users/verify-account?sign=fake')
+			.set('Authorization', `Bearer ${access_token}`)
+			.send(body)
+			.expect(HttpStatus.FORBIDDEN);
+	});
 
 	it('/users/verify-account (POST) - Invalid token', async () => {
 		await request(app.getHttpServer())

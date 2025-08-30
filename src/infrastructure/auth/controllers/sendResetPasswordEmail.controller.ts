@@ -5,6 +5,7 @@ import { SendResetPasswordEmailUseCase } from '@/application/emails/useCases/sen
 import { SendResetPasswordDTO } from '../validation/dto/sendResetPassword.dto';
 import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
 import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filter';
+import { GenerateResetPasswordUrlUseCase } from '@/application/users/useCases/generateResetPasswordUrlUseCase';
 
 @Throttle({
 	default: {
@@ -16,6 +17,7 @@ import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filte
 export class SendResetPasswordEmailController {
 	constructor(
 		private readonly getUserByEmailUseCase: GetUserByEmailUseCase,
+		private readonly generateResetPasswordUrlUseCase: GenerateResetPasswordUrlUseCase,
 		private readonly sendResetPasswordEmailUseCase: SendResetPasswordEmailUseCase,
 	) {
 		//
@@ -36,6 +38,8 @@ export class SendResetPasswordEmailController {
 		// error para no revelar si hay una cuenta con ese email
 		if (!user) return;
 
-		await this.sendResetPasswordEmailUseCase.execute(user);
+		const resetPasswordUrl = await this.generateResetPasswordUrlUseCase.execute(user);
+
+		await this.sendResetPasswordEmailUseCase.execute(user, resetPasswordUrl);
 	}
 }

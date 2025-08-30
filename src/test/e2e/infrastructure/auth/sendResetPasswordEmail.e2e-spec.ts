@@ -63,7 +63,8 @@ describe('Auth - SendResetPasswordEmailController (e2e)', () => {
 		expect(executeMock).toHaveBeenCalledWith(
 			expect.objectContaining({
 				email: userEmail,
-			})
+			}),
+			expect.any(URL),
 		);
 		expect(executeMock).toHaveBeenCalledTimes(1);
 	});

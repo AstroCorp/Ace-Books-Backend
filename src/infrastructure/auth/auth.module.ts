@@ -20,6 +20,7 @@ import { GenerateVerificationAccountUrlUseCase } from '@/application/users/useCa
 import { SendVerificationEmailUseCase } from '@/application/emails/useCases/sendVerificationEmailUseCase';
 import { ValidateUserRefreshTokenUseCase } from '@/application/auth/useCases/validateUserRefreshTokenUseCase';
 import { SendResetPasswordEmailUseCase } from '@/application/emails/useCases/sendResetPasswordEmailUseCase';
+import { GenerateResetPasswordUrlUseCase } from '@/application/users/useCases/generateResetPasswordUrlUseCase';
 import { SendResetPasswordEmailController } from '@/infrastructure/auth/controllers/sendResetPasswordEmail.controller';
 import { GetUserRefreshTokenUseCase } from '@/application/auth/useCases/getUserRefreshTokenUseCase';
 import { GetUserByEmailUseCase } from '@/application/auth/useCases/getUserByEmailUseCase';
@@ -52,6 +53,7 @@ import SignService from '@/infrastructure/auth/services/sign.service';
 		ValidateUserPasswordUseCase,
 		GenerateVerificationAccountUrlUseCase,
 		SendVerificationEmailUseCase,
+		GenerateResetPasswordUrlUseCase,
 		SendResetPasswordEmailUseCase,
 		ValidateUserRefreshTokenUseCase,
 		GetUserByEmailUseCase,

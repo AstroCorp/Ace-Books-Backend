@@ -27,6 +27,7 @@ export const setupApp = async () => {
 	});
 
 	await app.init();
+	await app.listen(3002);
 	await app.getHttpAdapter().getInstance().ready();
 
 	return app;

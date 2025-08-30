@@ -22,7 +22,7 @@ export class SendResetPasswordEmailController {
 	}
 
 	@Post('send-reset-password-email')
-	@HttpCode(200)
+	@HttpCode(HttpStatus.OK)
 	@UseFilters(new ExceptionFilter([
 		{
 			exception: EmailSendFailedException,

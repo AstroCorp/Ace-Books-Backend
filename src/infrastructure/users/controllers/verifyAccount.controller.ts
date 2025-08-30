@@ -1,4 +1,4 @@
-import { Controller, Post, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post, UseGuards, Request, HttpCode, HttpStatus } from '@nestjs/common';
 import { JwtAuthGuard } from '@/infrastructure/auth/guards/jwt.guard';
 import { Session } from '@/infrastructure/auth/types/session';
 import { SignGuard } from '@/infrastructure/auth/guards/sign.guard';
@@ -15,6 +15,7 @@ export class VerifyAccountController
 
 	@UseGuards(JwtAuthGuard, SignGuard)
 	@Post('verify-account')
+	@HttpCode(HttpStatus.OK)
 	async __invoke(@Request() req: Session) {
 		await this.verifyUserAccountUseCase.execute(req.user);
 	}

@@ -20,7 +20,7 @@ export class GenerateVerificationAccountUrlUseCase {
 		const userId = user.id.toString();
 		const hash = this.hashService.generate(user.email);
 
-		const verifyUrl = new URL(process.env.BACKEND_URL + '/users/verify-email');
+		const verifyUrl = new URL(process.env.BACKEND_URL + '/users/verify-account');
 		const body = JSON.stringify({
 			userId,
 			hash
@@ -33,12 +33,12 @@ export class GenerateVerificationAccountUrlUseCase {
 
 		// Añadimos los parámetros de la URL firmada a la URL del frontend para que
 		// sean usados al hacer la petición de verificación de email
-		const url = new URL(process.env.FRONTEND_URL + '/verify-email');
+		const frontUrl = new URL(process.env.FRONTEND_URL + '/verify-email');
 
 		Array.from(urlSigned.searchParams.entries()).forEach(([key, value]) => {
-			url.searchParams.append(key, value);
+			frontUrl.searchParams.append(key, value);
 		});
 
-		return url;
+		return frontUrl;
 	}
 }

@@ -53,6 +53,8 @@ describe('Domain - Common - Models - User (unit)', () => {
 		expect(data).toEqual({
 			email: userDTO.email,
 			avatar: userDTO.avatar,
+			isAdmin: userDTO.isAdmin,
+			isVerified: userDTO.isVerified,
 		});
 	});
 });

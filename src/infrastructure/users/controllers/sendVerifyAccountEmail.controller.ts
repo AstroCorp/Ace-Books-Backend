@@ -25,7 +25,7 @@ export class SendVerifyAccountEmailController {
 
 	@UseGuards(JwtAuthGuard)
 	@Post('send-verify-account-email')
-	@HttpCode(200)
+	@HttpCode(HttpStatus.OK)
 	@UseFilters(new ExceptionFilter([
 		{
 			exception: UserAlreadyVerifiedException,

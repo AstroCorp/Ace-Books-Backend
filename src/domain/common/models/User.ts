@@ -69,6 +69,8 @@ class User extends BaseModel {
 		return {
 			email: this.email,
 			avatar: this.avatar,
+			isAdmin: this.isAdmin,
+			isVerified: this.isVerified,
 		};
 	}
 }

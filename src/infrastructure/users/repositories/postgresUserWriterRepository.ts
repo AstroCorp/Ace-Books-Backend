@@ -23,4 +23,12 @@ export class PostgresUserWriterRepository implements UserWriterRepositoryInterfa
 
 		await this.em.flush();
 	}
+
+	async updatePassword(email: string, password: string): Promise<void> {
+		const user = await this.em.findOne(UserEntity, { email });
+
+		user.password = password;
+
+		await this.em.flush();
+	}
 }

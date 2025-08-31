@@ -24,4 +24,12 @@ export class PostgresTokenWriterRepository implements TokenWriterRepositoryInter
 
 		return newTokenEntity.toDomainModel(tokenPayload);
 	}
+
+	async revoke(token: string, type: TokenType): Promise<void> {
+		const tokenEntity = await this.em.findOne(TokenEntity, { token, type });
+
+		tokenEntity.isRevoked = true;
+
+		await this.em.flush();
+	}
 }

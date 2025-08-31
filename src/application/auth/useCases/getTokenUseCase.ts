@@ -3,7 +3,7 @@ import { TOKEN_READER_REPOSITORY, TokenReaderRepositoryInterface } from '@/domai
 import { Token, TokenType } from '@/domain/common/models/Token';
 
 @Injectable()
-export class GetUserRefreshTokenUseCase {
+export class GetTokenUseCase {
 	constructor(
 		@Inject(TOKEN_READER_REPOSITORY)
 		private readonly tokenReaderRepository: TokenReaderRepositoryInterface,
@@ -11,8 +11,8 @@ export class GetUserRefreshTokenUseCase {
 		//
 	}
 
-	public async execute(token: string): Promise<Token | null> {
-		const refreshToken = await this.tokenReaderRepository.findOneByToken(token, TokenType.REFRESH);
+	public async execute(token: string, type: TokenType): Promise<Token | null> {
+		const refreshToken = await this.tokenReaderRepository.findOneByToken(token, type);
 
 		return refreshToken;
 	}

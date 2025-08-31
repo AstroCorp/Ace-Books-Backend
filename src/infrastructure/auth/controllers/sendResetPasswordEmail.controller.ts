@@ -2,10 +2,10 @@ import { Body, Controller, HttpCode, HttpStatus, Post, UseFilters } from '@nestj
 import { Throttle } from '@nestjs/throttler';
 import { GetUserByEmailUseCase } from '@/application/auth/useCases/getUserByEmailUseCase';
 import { SendResetPasswordEmailUseCase } from '@/application/emails/useCases/sendResetPasswordEmailUseCase';
-import { SendResetPasswordDTO } from '../validation/dto/sendResetPassword.dto';
+import { SendResetPasswordDTO } from '@/infrastructure/auth/validation/dto/sendResetPassword.dto';
 import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
 import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filter';
-import { GenerateResetPasswordUrlUseCase } from '@/application/users/useCases/generateResetPasswordUrlUseCase';
+import { GenerateResetPasswordUrlUseCase } from '@/application/auth/useCases/generateResetPasswordUrlUseCase';
 
 @Throttle({
 	default: {

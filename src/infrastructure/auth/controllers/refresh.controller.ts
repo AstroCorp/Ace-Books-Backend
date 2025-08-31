@@ -1,14 +1,15 @@
 import { Controller, Headers, Post, Request, UseGuards } from '@nestjs/common';
 import { JwtRefreshAuthGuard } from '@/infrastructure/auth/guards/jwt-refresh.guard';
 import { Session } from '@/infrastructure/auth/types/session';
-import { GetUserRefreshTokenUseCase } from '@/application/auth/useCases/getUserRefreshTokenUseCase';
+import { GetTokenUseCase } from '@/application/auth/useCases/getTokenUseCase';
 import { GenerateUserAccessTokensUseCase } from '@/application/auth/useCases/generateUserAccessTokensUseCase';
 import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/generateUserRefreshTokenUseCase';
+import { TokenType } from '@/domain/common/models/Token';
 
 @Controller('auth')
 export class RefreshController {
 	constructor(
-		private readonly getUserRefreshTokenUseCase: GetUserRefreshTokenUseCase,
+		private readonly getTokenUseCase: GetTokenUseCase,
 		private readonly generateUserAccessTokensUseCase: GenerateUserAccessTokensUseCase,
 		private readonly generateUserRefreshTokenUseCase: GenerateUserRefreshTokenUseCase,
 	) {
@@ -19,7 +20,7 @@ export class RefreshController {
 	@Post('refresh')
 	async __invoke(@Request() req: Session, @Headers('authorization') authHeader: string) {
 		const currentRefreshToken = authHeader.split(' ')[1];
-		const currentRefreshTokenEntity = await this.getUserRefreshTokenUseCase.execute(currentRefreshToken);
+		const currentRefreshTokenEntity = await this.getTokenUseCase.execute(currentRefreshToken, TokenType.REFRESH);
 
 		const accessToken = this.generateUserAccessTokensUseCase.execute(req.user);
 		const refreshToken = currentRefreshTokenEntity.checkIfNeedsRefresh()

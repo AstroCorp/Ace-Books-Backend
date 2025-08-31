@@ -69,10 +69,19 @@ class Token {
 	}
 
 	public checkIfNeedsRefresh(): boolean {
+		if (this.type !== TokenType.REFRESH) {
+			return false;
+		}
+
 		const expMs = this.payload.exp * 1000;
 
 		// Generamos un refresh token si el actual tiene 5 días de antigüedad
 		return expMs - Date.now() < 432000000;
+	}
+
+	public checkIfIsExpired(): boolean {
+		const expMs = this.payload.exp * 1000;
+		return expMs < Date.now();
 	}
 
 	public toObject(): TokenDTO {

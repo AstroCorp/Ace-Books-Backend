@@ -9,7 +9,7 @@ import HashService from '@/infrastructure/auth/services/hash.service';
 import SignService from '@/infrastructure/auth/services/sign.service';
 import { User } from '@/domain/common/models/User';
 
-describe('User - ProfileController (e2e)', () => {
+describe('User - VerifyAccountController (e2e)', () => {
 	let orm: MikroORM;
 	let app: NestFastifyApplication;
 

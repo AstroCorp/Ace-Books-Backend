@@ -21,7 +21,7 @@ export class ResetPasswordController
 	public async __invoke(@Body() body: ResetPasswordDTO) {
 		const resetToken = await this.getTokenUseCase.execute(body.token, TokenType.RESET);
 
-		if (!resetToken || resetToken.isRevoked) {
+		if (!resetToken || resetToken.isRevoked || resetToken.checkIfIsExpired()) {
 			throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
 		}
 

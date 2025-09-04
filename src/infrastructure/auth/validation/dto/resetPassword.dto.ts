@@ -1,4 +1,3 @@
-import { IsEmailAvailable } from '@/infrastructure/auth/validation/pipes/isEmailAvalible.pipe';
 import { IsEmail, MaxLength, IsStrongPassword, IsJWT } from 'class-validator';
 
 export class ResetPasswordDTO {
@@ -6,7 +5,6 @@ export class ResetPasswordDTO {
 	token: string;
 
 	@IsEmail(undefined, { message: 'invalid email' })
-	@IsEmailAvailable()
 	@MaxLength(255)
 	email: string;
 

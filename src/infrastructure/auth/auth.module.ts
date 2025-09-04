@@ -6,7 +6,6 @@ import { UsersModule } from '@/infrastructure/users/users.module';
 import { LocalStrategy } from '@/infrastructure/auth/strategies/local.strategy';
 import { JwtStrategy } from '@/infrastructure/auth/strategies/jwt.strategy';
 import { JwtRefreshStrategy } from '@/infrastructure/auth/strategies/jwt-refresh.strategy';
-import { IsEmailAvailableConstraint } from '@/infrastructure/auth/validation/pipes/isEmailAvalible.pipe';
 import { PROVIDERS } from '@/infrastructure/auth/auth.providers';
 import { PostgresUserReaderRepository } from '@/infrastructure/users/repositories/postgresUserReaderRepository';
 import { PostgresTokenReaderRepository } from '@/infrastructure/auth/repositories/postgresTokenReaderRepository';
@@ -30,6 +29,7 @@ import SignService from '@/infrastructure/auth/services/sign.service';
 import { ResetPasswordController } from '@/infrastructure/auth/controllers/resetPassword.controller';
 import { UpdateUserPasswordUseCase } from '@/application/auth/useCases/updateUserPasswordUseCase';
 import { RevokeTokenUseCase } from '@/application/auth/useCases/revokeTokenUseCase';
+import { VerifyEmailAvailabilityUseCase } from '@/application/auth/useCases/verifyEmailAvailabilityUseCase';
 
 @Module({
 	imports: [
@@ -49,7 +49,6 @@ import { RevokeTokenUseCase } from '@/application/auth/useCases/revokeTokenUseCa
 		SignService,
 		PostgresUserReaderRepository,
 		PostgresTokenReaderRepository,
-		IsEmailAvailableConstraint,
 		CreateUserUseCase,
 		GenerateUserAccessTokensUseCase,
 		GenerateUserRefreshTokenUseCase,
@@ -63,6 +62,7 @@ import { RevokeTokenUseCase } from '@/application/auth/useCases/revokeTokenUseCa
 		GetTokenUseCase,
 		UpdateUserPasswordUseCase,
 		RevokeTokenUseCase,
+		VerifyEmailAvailabilityUseCase,
 	],
 	controllers: [
 		RegisterController,

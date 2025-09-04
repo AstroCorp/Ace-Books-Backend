@@ -1,18 +1,22 @@
-import { Body, Controller, Logger, Post, Req } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Logger, Post, Req, UseFilters } from '@nestjs/common';
 import { FastifyRequest } from 'fastify';
 import { CreateUserDTO } from '@/infrastructure/auth/validation/dto/createUser.dto';
+import { VerifyEmailAvailabilityUseCase } from '@/application/auth/useCases/verifyEmailAvailabilityUseCase';
 import { CreateUserUseCase } from '@/application/auth/useCases/createUserUseCase';
 import { GenerateUserAccessTokensUseCase } from '@/application/auth/useCases/generateUserAccessTokensUseCase';
 import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/generateUserRefreshTokenUseCase';
 import { SendVerificationEmailUseCase } from '@/application/emails/useCases/sendVerificationEmailUseCase';
 import { GenerateVerificationAccountUrlUseCase } from '@/application/users/useCases/generateVerificationAccountUrlUseCase';
 import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
+import EmailNotAvailableException from '@/domain/auth/exceptions/emailNotAvailable.exception';
+import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filter';
 
 @Controller('auth')
 export class RegisterController {
 	private readonly logger = new Logger(RegisterController.name);
 
 	constructor(
+		private readonly verifyEmailAvailabilityUseCase: VerifyEmailAvailabilityUseCase,
 		private readonly createUserUseCase: CreateUserUseCase,
 		private readonly generateUserAccessTokensUseCase: GenerateUserAccessTokensUseCase,
 		private readonly generateUserRefreshTokenUseCase: GenerateUserRefreshTokenUseCase,
@@ -23,7 +27,19 @@ export class RegisterController {
 	}
 
 	@Post('register')
+	@UseFilters(new ExceptionFilter([
+		{
+			exception: EmailNotAvailableException,
+			status: HttpStatus.BAD_REQUEST,
+		}
+	]))
 	async __invoke(@Req() request: FastifyRequest, @Body() body: CreateUserDTO) {
+		const isEmailInUse = await this.verifyEmailAvailabilityUseCase.execute(body.email);
+
+		if (!isEmailInUse) {
+			throw new EmailNotAvailableException();
+		}
+
 		const user = await this.createUserUseCase.execute(body.email, body.password);
 		const accessToken = this.generateUserAccessTokensUseCase.execute(user);
 		const refreshToken = await this.generateUserRefreshTokenUseCase.execute(user);

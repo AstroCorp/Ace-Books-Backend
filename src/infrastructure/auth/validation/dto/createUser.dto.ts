@@ -1,9 +1,7 @@
 import { IsEmail, IsStrongPassword, MaxLength } from 'class-validator';
-import { IsEmailAvailable } from '@/infrastructure/auth/validation/pipes/isEmailAvalible.pipe';
 
 export class CreateUserDTO {
 	@IsEmail(undefined, { message: 'invalid email' })
-	@IsEmailAvailable()
 	@MaxLength(255)
 	email: string;
 

@@ -52,7 +52,7 @@ describe('Auth - RegisterController (e2e)', () => {
 			.expect(HttpStatus.BAD_REQUEST);
 
 		expect(response.body).toHaveProperty('message');
-		expect(response.body.message).toContain('invalid email');
+		expect(response.body.message).toContain('email not available');
 	});
 
 	it('/auth/register (POST) - Invalid email', async () => {

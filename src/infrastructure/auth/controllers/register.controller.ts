@@ -1,7 +1,7 @@
 import { Body, Controller, HttpStatus, Logger, Post, Req, UseFilters } from '@nestjs/common';
 import { FastifyRequest } from 'fastify';
 import { CreateUserDTO } from '@/infrastructure/auth/validation/dto/createUser.dto';
-import { VerifyEmailAvailabilityUseCase } from '@/application/auth/useCases/verifyEmailAvailabilityUseCase';
+import { CheckIfEmailExistsUseCase } from '@/application/auth/useCases/checkIfEmailExistsUseCase';
 import { CreateUserUseCase } from '@/application/auth/useCases/createUserUseCase';
 import { GenerateUserAccessTokensUseCase } from '@/application/auth/useCases/generateUserAccessTokensUseCase';
 import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/generateUserRefreshTokenUseCase';
@@ -16,7 +16,7 @@ export class RegisterController {
 	private readonly logger = new Logger(RegisterController.name);
 
 	constructor(
-		private readonly verifyEmailAvailabilityUseCase: VerifyEmailAvailabilityUseCase,
+		private readonly checkIfEmailExistsUseCase: CheckIfEmailExistsUseCase,
 		private readonly createUserUseCase: CreateUserUseCase,
 		private readonly generateUserAccessTokensUseCase: GenerateUserAccessTokensUseCase,
 		private readonly generateUserRefreshTokenUseCase: GenerateUserRefreshTokenUseCase,
@@ -34,9 +34,9 @@ export class RegisterController {
 		}
 	]))
 	async __invoke(@Req() request: FastifyRequest, @Body() body: CreateUserDTO) {
-		const isEmailInUse = await this.verifyEmailAvailabilityUseCase.execute(body.email);
+		const emailExists = await this.checkIfEmailExistsUseCase.execute(body.email);
 
-		if (!isEmailInUse) {
+		if (emailExists) {
 			throw new EmailNotAvailableException();
 		}
 

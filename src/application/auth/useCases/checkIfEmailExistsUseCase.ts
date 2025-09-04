@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { USER_READER_REPOSITORY, UserReaderRepositoryInterface } from '@/domain/user/repositories/userReaderRepositoryInterface';
 
 @Injectable()
-export class VerifyEmailAvailabilityUseCase {
+export class CheckIfEmailExistsUseCase {
 	constructor(
 		@Inject(USER_READER_REPOSITORY)
 		private readonly userReaderRepository: UserReaderRepositoryInterface,
@@ -11,6 +11,6 @@ export class VerifyEmailAvailabilityUseCase {
 	async execute(email: string): Promise<boolean> {
 		const user = await this.userReaderRepository.findOneByEmail(email);
 
-		return user === null;
+		return user !== null;
 	}
 }

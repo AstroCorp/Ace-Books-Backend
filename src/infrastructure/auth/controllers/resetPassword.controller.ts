@@ -1,6 +1,6 @@
 import { Controller, Post, Body, HttpCode, HttpStatus, HttpException, UseFilters } from '@nestjs/common';
 import { ResetPasswordDTO } from '@/infrastructure/auth/validation/dto/resetPassword.dto';
-import { VerifyEmailAvailabilityUseCase } from '@/application/auth/useCases/verifyEmailAvailabilityUseCase';
+import { CheckIfEmailExistsUseCase } from '@/application/auth/useCases/checkIfEmailExistsUseCase';
 import { GetTokenUseCase } from '@/application/auth/useCases/getTokenUseCase';
 import { TokenType } from '@/domain/common/models/Token';
 import { UpdateUserPasswordUseCase } from '@/application/auth/useCases/updateUserPasswordUseCase';
@@ -12,7 +12,7 @@ import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filte
 export class ResetPasswordController
 {
 	constructor(
-		private readonly verifyEmailAvailabilityUseCase: VerifyEmailAvailabilityUseCase,
+		private readonly checkIfEmailExistsUseCase: CheckIfEmailExistsUseCase,
 		private readonly getTokenUseCase: GetTokenUseCase,
 		private readonly updateUserPasswordUseCase: UpdateUserPasswordUseCase,
 		private readonly revokeTokenUseCase: RevokeTokenUseCase,
@@ -29,9 +29,9 @@ export class ResetPasswordController
 		}
 	]))
 	public async __invoke(@Body() body: ResetPasswordDTO) {
-		const isEmailInUse = await this.verifyEmailAvailabilityUseCase.execute(body.email);
+		const emailExists = await this.checkIfEmailExistsUseCase.execute(body.email);
 
-		if (!isEmailInUse) {
+		if (!emailExists) {
 			throw new EmailNotAvailableException();
 		}
 
@@ -43,5 +43,9 @@ export class ResetPasswordController
 
 		await this.updateUserPasswordUseCase.execute(body.email, body.password);
 		await this.revokeTokenUseCase.execute(body.token, TokenType.RESET);
+
+		return {
+			message: 'password reset successfully',
+		};
 	}
 }

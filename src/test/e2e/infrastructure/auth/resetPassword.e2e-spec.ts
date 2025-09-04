@@ -20,6 +20,7 @@ describe('Auth - ResetPasswordController (e2e)', () => {
 			email: 'unverified1@example.com',
 			password: 'password',
 		};
+		const newPassword = 'asdQwe123".';
 
 		const loginResponse = await request(app.getHttpServer())
 			.post('/auth/login')
@@ -41,17 +42,25 @@ describe('Auth - ResetPasswordController (e2e)', () => {
 
 		spy.mockRestore();
 
-		const response = await request(app.getHttpServer())
+		const resetPasswordResponse = await request(app.getHttpServer())
 			.post('/auth/reset-password')
 			.send({
 				token: url.searchParams.get('token'),
 				email: url.searchParams.get('email'),
-				password: 'asdQwe123".',
+				password: newPassword,
 			})
 			.set('Authorization', `Bearer ${access_token}`)
-			.expect(400);
+			.expect(HttpStatus.OK);
 
-			console.log(response.body, url.searchParams.get('email'))
+		expect(resetPasswordResponse.body.message).toEqual('password reset successfully');
+
+		await request(app.getHttpServer())
+			.post('/auth/login')
+			.send({
+				email: loginData.email,
+				password: newPassword,
+			})
+			.expect(HttpStatus.OK);
 	});
 
 	it.todo('/auth/reset-password (POST) - Fail to reset password, invalid token');

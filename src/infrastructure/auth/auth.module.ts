@@ -29,7 +29,7 @@ import SignService from '@/infrastructure/auth/services/sign.service';
 import { ResetPasswordController } from '@/infrastructure/auth/controllers/resetPassword.controller';
 import { UpdateUserPasswordUseCase } from '@/application/auth/useCases/updateUserPasswordUseCase';
 import { RevokeTokenUseCase } from '@/application/auth/useCases/revokeTokenUseCase';
-import { VerifyEmailAvailabilityUseCase } from '@/application/auth/useCases/verifyEmailAvailabilityUseCase';
+import { CheckIfEmailExistsUseCase } from '@/application/auth/useCases/checkIfEmailExistsUseCase';
 
 @Module({
 	imports: [
@@ -62,7 +62,7 @@ import { VerifyEmailAvailabilityUseCase } from '@/application/auth/useCases/veri
 		GetTokenUseCase,
 		UpdateUserPasswordUseCase,
 		RevokeTokenUseCase,
-		VerifyEmailAvailabilityUseCase,
+		CheckIfEmailExistsUseCase,
 	],
 	controllers: [
 		RegisterController,

@@ -4,15 +4,17 @@ import { HttpStatus } from '@nestjs/common';
 import { MikroORM } from '@mikro-orm/core';
 import { executeMigrations } from '@/test/e2e/helpers/executeMigrations';
 import { setupApp } from '@/test/e2e/helpers/setupApp';
-import { EmailsService } from '@/infrastructure/emails/services/emails.service';
+import { getResetPasswordUrl } from '@/test/e2e/helpers/getResetPasswordUrl';
 
 describe('Auth - ResetPasswordController (e2e)', () => {
 	let orm: MikroORM;
 	let app: NestFastifyApplication;
+	let urlForValidation: URL;
 
 	beforeAll(async () => {
 		orm = await executeMigrations();
 		app = await setupApp();
+		urlForValidation = await getResetPasswordUrl(app, 'unverified2@example.com');
 	});
 
 	it('/auth/reset-password (POST) - Successfully reset password', async () => {
@@ -22,25 +24,7 @@ describe('Auth - ResetPasswordController (e2e)', () => {
 		};
 		const newPassword = 'asdQwe123".';
 
-		const loginResponse = await request(app.getHttpServer())
-			.post('/auth/login')
-			.send(loginData)
-			.expect(HttpStatus.OK);
-		const { access_token } = loginResponse.body;
-
-		let url: URL;
-
-		const spy = jest.spyOn(EmailsService.prototype, 'sendMail').mockImplementation((options) => {
-			url = new URL(options.context.url);
-			return Promise.resolve();
-		});
-
-		await request(app.getHttpServer())
-					.post('/auth/send-reset-password-email')
-					.send({ email: loginData.email })
-					.expect(HttpStatus.OK);
-
-		spy.mockRestore();
+		const url = await getResetPasswordUrl(app, loginData.email);
 
 		const resetPasswordResponse = await request(app.getHttpServer())
 			.post('/auth/reset-password')
@@ -49,7 +33,6 @@ describe('Auth - ResetPasswordController (e2e)', () => {
 				email: url.searchParams.get('email'),
 				password: newPassword,
 			})
-			.set('Authorization', `Bearer ${access_token}`)
 			.expect(HttpStatus.OK);
 
 		expect(resetPasswordResponse.body.message).toEqual('password reset successfully');
@@ -63,9 +46,43 @@ describe('Auth - ResetPasswordController (e2e)', () => {
 			.expect(HttpStatus.OK);
 	});
 
-	it.todo('/auth/reset-password (POST) - Fail to reset password, invalid token');
+	it('/auth/reset-password (POST) - Fail to reset password, invalid token', async () => {
+		const loginData = {
+			email: 'unverified2@example.com',
+			password: 'password',
+		};
+		const newPassword = 'asdQwe123".';
 
-	it.todo('/auth/reset-password (POST) - Fail to reset password, invalid password');
+		const resetPasswordResponse = await request(app.getHttpServer())
+			.post('/auth/reset-password')
+			.send({
+				token: 'invalidtoken',
+				email: loginData.email,
+				password: newPassword,
+			})
+			.expect(HttpStatus.BAD_REQUEST);
+
+		expect(resetPasswordResponse.body.message).toContain('invalid token');
+	});
+
+	it('/auth/reset-password (POST) - Fail to reset password, invalid password', async () => {
+		const loginData = {
+			email: 'unverified2@example.com',
+			password: 'password',
+		};
+		const newPassword = 'invalidPassword';
+
+		const resetPasswordResponse = await request(app.getHttpServer())
+			.post('/auth/reset-password')
+			.send({
+				token: urlForValidation.searchParams.get('token'),
+				email: urlForValidation.searchParams.get('email'),
+				password: newPassword,
+			})
+			.expect(HttpStatus.BAD_REQUEST);
+
+		expect(resetPasswordResponse.body.message).toContain('password is not strong enough');
+	});
 
 	it.todo('/auth/reset-password (POST) - Fail to reset password, invalid email');
 

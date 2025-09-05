@@ -40,5 +40,9 @@ export class SendVerifyAccountEmailController {
 		const verifyAccountUrl = this.generateVerificationAccountUrlUseCase.execute(req.user);
 
 		await this.sendVerificationEmailUseCase.execute(req.user, verifyAccountUrl);
+
+		return {
+			message: 'if your account exists and is not verified, a verification email has been sent',
+		};
 	}
 }

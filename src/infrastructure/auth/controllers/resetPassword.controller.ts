@@ -38,7 +38,7 @@ export class ResetPasswordController
 		const resetToken = await this.getTokenUseCase.execute(body.token, TokenType.RESET);
 
 		if (!resetToken || resetToken.isRevoked || resetToken.checkIfIsExpired()) {
-			throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+			throw new HttpException('Forbidden', HttpStatus.BAD_REQUEST);
 		}
 
 		await this.updateUserPasswordUseCase.execute(body.email, body.password);

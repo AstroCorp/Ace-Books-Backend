@@ -18,5 +18,9 @@ export class VerifyAccountController
 	@HttpCode(HttpStatus.OK)
 	async __invoke(@Request() req: Session) {
 		await this.verifyUserAccountUseCase.execute(req.user);
+
+		return {
+			message: 'account verified successfully',
+		};
 	}
 }

@@ -1,7 +1,7 @@
 import { IsEmail, MaxLength, IsStrongPassword, IsJWT } from 'class-validator';
 
 export class ResetPasswordDTO {
-	@IsJWT()
+	@IsJWT({ message: 'invalid token' })
 	token: string;
 
 	@IsEmail(undefined, { message: 'invalid email' })

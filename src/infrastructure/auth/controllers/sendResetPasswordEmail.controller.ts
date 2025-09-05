@@ -41,5 +41,9 @@ export class SendResetPasswordEmailController {
 		const resetPasswordUrl = await this.generateResetPasswordUrlUseCase.execute(user);
 
 		await this.sendResetPasswordEmailUseCase.execute(user, resetPasswordUrl);
+
+		return {
+			message: 'if an account with that email exists, a reset password email has been sent',
+		};
 	}
 }

@@ -62,6 +62,7 @@ export class RegisterController {
 		return {
 			access_token: accessToken,
 			refresh_token: refreshToken,
+			message: 'user created successfully, please check your email to verify your account',
 		};
 	}
 }

@@ -36,14 +36,12 @@ describe('Domain - Common - Models - User (unit)', () => {
 	});
 
 	it('Check getDataForToken', () => {
-		const jti = 'jti';
-		const data = user.getDataForToken(jti);
+		const data = user.getDataForToken();
 
 		expect(data).toEqual({
 			userId: userDTO.id,
 			isAdmin: userDTO.isAdmin,
 			isVerified: userDTO.isVerified,
-			jti,
 		});
 	});
 

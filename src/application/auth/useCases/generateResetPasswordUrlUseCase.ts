@@ -3,14 +3,10 @@ import { JWT_PORT, JwtPort } from '@/domain/auth/ports/jwt.port';
 import { TOKEN_WRITER_REPOSITORY, TokenWriterRepositoryInterface } from '@/domain/auth/repositories/tokenWriterRepositoryInterface';
 import { User } from '@/domain/common/models/User';
 import { TokenType } from '@/domain/common/models/Token';
-import { UUID_PORT, UuidPort } from '@/domain/auth/ports/uuid.port';
 
 @Injectable()
 export class GenerateResetPasswordUrlUseCase {
 	constructor(
-		@Inject(UUID_PORT)
-		private readonly uuidService: UuidPort,
-
 		@Inject(JWT_PORT)
 		private readonly jwtService: JwtPort,
 
@@ -21,8 +17,7 @@ export class GenerateResetPasswordUrlUseCase {
 	}
 
 	public async execute(user: User): Promise<URL> {
-		const jti = this.uuidService.get();
-		const tokenString = this.jwtService.sign({ jti }, {
+		const tokenString = this.jwtService.sign({}, {
 			secret: process.env.GENERIC_JWT_SECRET,
 			expiresIn: process.env.GENERIC_JWT_SECRET_EXPIRES,
 		});

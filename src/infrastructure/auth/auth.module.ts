@@ -30,6 +30,7 @@ import { ResetPasswordController } from '@/infrastructure/auth/controllers/reset
 import { UpdateUserPasswordUseCase } from '@/application/auth/useCases/updateUserPasswordUseCase';
 import { RevokeTokenUseCase } from '@/application/auth/useCases/revokeTokenUseCase';
 import { CheckIfEmailExistsUseCase } from '@/application/auth/useCases/checkIfEmailExistsUseCase';
+import UuidService from '@/infrastructure/auth/services/uuid.service';
 
 @Module({
 	imports: [
@@ -47,6 +48,7 @@ import { CheckIfEmailExistsUseCase } from '@/application/auth/useCases/checkIfEm
 		JwtRefreshStrategy,
 		JwtService,
 		SignService,
+		UuidService,
 		PostgresUserReaderRepository,
 		PostgresTokenReaderRepository,
 		CreateUserUseCase,

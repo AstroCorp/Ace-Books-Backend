@@ -83,6 +83,8 @@ describe('Users - SendVerifyAccountEmailController (e2e)', () => {
 			expect.any(URL),
 		);
 		expect(executeMock).toHaveBeenCalledTimes(1);
+
+		executeMock.mockRestore();
 	});
 
 	it('/users/send-verify-account-email (POST) - Email send failed', async () => {
@@ -122,6 +124,8 @@ describe('Users - SendVerifyAccountEmailController (e2e)', () => {
 			expect.any(URL),
 		);
 		expect(executeMock).toHaveBeenCalledTimes(1);
+
+		executeMock.mockRestore();
 	});
 
 	afterAll(async () => {

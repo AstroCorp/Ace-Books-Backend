@@ -6,17 +6,17 @@ import { EmailsService } from '@/infrastructure/emails/services/emails.service';
 export const getResetPasswordUrl = async (app: NestFastifyApplication, email: string): Promise<URL> => {
 	let url: URL;
 
-	const spy = jest.spyOn(EmailsService.prototype, 'sendMail').mockImplementation((options) => {
+	const executeMock = jest.spyOn(EmailsService.prototype, 'sendMail').mockImplementation((options) => {
 		url = new URL(options.context.url);
 		return Promise.resolve();
 	});
 
 	await request(app.getHttpServer())
-				.post('/auth/send-reset-password-email')
-				.send({ email })
-				.expect(HttpStatus.OK);
+		.post('/auth/send-reset-password-email')
+		.send({ email })
+		.expect(HttpStatus.OK);
 
-	spy.mockRestore();
+	executeMock.mockRestore();
 
 	return url;
 }

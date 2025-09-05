@@ -67,6 +67,8 @@ describe('Auth - SendResetPasswordEmailController (e2e)', () => {
 			expect.any(URL),
 		);
 		expect(executeMock).toHaveBeenCalledTimes(1);
+
+		executeMock.mockRestore();
 	});
 
 	afterAll(async () => {

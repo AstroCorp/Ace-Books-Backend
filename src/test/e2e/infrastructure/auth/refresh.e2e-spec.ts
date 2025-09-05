@@ -38,7 +38,7 @@ describe('Auth - RefreshController (e2e)', () => {
 	});
 
 	it('/auth/refresh (POST) - Need refresh token', async () => {
-		jest.spyOn(Token.prototype, 'checkIfNeedsRefresh').mockReturnValue(true);
+		const executeMock = jest.spyOn(Token.prototype, 'checkIfNeedsRefresh').mockReturnValue(true);
 
 		const loginData = {
 			email: 'unverified1@example.com',
@@ -59,6 +59,8 @@ describe('Auth - RefreshController (e2e)', () => {
 		expect(response.body).toHaveProperty('access_token');
 		expect(response.body).toHaveProperty('refresh_token');
 		expect(response.body.refresh_token).not.toEqual(refresh_token);
+
+		executeMock.mockRestore();
 	});
 
 	it('/auth/refresh (POST) - Invalid token', async () => {

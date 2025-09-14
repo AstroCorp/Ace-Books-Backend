@@ -1,8 +1,8 @@
-import { Entity, Property, ManyToOne, Rel, rel } from '@mikro-orm/core';
-import { BaseEntity } from '@/infrastructure/orm/entities/BaseEntity';
-import { User } from '@/infrastructure/orm/entities/User';
-import { Book } from '@/infrastructure/orm/entities/Book';
-import type { BookmarkDTO } from '@/infrastructure/orm/types/entities';
+import { Entity, Property, ManyToOne, Rel, rel } from "@mikro-orm/core";
+import { BaseEntity } from "@/infrastructure/orm/entities/BaseEntity";
+import { User } from "@/infrastructure/orm/entities/User";
+import { Book } from "@/infrastructure/orm/entities/Book";
+import type { BookmarkDTO } from "@/infrastructure/orm/types/entities";
 
 @Entity({ tableName: 'bookmarks' })
 export class Bookmark extends BaseEntity

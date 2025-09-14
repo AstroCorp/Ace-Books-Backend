@@ -1,10 +1,10 @@
-import * as request from 'supertest';
-import { NestFastifyApplication } from '@nestjs/platform-fastify';
-import { HttpStatus } from '@nestjs/common';
-import { MikroORM } from '@mikro-orm/core';
-import { executeMigrations } from '@/test/e2e/helpers/executeMigrations';
-import { setupApp } from '@/test/e2e/helpers/setupApp';
-import { Token } from '@/domain/common/models/Token';
+import * as request from "supertest";
+import { NestFastifyApplication } from "@nestjs/platform-fastify";
+import { HttpStatus } from "@nestjs/common";
+import { MikroORM } from "@mikro-orm/core";
+import { executeMigrations } from "@/test/e2e/helpers/executeMigrations";
+import { setupApp } from "@/test/e2e/helpers/setupApp";
+import { Token } from "@/domain/common/models/Token";
 
 describe('Auth - RefreshController (e2e)', () => {
 	let orm: MikroORM;

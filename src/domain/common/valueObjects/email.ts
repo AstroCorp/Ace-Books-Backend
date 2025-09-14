@@ -1,5 +1,5 @@
-import { validateSync, IsEmail, MaxLength } from 'class-validator';
-import ValidationException from '@/domain/common/exceptions/validationException';
+import { validateSync, IsEmail, MaxLength } from "class-validator";
+import ValidationException from "@/domain/common/exceptions/validationException";
 
 class Email {
 	@IsEmail(undefined, { message: 'invalid email' })

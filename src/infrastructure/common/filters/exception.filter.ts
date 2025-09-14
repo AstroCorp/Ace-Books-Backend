@@ -1,6 +1,6 @@
-import { ExceptionFilter as NestExceptionFilter, Catch, ArgumentsHost, HttpStatus, Logger } from '@nestjs/common';
-import { FastifyReply, FastifyRequest } from 'fastify';
-import BaseException from '@/domain/common/exceptions/baseException';
+import { ExceptionFilter as NestExceptionFilter, Catch, ArgumentsHost, HttpStatus, Logger } from "@nestjs/common";
+import { FastifyReply, FastifyRequest } from "fastify";
+import BaseException from "@/domain/common/exceptions/baseException";
 
 interface ExceptionMapping {
 	exception: Function;

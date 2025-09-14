@@ -1,6 +1,6 @@
-import { Factory } from '@mikro-orm/seeder';
-import { faker } from '@faker-js/faker';
-import { Bookmark } from '@/infrastructure/orm/entities/Bookmark';
+import { Factory } from "@mikro-orm/seeder";
+import { faker } from "@faker-js/faker";
+import { Bookmark } from "@/infrastructure/orm/entities/Bookmark";
 
 export class BookmarkFactory extends Factory<Bookmark> {
 	model = Bookmark;

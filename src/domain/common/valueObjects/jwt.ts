@@ -1,5 +1,5 @@
-import { validateSync, IsJWT } from 'class-validator';
-import ValidationException from '@/domain/common/exceptions/validationException';
+import { validateSync, IsJWT } from "class-validator";
+import ValidationException from "@/domain/common/exceptions/validationException";
 
 class Jwt {
 	@IsJWT({ message: 'invalid token' })

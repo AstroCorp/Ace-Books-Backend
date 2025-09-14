@@ -1,16 +1,16 @@
-import { Body, Controller, HttpStatus, Logger, Post, Req, UseFilters } from '@nestjs/common';
-import { FastifyRequest } from 'fastify';
-import { CreateUserDTO } from '@/infrastructure/auth/validation/dto/createUser.dto';
-import { CheckIfEmailExistsUseCase } from '@/application/auth/useCases/checkIfEmailExistsUseCase';
-import { CreateUserUseCase } from '@/application/auth/useCases/createUserUseCase';
-import { GenerateUserAccessTokensUseCase } from '@/application/auth/useCases/generateUserAccessTokensUseCase';
-import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/generateUserRefreshTokenUseCase';
-import { SendVerificationEmailUseCase } from '@/application/emails/useCases/sendVerificationEmailUseCase';
-import { GenerateVerificationAccountUrlUseCase } from '@/application/users/useCases/generateVerificationAccountUrlUseCase';
-import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
-import EmailNotAvailableException from '@/domain/auth/exceptions/emailNotAvailable.exception';
-import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filter';
-import ValidationException from '@/domain/common/exceptions/validationException';
+import { Body, Controller, HttpStatus, Logger, Post, Req, UseFilters } from "@nestjs/common";
+import { FastifyRequest } from "fastify";
+import { CreateUserDTO } from "@/infrastructure/auth/validation/dto/createUser.dto";
+import { CheckIfEmailExistsUseCase } from "@/application/auth/useCases/checkIfEmailExistsUseCase";
+import { CreateUserUseCase } from "@/application/auth/useCases/createUserUseCase";
+import { GenerateUserAccessTokensUseCase } from "@/application/auth/useCases/generateUserAccessTokensUseCase";
+import { GenerateUserRefreshTokenUseCase } from "@/application/auth/useCases/generateUserRefreshTokenUseCase";
+import { SendVerificationEmailUseCase } from "@/application/emails/useCases/sendVerificationEmailUseCase";
+import { GenerateVerificationAccountUrlUseCase } from "@/application/users/useCases/generateVerificationAccountUrlUseCase";
+import EmailSendFailedException from "@/domain/emails/exceptions/emailSendFailed.exception";
+import EmailNotAvailableException from "@/domain/auth/exceptions/emailNotAvailable.exception";
+import { ExceptionFilter } from "@/infrastructure/common/filters/exception.filter";
+import ValidationException from "@/domain/common/exceptions/validationException";
 
 @Controller('auth')
 export class RegisterController {

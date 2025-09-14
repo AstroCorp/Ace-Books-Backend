@@ -1,8 +1,8 @@
-import { ValidationPipe } from '@nestjs/common';
-import { useContainer } from 'class-validator';
-import { Test } from '@nestjs/testing';
-import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
-import { AppModule } from '@/infrastructure/app/app.module';
+import { ValidationPipe } from "@nestjs/common";
+import { useContainer } from "class-validator";
+import { Test } from "@nestjs/testing";
+import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
+import { AppModule } from "@/infrastructure/app/app.module";
 
 export const setupApp = async () => {
 	const testingModule = Test.createTestingModule({

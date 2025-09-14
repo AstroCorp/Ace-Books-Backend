@@ -1,13 +1,13 @@
-import { Controller, Post, Body, HttpCode, HttpStatus, HttpException, UseFilters } from '@nestjs/common';
-import { ResetPasswordDTO } from '@/infrastructure/auth/validation/dto/resetPassword.dto';
-import { CheckIfEmailExistsUseCase } from '@/application/auth/useCases/checkIfEmailExistsUseCase';
-import { GetTokenUseCase } from '@/application/auth/useCases/getTokenUseCase';
-import { TokenType } from '@/domain/common/models/Token';
-import { UpdateUserPasswordUseCase } from '@/application/auth/useCases/updateUserPasswordUseCase';
-import { RevokeTokenUseCase } from '@/application/auth/useCases/revokeTokenUseCase';
-import EmailNotAvailableException from '@/domain/auth/exceptions/emailNotAvailable.exception';
-import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filter';
-import ValidationException from '@/domain/common/exceptions/validationException';
+import { Controller, Post, Body, HttpCode, HttpStatus, HttpException, UseFilters } from "@nestjs/common";
+import { ResetPasswordDTO } from "@/infrastructure/auth/validation/dto/resetPassword.dto";
+import { CheckIfEmailExistsUseCase } from "@/application/auth/useCases/checkIfEmailExistsUseCase";
+import { GetTokenUseCase } from "@/application/auth/useCases/getTokenUseCase";
+import { TokenType } from "@/domain/common/models/Token";
+import { UpdateUserPasswordUseCase } from "@/application/auth/useCases/updateUserPasswordUseCase";
+import { RevokeTokenUseCase } from "@/application/auth/useCases/revokeTokenUseCase";
+import EmailNotAvailableException from "@/domain/auth/exceptions/emailNotAvailable.exception";
+import { ExceptionFilter } from "@/infrastructure/common/filters/exception.filter";
+import ValidationException from "@/domain/common/exceptions/validationException";
 
 @Controller('auth')
 export class ResetPasswordController

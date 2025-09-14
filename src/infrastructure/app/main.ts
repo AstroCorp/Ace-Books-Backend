@@ -1,12 +1,12 @@
-import { NestFactory, Reflector } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
-import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
-import fastifyCookie from '@fastify/cookie';
-import compression from '@fastify/compress';
-import helmet from '@fastify/helmet';
-import fastifyCsrf from '@fastify/csrf-protection';
-import { useContainer } from 'class-validator';
-import { AppModule } from '@/infrastructure/app/app.module';
+import { NestFactory, Reflector } from "@nestjs/core";
+import { ValidationPipe } from "@nestjs/common";
+import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
+import fastifyCookie from "@fastify/cookie";
+import compression from "@fastify/compress";
+import helmet from "@fastify/helmet";
+import fastifyCsrf from "@fastify/csrf-protection";
+import { useContainer } from "class-validator";
+import { AppModule } from "@/infrastructure/app/app.module";
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());

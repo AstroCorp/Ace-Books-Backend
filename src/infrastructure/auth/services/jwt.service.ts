@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { JwtService as NestJwtService } from '@nestjs/jwt';
+import { JwtService as NestJwtService } from "@nestjs/jwt";
 import UuidService from "@/infrastructure/auth/services/uuid.service";
 import { JwtPort } from "@/domain/auth/ports/jwt.port";
 import type { JwtSignOptions, Payload } from "@/infrastructure/auth/types/jwt";

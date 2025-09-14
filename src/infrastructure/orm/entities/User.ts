@@ -1,9 +1,9 @@
-import { Entity, Property, Collection, OneToMany } from '@mikro-orm/core';
-import { BaseEntity } from '@/infrastructure/orm/entities/BaseEntity';
-import { Book } from '@/infrastructure/orm/entities/Book';
-import { BooksCollection } from '@/infrastructure/orm/entities/BooksCollection';
-import type { UserDTO } from '@/infrastructure/orm/types/entities';
-import { User as UserModel } from '@/domain/common/models/User';
+import { Entity, Property, Collection, OneToMany } from "@mikro-orm/core";
+import { BaseEntity } from "@/infrastructure/orm/entities/BaseEntity";
+import { Book } from "@/infrastructure/orm/entities/Book";
+import { BooksCollection } from "@/infrastructure/orm/entities/BooksCollection";
+import type { UserDTO } from "@/infrastructure/orm/types/entities";
+import { User as UserModel } from "@/domain/common/models/User";
 
 @Entity({ tableName: 'users' })
 export class User extends BaseEntity

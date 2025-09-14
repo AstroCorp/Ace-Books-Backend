@@ -1,12 +1,12 @@
-import * as request from 'supertest';
-import { NestFastifyApplication } from '@nestjs/platform-fastify';
-import { MikroORM } from '@mikro-orm/core';
-import { HttpStatus } from '@nestjs/common';
-import { executeMigrations } from '@/test/e2e/helpers/executeMigrations';
-import { setupApp } from '@/test/e2e/helpers/setupApp';
-import { SendVerificationEmailUseCase } from '@/application/emails/useCases/sendVerificationEmailUseCase';
-import { User } from '@/domain/common/models/User';
-import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
+import * as request from "supertest";
+import { NestFastifyApplication } from "@nestjs/platform-fastify";
+import { MikroORM } from "@mikro-orm/core";
+import { HttpStatus } from "@nestjs/common";
+import { executeMigrations } from "@/test/e2e/helpers/executeMigrations";
+import { setupApp } from "@/test/e2e/helpers/setupApp";
+import { SendVerificationEmailUseCase } from "@/application/emails/useCases/sendVerificationEmailUseCase";
+import { User } from "@/domain/common/models/User";
+import EmailSendFailedException from "@/domain/emails/exceptions/emailSendFailed.exception";
 
 describe('Auth - RegisterController (e2e)', () => {
 	let orm: MikroORM;

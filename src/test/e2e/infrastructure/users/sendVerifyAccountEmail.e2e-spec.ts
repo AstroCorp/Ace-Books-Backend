@@ -1,13 +1,13 @@
-import * as request from 'supertest';
-import { NestFastifyApplication } from '@nestjs/platform-fastify';
-import { HttpStatus } from '@nestjs/common';
-import { MikroORM } from '@mikro-orm/core';
-import { executeMigrations } from '@/test/e2e/helpers/executeMigrations';
-import { setupApp } from '@/test/e2e/helpers/setupApp';
-import { SendVerificationEmailUseCase } from '@/application/emails/useCases/sendVerificationEmailUseCase';
-import { User } from '@/domain/common/models/User';
-import EmailSendFailedException, { EMAIL_SEND_FAILED_EXCEPTION } from '@/domain/emails/exceptions/emailSendFailed.exception';
-import UserAlreadyVerifiedException, { USER_ALREADY_VERIFIED_EXCEPTION } from '@/domain/emails/exceptions/userAlreadyVerified.exception';
+import * as request from "supertest";
+import { NestFastifyApplication } from "@nestjs/platform-fastify";
+import { HttpStatus } from "@nestjs/common";
+import { MikroORM } from "@mikro-orm/core";
+import { executeMigrations } from "@/test/e2e/helpers/executeMigrations";
+import { setupApp } from "@/test/e2e/helpers/setupApp";
+import { SendVerificationEmailUseCase } from "@/application/emails/useCases/sendVerificationEmailUseCase";
+import { User } from "@/domain/common/models/User";
+import EmailSendFailedException, { EMAIL_SEND_FAILED_EXCEPTION } from "@/domain/emails/exceptions/emailSendFailed.exception";
+import UserAlreadyVerifiedException, { USER_ALREADY_VERIFIED_EXCEPTION } from "@/domain/emails/exceptions/userAlreadyVerified.exception";
 
 describe('Users - SendVerifyAccountEmailController (e2e)', () => {
 	let orm: MikroORM;

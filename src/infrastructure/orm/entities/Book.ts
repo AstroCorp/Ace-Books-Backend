@@ -1,8 +1,8 @@
-import { Entity, Property, ManyToOne, Rel, rel } from '@mikro-orm/core';
-import { BaseEntity } from '@/infrastructure/orm/entities/BaseEntity';
-import { BooksCollection } from '@/infrastructure/orm/entities/BooksCollection';
-import { User } from '@/infrastructure/orm/entities/User';
-import type { BookDTO } from '@/infrastructure/orm/types/entities';
+import { Entity, Property, ManyToOne, Rel, rel } from "@mikro-orm/core";
+import { BaseEntity } from "@/infrastructure/orm/entities/BaseEntity";
+import { BooksCollection } from "@/infrastructure/orm/entities/BooksCollection";
+import { User } from "@/infrastructure/orm/entities/User";
+import type { BookDTO } from "@/infrastructure/orm/types/entities";
 
 @Entity({ tableName: 'books' })
 export class Book extends BaseEntity

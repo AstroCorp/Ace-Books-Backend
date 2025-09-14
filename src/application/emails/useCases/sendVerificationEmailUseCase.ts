@@ -1,8 +1,8 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { EMAILS_PORT, EmailsPort } from '@/domain/emails/ports/emails.port';
-import { User } from '@/domain/common/models/User';
-import UserAlreadyVerifiedException from '@/domain/emails/exceptions/userAlreadyVerified.exception';
-import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
+import { Inject, Injectable } from "@nestjs/common";
+import { EMAILS_PORT, EmailsPort } from "@/domain/emails/ports/emails.port";
+import { User } from "@/domain/common/models/User";
+import UserAlreadyVerifiedException from "@/domain/emails/exceptions/userAlreadyVerified.exception";
+import EmailSendFailedException from "@/domain/emails/exceptions/emailSendFailed.exception";
 
 @Injectable()
 export class SendVerificationEmailUseCase {

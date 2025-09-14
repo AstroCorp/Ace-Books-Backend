@@ -1,10 +1,10 @@
-import * as fs from 'node:fs';
-import * as path from 'path';
-import * as nodemailer from 'nodemailer';
-import { Injectable } from '@nestjs/common';
-import { TwingAdapter } from '@/infrastructure/emails/adapters/twing.adapter';
-import { EmailsPort } from '@/domain/emails/ports/emails.port';
-import type { MailOptions } from '@/domain/emails/ports/emails.port';
+import * as fs from "node:fs";
+import * as path from "path";
+import * as nodemailer from "nodemailer";
+import { Injectable } from "@nestjs/common";
+import { TwingAdapter } from "@/infrastructure/emails/adapters/twing.adapter";
+import { EmailsPort } from "@/domain/emails/ports/emails.port";
+import type { MailOptions } from "@/domain/emails/ports/emails.port";
 
 @Injectable()
 export class EmailsService implements EmailsPort {

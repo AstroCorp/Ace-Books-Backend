@@ -1,6 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { USER_WRITER_REPOSITORY, UserWriterRepositoryInterface } from '@/domain/user/repositories/userWriterRepositoryInterface';
-import { User } from '@/domain/common/models/User';
+import { Inject, Injectable } from "@nestjs/common";
+import { USER_WRITER_REPOSITORY, UserWriterRepositoryInterface } from "@/domain/user/repositories/userWriterRepositoryInterface";
+import { User } from "@/domain/common/models/User";
 
 @Injectable()
 export class VerifyUserAccountUseCase {

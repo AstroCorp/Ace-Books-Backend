@@ -1,8 +1,8 @@
-import { Controller, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
-import { GenerateUserAccessTokensUseCase } from '@/application/auth/useCases/generateUserAccessTokensUseCase';
-import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/generateUserRefreshTokenUseCase';
-import { LocalAuthGuard } from '@/infrastructure/auth/guards/local.guard';
-import { Session } from '@/infrastructure/auth/types/session';
+import { Controller, HttpCode, HttpStatus, Post, Request, UseGuards } from "@nestjs/common";
+import { GenerateUserAccessTokensUseCase } from "@/application/auth/useCases/generateUserAccessTokensUseCase";
+import { GenerateUserRefreshTokenUseCase } from "@/application/auth/useCases/generateUserRefreshTokenUseCase";
+import { LocalAuthGuard } from "@/infrastructure/auth/guards/local.guard";
+import { Session } from "@/infrastructure/auth/types/session";
 
 @Controller('auth')
 export class LoginController {

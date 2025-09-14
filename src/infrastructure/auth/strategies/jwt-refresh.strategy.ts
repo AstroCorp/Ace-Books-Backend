@@ -1,9 +1,9 @@
-import { ExtractJwt, Strategy } from 'passport-jwt';
-import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { FastifyRequest } from 'fastify';
-import { ValidateUserRefreshTokenUseCase } from '@/application/auth/useCases/validateUserRefreshTokenUseCase';
-import { PostgresUserReaderRepository } from '@/infrastructure/users/repositories/postgresUserReaderRepository';
+import { ExtractJwt, Strategy } from "passport-jwt";
+import { PassportStrategy } from "@nestjs/passport";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { FastifyRequest } from "fastify";
+import { ValidateUserRefreshTokenUseCase } from "@/application/auth/useCases/validateUserRefreshTokenUseCase";
+import { PostgresUserReaderRepository } from "@/infrastructure/users/repositories/postgresUserReaderRepository";
 
 @Injectable()
 export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {

@@ -1,10 +1,10 @@
-import { Controller, Headers, Post, Request, UseGuards } from '@nestjs/common';
-import { JwtRefreshAuthGuard } from '@/infrastructure/auth/guards/jwt-refresh.guard';
-import { Session } from '@/infrastructure/auth/types/session';
-import { GetTokenUseCase } from '@/application/auth/useCases/getTokenUseCase';
-import { GenerateUserAccessTokensUseCase } from '@/application/auth/useCases/generateUserAccessTokensUseCase';
-import { GenerateUserRefreshTokenUseCase } from '@/application/auth/useCases/generateUserRefreshTokenUseCase';
-import { TokenType } from '@/domain/common/models/Token';
+import { Controller, Headers, Post, Request, UseGuards } from "@nestjs/common";
+import { JwtRefreshAuthGuard } from "@/infrastructure/auth/guards/jwt-refresh.guard";
+import { Session } from "@/infrastructure/auth/types/session";
+import { GetTokenUseCase } from "@/application/auth/useCases/getTokenUseCase";
+import { GenerateUserAccessTokensUseCase } from "@/application/auth/useCases/generateUserAccessTokensUseCase";
+import { GenerateUserRefreshTokenUseCase } from "@/application/auth/useCases/generateUserRefreshTokenUseCase";
+import { TokenType } from "@/domain/common/models/Token";
 
 @Controller('auth')
 export class RefreshController {

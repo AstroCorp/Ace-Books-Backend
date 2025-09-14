@@ -1,6 +1,6 @@
 import { MikroORM } from "@mikro-orm/core";
-import { DatabaseSeeder } from '@/infrastructure/orm/seeders/DatabaseSeeder';
-import config from '@/infrastructure/orm/mikro-orm.config';
+import { DatabaseSeeder } from "@/infrastructure/orm/seeders/DatabaseSeeder";
+import config from "@/infrastructure/orm/mikro-orm.config";
 
 export const executeMigrations = async () => {
 	const orm = await MikroORM.init({

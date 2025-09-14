@@ -1,6 +1,6 @@
-import { Factory } from '@mikro-orm/seeder';
-import { faker } from '@faker-js/faker';
-import { Book } from '@/infrastructure/orm/entities/Book';
+import { Factory } from "@mikro-orm/seeder";
+import { faker } from "@faker-js/faker";
+import { Book } from "@/infrastructure/orm/entities/Book";
 
 export class BookFactory extends Factory<Book> {
 	model = Book;

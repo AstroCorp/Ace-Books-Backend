@@ -1,8 +1,8 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { JWT_PORT, JwtPort } from '@/domain/auth/ports/jwt.port';
-import { TOKEN_WRITER_REPOSITORY, TokenWriterRepositoryInterface } from '@/domain/auth/repositories/tokenWriterRepositoryInterface';
-import { User } from '@/domain/common/models/User';
-import { TokenType } from '@/domain/common/models/Token';
+import { Inject, Injectable } from "@nestjs/common";
+import { JWT_PORT, JwtPort } from "@/domain/auth/ports/jwt.port";
+import { TOKEN_WRITER_REPOSITORY, TokenWriterRepositoryInterface } from "@/domain/auth/repositories/tokenWriterRepositoryInterface";
+import { User } from "@/domain/common/models/User";
+import { TokenType } from "@/domain/common/models/Token";
 
 @Injectable()
 export class GenerateResetPasswordUrlUseCase {

@@ -1,4 +1,4 @@
-import { Migration } from '@mikro-orm/migrations';
+import { Migration } from "@mikro-orm/migrations";
 
 export class Migration20240925211922_initial_tables extends Migration {
 	override async up(): Promise<void> {

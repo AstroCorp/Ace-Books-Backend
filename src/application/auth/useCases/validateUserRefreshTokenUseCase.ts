@@ -1,6 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { TOKEN_READER_REPOSITORY, TokenReaderRepositoryInterface } from '@/domain/auth/repositories/tokenReaderRepositoryInterface';
-import { TokenType } from '@/domain/common/models/Token';
+import { Inject, Injectable } from "@nestjs/common";
+import { TOKEN_READER_REPOSITORY, TokenReaderRepositoryInterface } from "@/domain/auth/repositories/tokenReaderRepositoryInterface";
+import { TokenType } from "@/domain/common/models/Token";
 
 @Injectable()
 export class ValidateUserRefreshTokenUseCase {

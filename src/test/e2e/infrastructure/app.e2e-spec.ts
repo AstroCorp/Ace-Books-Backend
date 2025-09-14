@@ -1,6 +1,6 @@
-import * as request from 'supertest';
-import { NestFastifyApplication } from '@nestjs/platform-fastify';
-import { setupApp } from '@/test/e2e/helpers/setupApp';
+import * as request from "supertest";
+import { NestFastifyApplication } from "@nestjs/platform-fastify";
+import { setupApp } from "@/test/e2e/helpers/setupApp";
 
 describe('AppController (e2e)', () => {
 	let app: NestFastifyApplication;

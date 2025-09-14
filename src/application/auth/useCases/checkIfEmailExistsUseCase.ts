@@ -1,5 +1,5 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { USER_READER_REPOSITORY, UserReaderRepositoryInterface } from '@/domain/user/repositories/userReaderRepositoryInterface';
+import { Inject, Injectable } from "@nestjs/common";
+import { USER_READER_REPOSITORY, UserReaderRepositoryInterface } from "@/domain/user/repositories/userReaderRepositoryInterface";
 
 @Injectable()
 export class CheckIfEmailExistsUseCase {

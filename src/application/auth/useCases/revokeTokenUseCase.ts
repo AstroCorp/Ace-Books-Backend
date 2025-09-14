@@ -1,6 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { TOKEN_WRITER_REPOSITORY, TokenWriterRepositoryInterface } from '@/domain/auth/repositories/tokenWriterRepositoryInterface';
-import { Token, TokenType } from '@/domain/common/models/Token';
+import { Inject, Injectable } from "@nestjs/common";
+import { TOKEN_WRITER_REPOSITORY, TokenWriterRepositoryInterface } from "@/domain/auth/repositories/tokenWriterRepositoryInterface";
+import { Token, TokenType } from "@/domain/common/models/Token";
 
 @Injectable()
 export class RevokeTokenUseCase {

@@ -1,5 +1,5 @@
-import { validateSync, IsStrongPassword, MaxLength } from 'class-validator';
-import ValidationException from '@/domain/common/exceptions/validationException';
+import { validateSync, IsStrongPassword, MaxLength } from "class-validator";
+import ValidationException from "@/domain/common/exceptions/validationException";
 
 class Password {
 	@IsStrongPassword({

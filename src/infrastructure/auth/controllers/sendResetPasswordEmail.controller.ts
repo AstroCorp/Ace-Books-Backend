@@ -1,12 +1,12 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, UseFilters } from '@nestjs/common';
-import { Throttle } from '@nestjs/throttler';
-import { GetUserByEmailUseCase } from '@/application/auth/useCases/getUserByEmailUseCase';
-import { SendResetPasswordEmailUseCase } from '@/application/emails/useCases/sendResetPasswordEmailUseCase';
-import { SendResetPasswordDTO } from '@/infrastructure/auth/validation/dto/sendResetPassword.dto';
-import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
-import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filter';
-import { GenerateResetPasswordUrlUseCase } from '@/application/auth/useCases/generateResetPasswordUrlUseCase';
-import ValidationException from '@/domain/common/exceptions/validationException';
+import { Body, Controller, HttpCode, HttpStatus, Post, UseFilters } from "@nestjs/common";
+import { Throttle } from "@nestjs/throttler";
+import { GetUserByEmailUseCase } from "@/application/auth/useCases/getUserByEmailUseCase";
+import { SendResetPasswordEmailUseCase } from "@/application/emails/useCases/sendResetPasswordEmailUseCase";
+import { SendResetPasswordDTO } from "@/infrastructure/auth/validation/dto/sendResetPassword.dto";
+import EmailSendFailedException from "@/domain/emails/exceptions/emailSendFailed.exception";
+import { ExceptionFilter } from "@/infrastructure/common/filters/exception.filter";
+import { GenerateResetPasswordUrlUseCase } from "@/application/auth/useCases/generateResetPasswordUrlUseCase";
+import ValidationException from "@/domain/common/exceptions/validationException";
 
 @Throttle({
 	default: {

@@ -1,8 +1,8 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { DateTime } from 'luxon';
-import { HASH_PORT, HashPort } from '@/domain/auth/ports/hash.port';
-import { SIGN_PORT, SignPort } from '@/domain/auth/ports/sign.ports';
-import { User } from '@/domain/common/models/User';
+import { Inject, Injectable } from "@nestjs/common";
+import { DateTime } from "luxon";
+import { HASH_PORT, HashPort } from "@/domain/auth/ports/hash.port";
+import { SIGN_PORT, SignPort } from "@/domain/auth/ports/sign.ports";
+import { User } from "@/domain/common/models/User";
 
 @Injectable()
 export class GenerateVerificationAccountUrlUseCase {

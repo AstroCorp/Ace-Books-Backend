@@ -1,14 +1,14 @@
-import { Logger } from '@nestjs/common';
-import { defineConfig } from '@mikro-orm/postgresql';
-import { Migrator } from '@mikro-orm/migrations';
-import { SeedManager } from '@mikro-orm/seeder';
-import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
-import { BaseEntity } from '@/infrastructure/orm/entities/BaseEntity';
-import { User } from '@/infrastructure/orm/entities/User';
-import { Token } from '@/infrastructure/orm/entities/Token';
-import { Book } from '@/infrastructure/orm/entities/Book';
-import { BooksCollection } from '@/infrastructure/orm/entities/BooksCollection';
-import { Bookmark } from '@/infrastructure/orm/entities/Bookmark';
+import { Logger } from "@nestjs/common";
+import { defineConfig } from "@mikro-orm/postgresql";
+import { Migrator } from "@mikro-orm/migrations";
+import { SeedManager } from "@mikro-orm/seeder";
+import { SqlHighlighter } from "@mikro-orm/sql-highlighter";
+import { BaseEntity } from "@/infrastructure/orm/entities/BaseEntity";
+import { User } from "@/infrastructure/orm/entities/User";
+import { Token } from "@/infrastructure/orm/entities/Token";
+import { Book } from "@/infrastructure/orm/entities/Book";
+import { BooksCollection } from "@/infrastructure/orm/entities/BooksCollection";
+import { Bookmark } from "@/infrastructure/orm/entities/Bookmark";
 
 const logger = new Logger('MikroORM');
 const config = defineConfig({

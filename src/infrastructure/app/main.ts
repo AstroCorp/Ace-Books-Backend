@@ -40,7 +40,9 @@ async function bootstrap() {
 	await app.register(fastifyCsrf);
 
 	// Validación con class-validator de forma global
-	app.useGlobalPipes(new ValidationPipe());
+	app.useGlobalPipes(new ValidationPipe({
+		transform: true,
+	}));
 
 	// Para poder usar services en los validadores
 	useContainer(app.select(AppModule), {

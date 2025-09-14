@@ -1,17 +1,11 @@
-import { IsEmail, IsStrongPassword, MaxLength } from 'class-validator';
+import { Transform } from 'class-transformer';
+import Email from '@/domain/common/valueObjects/email';
+import Password from '@/domain/common/valueObjects/password';
 
 export class CreateUserDTO {
-	@IsEmail(undefined, { message: 'invalid email' })
-	@MaxLength(255)
-	email: string;
+	@Transform(({ value }) => new Email(value))
+	email: Email;
 
-	@IsStrongPassword({
-		minLength: 8,
-		minLowercase: 1,
-		minUppercase: 1,
-		minNumbers: 1,
-		minSymbols: 1,
-	})
-	@MaxLength(32)
-	password: string;
+	@Transform(({ value }) => new Password(value))
+	password: Password;
 }

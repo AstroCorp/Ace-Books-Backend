@@ -10,6 +10,7 @@ import { GenerateVerificationAccountUrlUseCase } from '@/application/users/useCa
 import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
 import EmailNotAvailableException from '@/domain/auth/exceptions/emailNotAvailable.exception';
 import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filter';
+import ValidationException from '@/domain/common/exceptions/validationException';
 
 @Controller('auth')
 export class RegisterController {
@@ -29,18 +30,22 @@ export class RegisterController {
 	@Post('register')
 	@UseFilters(new ExceptionFilter([
 		{
+			exception: ValidationException,
+			status: HttpStatus.BAD_REQUEST,
+		},
+		{
 			exception: EmailNotAvailableException,
 			status: HttpStatus.BAD_REQUEST,
 		}
 	]))
 	async __invoke(@Req() request: FastifyRequest, @Body() body: CreateUserDTO) {
-		const emailExists = await this.checkIfEmailExistsUseCase.execute(body.email);
+		const emailExists = await this.checkIfEmailExistsUseCase.execute(body.email.value);
 
 		if (emailExists) {
 			throw new EmailNotAvailableException();
 		}
 
-		const user = await this.createUserUseCase.execute(body.email, body.password);
+		const user = await this.createUserUseCase.execute(body.email.value, body.password.value);
 		const accessToken = this.generateUserAccessTokensUseCase.execute(user);
 		const refreshToken = await this.generateUserRefreshTokenUseCase.execute(user);
 		const verifyAccountUrl = this.generateVerificationAccountUrlUseCase.execute(user);

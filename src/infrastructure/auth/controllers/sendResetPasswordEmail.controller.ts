@@ -6,6 +6,7 @@ import { SendResetPasswordDTO } from '@/infrastructure/auth/validation/dto/sendR
 import EmailSendFailedException from '@/domain/emails/exceptions/emailSendFailed.exception';
 import { ExceptionFilter } from '@/infrastructure/common/filters/exception.filter';
 import { GenerateResetPasswordUrlUseCase } from '@/application/auth/useCases/generateResetPasswordUrlUseCase';
+import ValidationException from '@/domain/common/exceptions/validationException';
 
 @Throttle({
 	default: {
@@ -27,12 +28,16 @@ export class SendResetPasswordEmailController {
 	@HttpCode(HttpStatus.OK)
 	@UseFilters(new ExceptionFilter([
 		{
+			exception: ValidationException,
+			status: HttpStatus.BAD_REQUEST,
+		},
+		{
 			exception: EmailSendFailedException,
 			status: HttpStatus.INTERNAL_SERVER_ERROR,
 		}
 	]))
 	async __invoke(@Body() body: SendResetPasswordDTO) {
-		const user = await this.getUserByEmailUseCase.execute(body.email);
+		const user = await this.getUserByEmailUseCase.execute(body.email.value);
 
 		// Si el usuario no existe, no se envía el email, no devolvemos
 		// error para no revelar si hay una cuenta con ese email

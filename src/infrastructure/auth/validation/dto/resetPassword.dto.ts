@@ -1,19 +1,15 @@
-import { IsEmail, MaxLength, IsStrongPassword, IsJWT } from 'class-validator';
+import { Transform } from 'class-transformer';
+import Jwt from '@/domain/common/valueObjects/jwt';
+import Email from '@/domain/common/valueObjects/email';
+import Password from '@/domain/common/valueObjects/password';
 
 export class ResetPasswordDTO {
-	@IsJWT({ message: 'invalid token' })
-	token: string;
+	@Transform(({ value }) => new Jwt(value))
+	token: Jwt;
 
-	@IsEmail(undefined, { message: 'invalid email' })
-	@MaxLength(255)
-	email: string;
+	@Transform(({ value }) => new Email(value))
+	email: Email;
 
-	@IsStrongPassword({
-		minLength: 8,
-		minLowercase: 1,
-		minUppercase: 1,
-		minNumbers: 1,
-		minSymbols: 1,
-	})
-	password: string;
+	@Transform(({ value }) => new Password(value))
+	password: Password;
 }

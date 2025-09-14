@@ -10,6 +10,7 @@ services:
     depends_on:
       - postgres
       - redis
+      - mailpit
     volumes:
       - .:/app
     networks:
@@ -22,10 +23,11 @@ services:
     environment:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_DATABASES: ${DATABASE_NAME},${DATABASE_NAME}_test
       POSTGRES_PORT: ${DATABASE_PORT}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     networks:
       - main
 
@@ -48,6 +50,19 @@ services:
       - ./docker/pgadmin/servers.json:/pgadmin4/servers.json
     depends_on:
       - postgres
+    networks:
+      - main
+
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - 8025:8025
+      - 1025:1025
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_SMTP_AUTH: ${MAIL_USERNAME}:${MAIL_PASSWORD}
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    restart: unless-stopped
     networks:
       - main
 

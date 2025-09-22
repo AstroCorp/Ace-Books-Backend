@@ -37,7 +37,7 @@ export class SendResetPasswordEmailController {
 		}
 	]))
 	async __invoke(@Body() body: SendResetPasswordDTO) {
-		const user = await this.getUserByEmailUseCase.execute(body.email.value);
+		const user = await this.getUserByEmailUseCase.execute(body.email);
 
 		// Si el usuario no existe, no se envía el email, no devolvemos
 		// error para no revelar si hay una cuenta con ese email

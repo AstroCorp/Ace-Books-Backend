@@ -57,6 +57,8 @@ describe('Auth - ResetPasswordController (e2e)', () => {
 			})
 			.expect(HttpStatus.BAD_REQUEST);
 
+		expect(resetPasswordResponse.body).toHaveProperty('message');
+		expect(resetPasswordResponse.body.message).toBeInstanceOf(Array);
 		expect(resetPasswordResponse.body.message).toContain('invalid token');
 	});
 
@@ -72,6 +74,8 @@ describe('Auth - ResetPasswordController (e2e)', () => {
 			})
 			.expect(HttpStatus.BAD_REQUEST);
 
+		expect(resetPasswordResponse.body).toHaveProperty('message');
+		expect(resetPasswordResponse.body.message).toBeInstanceOf(Array);
 		expect(resetPasswordResponse.body.message).toContain('password is not strong enough');
 	});
 
@@ -88,6 +92,8 @@ describe('Auth - ResetPasswordController (e2e)', () => {
 			})
 			.expect(HttpStatus.BAD_REQUEST);
 
+		expect(resetPasswordResponse.body).toHaveProperty('message');
+		expect(resetPasswordResponse.body.message).toBeInstanceOf(Array);
 		expect(resetPasswordResponse.body.message).toContain('invalid email');
 	});
 
@@ -104,6 +110,8 @@ describe('Auth - ResetPasswordController (e2e)', () => {
 			})
 			.expect(HttpStatus.BAD_REQUEST);
 
+		expect(resetPasswordResponse.body).toHaveProperty('message');
+		expect(resetPasswordResponse.body.message).not.toBeInstanceOf(Array);
 		expect(resetPasswordResponse.body.message).toContain('email not available');
 	});
 
@@ -121,6 +129,8 @@ describe('Auth - ResetPasswordController (e2e)', () => {
 			})
 			.expect(HttpStatus.BAD_REQUEST);
 
+		expect(resetPasswordResponse.body).toHaveProperty('message');
+		expect(resetPasswordResponse.body.message).not.toBeInstanceOf(Array);
 		expect(resetPasswordResponse.body.message).toEqual('invalid token');
 
 		executeMock.mockRestore();
@@ -140,6 +150,8 @@ describe('Auth - ResetPasswordController (e2e)', () => {
 			})
 			.expect(HttpStatus.BAD_REQUEST);
 
+		expect(resetPasswordResponse.body).toHaveProperty('message');
+		expect(resetPasswordResponse.body.message).not.toBeInstanceOf(Array);
 		expect(resetPasswordResponse.body.message).toEqual('invalid token');
 
 		executeMock.mockRestore();

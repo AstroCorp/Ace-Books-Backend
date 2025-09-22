@@ -1,7 +1,8 @@
-import { Transform } from "class-transformer";
-import Email from "@/domain/common/valueObjects/email";
+import { IsEmail, MaxLength } from "class-validator";
+import { EMAIL_RULES } from "@/domain/user/constants/rules";
 
 export class SendResetPasswordDTO {
-	@Transform(({ value }) => new Email(value))
-	email: Email;
+	@IsEmail(undefined, { message: 'invalid email' })
+	@MaxLength(EMAIL_RULES.MAX_LENGTH)
+	email: string;
 }

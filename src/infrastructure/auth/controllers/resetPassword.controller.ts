@@ -34,20 +34,20 @@ export class ResetPasswordController
 		}
 	]))
 	public async __invoke(@Body() body: ResetPasswordDTO) {
-		const emailExists = await this.checkIfEmailExistsUseCase.execute(body.email.value);
+		const emailExists = await this.checkIfEmailExistsUseCase.execute(body.email);
 
 		if (!emailExists) {
 			throw new EmailNotAvailableException();
 		}
 
-		const resetToken = await this.getTokenUseCase.execute(body.token.value, TokenType.RESET);
+		const resetToken = await this.getTokenUseCase.execute(body.token, TokenType.RESET);
 
 		if (!resetToken || resetToken.isRevoked || resetToken.checkIfIsExpired()) {
 			throw new HttpException('invalid token', HttpStatus.BAD_REQUEST);
 		}
 
-		await this.updateUserPasswordUseCase.execute(body.email.value, body.password.value);
-		await this.revokeTokenUseCase.execute(body.token.value, TokenType.RESET);
+		await this.updateUserPasswordUseCase.execute(body.email, body.password);
+		await this.revokeTokenUseCase.execute(body.token, TokenType.RESET);
 
 		return {
 			message: 'password reset successfully',

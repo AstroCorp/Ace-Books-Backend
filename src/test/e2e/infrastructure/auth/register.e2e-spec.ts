@@ -52,6 +52,7 @@ describe('Auth - RegisterController (e2e)', () => {
 			.expect(HttpStatus.BAD_REQUEST);
 
 		expect(response.body).toHaveProperty('message');
+		expect(response.body.message).not.toBeInstanceOf(Array);
 		expect(response.body.message).toContain('email not available');
 	});
 
@@ -67,6 +68,7 @@ describe('Auth - RegisterController (e2e)', () => {
 			.expect(HttpStatus.BAD_REQUEST);
 
 		expect(response.body).toHaveProperty('message');
+		expect(response.body.message).toBeInstanceOf(Array);
 		expect(response.body.message).toContain('invalid email');
 	});
 
@@ -82,6 +84,7 @@ describe('Auth - RegisterController (e2e)', () => {
 			.expect(HttpStatus.BAD_REQUEST);
 
 		expect(response.body).toHaveProperty('message');
+		expect(response.body.message).toBeInstanceOf(Array);
 		expect(response.body.message).toContain('password is not strong enough');
 	});
 
@@ -97,6 +100,7 @@ describe('Auth - RegisterController (e2e)', () => {
 			.expect(HttpStatus.BAD_REQUEST);
 
 		expect(response.body).toHaveProperty('message');
+		expect(response.body.message).toBeInstanceOf(Array);
 		expect(response.body.message).toContain('password must be shorter than or equal to 32 characters');
 	});
 

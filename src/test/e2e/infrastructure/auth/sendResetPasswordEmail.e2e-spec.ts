@@ -39,6 +39,19 @@ describe('Auth - SendResetPasswordEmailController (e2e)', () => {
 			.expect(HttpStatus.OK);
 	});
 
+	it('/auth/send-reset-password-email (POST) - Invalid email', async () => {
+		const userEmail = 'invalid-email';
+
+		const sendResetPasswordResponse = await request(app.getHttpServer())
+			.post('/auth/send-reset-password-email')
+			.send({ email: userEmail })
+			.expect(HttpStatus.BAD_REQUEST);
+
+		expect(sendResetPasswordResponse.body).toHaveProperty('message');
+		expect(sendResetPasswordResponse.body.message).toBeInstanceOf(Array);
+		expect(sendResetPasswordResponse.body.message).toContain('invalid email');
+	});
+
 	it('/auth/send-reset-password-email (POST) - Email send failed', async () => {
 		const userEmail = 'verified1@example.com';
 

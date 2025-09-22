@@ -104,6 +104,23 @@ describe('Auth - RegisterController (e2e)', () => {
 		expect(response.body.message).toContain('password must be shorter than or equal to 32 characters');
 	});
 
+	it('/auth/register (POST) - Password is too long and invalid email', async () => {
+		const registerData = {
+			email: 'invalid_email',
+			password: '1234567890123456789012345678901234567890',
+		};
+
+		const response = await request(app.getHttpServer())
+			.post('/auth/register')
+			.send(registerData)
+			.expect(HttpStatus.BAD_REQUEST);
+
+		expect(response.body).toHaveProperty('message');
+		expect(response.body.message).toBeInstanceOf(Array);
+		expect(response.body.message).toContain('password must be shorter than or equal to 32 characters');
+		expect(response.body.message).toContain('invalid email');
+	});
+
 	it('/auth/register (POST) - Email send failed', async () => {
 		const registerData = {
 			email: 'send_failed@example.com',

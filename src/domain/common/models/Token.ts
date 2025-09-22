@@ -1,5 +1,3 @@
-import Jwt from "@/domain/common/valueObjects/jwt";
-
 export const enum TokenType {
 	REFRESH = 'refresh',
 	RESET = 'reset',
@@ -25,7 +23,7 @@ interface TokenDTO {
 
 class Token {
 	private _user: number;
-	private _token: Jwt;
+	private _token: string;
 	private _type: TokenType;
 	private _payload: Payload;
 	private _isRevoked: boolean;
@@ -34,7 +32,7 @@ class Token {
 
 	constructor(tokenDTO: TokenDTO) {
 		this._user = tokenDTO.user;
-		this._token = new Jwt(tokenDTO.token);
+		this._token = tokenDTO.token;
 		this._type = tokenDTO.type;
 		this._payload = tokenDTO.payload;
 		this._isRevoked = tokenDTO.isRevoked;
@@ -47,7 +45,7 @@ class Token {
 	}
 
 	public get token(): string {
-		return this._token.value;
+		return this._token;
 	}
 
 	public get type(): TokenType {

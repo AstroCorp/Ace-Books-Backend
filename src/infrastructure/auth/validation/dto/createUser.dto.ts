@@ -1,19 +1,18 @@
 import { IsEmail, IsStrongPassword, MaxLength } from "class-validator";
-import Email from "@/domain/common/valueObjects/email";
-import Password from "@/domain/common/valueObjects/password";
+import { EMAIL_RULES, PASSWORD_RULES } from "@/domain/user/constants/rules";
 
 export class CreateUserDTO {
-	@IsEmail(undefined, { message: Email.RULES.ERROR_MESSAGE })
-	@MaxLength(Email.RULES.MAX_LENGTH)
+	@IsEmail(undefined, { message: 'invalid email' })
+	@MaxLength(EMAIL_RULES.MAX_LENGTH)
 	email: string;
 
 	@IsStrongPassword({
-		minLength: Password.RULES.MIN_LENGTH,
-		minLowercase: Password.RULES.MIN_LOWERCASE,
-		minUppercase: Password.RULES.MIN_UPPERCASE,
-		minNumbers: Password.RULES.MIN_NUMBERS,
-		minSymbols: Password.RULES.MIN_SYMBOLS,
+		minLength: PASSWORD_RULES.MIN_LENGTH,
+		minLowercase: PASSWORD_RULES.MIN_LOWERCASE,
+		minUppercase: PASSWORD_RULES.MIN_UPPERCASE,
+		minNumbers: PASSWORD_RULES.MIN_NUMBERS,
+		minSymbols: PASSWORD_RULES.MIN_SYMBOLS,
 	})
-	@MaxLength(Password.RULES.MAX_LENGTH)
+	@MaxLength(PASSWORD_RULES.MAX_LENGTH)
 	password: string;
 }

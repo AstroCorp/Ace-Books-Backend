@@ -1,0 +1,12 @@
+export const EMAIL_RULES = {
+	MAX_LENGTH: 255,
+};
+
+export const PASSWORD_RULES = {
+	MIN_LENGTH: 8,
+	MAX_LENGTH: 32,
+	MIN_LOWERCASE: 1,
+	MIN_UPPERCASE: 1,
+	MIN_NUMBERS: 1,
+	MIN_SYMBOLS: 1,
+};

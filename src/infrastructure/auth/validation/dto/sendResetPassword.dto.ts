@@ -1,8 +1,8 @@
 import { IsEmail, MaxLength } from "class-validator";
-import Email from "@/domain/common/valueObjects/email";
+import { EMAIL_RULES } from "@/domain/user/constants/rules";
 
 export class SendResetPasswordDTO {
-	@IsEmail(undefined, { message: Email.RULES.ERROR_MESSAGE })
-	@MaxLength(Email.RULES.MAX_LENGTH)
+	@IsEmail(undefined, { message: 'invalid email' })
+	@MaxLength(EMAIL_RULES.MAX_LENGTH)
 	email: string;
 }

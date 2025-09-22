@@ -39,13 +39,13 @@ export class RegisterController {
 		}
 	]))
 	async __invoke(@Req() request: FastifyRequest, @Body() body: CreateUserDTO) {
-		const emailExists = await this.checkIfEmailExistsUseCase.execute(body.email.value);
+		const emailExists = await this.checkIfEmailExistsUseCase.execute(body.email);
 
 		if (emailExists) {
 			throw new EmailNotAvailableException();
 		}
 
-		const user = await this.createUserUseCase.execute(body.email.value, body.password.value);
+		const user = await this.createUserUseCase.execute(body.email, body.password);
 		const accessToken = this.generateUserAccessTokensUseCase.execute(user);
 		const refreshToken = await this.generateUserRefreshTokenUseCase.execute(user);
 		const verifyAccountUrl = this.generateVerificationAccountUrlUseCase.execute(user);

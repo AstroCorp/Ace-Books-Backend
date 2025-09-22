@@ -2,7 +2,11 @@ import { validateSync, IsJWT } from "class-validator";
 import ValidationException from "@/domain/common/exceptions/validationException";
 
 class Jwt {
-	@IsJWT({ message: 'invalid token' })
+	public static RULES = {
+		ERROR_MESSAGE: 'invalid token',
+	};
+
+	@IsJWT({ message: Jwt.RULES.ERROR_MESSAGE })
 	private _value: string;
 
 	constructor(jwt: string) {

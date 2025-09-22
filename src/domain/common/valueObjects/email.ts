@@ -2,8 +2,13 @@ import { validateSync, IsEmail, MaxLength } from "class-validator";
 import ValidationException from "@/domain/common/exceptions/validationException";
 
 class Email {
-	@IsEmail(undefined, { message: 'invalid email' })
-	@MaxLength(255)
+	public static RULES = {
+		ERROR_MESSAGE: 'invalid email',
+		MAX_LENGTH: 255,
+	};
+
+	@IsEmail(undefined, { message: Email.RULES.ERROR_MESSAGE })
+	@MaxLength(Email.RULES.MAX_LENGTH)
 	private _value: string;
 
 	constructor(email: string) {

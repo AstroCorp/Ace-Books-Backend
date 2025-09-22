@@ -1,4 +1,6 @@
-import { BaseModel, BaseModelDTO } from "./BaseModel";
+import { BaseModel, BaseModelDTO } from "@/domain/common/models/BaseModel";
+import Email from "@/domain/common/valueObjects/email";
+import Password from "@/domain/common/valueObjects/password";
 
 interface UserDTO extends BaseModelDTO {
 	email: string;
@@ -9,8 +11,8 @@ interface UserDTO extends BaseModelDTO {
 }
 
 class User extends BaseModel {
-	private _email: string;
-	private _password: string;
+	private _email: Email;
+	private _password: Password;
 	private _avatar: string | null;
 	private _isAdmin: boolean;
 	private _isVerified: boolean;
@@ -18,19 +20,19 @@ class User extends BaseModel {
 	constructor(userDTO: UserDTO) {
 		super(userDTO);
 
-		this._email = userDTO.email;
-		this._password = userDTO.password;
+		this._email = new Email(userDTO.email);
+		this._password = new Password(userDTO.password);
 		this._avatar = userDTO.avatar;
 		this._isAdmin = userDTO.isAdmin;
 		this._isVerified = userDTO.isVerified;
 	}
 
 	public get email(): string {
-		return this._email;
+		return this._email.value;
 	}
 
 	public get password(): string {
-		return this._password;
+		return this._password.value;
 	}
 
 	public get avatar(): string | null {

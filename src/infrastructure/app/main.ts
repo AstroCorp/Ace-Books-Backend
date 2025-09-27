@@ -12,9 +12,7 @@ async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
 
 	// CORS
-	const whitelist = [NodeJS.Environment.Development, NodeJS.Environment.Testing].includes(process.env.NODE_ENV)
-		? ['http://localhost:3000']
-		: ['https://ace-books-frontend.vercel.app'];
+	const whitelist = [process.env.FRONTEND_URL];
 
 	app.enableCors({
 		credentials: true,

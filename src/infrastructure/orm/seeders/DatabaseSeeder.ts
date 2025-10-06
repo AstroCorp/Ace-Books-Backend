@@ -7,6 +7,9 @@ import { BookmarkFactory } from "@/infrastructure/orm/factories/BookmarkFactory"
 
 export class DatabaseSeeder extends Seeder {
 	async run(em: EntityManager): Promise<void> {
+		const user_dev = new UserFactory(em).makeOne({
+			email: 'dev@example.com',
+		});
 		const user_unverified_1 = new UserFactory(em).makeOne({
 			email: 'unverified1@example.com',
 		});

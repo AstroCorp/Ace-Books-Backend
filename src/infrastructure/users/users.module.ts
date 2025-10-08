@@ -8,6 +8,7 @@ import { SendVerificationEmailUseCase } from "@/application/emails/useCases/send
 import { VerifyUserAccountUseCase } from "@/application/users/useCases/verifyUserAccountUseCase";
 import { VerifyAccountController } from "@/infrastructure/users/controllers/verifyAccount.controller";
 import SignService from "@/infrastructure/auth/services/sign.service";
+import { GetUserByEmailUseCase } from "@/application/auth/useCases/getUserByEmailUseCase";
 
 @Module({
 	imports: [OrmModule],
@@ -17,6 +18,7 @@ import SignService from "@/infrastructure/auth/services/sign.service";
 		GenerateVerificationAccountUrlUseCase,
 		SendVerificationEmailUseCase,
 		VerifyUserAccountUseCase,
+		GetUserByEmailUseCase,
 	],
 	controllers: [
 		ProfileController,

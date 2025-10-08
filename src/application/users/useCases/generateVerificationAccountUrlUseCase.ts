@@ -17,12 +17,10 @@ export class GenerateVerificationAccountUrlUseCase {
 	}
 
 	public execute(user: User): URL {
-		const userId = user.id.toString();
 		const hash = this.hashService.generate(user.email);
-
 		const verifyUrl = new URL(process.env.BACKEND_URL + '/users/verify-account');
 		const body = JSON.stringify({
-			userId,
+			email: user.email,
 			hash
 		});
 
@@ -36,6 +34,16 @@ export class GenerateVerificationAccountUrlUseCase {
 		const frontUrl = new URL(process.env.FRONTEND_URL + '/verify-email');
 
 		Array.from(urlSigned.searchParams.entries()).forEach(([key, value]) => {
+			if (key === 'body') {
+				const bodyObj = JSON.parse(value);
+
+				Array.from(Object.entries(bodyObj)).forEach(([bodyKey, bodyValue]: [string, string]) => {
+					frontUrl.searchParams.append(bodyKey, bodyValue);
+				});
+
+				return;
+			}
+
 			frontUrl.searchParams.append(key, value);
 		});
 

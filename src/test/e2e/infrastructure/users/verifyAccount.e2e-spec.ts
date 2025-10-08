@@ -72,6 +72,32 @@ describe('User - VerifyAccountController (e2e)', () => {
 			.expect(HttpStatus.FORBIDDEN);
 	});
 
+	it('/users/verify-account (POST) - User not found exception', async () => {
+		const nonExistentUser = new User({
+			id: 999,
+			email: 'nonexistent@example.com',
+			password: 'password',
+			avatar: 'avatar',
+			isAdmin: false,
+			isVerified: false,
+			createdAt: new Date(),
+			updatedAt: new Date(),
+		});
+		const generateVerificationAccountUrlUseCase = new GenerateVerificationAccountUrlUseCase(new HashService(), new SignService());
+		const urlSigned = generateVerificationAccountUrlUseCase.execute(nonExistentUser);
+		const body = {
+			email: urlSigned.searchParams.get('email'),
+			hash: urlSigned.searchParams.get('hash'),
+		};
+		const expires = urlSigned.searchParams.get('expires');
+		const signature = urlSigned.searchParams.get('signature');
+
+		await request(app.getHttpServer())
+			.post(`/users/verify-account?expires=${expires}&signature=${signature}`)
+			.send(body)
+			.expect(HttpStatus.BAD_REQUEST);
+	});
+
 	afterAll(async () => {
 		if (orm) await orm.close();
 		if (app) await app.close();

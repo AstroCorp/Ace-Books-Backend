@@ -32,7 +32,7 @@ export class SendVerificationEmailUseCase {
 				attachments: [
 					{
 						filename: 'logo.png',
-						content: '/icons/ace_logo.png',
+						content: 'icons/ace_logo.png',
 						cid: 'logo',
 					},
 				],

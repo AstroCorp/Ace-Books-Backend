@@ -31,7 +31,17 @@ describe('User - VerifyAccountController (e2e)', () => {
 		});
 		const generateVerificationAccountUrlUseCase = new GenerateVerificationAccountUrlUseCase(new HashService(), new SignService());
 		const urlSigned = generateVerificationAccountUrlUseCase.execute(user);
-		const body = JSON.parse(urlSigned.searchParams.get('body'));
+		const body = {
+			email: urlSigned.searchParams.get('email'),
+			hash: urlSigned.searchParams.get('hash'),
+		};
+		const expires = urlSigned.searchParams.get('expires');
+		const signature = urlSigned.searchParams.get('signature');
+
+		await request(app.getHttpServer())
+			.post(`/users/verify-account?expires=${expires}&signature=${signature}`)
+			.send(body)
+			.expect(HttpStatus.OK);
 
 		const loginResponse = await request(app.getHttpServer())
 			.post('/auth/login')
@@ -42,12 +52,6 @@ describe('User - VerifyAccountController (e2e)', () => {
 			.expect(HttpStatus.OK);
 		const { access_token } = loginResponse.body;
 
-		await request(app.getHttpServer())
-			.post(`/users/verify-account${urlSigned.search}`)
-			.set('Authorization', `Bearer ${access_token}`)
-			.send(body)
-			.expect(HttpStatus.OK);
-
 		const profileResponse = await request(app.getHttpServer())
 			.get('/users/profile')
 			.set('Authorization', `Bearer ${access_token}`)
@@ -57,33 +61,41 @@ describe('User - VerifyAccountController (e2e)', () => {
 	});
 
 	it('/users/verify-account (POST) - Invalid signature', async () => {
-		const loginData = {
-			email: 'unverified1@example.com',
-			password: 'password',
-		};
 		const body = {
 			userId: 1,
 			hash: 'hash_random',
 		};
 
-		const response = await request(app.getHttpServer())
-			.post('/auth/login')
-			.send(loginData)
-			.expect(HttpStatus.OK);
-		const { access_token } = response.body;
-
 		await request(app.getHttpServer())
 			.post('/users/verify-account?sign=fake')
-			.set('Authorization', `Bearer ${access_token}`)
 			.send(body)
 			.expect(HttpStatus.FORBIDDEN);
 	});
 
-	it('/users/verify-account (POST) - Invalid token', async () => {
+	it('/users/verify-account (POST) - User not found exception', async () => {
+		const nonExistentUser = new User({
+			id: 999,
+			email: 'nonexistent@example.com',
+			password: 'password',
+			avatar: 'avatar',
+			isAdmin: false,
+			isVerified: false,
+			createdAt: new Date(),
+			updatedAt: new Date(),
+		});
+		const generateVerificationAccountUrlUseCase = new GenerateVerificationAccountUrlUseCase(new HashService(), new SignService());
+		const urlSigned = generateVerificationAccountUrlUseCase.execute(nonExistentUser);
+		const body = {
+			email: urlSigned.searchParams.get('email'),
+			hash: urlSigned.searchParams.get('hash'),
+		};
+		const expires = urlSigned.searchParams.get('expires');
+		const signature = urlSigned.searchParams.get('signature');
+
 		await request(app.getHttpServer())
-			.post('/users/verify-account')
-			.set('Authorization', 'Bearer invalid_token')
-			.expect(HttpStatus.UNAUTHORIZED);
+			.post(`/users/verify-account?expires=${expires}&signature=${signature}`)
+			.send(body)
+			.expect(HttpStatus.BAD_REQUEST);
 	});
 
 	afterAll(async () => {

@@ -14,7 +14,7 @@ async function bootstrap() {
 	// CORS
 	const whitelist = [process.env.FRONTEND_URL];
 
-	app.enableCors({
+	/*app.enableCors({
 		credentials: true,
 		origin: (origin, callback) => {
 			console.error(`CORS Origin: ${origin} Whitelist: ${whitelist}`);
@@ -25,7 +25,7 @@ async function bootstrap() {
 
 			callback(new Error('Not allowed by CORS'), false);
 		},
-	});
+	});*/
 
 	// Cookies
 	await app.register(fastifyCookie, {
@@ -36,9 +36,9 @@ async function bootstrap() {
 	await app.register(compression);
 
 	// Seguridad
-	//await app.register(helmet, {
-	//	crossOriginResourcePolicy: { policy: "cross-origin" },
-	//});
+	/*await app.register(helmet, {
+		crossOriginResourcePolicy: { policy: "cross-origin" },
+	});*/
 	await app.register(fastifyCsrf);
 
 	// Validación con class-validator de forma global

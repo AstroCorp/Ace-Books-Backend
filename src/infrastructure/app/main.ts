@@ -1,4 +1,4 @@
-import { NestFactory, Reflector } from "@nestjs/core";
+import { NestFactory } from "@nestjs/core";
 import { ValidationPipe } from "@nestjs/common";
 import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
 import fastifyCookie from "@fastify/cookie";
@@ -17,6 +17,8 @@ async function bootstrap() {
 	app.enableCors({
 		credentials: true,
 		origin: (origin, callback) => {
+			console.log(`>> CORS ORIGIN: ${origin} | WHITELIST: ${whitelist.join(', ')}`);
+
 			if (!origin || whitelist.includes(origin)) {
 				return callback(null, true);
 			}

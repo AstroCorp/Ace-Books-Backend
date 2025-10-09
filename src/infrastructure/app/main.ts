@@ -17,7 +17,7 @@ async function bootstrap() {
 	app.enableCors({
 		credentials: true,
 		origin: (origin, callback) => {
-			console.log(`>> CORS ORIGIN: ${origin} | WHITELIST: ${whitelist.join(', ')}`);
+			console.warn(`>> CORS ORIGIN: ${origin} | WHITELIST: ${whitelist.join(', ')}`);
 
 			if (!origin || whitelist.includes(origin)) {
 				return callback(null, true);

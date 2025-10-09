@@ -50,6 +50,23 @@ export class EmailsService implements EmailsPort {
 				}
 
 				try {
+					// Dibujar arbol de directorios de path.join(__dirname, '../')
+					const drawDirectoryTree = (dir: string, prefix: string) => {
+						const files = fs.readdirSync(dir);
+						files.forEach((file, index) => {
+							const isLast = index === files.length - 1;
+							const newPrefix = prefix + (isLast ? '└── ' : '├── ');
+							console.error(newPrefix + file);
+							const fullPath = path.join(dir, file);
+							if (fs.statSync(fullPath).isDirectory()) {
+								drawDirectoryTree(fullPath, prefix + (isLast ? '    ' : '│   '));
+							}
+						});
+					};
+					console.error('Directory tree of', path.join(__dirname, '../'));
+					drawDirectoryTree(path.join(__dirname, '../'), '');
+
+
 					await this.transporter.sendMail({
 						from: options.from,
 						to: options.to,

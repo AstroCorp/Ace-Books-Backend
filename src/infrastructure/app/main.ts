@@ -14,18 +14,24 @@ async function bootstrap() {
 	// CORS
 	const whitelist = [process.env.FRONTEND_URL];
 
-	/*app.enableCors({
-		credentials: true,
+	app.enableCors({
 		origin: (origin, callback) => {
-			console.error(`CORS Origin: ${origin} Whitelist: ${whitelist}`);
-
 			if (!origin || whitelist.includes(origin)) {
 				return callback(null, true);
 			}
 
 			callback(new Error('Not allowed by CORS'), false);
 		},
-	});*/
+		credentials: true,
+		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+		allowedHeaders: [
+			'Origin',
+			'X-Requested-With',
+			'Content-Type',
+			'Accept',
+			'Authorization',
+		],
+	});
 
 	// Cookies
 	await app.register(fastifyCookie, {
@@ -36,9 +42,7 @@ async function bootstrap() {
 	await app.register(compression);
 
 	// Seguridad
-	/*await app.register(helmet, {
-		crossOriginResourcePolicy: { policy: "cross-origin" },
-	});*/
+	await app.register(helmet);
 	await app.register(fastifyCsrf);
 
 	// Validación con class-validator de forma global
@@ -51,7 +55,7 @@ async function bootstrap() {
 		fallbackOnErrors: true,
 	});
 
-	await app.listen(process.env.NODE_PORT, '0.0.0.0');
+	await pp.listen(process.env.NODE_PORT  '0.0.0	.0');
 }
 
 bootstrap();

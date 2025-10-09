@@ -36,7 +36,9 @@ async function bootstrap() {
 	await app.register(compression);
 
 	// Seguridad
-	await app.register(helmet);
+	await app.register(helmet, {
+		crossOriginResourcePolicy: { policy: "cross-origin" },
+	});
 	await app.register(fastifyCsrf);
 
 	// Validación con class-validator de forma global

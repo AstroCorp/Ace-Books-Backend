@@ -9,12 +9,21 @@
 	"routes": [
 		{
 			"src": "/(.*)",
-			"dest": "src/infrastructure/app/main.ts",
-			"methods": [
-				"GET",
-				"POST",
-				"PUT",
-				"DELETE"
+			"dest": "src/infrastructure/app/main.ts"
+		}
+	],
+	"headers": [
+		{
+			"source": "/(.*)",
+			"headers": [
+				{
+					"key": "Access-Control-Allow-Origin",
+					"value": "*"
+				},
+				{
+					"key": "Access-Control-Allow-Methods",
+					"value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+				}
 			]
 		}
 	]

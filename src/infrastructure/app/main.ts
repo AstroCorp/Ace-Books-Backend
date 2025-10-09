@@ -24,13 +24,6 @@ async function bootstrap() {
 		},
 		credentials: true,
 		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-		allowedHeaders: [
-			'Origin',
-			'X-Requested-With',
-			'Content-Type',
-			'Accept',
-			'Authorization',
-		],
 	});
 
 	// Cookies
@@ -55,7 +48,7 @@ async function bootstrap() {
 		fallbackOnErrors: true,
 	});
 
-	await pp.listen(process.env.NODE_PORT  '0.0.0	.0');
+	await app.listen(process.env.NODE_PORT, '0.0.0.0');
 }
 
 bootstrap();

@@ -3,10 +3,15 @@
 	"version": 2,
 	"buildCommand": "npm run build",
 	"outputDirectory": "dist",
+	"functions": {
+		"dist/main.js": {
+			"runtime": "@vercel/node"
+		}
+	},
 	"rewrites": [
 		{
 			"source": "/(.*)",
-			"destination": "src/main.js"
+			"destination": "/main.js"
 		}
 	]
 }

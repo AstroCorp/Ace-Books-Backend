@@ -7,7 +7,7 @@
 	"license": "MIT",
 	"scripts": {
 		"build": "nest build",
-		"postbuild": "cp -R src/**/*.png dist/ && cp -R src/**/*.svg dist/ && cp -R src/**/*.twig dist/ && cp -R src/**/*.css dist/",
+		"postbuild": "cpy \"src/**/*.{png,svg,twig,css}\" dist --parents",
 		"start": "nest start",
 		"start:dev": "nest start --watch",
 		"start:debug": "nest start --debug --watch",
@@ -67,6 +67,7 @@
 		"@types/nodemailer": "^6.4.17",
 		"@types/passport-local": "^1.0.38",
 		"@types/supertest": "^6.0.3",
+		"cpy-cli": "^6.0.0",
 		"jest": "^30.0.4",
 		"source-map-support": "^0.5.21",
 		"supertest": "^7.1.3",

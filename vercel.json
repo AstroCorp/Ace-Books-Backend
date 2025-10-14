@@ -6,7 +6,7 @@
 	"rewrites": [
 		{
 			"source": "/(.*)",
-			"destination": "/infrastructure/app/main.js"
+			"destination": "main.js"
 		}
 	]
 }

@@ -1,24 +1,17 @@
 {
+	"$schema": "https://openapi.vercel.sh/vercel.json",
 	"version": 2,
-	"builds": [
-		{
-			"src": "src/infrastructure/app/main.ts",
-			"use": "@vercel/node"
+	"buildCommand": "npm run build",
+	"outputDirectory": "dist",
+	"functions": {
+		"infrastructure/app/main.js": {
+			"runtime": "@vercel/node"
 		}
-	],
-	"routes": [
+	},
+	"rewrites": [
 		{
-			"src": "/(.*)",
-			"dest": "src/infrastructure/app/main.ts",
-			"methods": [
-				"GET",
-				"HEAD",
-				"PUT",
-				"PATCH",
-				"POST",
-				"DELETE",
-				"OPTIONS"
-			]
+			"source": "/(.*)",
+			"destination": "/infrastructure/app/main.js"
 		}
 	]
 }

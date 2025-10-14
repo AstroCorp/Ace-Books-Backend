@@ -3,11 +3,6 @@
 	"version": 2,
 	"buildCommand": "npm run build",
 	"outputDirectory": "dist",
-	"functions": {
-		"infrastructure/app/main.js": {
-			"runtime": "@vercel/node"
-		}
-	},
 	"rewrites": [
 		{
 			"source": "/(.*)",

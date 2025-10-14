@@ -18,6 +18,8 @@ jobs:
         run: npm install --global vercel@latest
       - name: Fix typescript paths
         run: node .github/scripts/fix-ts-paths.js
+      - name: Show directory tree
+        run: tree -a -I 'node_modules|.git' || find . -type f -name ".*" -prune -o -type d -name "node_modules" -prune -o -type d -name ".git" -prune -o -print | head -50
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts

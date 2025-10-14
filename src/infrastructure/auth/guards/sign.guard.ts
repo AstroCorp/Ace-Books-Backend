@@ -17,9 +17,13 @@ export class SignGuard implements CanActivate
 		const fullUrl = request.protocol + '://' + request.headers.host + request.raw.url;
 		const fullUrlObj = new URL(fullUrl);
 
+		console.error('LOG SIGN GUARD', fullUrl);
+
 		if (Object.keys(request.body || {}).length > 0) {
 			const bodyString = JSON.stringify(request.body);
 			fullUrlObj.searchParams.set('body', bodyString);
+
+			console.error('LOG SIGN GUARD BODY', bodyString);
 		}
 
 		return this.sign.check(fullUrlObj);

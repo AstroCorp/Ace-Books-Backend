@@ -41,7 +41,6 @@ class SignService implements SignPort {
 		const expiresParam = parseInt(urlObj.searchParams.get('expires'));
 
 		if (!isNaN(expiresParam) && expiresParam < Date.now()) {
-			console.error('LOG SIGN GUARD EXPIRED', expiresParam, Date.now());
 			return false;
 		}
 
@@ -51,8 +50,6 @@ class SignService implements SignPort {
 		const expires = !isNaN(expiresParam) ? new Date(expiresParam) : undefined;
 		const urlSignedObj = this.generate(urlObj, expires);
 		const signature = urlSignedObj.searchParams.get('signature');
-
-		console.error('LOG SIGN GUARD SIGNATURES', signatureParam, signature);
 
 		return signatureParam === signature;
 	}

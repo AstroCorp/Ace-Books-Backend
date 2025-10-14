@@ -7,6 +7,7 @@
 	"license": "MIT",
 	"scripts": {
 		"build": "nest build",
+		"postbuild": "cp -R src/**/*.png dist/ && cp -R src/**/*.svg dist/ && cp -R src/**/*.twig dist/ && cp -R src/**/*.css dist/",
 		"start": "nest start",
 		"start:dev": "nest start --watch",
 		"start:debug": "nest start --debug --watch",

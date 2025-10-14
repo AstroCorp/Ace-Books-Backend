@@ -14,7 +14,7 @@ export class SignGuard implements CanActivate
 
 	canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
 		const request = context.switchToHttp().getRequest<FastifyRequest>();
-		const fullUrl = request.protocol + '://' + request.headers.host + request.raw.url;
+		const fullUrl = process.env.BACKEND_URL + request.raw.url;
 		const fullUrlObj = new URL(fullUrl);
 
 		console.error('LOG SIGN GUARD', fullUrl);

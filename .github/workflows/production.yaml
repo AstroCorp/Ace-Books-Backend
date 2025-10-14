@@ -14,8 +14,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Install Global Dependencies
-        run: npm install --global vercel@latest cpy-cli@latest
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
       - name: Fix typescript paths
         run: node .github/scripts/fix-ts-paths.js
       - name: Pull Vercel Environment Information
@@ -23,7 +23,7 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
       - name: Fix assets for Vercel
-        run: cpy "src/**/*.{png,svg,twig,css}" .vercel/output --parents
+        run: cp -r dist/infrastructure/emails/icons .vercel/output/functions/index.func/src/infrastructure/emails/
       - name: Show directory tree
         run: tree -a -I 'node_modules|.git' || find . -type f -name ".*" -prune -o -type d -name "node_modules" -prune -o -type d -name ".git" -prune -o -print | head -50
       - name: Deploy Project Artifacts to Vercel

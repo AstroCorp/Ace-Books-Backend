@@ -7,7 +7,7 @@ export class BookmarkFactory extends Factory<Bookmark> {
 
 	definition(): Partial<Bookmark> {
 		return {
-			color: faker.internet.color().replace('#', ''),
+			color: faker.color.rgb({ format: 'hex' }).replace('#', ''),
 			page: faker.number.int({
 				min: 1,
 				max: 200,

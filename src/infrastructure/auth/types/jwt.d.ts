@@ -1,6 +1,7 @@
-export interface JwtSignOptions {
-	secret: string;
-	expiresIn: string;
+import * as jwt from 'jsonwebtoken';
+
+export interface JwtSignOptions extends Omit<JwtSignOptions, keyof jwt.SignOptions> {
+	//
 }
 
 export interface Payload {

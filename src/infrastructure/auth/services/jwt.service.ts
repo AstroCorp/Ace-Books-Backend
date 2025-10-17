@@ -16,7 +16,7 @@ class JwtService implements JwtPort {
 	sign(payload: object, options?: JwtSignOptions): string {
 		const jti = this.uuidService.get();
 
-		return this.jwt.sign({ jti, ...payload }, options);
+		return this.jwt.sign<object>({ jti, ...payload }, options);
 	}
 
 	getPayload(token: string): Payload {

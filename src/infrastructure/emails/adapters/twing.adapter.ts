@@ -35,7 +35,7 @@ export class TwingAdapter {
 
 		const rendered = await this.precompiledTemplates
 			.get(template)
-			.render(context);
+			.render(twing, context);
 
 		return inline(rendered, this.options);
 	}

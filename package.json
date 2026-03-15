@@ -102,5 +102,6 @@
 			"^@/(.*)$": "<rootDir>/src/$1"
 		},
 		"testEnvironment": "node"
-	}
+	},
+	"packageManager": "pnpm@10.29.3"
 }

@@ -1,11 +1,10 @@
-FROM node:22-alpine3.20
+FROM node:24-alpine3.23
 
 RUN apk add --no-cache curl && \
 	apk add --no-cache nano && \
-    curl -o- -L https://yarnpkg.com/install.sh | sh && \
-	npm install -g @nestjs/cli
-
-ENV PATH=/root/.yarn/bin:$PATH
+	npm install -g @nestjs/cli && \
+    npm install --global corepack@latest && \
+	corepack enable pnpm
 
 WORKDIR /app
 

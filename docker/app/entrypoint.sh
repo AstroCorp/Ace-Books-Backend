@@ -1,5 +1,5 @@
 #!/bin/sh
 
-yarn install
+pnpm install
 
-yarn start:dev
+pnpm run start:dev

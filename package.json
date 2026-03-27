@@ -47,7 +47,7 @@
 		"class-validator": "^0.14.4",
 		"fastify": "~5.7.4",
 		"luxon": "^3.7.2",
-		"nodemailer": "^7.0.13",
+		"nodemailer": "^8.0.4",
 		"passport": "^0.7.0",
 		"passport-jwt": "^4.0.1",
 		"passport-local": "^1.0.0",

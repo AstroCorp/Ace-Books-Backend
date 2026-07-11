@@ -1,0 +1,6 @@
+* text=auto eol=lf
+
+*.{cmd,[cC][mM][dD]} text eol=crlf
+*.{bat,[bB][aA][tT]} text eol=crlf
+
+*.{png,jpg,jpeg,gif,webp,ico,svg,pdf,woff,woff2,ttf,eot,zip,gz,tar,7z,rar,exe,dll,so,dylib} binary

@@ -6,6 +6,7 @@ import { Token } from "@/infrastructure/orm/entities/Token";
 import { Book } from "@/infrastructure/orm/entities/Book";
 import { BooksCollection } from "@/infrastructure/orm/entities/BooksCollection";
 import { Bookmark } from "@/infrastructure/orm/entities/Bookmark";
+import { File } from "@/infrastructure/orm/entities/File";
 
 @Module({
 	imports: [
@@ -23,6 +24,7 @@ import { Bookmark } from "@/infrastructure/orm/entities/Bookmark";
 				Book,
 				BooksCollection,
 				Bookmark,
+				File,
 			],
 		}),
 	],

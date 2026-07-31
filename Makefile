@@ -1,4 +1,4 @@
-BACKEND_CONTAINER_NAME = ace-books-backend-app-1
+BACKEND_CONTAINER_NAME = ace-books-backend-1
 
 backend-docker-exec:
 	@docker exec -it $(BACKEND_CONTAINER_NAME) $(filter-out $@,$(MAKECMDGOALS))
@@ -15,8 +15,11 @@ backend-pnpm-remove:
 backend-tailwind:
 	@docker exec -it $(BACKEND_CONTAINER_NAME) pnpm run tailwind
 
-backend-reset-db:
-	@docker exec -it $(BACKEND_CONTAINER_NAME) pnpm run reset-db
+backend-db-reset:
+	@docker exec -it $(BACKEND_CONTAINER_NAME) pnpm run db:reset
+
+backend-db-regenerate-initial:
+	@docker exec -it $(BACKEND_CONTAINER_NAME) pnpm run db:regenerate-initial
 
 backend-test-e2e:
 	@docker exec -it $(BACKEND_CONTAINER_NAME) pnpm run test:e2e $(filter-out $@,$(MAKECMDGOALS))

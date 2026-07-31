@@ -1,5 +1,6 @@
 import { Logger } from "@nestjs/common";
 import { defineConfig } from "@mikro-orm/postgresql";
+import { ReflectMetadataProvider } from "@mikro-orm/decorators/legacy";
 import { Migrator } from "@mikro-orm/migrations";
 import { SeedManager } from "@mikro-orm/seeder";
 import { SqlHighlighter } from "@mikro-orm/sql-highlighter";
@@ -12,6 +13,7 @@ import { Bookmark } from "@/infrastructure/orm/entities/Bookmark";
 
 const logger = new Logger('MikroORM');
 const config = defineConfig({
+	metadataProvider: ReflectMetadataProvider,
 	entities: [
 		BaseEntity,
 		User,

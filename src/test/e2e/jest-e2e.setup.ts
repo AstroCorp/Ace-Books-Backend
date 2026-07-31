@@ -1,3 +1,5 @@
+import "reflect-metadata";
+
 const originalDatabaseName = process.env.DATABASE_NAME;
 
 process.env.BACKEND_URL = 'http://127.0.0.1:3002';

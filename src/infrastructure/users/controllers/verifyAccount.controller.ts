@@ -1,6 +1,6 @@
 import { Controller, Post, UseGuards, HttpCode, HttpStatus, Body, UseFilters } from "@nestjs/common";
 import { SignGuard } from "@/infrastructure/auth/guards/sign.guard";
-import { VerifyUserAccountUseCase } from "@/application/users/useCases/verifyUserAccountUseCase";
+import { VerifyUserAccountUseCase } from "@/application/user/useCases/verifyUserAccountUseCase";
 import { GetUserByEmailUseCase } from "@/application/auth/useCases/getUserByEmailUseCase";
 import { VerifyAccountDTO } from "@/infrastructure/users/validation/verifyAccount.dto";
 import UserNotAvailableException from "@/domain/user/exceptions/userNotAvailable.exception";

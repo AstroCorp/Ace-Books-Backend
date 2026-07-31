@@ -1,4 +1,4 @@
-import * as request from "supertest";
+import request from "supertest";
 import { HttpStatus } from "@nestjs/common";
 import { NestFastifyApplication } from "@nestjs/platform-fastify";
 import { EmailsService } from "@/infrastructure/emails/services/emails.service";

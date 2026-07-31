@@ -34,3 +34,10 @@ export interface TokenDTO {
 	token: string;
 	type: TokenType;
 }
+
+export interface FileDTO {
+	collection: string;
+	filename: string;
+	disk: string;
+	size: number;
+}

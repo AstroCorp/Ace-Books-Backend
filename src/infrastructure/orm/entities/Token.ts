@@ -1,4 +1,5 @@
-import { Entity, Property, ManyToOne, Rel, rel, PrimaryKey, Opt } from "@mikro-orm/core";
+import { Rel, rel, Opt } from "@mikro-orm/core";
+import { Entity, Property, ManyToOne, PrimaryKey } from "@mikro-orm/decorators/legacy";
 import { User } from "@/infrastructure/orm/entities/User";
 import type { TokenDTO } from "@/infrastructure/orm/types/entities";
 import type { TokenType } from "@/domain/common/models/Token";

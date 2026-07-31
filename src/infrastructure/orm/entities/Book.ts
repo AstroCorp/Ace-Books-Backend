@@ -1,4 +1,5 @@
-import { Entity, Property, ManyToOne, Rel, rel } from "@mikro-orm/core";
+import { Rel, rel } from "@mikro-orm/core";
+import { Entity, Property, ManyToOne } from "@mikro-orm/decorators/legacy";
 import { BaseEntity } from "@/infrastructure/orm/entities/BaseEntity";
 import { BooksCollection } from "@/infrastructure/orm/entities/BooksCollection";
 import { User } from "@/infrastructure/orm/entities/User";

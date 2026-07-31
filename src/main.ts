@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { NestFactory } from "@nestjs/core";
 import { ValidationPipe } from "@nestjs/common";
 import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
@@ -5,6 +6,7 @@ import fastifyCookie from "@fastify/cookie";
 import compression from "@fastify/compress";
 import helmet from "@fastify/helmet";
 import fastifyCsrf from "@fastify/csrf-protection";
+import fastifyMultipart from "@fastify/multipart";
 import { useContainer } from "class-validator";
 import { AppModule } from "@/infrastructure/app/app.module";
 
@@ -37,6 +39,9 @@ async function bootstrap() {
 	// Seguridad
 	await app.register(helmet);
 	await app.register(fastifyCsrf);
+
+	// Subida de archivos
+	await app.register(fastifyMultipart);
 
 	// Validación con class-validator de forma global
 	app.useGlobalPipes(new ValidationPipe({

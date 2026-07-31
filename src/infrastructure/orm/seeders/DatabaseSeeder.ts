@@ -1,4 +1,4 @@
-import type { EntityManager } from "@mikro-orm/core";
+import type { EntityManager } from "@mikro-orm/postgresql";
 import { Seeder } from "@mikro-orm/seeder";
 import { UserFactory } from "@/infrastructure/orm/factories/UserFactory";
 import { BookFactory } from "@/infrastructure/orm/factories/BookFactory";

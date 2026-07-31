@@ -1,4 +1,5 @@
-import { Entity, Property, Collection, OneToMany } from "@mikro-orm/core";
+import { Collection } from "@mikro-orm/core";
+import { Entity, Property, OneToMany } from "@mikro-orm/decorators/legacy";
 import { BaseEntity } from "@/infrastructure/orm/entities/BaseEntity";
 import { Book } from "@/infrastructure/orm/entities/Book";
 import { BooksCollection } from "@/infrastructure/orm/entities/BooksCollection";

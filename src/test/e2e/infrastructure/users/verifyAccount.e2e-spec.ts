@@ -1,10 +1,10 @@
-import * as request from "supertest";
+import request from "supertest";
 import { NestFastifyApplication } from "@nestjs/platform-fastify";
 import { HttpStatus } from "@nestjs/common";
-import { MikroORM } from "@mikro-orm/core";
+import { MikroORM } from "@mikro-orm/postgresql";
 import { executeMigrations } from "@/test/e2e/helpers/executeMigrations";
 import { setupApp } from "@/test/e2e/helpers/setupApp";
-import { GenerateVerificationAccountUrlUseCase } from "@/application/users/useCases/generateVerificationAccountUrlUseCase";
+import { GenerateVerificationAccountUrlUseCase } from "@/application/user/useCases/generateVerificationAccountUrlUseCase";
 import HashService from "@/infrastructure/auth/services/hash.service";
 import SignService from "@/infrastructure/auth/services/sign.service";
 import { User } from "@/domain/common/models/User";

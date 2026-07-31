@@ -1,6 +1,6 @@
-import * as request from "supertest";
+import request from "supertest";
 import { NestFastifyApplication } from "@nestjs/platform-fastify";
-import { MikroORM } from "@mikro-orm/core";
+import { MikroORM } from "@mikro-orm/postgresql";
 import { HttpStatus } from "@nestjs/common";
 import { executeMigrations } from "@/test/e2e/helpers/executeMigrations";
 import { setupApp } from "@/test/e2e/helpers/setupApp";

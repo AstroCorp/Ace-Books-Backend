@@ -33,7 +33,8 @@ export class SendResetPasswordEmailUseCase {
 				],
 			});
 		} catch (error) {
-			throw new EmailSendFailedException(user.id, error.message);
+			const message = error instanceof Error ? error.message : String(error);
+			throw new EmailSendFailedException(user.id, message);
 		}
 	}
 }

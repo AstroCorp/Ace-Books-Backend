@@ -37,8 +37,8 @@ export class GenerateVerificationAccountUrlUseCase {
 			if (key === 'body') {
 				const bodyObj = JSON.parse(value);
 
-				Array.from(Object.entries(bodyObj)).forEach(([bodyKey, bodyValue]: [string, string]) => {
-					frontUrl.searchParams.append(bodyKey, bodyValue);
+				Array.from(Object.entries(bodyObj)).forEach(([bodyKey, bodyValue]) => {
+					frontUrl.searchParams.append(bodyKey, String(bodyValue));
 				});
 
 				return;

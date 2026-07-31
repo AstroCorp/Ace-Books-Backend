@@ -6,7 +6,7 @@ import { Session } from "@/infrastructure/auth/types/session";
 import UserAlreadyVerifiedException from "@/domain/emails/exceptions/userAlreadyVerified.exception";
 import EmailSendFailedException from "@/domain/emails/exceptions/emailSendFailed.exception";
 import { ExceptionFilter } from "@/infrastructure/common/filters/exception.filter";
-import { GenerateVerificationAccountUrlUseCase } from "@/application/users/useCases/generateVerificationAccountUrlUseCase";
+import { GenerateVerificationAccountUrlUseCase } from "@/application/user/useCases/generateVerificationAccountUrlUseCase";
 
 @Throttle({
 	default: {

@@ -6,7 +6,7 @@ import { CreateUserUseCase } from "@/application/auth/useCases/createUserUseCase
 import { GenerateUserAccessTokensUseCase } from "@/application/auth/useCases/generateUserAccessTokensUseCase";
 import { GenerateUserRefreshTokenUseCase } from "@/application/auth/useCases/generateUserRefreshTokenUseCase";
 import { SendVerificationEmailUseCase } from "@/application/emails/useCases/sendVerificationEmailUseCase";
-import { GenerateVerificationAccountUrlUseCase } from "@/application/users/useCases/generateVerificationAccountUrlUseCase";
+import { GenerateVerificationAccountUrlUseCase } from "@/application/user/useCases/generateVerificationAccountUrlUseCase";
 import EmailSendFailedException from "@/domain/emails/exceptions/emailSendFailed.exception";
 import EmailNotAvailableException from "@/domain/auth/exceptions/emailNotAvailable.exception";
 import { ExceptionFilter } from "@/infrastructure/common/filters/exception.filter";

@@ -1,24 +1,27 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
 		"declaration": true,
 		"removeComments": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
 		"target": "ES2021",
 		"sourceMap": true,
 		"outDir": "./dist",
-		"baseUrl": "./",
+		"rootDir": "./src",
 		"incremental": true,
 		"skipLibCheck": true,
+		"types": ["node", "jest"],
 		"strictNullChecks": false,
 		"noImplicitAny": false,
 		"strictBindCallApply": false,
 		"forceConsistentCasingInFileNames": false,
 		"noFallthroughCasesInSwitch": false,
 		"paths": {
-			"@/*": ["src/*"]
+			"@/*": ["./src/*"]
 		}
 	},
 	"watchOptions": {

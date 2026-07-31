@@ -1,4 +1,4 @@
-import * as request from "supertest";
+import request from "supertest";
 import { NestFastifyApplication } from "@nestjs/platform-fastify";
 import { setupApp } from "@/test/e2e/helpers/setupApp";
 

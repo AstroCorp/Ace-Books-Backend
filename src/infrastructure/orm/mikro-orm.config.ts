@@ -1,24 +1,26 @@
 import { Logger } from "@nestjs/common";
 import { defineConfig } from "@mikro-orm/postgresql";
+import { ReflectMetadataProvider } from "@mikro-orm/decorators/legacy";
 import { Migrator } from "@mikro-orm/migrations";
 import { SeedManager } from "@mikro-orm/seeder";
 import { SqlHighlighter } from "@mikro-orm/sql-highlighter";
-import { BaseEntity } from "@/infrastructure/orm/entities/BaseEntity";
 import { User } from "@/infrastructure/orm/entities/User";
 import { Token } from "@/infrastructure/orm/entities/Token";
 import { Book } from "@/infrastructure/orm/entities/Book";
 import { BooksCollection } from "@/infrastructure/orm/entities/BooksCollection";
 import { Bookmark } from "@/infrastructure/orm/entities/Bookmark";
+import { File } from "@/infrastructure/orm/entities/File";
 
 const logger = new Logger('MikroORM');
 const config = defineConfig({
+	metadataProvider: ReflectMetadataProvider,
 	entities: [
-		BaseEntity,
 		User,
 		Token,
 		Book,
 		BooksCollection,
 		Bookmark,
+		File,
 	],
 	migrations: {
 		path: 'dist/infrastructure/orm/migrations',

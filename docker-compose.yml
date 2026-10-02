@@ -1,10 +1,10 @@
 services:
-  app:
+  backend:
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile
     ports:
-      - "3001:3001"
+      - "9000:9000"
     env_file:
       - .env
     depends_on:

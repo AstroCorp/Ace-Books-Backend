@@ -3,6 +3,16 @@ import { SignGuard } from "@/infrastructure/auth/guards/sign.guard";
 import SignService from "@/infrastructure/auth/services/sign.service";
 
 describe('Auth - SignGuard (integration)', () => {
+	const originalBackendUrl = process.env.BACKEND_URL;
+
+	beforeAll(() => {
+		process.env.BACKEND_URL = 'http://localhost:3001';
+	});
+
+	afterAll(() => {
+		process.env.BACKEND_URL = originalBackendUrl;
+	});
+
 	it('GET - Valid signature', () => {
 		const urlObj = new URL('http://localhost:3001/api/test?param1=value1&param2=value2');
 		const urlSigned = new SignService().generate(urlObj);
